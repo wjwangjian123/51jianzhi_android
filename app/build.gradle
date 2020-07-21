@@ -1,0 +1,81 @@
+apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        applicationId "com.part.jianzhiyi"
+        minSdkVersion 16
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        ndk {
+            abiFilters "armeabi-v7a", "x86"
+        }
+    }
+
+    //签名
+    signingConfigs {
+        release {
+            //.jks文件放在项目目录
+            storeFile file("job.jks")
+            storePassword "job123456"
+            keyAlias "job"
+            keyPassword "job123456"
+        }
+        debug {
+            //.jks文件放在项目目录
+            storeFile file("job.jks")
+            storePassword "job123456"
+            keyAlias "job"
+            keyPassword "job123456"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/proguard/androidx-annotations.pro'
+    }
+
+}
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
+}
+greendao {
+    schemaVersion 1 //当前数据库版本
+    daoPackage 'com.greendao.gen'// 设置DaoMaster、DaoSession、Dao 包名
+    targetGenDir 'src/main/java'//设置DaoMaster、DaoSession、Dao目录
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation project(':corecommon')
+    implementation project(':netcommon')
+    implementation(name: 'open_ad_sdk', ext: 'aar')
+    implementation 'org.greenrobot:greendao:3.2.2' // 添加库
+}

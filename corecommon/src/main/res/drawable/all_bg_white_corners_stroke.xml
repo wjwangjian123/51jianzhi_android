@@ -1,0 +1,5 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/color_ffffff"></solid> <!--按键内部填充-->
+    <corners android:radius="@dimen/dimen_10" />
+</shape>

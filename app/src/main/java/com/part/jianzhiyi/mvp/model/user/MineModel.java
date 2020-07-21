@@ -1,0 +1,25 @@
+package com.part.jianzhiyi.mvp.model.user;
+
+import com.part.jianzhiyi.app.ODApplication;
+import com.part.jianzhiyi.constants.Constants;
+import com.part.jianzhiyi.corecommon.utils.Tools;
+import com.part.jianzhiyi.http.HttpAPI;
+import com.part.jianzhiyi.model.base.ResponseData;
+import com.part.jianzhiyi.model.entity.LoginResponseEntity;
+import com.part.jianzhiyi.mvp.contract.user.MineContract;
+import com.part.jianzhiyi.preference.PreferenceUUID;
+
+import io.reactivex.Observable;
+
+
+/**
+ * @author:
+ * @content：我的页面数据
+ * @vision:V1.0.1
+ **/
+public class MineModel extends UserModel implements MineContract.IMineModel {
+    @Override
+    public Observable<ResponseData<LoginResponseEntity>> userInfo(String userid) {
+        return HttpAPI.getInstence().getServiceApi().userInfo(Constants.APPID, userid, Constants.OS, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()), PreferenceUUID.getInstence().getPush_id());
+    }
+}

@@ -1,0 +1,5 @@
+rootProject.name='jianzhiyi'
+include ':app'
+include ':corecommon'
+include ':netcommon'
+include ':modulemerchants'

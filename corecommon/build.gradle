@@ -1,0 +1,100 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+//        javaCompileOptions {
+//            annotationProcessorOptions {
+//                arguments = [AROUTER_MODULE_NAME: project.getName()]
+//            }
+//        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            useProguard true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled false
+            useProguard true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    api 'androidx.constraintlayout:constraintlayout:1.1.3'
+    api 'com.android.support:multidex:1.0.3'
+    api 'com.android.support:support-v4:28.0.0'
+    api(rootProject.ext.dependencies["arouter"]) { exclude group: 'com.android.support' }
+    api rootProject.ext.dependencies["appcompat-v7"]
+    api rootProject.ext.dependencies["fresco"]
+    api 'com.facebook.fresco:animated-gif:0.14.1'
+    api rootProject.ext.dependencies["glide"]
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+    api(rootProject.ext.dependencies["recyclerview-v7"]) {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    api('com.android.support:design:28.0.0') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
+    api 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'
+    api 'com.youth.banner:banner:1.4.10'
+    api 'com.hyman:flowlayout-lib:1.1.2'
+    api files('libs/msa_mdid_1.0.13.aar')
+    implementation project(':netcommon')
+}
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '28.0.0'
+            }
+        }
+    }
+}
+def _BASENAME = "base";
+def _VERSION = "_V1.0";
+def _DestinationPath = "build"; //生成jar包的位置
+def zipFile = file('build/intermediates/packaged-classes/debug/classes.jar');//待打包文件位置
+
+task deleteBuild(type: Delete) {
+    delete _DestinationPath + _BASENAME + _VERSION + ".jar"
+}
+
+task makeJar(type: Jar) {
+    from zipTree(zipFile)
+    from fileTree(dir: 'src/main', includes: ['assets/**']) //将assets目录打入jar包
+    baseName = _BASENAME + _VERSION
+    destinationDir = file(_DestinationPath)
+}
+
+makeJar.dependsOn(deleteBuild, build)
+repositories {
+    mavenCentral()
+}
+

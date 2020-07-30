@@ -21,12 +21,13 @@ public class Constants {
     public static final String DB_NAME = "jianzhiyi-db";
     public static final String APPID = "22";
     //友盟的渠道名称
-    public static final String UMENG_NAME = "ljz_kuaishou";
+    public static final String UMENG_NAME = "jzy";
     //隐私协议是否展示公司信息 1：展示    0：不展示
     public static final String STATUS = "1";
     public static final String OS = "1";
-    public static final String AD_APPID = "1110230779";
-    public static final String TTAD_APPID = "5064107";
+
+    //广告
+    public static final String TTAD_APPID = "5090179";
 
 
     public static int PAGE_INDEX = 0;
@@ -34,7 +35,7 @@ public class Constants {
     public static String _INFO_EDIT_CONTENT = "infoEditContent";//用于表示 修改信息的二级页面 回传回来的 内容
 
 
-    //    position:1是搜索，2轮播图跳入，3是从高薪招聘，4是从极速上岗，5是为你推介，6是精选,7是猜你喜欢（详情里的）8是小编推荐，9是每周排行，10是简单易做
+    //position:1是搜索，2轮播图跳入，3是从高薪招聘，4是从极速上岗，5是为你推介，6是精选,7是猜你喜欢（详情里的）8是小编推荐，9是每周排行，10是简单易做
     public static final String POSITION_SERACH = "1";
     public static final String POSITION_BANNER = "2";
     public static final String POSITION_HIGH_PAY = "3";//高薪招聘

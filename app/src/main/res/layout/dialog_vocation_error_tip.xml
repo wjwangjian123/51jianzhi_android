@@ -33,7 +33,7 @@
             android:layout_height="47dp"
             android:text="返回"
             android:textSize="@dimen/font_15"
-            android:textColor="@color/color_cccccc"
+            android:textColor="@color/color_F3A922"
             android:gravity="center"
             android:layout_gravity="center_horizontal"/>
     </LinearLayout>

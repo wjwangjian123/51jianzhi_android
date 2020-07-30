@@ -50,6 +50,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         fragmentView = LayoutInflater.from(mActivity).inflate(getLayoutId(), null);
         ((FrameLayout) inflate.findViewById(R.id.fl_activity_child_container)).addView(fragmentView);
         mPresenter = createPresenter();
+        initView(inflate);
         return inflate;
     }
 
@@ -83,6 +84,10 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     }
 
     protected void initView() {
+
+    }
+
+    protected void initView(View view) {
 
     }
 

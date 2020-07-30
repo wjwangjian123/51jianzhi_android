@@ -24,7 +24,7 @@ public class BusinessPresenter extends BasePresenter<BusinessContract.IBusinessM
 
     public void getTitle(){
         mModel.getTitle(Constants.APPID)
-                .compose(schedulersTransformer(HttpAPI.LOADING_CUSTOM_TIME))
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
                 .subscribe(getResult(new ResultObserver<ResponseData<AddFavouriteResponseEntity>>() {
                     @Override
                     public void onNext(ResponseData<AddFavouriteResponseEntity> jobListResponseEntityResponseData) {

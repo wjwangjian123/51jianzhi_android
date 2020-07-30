@@ -38,7 +38,7 @@ public class LoginModel extends UserModel implements LoginContract.ILoginModel {
 
     @Override
     public Observable<ConfigEntity> getConfig() {
-        return HttpAPI.getInstence().getServiceApi().getConfig();
+        return HttpAPI.getInstence().getServiceApi().getConfig("2");
     }
 
     @Override

@@ -5,7 +5,9 @@ import com.part.jianzhiyi.constants.Constants;
 import com.part.jianzhiyi.corecommon.utils.Tools;
 import com.part.jianzhiyi.http.HttpAPI;
 import com.part.jianzhiyi.model.base.ResponseData;
+import com.part.jianzhiyi.model.entity.DaySignEntity;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
+import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.mvp.contract.user.MineContract;
 import com.part.jianzhiyi.preference.PreferenceUUID;
 
@@ -19,7 +21,17 @@ import io.reactivex.Observable;
  **/
 public class MineModel extends UserModel implements MineContract.IMineModel {
     @Override
-    public Observable<ResponseData<LoginResponseEntity>> userInfo(String userid) {
+    public Observable<UserInfoEntity> userInfo(String userid) {
         return HttpAPI.getInstence().getServiceApi().userInfo(Constants.APPID, userid, Constants.OS, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()), PreferenceUUID.getInstence().getPush_id());
+    }
+
+    @Override
+    public Observable<DaySignEntity> getDaySign(String user_id) {
+        return HttpAPI.getInstence().getServiceApi().getDaySign(user_id);
+    }
+
+    @Override
+    public Observable<ResponseData> addDaySign(String user_id, String day) {
+        return HttpAPI.getInstence().getServiceApi().addDaySign(user_id, day);
     }
 }

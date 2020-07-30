@@ -36,6 +36,6 @@ public class MainModel implements MainContract.IMainModel {
 
     @Override
     public Observable<ConfigEntity> getConfig() {
-        return HttpAPI.getInstence().getServiceApi().getConfig();
+        return HttpAPI.getInstence().getServiceApi().getConfig("2");
     }
 }

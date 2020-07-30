@@ -31,11 +31,13 @@ public class MessageResponseEntity {
     private String companyId;
     private int headimg2;
     private String contact;
-    @Generated(hash = 1581513170)
+    private int contactType;
+    @Generated(hash = 1081037445)
     public MessageResponseEntity(Long id, String headimg, int headimg1,
             String username, String company, String title, String price,
             String time, String dateMonth, String msg1, String msg2, String msg3,
-            int isRed, String companyId, int headimg2, String contact) {
+            int isRed, String companyId, int headimg2, String contact,
+            int contactType) {
         this.id = id;
         this.headimg = headimg;
         this.headimg1 = headimg1;
@@ -52,6 +54,7 @@ public class MessageResponseEntity {
         this.companyId = companyId;
         this.headimg2 = headimg2;
         this.contact = contact;
+        this.contactType = contactType;
     }
     @Generated(hash = 150253341)
     public MessageResponseEntity() {
@@ -128,6 +131,12 @@ public class MessageResponseEntity {
     public void setMsg3(String msg3) {
         this.msg3 = msg3;
     }
+    public int getIsRed() {
+        return this.isRed;
+    }
+    public void setIsRed(int isRed) {
+        this.isRed = isRed;
+    }
     public String getCompanyId() {
         return this.companyId;
     }
@@ -140,18 +149,16 @@ public class MessageResponseEntity {
     public void setHeadimg2(int headimg2) {
         this.headimg2 = headimg2;
     }
-    public int getIsRed() {
-        return this.isRed;
-    }
-    public void setIsRed(int isRed) {
-        this.isRed = isRed;
-    }
     public String getContact() {
         return this.contact;
     }
     public void setContact(String contact) {
         this.contact = contact;
     }
-
-
+    public int getContactType() {
+        return this.contactType;
+    }
+    public void setContactType(int contactType) {
+        this.contactType = contactType;
+    }
 }

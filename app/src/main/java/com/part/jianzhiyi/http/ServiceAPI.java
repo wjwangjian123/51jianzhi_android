@@ -10,6 +10,7 @@ import com.part.jianzhiyi.model.entity.CategoryEntity;
 import com.part.jianzhiyi.model.entity.ChatJobInfoEntity;
 import com.part.jianzhiyi.model.entity.ChoiceEntity;
 import com.part.jianzhiyi.model.entity.ConfigEntity;
+import com.part.jianzhiyi.model.entity.DaySignEntity;
 import com.part.jianzhiyi.model.entity.IpResponseEntity;
 import com.part.jianzhiyi.model.entity.JobDetailEntity;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity;
@@ -18,9 +19,11 @@ import com.part.jianzhiyi.model.entity.JoinJobEntity;
 import com.part.jianzhiyi.model.entity.LableEntity;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.model.entity.MsgResponseEntity;
+import com.part.jianzhiyi.model.entity.MyitemEntity;
 import com.part.jianzhiyi.model.entity.ResumeEntity;
 import com.part.jianzhiyi.model.entity.SearchEntity;
 import com.part.jianzhiyi.model.entity.UMEntity;
+import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.model.entity.ViewedEntity;
 import com.part.jianzhiyi.model.entity.VocationEntity;
 
@@ -268,15 +271,16 @@ public interface ServiceAPI {
      */
     @POST("api/Users/userInfo")
     @FormUrlEncoded
-    Observable<ResponseData<LoginResponseEntity>> userInfo(@Field("appid") String appid, @Field("user_id") String user_id, @Field("os") String os, @Field("imei") String imei, @Field("androidid") String deviceid, @Field("push_id") String push_id);
+    Observable<UserInfoEntity> userInfo(@Field("appid") String appid, @Field("user_id") String user_id, @Field("os") String os, @Field("imei") String imei, @Field("androidid") String deviceid, @Field("push_id") String push_id);
 
     /**
      * 全局配置
      *
      * @return
      */
-    @GET("Api/Activity/getConfig")
-    Observable<ConfigEntity> getConfig();
+    @POST("Api/Activity/getConfig")
+    @FormUrlEncoded
+    Observable<ConfigEntity> getConfig(@Field("id") String id);
 
     /**
      * 验证友盟TOKEN
@@ -377,4 +381,30 @@ public interface ServiceAPI {
     @POST("api/Detail/setSessOrErrLog")
     Observable<ResponseData> getSussOrErrLog(@Field("os") String os, @Field("imei") String imei, @Field("oaid") String oaid, @Field("pv") String pv, @Field("pe") String pe, @Field("pt") String pt, @Field("type") String type, @Field("status") String status);
 
+    /**
+     * 获取（关于我和期望职位）
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/Detail/myitem")
+    Observable<MyitemEntity> getMyitem(@Field("type") String type);
+
+    /**
+     * 获取今天的签到情况
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/Users/getDaySign")
+    Observable<DaySignEntity> getDaySign(@Field("user_id") String user_id);
+
+    /**
+     * 签到接口
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/Users/addDaySign")
+    Observable<ResponseData> addDaySign(@Field("user_id") String user_id,@Field("day") String day);
 }

@@ -35,7 +35,7 @@ public class MineFavouritePresenter extends BasePresenter<MineFavouriteContract.
             }
         }
         mModel.favourite(userId)
-                .compose(schedulersTransformer(HttpAPI.LOADING_CUSTOM_TIME))
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
                 .subscribe(getResult(new ResultObserver<ResponseData<List<JobListResponseEntity>>>() {
                     @Override
                     public void onNext(ResponseData<List<JobListResponseEntity>> stringResponseData) {

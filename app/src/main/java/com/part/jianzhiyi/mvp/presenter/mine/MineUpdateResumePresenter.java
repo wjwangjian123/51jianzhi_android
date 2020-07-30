@@ -8,7 +8,9 @@ import com.part.jianzhiyi.http.HttpAPI;
 import com.part.jianzhiyi.http.ResultObserver;
 import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
+import com.part.jianzhiyi.model.entity.MyitemEntity;
 import com.part.jianzhiyi.model.entity.ResumeEntity;
+import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.model.request.UResumeRequest;
 import com.part.jianzhiyi.mvp.contract.mine.MineUpdateResumeContract;
 import com.part.jianzhiyi.mvp.model.mine.MineUpdateResumeModel;
@@ -78,15 +80,34 @@ public class MineUpdateResumePresenter extends BasePresenter<MineUpdateResumeCon
     public void userInfo(String userid) {
         mModel.userInfo(userid)
                 .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
-                .subscribe(getResult(new ResultObserver<ResponseData<LoginResponseEntity>>() {
+                .subscribe(getResult(new ResultObserver<UserInfoEntity>() {
                     @Override
-                    public void onNext(ResponseData<LoginResponseEntity> responseData) {
+                    public void onNext(UserInfoEntity responseData) {
                         if (TextUtils.equals(responseData.getCode(), HttpAPI.REQUEST_SUCCESS)) {
                             if (isAttach()) {
-                                PreferenceUUID.getInstence().changeShowResume(responseData.getData().getShowResume());
-                                LoginResponseEntity loginResponseEntity = responseData.getData();
-                                mModel.insertOrUpdateDb(loginResponseEntity);
-                                weakReferenceView.get().updateUserInfoPer(loginResponseEntity);
+                                PreferenceUUID.getInstence().changeShowResume(responseData.getData().isShowResume());
+                                weakReferenceView.get().updateUserInfoPer(responseData);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        Log.e("tag", "解析异常");
+                    }
+                }));
+    }
+
+    public void getMyitem(String type) {
+        mModel.getMyitem(type)
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<MyitemEntity>() {
+                    @Override
+                    public void onNext(MyitemEntity responseData) {
+                        if (TextUtils.equals(responseData.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetMyitem(responseData);
                             }
                         }
                     }

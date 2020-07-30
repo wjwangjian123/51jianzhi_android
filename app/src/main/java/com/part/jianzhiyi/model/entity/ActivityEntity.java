@@ -62,6 +62,24 @@ public class ActivityEntity {
         private String status;
         private String backimg;
         private String type;
+        private String url;
+        private int url_redirect;
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
+        public int getUrl_redirect() {
+            return url_redirect;
+        }
+
+        public void setUrl_redirect(int url_redirect) {
+            this.url_redirect = url_redirect;
+        }
 
         public String getId() {
             return id;

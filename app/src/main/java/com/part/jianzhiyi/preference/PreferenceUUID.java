@@ -137,6 +137,15 @@ public class PreferenceUUID {
         return sharedPreferences.getString("oaid", "");
     }
 
+    public void putShowWx(int show_wx) {
+        editor.putInt("show_wx", show_wx);
+        editor.apply();
+    }
+
+    public int getShowWx() {
+        return sharedPreferences.getInt("show_wx",1);
+    }
+
 
     public void putCity(String city) {
         editor.putString("city", city);

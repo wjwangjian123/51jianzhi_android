@@ -248,7 +248,7 @@ public abstract class BasePresenter<M extends IModel, V extends IView> {
         HttpAPI.getInstence().getServiceApi().androidInfo(ODApplication.city, Constants.APPID, Tools.getIMEI(context), PreferenceUUID.getInstence().getUserId(), PreferenceUUID.getInstence().getUserPhone(), Tools.getPhoneOSVersion(), Tools.getManufacturer(), Tools.getPhoneType(), Tools.getDeviceID(ODApplication.context()), HttpAPI.ip, Tools.getUa(), Tools.getUa2(ODApplication.context()), PreferenceUUID.getInstence().getOaid()).compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
                 .subscribe(getResult(new ResultObserver<ResponseData>() {
                     @Override
-                    public void onNext(ResponseData jobListResponseEntityResponseData) {
+                    public void onNext(ResponseData responseData) {
                     }
                 }));
     }

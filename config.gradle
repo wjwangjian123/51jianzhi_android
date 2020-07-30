@@ -21,7 +21,7 @@ ext {
             multidex      : "1.0.3",
             arouterCompile: "1.2.2",
             arouter       : "1.5.0",
-            retrofit      : "2.4.0",
+            retrofit      : "2.3.0",
             okhttp        : "3.9.0",
             constraint    : "1.1.3",
             utilcode      : "1.19.0",

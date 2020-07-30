@@ -6,7 +6,9 @@ import com.part.jianzhiyi.corecommon.utils.Tools;
 import com.part.jianzhiyi.http.HttpAPI;
 import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
+import com.part.jianzhiyi.model.entity.MyitemEntity;
 import com.part.jianzhiyi.model.entity.ResumeEntity;
+import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.model.request.UResumeRequest;
 import com.part.jianzhiyi.model.request.UpdateResumeRequest;
 import com.part.jianzhiyi.mvp.contract.mine.MineUpdateResumeContract;
@@ -32,7 +34,12 @@ public class MineUpdateResumeModel extends UserModel implements MineUpdateResume
     }
 
     @Override
-    public Observable<ResponseData<LoginResponseEntity>> userInfo(String userid) {
+    public Observable<UserInfoEntity> userInfo(String userid) {
         return HttpAPI.getInstence().getServiceApi().userInfo(Constants.APPID, userid, Constants.OS, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()), PreferenceUUID.getInstence().getPush_id());
+    }
+
+    @Override
+    public Observable<MyitemEntity> getMyitem(String type) {
+        return HttpAPI.getInstence().getServiceApi().getMyitem(type);
     }
 }

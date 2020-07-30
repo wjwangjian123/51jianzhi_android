@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mvp.ui.activity.MineAboutActivity">
+    <ImageView
+        android:id="@+id/mine_about_img"
+        android:layout_width="71dp"
+        android:layout_height="71dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dimen_44"
+        android:src="@mipmap/ic_launcher" />
+    <TextView
+        android:id="@+id/mine_about_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:layout_below="@+id/mine_about_img"
+        android:layout_centerHorizontal="true"
+        android:text="@string/app_name"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/font_16" />
+    <TextView
+        android:id="@+id/mine_about_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="version 1.001"
+        android:textSize="13sp"
+        android:textColor="@color/color_999999"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/mine_about_name"
+        android:layout_marginTop="@dimen/dimen_15"/>
+    <View
+        android:id="@+id/mine_about_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1"
+        android:background="@color/color_EDEDED"
+        android:layout_below="@+id/mine_about_version"
+        android:layout_marginTop="31dp"
+        android:layout_marginHorizontal="25dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mine_about_view"
+        android:layout_marginHorizontal="42dp"
+        android:layout_marginTop="16dp"
+        android:text="51兼职致力于为兼职人群提供高效、靠谱的兼职岗位，所有岗位经过严格的筛选，只需要一部手机，一个app就帮您开启轻松兼职旅程。\n\n-  优选兼职，层层审核，真实可靠\n-  为您精挑细选的大量靠谱岗位\n-  随时查看申请报名记录\n\n卓越的体验来自一颗追求完美的心！如果在使用过程中有任何问题或建议，请随时联系我们，以为您提供更好的兼职服务。"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/font_12"
+        android:lineSpacingExtra="@dimen/dimen_5"/>
+</RelativeLayout>

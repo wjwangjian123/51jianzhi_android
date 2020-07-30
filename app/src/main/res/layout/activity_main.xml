@@ -64,28 +64,37 @@
                 android:textColor="@color/bottom_view_text"
                 android:textSize="@dimen/font_10" />
         </LinearLayout>
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/main_linear_message"
             android:layout_width="wrap_content"
             android:layout_height="52dp"
-            android:orientation="vertical"
             android:gravity="center"
             android:layout_weight="1">
             <ImageView
                 android:id="@+id/main_iv_message"
                 android:layout_width="@dimen/dimen_20"
                 android:layout_height="@dimen/dimen_20"
-                android:src="@drawable/bottom_tab_message"/>
+                android:src="@drawable/bottom_tab_message"
+                android:layout_centerHorizontal="true"/>
+            <ImageView
+                android:id="@+id/view_iv_red"
+                android:layout_width="@dimen/dimen_10"
+                android:layout_height="@dimen/dimen_10"
+                android:src="@drawable/icon_small_red"
+                android:layout_toRightOf="@+id/main_iv_message"
+                android:visibility="gone"/>
             <TextView
                 android:id="@+id/main_tv_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_marginTop="@dimen/dimen_4"
+                android:layout_marginTop="@dimen/dimen_3"
                 android:text="消息"
                 android:textColor="@color/bottom_view_text"
-                android:textSize="@dimen/font_10" />
-        </LinearLayout>
+                android:textSize="@dimen/font_10"
+                android:layout_below="@+id/main_iv_message"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
         <LinearLayout
             android:id="@+id/main_linear_mine"
             android:layout_width="wrap_content"

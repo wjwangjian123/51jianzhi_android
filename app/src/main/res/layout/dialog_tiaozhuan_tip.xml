@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="227dp"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="48dp"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="227dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dimen_40"
+        android:paddingBottom="37dp"
+        android:background="@drawable/shape_tip_bg"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal">
+        <ImageView
+            android:layout_width="81dp"
+            android:layout_height="87dp"
+            android:src="@drawable/icon_tiaozhuan_tip"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="复制成功"
+            android:textSize="22sp"
+            android:textColor="@color/color_000000"
+            android:layout_marginTop="@dimen/dimen_30"/>
+        <TextView
+            android:id="@+id/dialog_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_10"
+            android:textColor="@color/color_999999"
+            android:layout_marginTop="@dimen/dimen_15"/>
+    </LinearLayout>
+</LinearLayout>

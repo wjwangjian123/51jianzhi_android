@@ -47,6 +47,7 @@ import androidx.core.content.ContextCompat;
  * @vision:V1.0.1
  **/
 public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements IView {
+
     protected P mPresenter;
     private FrameLayout container;
     private LoadDataTipView rlLoad;

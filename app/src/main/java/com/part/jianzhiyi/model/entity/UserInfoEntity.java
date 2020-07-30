@@ -1,5 +1,7 @@
 package com.part.jianzhiyi.model.entity;
 
+import java.util.List;
+
 /**
  * Created by jyx on 2020/4/26
  *
@@ -10,7 +12,7 @@ public class UserInfoEntity {
 
     /**
      * code : 200
-     * data : {"id":"6666","username":"","signature":"","create_time":"","update_time":"2019-09-20 13:39:27","phone":"13009081413","email":"","status":"0000","name":"王槐轩","sex":"男","age":"27","school_year":"2013","school_name":"吉林艺术学院","experience":"咖啡师","introduce":"懂艺术的咖啡师","app_id":"3","chan_id":"0","campagin_id":"0","imei":null,"idfa":null,"os":"0","androidid":null,"resume_complete":"77%"}
+     * data : {"id":"102","username":"","signature":"","create_time":"2020-07-15 16:25:35","update_time":"2020-07-15 17:02:45","phone":"17718437526","email":"","status":"0000","name":"","sex":"男","age":"18","school_year":"","school_name":"","experience":null,"introduce":null,"app_id":"3","chan_id":"37289","campagin_id":"","imei":null,"idfa":"C5A2D870-83AF-4789-B71A-85840752FE31","os":"1","androidid":null,"profession":"学生","job_status":"随便看看","job_type":"短期兼职工作","push_id":"75b232968b9c48d88a18a265ef961cb0","oaid":null,"myitem":[{"id":"3","item":"沟通能力强"},{"id":"4","item":"体力达人"},{"id":"5","item":"阳光开朗"}],"expect":[{"id":"4","item":"IOS开发"},{"id":"5","item":"跑步"}],"resume_active":"30","resume_complete":"28%","showResume":false,"profession_type":"1","job_status_type":"2","job_position_type":"2,3","bck":1,"join_num":0,"ylq":0,"ywc":0}
      */
 
     private String code;
@@ -34,29 +36,45 @@ public class UserInfoEntity {
 
     public static class DataBean {
         /**
-         * id : 6666
+         * id : 102
          * username :
          * signature :
-         * create_time :
-         * update_time : 2019-09-20 13:39:27
-         * phone : 13009081413
+         * create_time : 2020-07-15 16:25:35
+         * update_time : 2020-07-15 17:02:45
+         * phone : 17718437526
          * email :
          * status : 0000
-         * name : 王槐轩
+         * name :
          * sex : 男
-         * age : 27
-         * school_year : 2013
-         * school_name : 吉林艺术学院
-         * experience : 咖啡师
-         * introduce : 懂艺术的咖啡师
+         * age : 18
+         * school_year :
+         * school_name :
+         * experience : null
+         * introduce : null
          * app_id : 3
-         * chan_id : 0
-         * campagin_id : 0
+         * chan_id : 37289
+         * campagin_id :
          * imei : null
-         * idfa : null
-         * os : 0
+         * idfa : C5A2D870-83AF-4789-B71A-85840752FE31
+         * os : 1
          * androidid : null
-         * resume_complete : 77%
+         * profession : 学生
+         * job_status : 随便看看
+         * job_type : 短期兼职工作
+         * push_id : 75b232968b9c48d88a18a265ef961cb0
+         * oaid : null
+         * myitem : [{"id":"3","item":"沟通能力强"},{"id":"4","item":"体力达人"},{"id":"5","item":"阳光开朗"}]
+         * expect : [{"id":"4","item":"IOS开发"},{"id":"5","item":"跑步"}]
+         * resume_active : 30
+         * resume_complete : 28%
+         * showResume : false
+         * profession_type : 1
+         * job_status_type : 2
+         * job_position_type : 2,3
+         * bck : 1
+         * join_num : 0
+         * ylq : 0
+         * ywc : 0
          */
 
         private String id;
@@ -77,11 +95,27 @@ public class UserInfoEntity {
         private String app_id;
         private String chan_id;
         private String campagin_id;
-        private Object imei;
-        private Object idfa;
+        private String imei;
+        private String idfa;
         private String os;
-        private Object androidid;
+        private String androidid;
+        private String profession;
+        private String job_status;
+        private String job_type;
+        private String push_id;
+        private String oaid;
+        private String resume_active;
         private String resume_complete;
+        private boolean showResume;
+        private int profession_type;
+        private int job_status_type;
+        private String job_position_type;
+        private int bck;
+        private int join_num;
+        private int ylq;
+        private int ywc;
+        private List<MyitemBean> myitem;
+        private List<ExpectBean> expect;
 
         public String getId() {
             return id;
@@ -227,19 +261,19 @@ public class UserInfoEntity {
             this.campagin_id = campagin_id;
         }
 
-        public Object getImei() {
+        public String getImei() {
             return imei;
         }
 
-        public void setImei(Object imei) {
+        public void setImei(String imei) {
             this.imei = imei;
         }
 
-        public Object getIdfa() {
+        public String getIdfa() {
             return idfa;
         }
 
-        public void setIdfa(Object idfa) {
+        public void setIdfa(String idfa) {
             this.idfa = idfa;
         }
 
@@ -251,12 +285,60 @@ public class UserInfoEntity {
             this.os = os;
         }
 
-        public Object getAndroidid() {
+        public String getAndroidid() {
             return androidid;
         }
 
-        public void setAndroidid(Object androidid) {
+        public void setAndroidid(String androidid) {
             this.androidid = androidid;
+        }
+
+        public String getProfession() {
+            return profession;
+        }
+
+        public void setProfession(String profession) {
+            this.profession = profession;
+        }
+
+        public String getJob_status() {
+            return job_status;
+        }
+
+        public void setJob_status(String job_status) {
+            this.job_status = job_status;
+        }
+
+        public String getJob_type() {
+            return job_type;
+        }
+
+        public void setJob_type(String job_type) {
+            this.job_type = job_type;
+        }
+
+        public String getPush_id() {
+            return push_id;
+        }
+
+        public void setPush_id(String push_id) {
+            this.push_id = push_id;
+        }
+
+        public String getOaid() {
+            return oaid;
+        }
+
+        public void setOaid(String oaid) {
+            this.oaid = oaid;
+        }
+
+        public String getResume_active() {
+            return resume_active;
+        }
+
+        public void setResume_active(String resume_active) {
+            this.resume_active = resume_active;
         }
 
         public String getResume_complete() {
@@ -265,6 +347,138 @@ public class UserInfoEntity {
 
         public void setResume_complete(String resume_complete) {
             this.resume_complete = resume_complete;
+        }
+
+        public boolean isShowResume() {
+            return showResume;
+        }
+
+        public void setShowResume(boolean showResume) {
+            this.showResume = showResume;
+        }
+
+        public int getProfession_type() {
+            return profession_type;
+        }
+
+        public void setProfession_type(int profession_type) {
+            this.profession_type = profession_type;
+        }
+
+        public int getJob_status_type() {
+            return job_status_type;
+        }
+
+        public void setJob_status_type(int job_status_type) {
+            this.job_status_type = job_status_type;
+        }
+
+        public String getJob_position_type() {
+            return job_position_type;
+        }
+
+        public void setJob_position_type(String job_position_type) {
+            this.job_position_type = job_position_type;
+        }
+
+        public int getBck() {
+            return bck;
+        }
+
+        public void setBck(int bck) {
+            this.bck = bck;
+        }
+
+        public int getJoin_num() {
+            return join_num;
+        }
+
+        public void setJoin_num(int join_num) {
+            this.join_num = join_num;
+        }
+
+        public int getYlq() {
+            return ylq;
+        }
+
+        public void setYlq(int ylq) {
+            this.ylq = ylq;
+        }
+
+        public int getYwc() {
+            return ywc;
+        }
+
+        public void setYwc(int ywc) {
+            this.ywc = ywc;
+        }
+
+        public List<MyitemBean> getMyitem() {
+            return myitem;
+        }
+
+        public void setMyitem(List<MyitemBean> myitem) {
+            this.myitem = myitem;
+        }
+
+        public List<ExpectBean> getExpect() {
+            return expect;
+        }
+
+        public void setExpect(List<ExpectBean> expect) {
+            this.expect = expect;
+        }
+
+        public static class MyitemBean {
+            /**
+             * id : 3
+             * item : 沟通能力强
+             */
+
+            private String id;
+            private String item;
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getItem() {
+                return item;
+            }
+
+            public void setItem(String item) {
+                this.item = item;
+            }
+        }
+
+        public static class ExpectBean {
+            /**
+             * id : 4
+             * item : IOS开发
+             */
+
+            private String id;
+            private String item;
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getItem() {
+                return item;
+            }
+
+            public void setItem(String item) {
+                this.item = item;
+            }
         }
     }
 }

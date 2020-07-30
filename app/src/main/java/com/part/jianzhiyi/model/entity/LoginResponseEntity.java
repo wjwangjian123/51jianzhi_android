@@ -56,15 +56,14 @@ public class LoginResponseEntity {
     private int profession_type;
     private int job_status_type;
     private String job_position_type;
-    private String resume_active;
-    @Generated(hash = 1972212668)
+    @Generated(hash = 404461353)
     public LoginResponseEntity(Long id, String username, String signature,
             String create_time, String update_time, String phone, String email,
             String status, String name, String sex, String age, String school_year,
             String school_name, String experience, String introduce, String appid,
             String resume_complete, boolean showResume, String profession,
             String job_status, String job_type, int profession_type,
-            int job_status_type, String job_position_type, String resume_active) {
+            int job_status_type, String job_position_type) {
         this.id = id;
         this.username = username;
         this.signature = signature;
@@ -89,7 +88,6 @@ public class LoginResponseEntity {
         this.profession_type = profession_type;
         this.job_status_type = job_status_type;
         this.job_position_type = job_position_type;
-        this.resume_active = resume_active;
     }
     @Generated(hash = 1746094175)
     public LoginResponseEntity() {
@@ -238,11 +236,4 @@ public class LoginResponseEntity {
     public void setJob_position_type(String job_position_type) {
         this.job_position_type = job_position_type;
     }
-    public String getResume_active() {
-        return this.resume_active;
-    }
-    public void setResume_active(String resume_active) {
-        this.resume_active = resume_active;
-    }
-
 }

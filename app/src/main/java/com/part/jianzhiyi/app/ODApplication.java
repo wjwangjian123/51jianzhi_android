@@ -5,8 +5,13 @@ import android.util.Log;
 
 import com.bun.miitmdid.core.JLibrary;
 import com.part.jianzhiyi.ad.TTAdManagerHolder;
+import com.part.jianzhiyi.constants.Constants;
+import com.part.jianzhiyi.corecommon.utils.FrescoUtil;
 import com.part.jianzhiyi.preference.PreferenceUUID;
 import com.part.jianzhiyi.utils.MiitHelper;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.commonsdk.statistics.common.DeviceConfig;
 
 import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
@@ -34,6 +39,17 @@ public class ODApplication extends MultiDexApplication {
         MultiDex.install(this);
         Context applicationContext = getApplicationContext();
         setRxJavaErrorHandler();
+        //友盟统计 String appkey, String channel, int deviceType, String pushSecret
+        UMConfigure.init(this, "5eb65a45978eea078b7e9ac8", Constants.UMENG_NAME, UMConfigure.DEVICE_TYPE_PHONE, "");
+        //是否打印日志
+        UMConfigure.setLogEnabled(true);
+        //打开调试模式
+//        MobclickAgent.setDebugMode(true);
+        MobclickAgent.setCatchUncaughtExceptions(true);
+        MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
+//        getTestDeviceInfo(this);
+        //fresco图片框架初始化
+        FrescoUtil.initialize(this);
         //穿山甲初始化
         initTTAdSdk();
         MiitHelper miitHelper = new MiitHelper(appIdsUpdater);
@@ -49,12 +65,12 @@ public class ODApplication extends MultiDexApplication {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        try {
-            JLibrary.InitEntry(this);
+        try {//初始化
+            JLibrary.InitEntry(base);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }//初始化
+        }
     }
 
     private MiitHelper.AppIdsUpdater appIdsUpdater = new MiitHelper.AppIdsUpdater() {
@@ -78,6 +94,18 @@ public class ODApplication extends MultiDexApplication {
             throwable.printStackTrace();
             Log.i("MyApplication", "MyApplication setRxJavaErrorHandler " + throwable.getMessage());
         });
+    }
+
+    public static String[] getTestDeviceInfo(Context context) {
+        String[] deviceInfo = new String[2];
+        try {
+            if (context != null) {
+                deviceInfo[0] = DeviceConfig.getDeviceIdForGeneral(context);
+                deviceInfo[1] = DeviceConfig.getMac(context);
+            }
+        } catch (Exception e) {
+        }
+        return deviceInfo;
     }
 
 }

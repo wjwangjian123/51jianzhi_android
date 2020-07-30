@@ -66,6 +66,15 @@ public class ConfigEntity {
         private String android_title;
         private String android_desc;
         private String android_url;
+        private int show_wx;
+
+        public int getShow_wx() {
+            return show_wx;
+        }
+
+        public void setShow_wx(int show_wx) {
+            this.show_wx = show_wx;
+        }
 
         public String getAndroid_url() {
             return android_url;

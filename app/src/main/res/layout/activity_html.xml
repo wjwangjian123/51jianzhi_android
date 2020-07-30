@@ -6,4 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".mvp.ui.activity.HtmlActivity">
 
+    <WebView
+        android:id="@+id/webView"
+        android:overScrollMode="never"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

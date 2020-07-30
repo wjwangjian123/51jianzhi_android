@@ -52,7 +52,7 @@
                 android:layout_weight="1"
                 android:text="继续绑定"
                 android:textSize="@dimen/font_15"
-                android:textColor="@color/color_01AD82"
+                android:textColor="@color/color_F3A922"
                 android:gravity="center"/>
         </LinearLayout>
     </LinearLayout>

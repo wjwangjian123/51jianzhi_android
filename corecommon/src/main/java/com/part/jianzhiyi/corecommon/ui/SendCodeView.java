@@ -51,6 +51,7 @@ public class SendCodeView extends LinearLayout implements View.OnClickListener {
     }
 
     private void init(Context context) {
+        setOrientation(VERTICAL);
         View view = LayoutInflater.from(context).inflate(R.layout.include_common_et_code, null, false);
         etPhone = view.findViewById(R.id.et_input_phone);
         etCode = view.findViewById(R.id.et_input_code);
@@ -58,7 +59,6 @@ public class SendCodeView extends LinearLayout implements View.OnClickListener {
         tvSendCode.setOnClickListener(this);
         addView(view);
     }
-
 
     public void isShowArea(boolean isShow) {
         tvAreaCode.setVisibility(isShow ? VISIBLE : GONE);

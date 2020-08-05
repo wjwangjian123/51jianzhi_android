@@ -23,6 +23,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
 import com.greendao.gen.MessageResponseEntityDao;
 import com.part.jianzhiyi.R;
+import com.part.jianzhiyi.app.ODApplication;
 import com.part.jianzhiyi.base.BaseActivity;
 import com.part.jianzhiyi.constants.IntentConstant;
 import com.part.jianzhiyi.corecommon.utils.AppUtil;
@@ -30,6 +31,7 @@ import com.part.jianzhiyi.corecommon.utils.CrashHandler;
 import com.part.jianzhiyi.customview.NoScrollViewPager;
 import com.part.jianzhiyi.dbmodel.GreenDaoManager;
 import com.part.jianzhiyi.dialog.DialogVersionUpdate;
+import com.part.jianzhiyi.local.LocationService;
 import com.part.jianzhiyi.model.entity.ActJobListEntity;
 import com.part.jianzhiyi.model.entity.ActivityEntity;
 import com.part.jianzhiyi.model.entity.ConfigEntity;
@@ -61,6 +63,8 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 @Route(path = "/app/activity/main")
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.IMainView, View.OnClickListener {
@@ -84,17 +88,64 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private View[] mViews;
     private View[] mViewImgs;
     private int type = 1;
-//    private boolean isUIFirstShow = true;
+    //    private boolean isUIFirstShow = true;
+    private LocationService locationService = null;
 
     @Override
     protected void init() {
         super.init();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                openLocationService();
+            }
+        }).start();
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
         }
         CrashHandler.getInstance().init(getApplicationContext());
+    }
+
+    private HomeFragment homeFragment = null;
+    private Boolean openLocationService() {
+        if (locationService != null) {
+            return true;
+        }
+        locationService = new LocationService(ODApplication.context(), false);
+        locationService.start();
+        locationService.getSubject().subscribe(new Observer<String>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(String city) {
+                Log.i("MainActivity", city);
+//                mPresenter.androidInfo(this@MainActivity)
+                if (homeFragment != null) {
+                    homeFragment.locationCity(city);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.i("MainActivity", "错误信息:" + e.getMessage());
+                if (homeFragment != null) {
+                    String city = homeFragment.getCity();
+                    ODApplication.city = city;
+                }
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+        return true;
     }
 
     @Override
@@ -116,11 +167,23 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 setTabSelected(0);
                 mMainViewpager.setCurrentItem(0);
             }
+            if (intent.getData()!=null){
+                String type=intent.getData().getQueryParameter("type");
+                if (!type.equals(null)){
+                    if (type.equals("4")){
+                        setTabSelected(0);
+                        mMainViewpager.setCurrentItem(0);
+                    }else if (type.equals("5")){
+                        setTabSelected(2);
+                        mMainViewpager.setCurrentItem(2);
+                    }
+                }
+//                Log.d("aaaaaaaaaaaaa","2"+intent.getData().toString()+","+type);
+            }
         }
     }
 
     private int isShowType = 1;
-
     @Override
     protected void initView() {
         mMainViewpager = (NoScrollViewPager) findViewById(R.id.main_viewpager);
@@ -148,6 +211,19 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         initViewPager();
         type = getIntent().getIntExtra("type", 0);
         mPresenter.androidInfo(MainActivity.this);
+        if (getIntent().getData()!=null){
+            String type=getIntent().getData().getQueryParameter("type");
+            if (!type.equals(null)){
+                if (type.equals("4")){
+                    setTabSelected(0);
+                    mMainViewpager.setCurrentItem(0);
+                }else if (type.equals("5")){
+                    setTabSelected(2);
+                    mMainViewpager.setCurrentItem(2);
+                }
+            }
+//            Log.d("aaaaaaaaaaaaa","1"+getIntent().getData().toString()+","+type);
+        }
     }
 
     private void initViewPager() {

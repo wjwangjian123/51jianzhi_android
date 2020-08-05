@@ -6,6 +6,7 @@ import android.util.Log;
 import com.part.jianzhiyi.app.ODApplication;
 import com.part.jianzhiyi.constants.Constants;
 import com.part.jianzhiyi.corecommon.utils.Tools;
+import com.part.jianzhiyi.preference.PreferenceUUID;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -92,11 +94,25 @@ public class HttpAPI {
 
     //拦截器添加公共参数
     private class CommonInterceptorNew implements Interceptor {
-
         @Override
         public Response intercept(Chain chain) throws IOException {
             Request originalRequest = chain.request();
-            Request.Builder builder = originalRequest.newBuilder();
+            //添加公共参数
+            HttpUrl.Builder url=originalRequest.url()
+                    .newBuilder()
+                    .addQueryParameter("pv", PreferenceUUID.getInstence().getPv())//手机系统
+                    .addQueryParameter("pe", PreferenceUUID.getInstence().getPe())//手机厂商
+                    .addQueryParameter("pt", PreferenceUUID.getInstence().getPt())//手机型号
+                    .addQueryParameter("androidid", PreferenceUUID.getInstence().getAndroidid())//deviceId
+                    .addQueryParameter("imei", PreferenceUUID.getInstence().getImei())//imei
+                    .addQueryParameter("ua", PreferenceUUID.getInstence().getUa())//ip
+                    .addQueryParameter("ua2", PreferenceUUID.getInstence().getUa2())//ip
+                    .addQueryParameter("ip", ip)//ip
+                    .addQueryParameter("oaid", PreferenceUUID.getInstence().getOaid())//oaid
+                    .addQueryParameter("os", Constants.OS)//ip
+                    .addQueryParameter("appid", Constants.APPID);
+            Request.Builder builder = originalRequest.newBuilder()
+                    .url(url.build());
 //            Iterator<Map.Entry<String, String>> iterator = defaultHeadMap.entrySet().iterator();
 
             Request.Builder requestBuilder = builder.method(originalRequest.method(), originalRequest.body());
@@ -105,7 +121,6 @@ public class HttpAPI {
 //                requestBuilder.addHeader(next.getKey(), next.getValue());
 //            }
             Request request = requestBuilder.build();
-
             Response proceed = chain.proceed(request);
             return proceed;
         }

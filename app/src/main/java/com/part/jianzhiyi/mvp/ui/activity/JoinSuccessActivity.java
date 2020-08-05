@@ -220,7 +220,7 @@ public class JoinSuccessActivity extends BaseActivity<JoinSuccessPresenter> impl
                 //请求广告数量为1到3条
                 .setAdCount(1)
                 //期望模板广告view的size,单位dp
-                .setExpressViewAcceptedSize(320, 50)
+                .setExpressViewAcceptedSize(300, 75)
                 .setImageAcceptedSize(320, 50)
                 .build();
         //step5:请求广告，对请求回调的广告作渲染处理
@@ -330,39 +330,43 @@ public class JoinSuccessActivity extends BaseActivity<JoinSuccessPresenter> impl
                     mPresenter.joincopyContact(id, sortId, contact, 2);
                     CopyTextLibrary copyButtonLibrary = new CopyTextLibrary(JoinSuccessActivity.this, contact);
                     copyButtonLibrary.init();
-                    if (contact_type == 1) {
-                        //微信
-                        if (OpenUtils.isWeixinAvilible(JoinSuccessActivity.this)) {
-                            //弹框
-                            OpenUtils.initDialog(JoinSuccessActivity.this, "微信");
-                            mHandler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //弹框消失
-                                    //拉起微信
-                                    OpenUtils.cancelDialog();
-                                    OpenUtils.openWx(JoinSuccessActivity.this);
-                                }
-                            }, 1000);
+                    if (PreferenceUUID.getInstence().getShowWx() == 1) {
+                        if (contact_type == 1) {
+                            //微信
+                            if (OpenUtils.isWeixinAvilible(JoinSuccessActivity.this)) {
+                                //弹框
+                                OpenUtils.initDialog(JoinSuccessActivity.this, "微信");
+                                mHandler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        //弹框消失
+                                        //拉起微信
+                                        OpenUtils.cancelDialog();
+                                        OpenUtils.openWx(JoinSuccessActivity.this);
+                                    }
+                                }, 1000);
+                            } else {
+                                showToast("请安装微信");
+                            }
+                        } else if (contact_type == 2) {
+                            //QQ
+                            if (OpenUtils.isQQInstall(JoinSuccessActivity.this)) {
+                                //弹框
+                                OpenUtils.initDialog(JoinSuccessActivity.this, "QQ");
+                                mHandler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        //弹框消失
+                                        //拉起微信
+                                        OpenUtils.cancelDialog();
+                                        OpenUtils.openQQ(JoinSuccessActivity.this);
+                                    }
+                                }, 1000);
+                            } else {
+                                showToast("请安装QQ");
+                            }
                         } else {
-                            showToast("请安装微信");
-                        }
-                    } else if (contact_type == 2) {
-                        //QQ
-                        if (OpenUtils.isQQInstall(JoinSuccessActivity.this)) {
-                            //弹框
-                            OpenUtils.initDialog(JoinSuccessActivity.this, "QQ");
-                            mHandler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //弹框消失
-                                    //拉起微信
-                                    OpenUtils.cancelDialog();
-                                    OpenUtils.openQQ(JoinSuccessActivity.this);
-                                }
-                            }, 1000);
-                        } else {
-                            showToast("请安装QQ");
+                            showToast("复制成功");
                         }
                     } else {
                         showToast("复制成功");
@@ -407,45 +411,49 @@ public class JoinSuccessActivity extends BaseActivity<JoinSuccessPresenter> impl
                     mPresenter.joincopyContact(id, sortId, contact, 5);
                     CopyTextLibrary copyButtonLibrary = new CopyTextLibrary(JoinSuccessActivity.this, contact);
                     copyButtonLibrary.init();
-                    if (contact_type == 1) {
-                        //微信
-                        if (OpenUtils.isWeixinAvilible(JoinSuccessActivity.this)) {
-                            //弹框
-                            OpenUtils.initDialog(JoinSuccessActivity.this, "微信");
-                            mHandler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //弹框消失
-                                    //拉起微信
-                                    OpenUtils.cancelDialog();
-                                    OpenUtils.openWx(JoinSuccessActivity.this);
-                                }
-                            }, 1000);
+                    if (PreferenceUUID.getInstence().getShowWx() == 1) {
+                        if (contact_type == 1) {
+                            //微信
+                            if (OpenUtils.isWeixinAvilible(JoinSuccessActivity.this)) {
+                                //弹框
+                                OpenUtils.initDialog(JoinSuccessActivity.this, "微信");
+                                mHandler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        //弹框消失
+                                        //拉起微信
+                                        OpenUtils.cancelDialog();
+                                        OpenUtils.openWx(JoinSuccessActivity.this);
+                                    }
+                                }, 1000);
+                            } else {
+                                showToast("请安装微信");
+                            }
+                        } else if (contact_type == 2) {
+                            //QQ
+                            if (OpenUtils.isQQInstall(JoinSuccessActivity.this)) {
+                                //弹框
+                                OpenUtils.initDialog(JoinSuccessActivity.this, "QQ");
+                                mHandler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        //弹框消失
+                                        //拉起微信
+                                        OpenUtils.cancelDialog();
+                                        OpenUtils.openQQ(JoinSuccessActivity.this);
+                                    }
+                                }, 1000);
+                            } else {
+                                showToast("请安装QQ");
+                            }
                         } else {
-                            showToast("请安装微信");
-                        }
-                    } else if (contact_type == 2) {
-                        //QQ
-                        if (OpenUtils.isQQInstall(JoinSuccessActivity.this)) {
-                            //弹框
-                            OpenUtils.initDialog(JoinSuccessActivity.this, "QQ");
-                            mHandler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //弹框消失
-                                    //拉起微信
-                                    OpenUtils.cancelDialog();
-                                    OpenUtils.openQQ(JoinSuccessActivity.this);
-                                }
-                            }, 1000);
-                        } else {
-                            showToast("请安装QQ");
+                            showToast("复制成功");
                         }
                     } else {
                         showToast("复制成功");
                     }
                 }
-                finish();
+//                finish();
             }
         });
     }
@@ -487,9 +495,9 @@ public class JoinSuccessActivity extends BaseActivity<JoinSuccessPresenter> impl
                     contact_method = "网址";
                     copy.setText("复制网址:" + contact);
                 }
-                tip.setText("添加商家" + contact_method + "，马上开启赚钱之旅！");
+//                tip.setText("添加商家" + contact_method + "，马上开启赚钱之旅！");
             } else {
-                tip.setText("联系商家" + "，马上开启赚钱之旅！");
+//                tip.setText("联系商家" + "，马上开启赚钱之旅！");
                 copy.setText("复制联系方式:" + contact);
             }
         }
@@ -534,39 +542,43 @@ public class JoinSuccessActivity extends BaseActivity<JoinSuccessPresenter> impl
                     mPresenter.joincopyContact(id, sortId, contact, 1);
                     CopyTextLibrary copyButtonLibrary = new CopyTextLibrary(JoinSuccessActivity.this, contact);
                     copyButtonLibrary.init();
-                    if (contact_type == 1) {
-                        //微信
-                        if (OpenUtils.isWeixinAvilible(JoinSuccessActivity.this)) {
-                            //弹框
-                            OpenUtils.initDialog(JoinSuccessActivity.this, "微信");
-                            mHandler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //弹框消失
-                                    //拉起微信
-                                    OpenUtils.cancelDialog();
-                                    OpenUtils.openWx(JoinSuccessActivity.this);
-                                }
-                            }, 1000);
+                    if (PreferenceUUID.getInstence().getShowWx() == 1) {
+                        if (contact_type == 1) {
+                            //微信
+                            if (OpenUtils.isWeixinAvilible(JoinSuccessActivity.this)) {
+                                //弹框
+                                OpenUtils.initDialog(JoinSuccessActivity.this, "微信");
+                                mHandler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        //弹框消失
+                                        //拉起微信
+                                        OpenUtils.cancelDialog();
+                                        OpenUtils.openWx(JoinSuccessActivity.this);
+                                    }
+                                }, 1000);
+                            } else {
+                                showToast("请安装微信");
+                            }
+                        } else if (contact_type == 2) {
+                            //QQ
+                            if (OpenUtils.isQQInstall(JoinSuccessActivity.this)) {
+                                //弹框
+                                OpenUtils.initDialog(JoinSuccessActivity.this, "QQ");
+                                mHandler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        //弹框消失
+                                        //拉起微信
+                                        OpenUtils.cancelDialog();
+                                        OpenUtils.openQQ(JoinSuccessActivity.this);
+                                    }
+                                }, 1000);
+                            } else {
+                                showToast("请安装QQ");
+                            }
                         } else {
-                            showToast("请安装微信");
-                        }
-                    } else if (contact_type == 2) {
-                        //QQ
-                        if (OpenUtils.isQQInstall(JoinSuccessActivity.this)) {
-                            //弹框
-                            OpenUtils.initDialog(JoinSuccessActivity.this, "QQ");
-                            mHandler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //弹框消失
-                                    //拉起微信
-                                    OpenUtils.cancelDialog();
-                                    OpenUtils.openQQ(JoinSuccessActivity.this);
-                                }
-                            }, 1000);
-                        } else {
-                            showToast("请安装QQ");
+                            showToast("复制成功");
                         }
                     } else {
                         showToast("复制成功");
@@ -586,39 +598,43 @@ public class JoinSuccessActivity extends BaseActivity<JoinSuccessPresenter> impl
                     mPresenter.joincopyContact(jobid, position + "", jobListBean.get(position).getContact(), 1);
                     CopyTextLibrary copyButtonLibrary = new CopyTextLibrary(JoinSuccessActivity.this, jobListBean.get(position).getContact());
                     copyButtonLibrary.init();
-                    if (contact_type == 1) {
-                        //微信
-                        if (OpenUtils.isWeixinAvilible(JoinSuccessActivity.this)) {
-                            //弹框
-                            OpenUtils.initDialog(JoinSuccessActivity.this, "微信");
-                            mHandler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //弹框消失
-                                    //拉起微信
-                                    OpenUtils.cancelDialog();
-                                    OpenUtils.openWx(JoinSuccessActivity.this);
-                                }
-                            }, 1000);
+                    if (PreferenceUUID.getInstence().getShowWx() == 1) {
+                        if (contact_type == 1) {
+                            //微信
+                            if (OpenUtils.isWeixinAvilible(JoinSuccessActivity.this)) {
+                                //弹框
+                                OpenUtils.initDialog(JoinSuccessActivity.this, "微信");
+                                mHandler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        //弹框消失
+                                        //拉起微信
+                                        OpenUtils.cancelDialog();
+                                        OpenUtils.openWx(JoinSuccessActivity.this);
+                                    }
+                                }, 1000);
+                            } else {
+                                showToast("请安装微信");
+                            }
+                        } else if (contact_type == 2) {
+                            //QQ
+                            if (OpenUtils.isQQInstall(JoinSuccessActivity.this)) {
+                                //弹框
+                                OpenUtils.initDialog(JoinSuccessActivity.this, "QQ");
+                                mHandler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        //弹框消失
+                                        //拉起微信
+                                        OpenUtils.cancelDialog();
+                                        OpenUtils.openQQ(JoinSuccessActivity.this);
+                                    }
+                                }, 1000);
+                            } else {
+                                showToast("请安装QQ");
+                            }
                         } else {
-                            showToast("请安装微信");
-                        }
-                    } else if (contact_type == 2) {
-                        //QQ
-                        if (OpenUtils.isQQInstall(JoinSuccessActivity.this)) {
-                            //弹框
-                            OpenUtils.initDialog(JoinSuccessActivity.this, "QQ");
-                            mHandler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //弹框消失
-                                    //拉起微信
-                                    OpenUtils.cancelDialog();
-                                    OpenUtils.openQQ(JoinSuccessActivity.this);
-                                }
-                            }, 1000);
-                        } else {
-                            showToast("请安装QQ");
+                            showToast("复制成功");
                         }
                     } else {
                         showToast("复制成功");

@@ -65,7 +65,10 @@
             android:drawableBottom="@drawable/selector_toudi_bg"
             android:drawablePadding="@dimen/dimen_8"/>
     </RadioGroup>
-    <include layout="@layout/layout_base_line" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1"
+        android:background="@color/color_F7F8FA"/>
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/delivery_smartRefresh"
         android:layout_width="match_parent"

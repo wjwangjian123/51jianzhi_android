@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/icon_choice_bg"
     android:layout_marginBottom="@dimen/dimen_2"
-    android:paddingBottom="@dimen/dimen_20">
+    android:paddingBottom="19dp">
     <TextView
         android:id="@+id/tv_content"
         android:layout_width="wrap_content"

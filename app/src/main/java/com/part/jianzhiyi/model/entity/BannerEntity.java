@@ -32,6 +32,15 @@ public class BannerEntity {
     private String create_time;
     private String types;
     private String advert_order;
+    private int url_redirect;
+
+    public int getUrl_redirect() {
+        return url_redirect;
+    }
+
+    public void setUrl_redirect(int url_redirect) {
+        this.url_redirect = url_redirect;
+    }
 
     public String getId() {
         return id;

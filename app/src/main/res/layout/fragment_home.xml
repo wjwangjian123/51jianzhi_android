@@ -7,6 +7,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/color_ffffff">
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smartRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_ffffff">
+    <com.scwang.smartrefresh.layout.header.ClassicsHeader
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <com.part.jianzhiyi.corecommon.ui.ObservableScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -252,4 +260,5 @@
             </FrameLayout>
         </RelativeLayout>
     </com.part.jianzhiyi.corecommon.ui.ObservableScrollView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

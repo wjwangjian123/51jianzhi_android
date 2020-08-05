@@ -241,9 +241,17 @@ public class MineUpdateResumeActivity extends BaseActivity<MineUpdateResumePrese
                     showToast("请填写姓名");
                     return;
                 }
+                if (TextUtils.isEmpty(mTvSex.getText().toString())) {
+                    showToast("请选择性别");
+                    return;
+                }
+                if (TextUtils.isEmpty(mTvAge.getText().toString())) {
+                    showToast("请选择年龄");
+                    return;
+                }
                 //更新简历
                 mPresenter.updateResumeV2(mEtNickname.getText().toString(), mTvSex.getText().toString(), mTvAge.getText().toString(), "", "", "",
-                        mTvSign.getText().toString(), profession, job_status, String.valueOf(job_type), mTvProfession.getText().toString(), mTvJobStatus.getText().toString(), mTvJobType.getText().toString());
+                        mTvSign.getText().toString(), profession, job_status, String.valueOf(job_type),"","", mTvProfession.getText().toString(), mTvJobStatus.getText().toString(), mTvJobType.getText().toString());
             }
         });
     }

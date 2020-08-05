@@ -71,7 +71,7 @@
                 android:layout_height="@dimen/dimen_1"
                 android:layout_marginLeft="22dp"
                 android:layout_marginRight="25dp"
-                android:background="@color/color_E7EBEF"/>
+                android:background="@color/color_F7F8FA"/>
             <LinearLayout
                 android:id="@+id/llInfo"
                 android:layout_width="match_parent"
@@ -206,7 +206,7 @@
                 android:layout_height="@dimen/dimen_1"
                 android:layout_marginLeft="22dp"
                 android:layout_marginRight="25dp"
-                android:background="@color/color_E7EBEF"
+                android:background="@color/color_F7F8FA"
                 android:layout_marginTop="23dp"/>
             <LinearLayout
                 android:id="@+id/llStatus"
@@ -346,7 +346,7 @@
                 android:layout_height="@dimen/dimen_1"
                 android:layout_marginLeft="22dp"
                 android:layout_marginRight="25dp"
-                android:background="@color/color_E7EBEF"
+                android:background="@color/color_F7F8FA"
                 android:layout_marginTop="23dp"/>
             <TextView
                 android:id="@+id/tv_save"

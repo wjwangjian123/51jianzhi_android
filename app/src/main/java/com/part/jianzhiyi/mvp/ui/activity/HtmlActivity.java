@@ -12,6 +12,7 @@ import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.base.BaseActivity;
 import com.part.jianzhiyi.base.BasePresenter;
 import com.part.jianzhiyi.constants.IntentConstant;
+import com.umeng.analytics.MobclickAgent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -71,5 +72,19 @@ public class HtmlActivity extends BaseActivity {
     @Override
     public void startIntent() {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("用户协议");
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("用户协议");
+        MobclickAgent.onPause(this);
     }
 }

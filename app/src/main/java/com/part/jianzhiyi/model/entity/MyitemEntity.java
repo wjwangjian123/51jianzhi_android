@@ -123,6 +123,15 @@ public class MyitemEntity {
             private String pid;
             private String create_time;
             private String is_del;
+            private int ivType = 0;
+
+            public int getIvType() {
+                return ivType;
+            }
+
+            public void setIvType(int ivType) {
+                this.ivType = ivType;
+            }
 
             public String getId() {
                 return id;

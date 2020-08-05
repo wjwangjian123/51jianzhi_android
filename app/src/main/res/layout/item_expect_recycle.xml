@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="9dp">
+    <TextView
+        android:id="@+id/ex_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_15"
+        android:textColor="@color/color_333333"/>
+    <com.zhy.view.flowlayout.TagFlowLayout
+        android:id="@+id/ex_tfl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:itemSpacing="@dimen/dimen_12"
+        app:lineSpacing="@dimen/dimen_12"
+        app:max_select="3" />
+</LinearLayout>

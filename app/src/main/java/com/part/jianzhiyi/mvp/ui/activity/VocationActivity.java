@@ -32,6 +32,7 @@ import com.part.jianzhiyi.adapter.HomeLoveAdapter;
 import com.part.jianzhiyi.base.BaseActivity;
 import com.part.jianzhiyi.corecommon.constants.ConstantsDimens;
 import com.part.jianzhiyi.corecommon.ui.ListViewInScrollView;
+import com.part.jianzhiyi.corecommon.ui.ObservableScrollView;
 import com.part.jianzhiyi.corecommon.utils.CopyTextLibrary;
 import com.part.jianzhiyi.corecommon.utils.DateUtils;
 import com.part.jianzhiyi.corecommon.utils.UiUtils;
@@ -51,27 +52,36 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 @Route(path = "/app/activity/vocation")
 public class VocationActivity extends BaseActivity<VocationPresenter> implements VocationContract.IVocationView {
 
-    private ImageView mVoIvReturn;
-    private ImageView ivFavourite;
     private TextView tvJoined;
+    private ImageView mVoIvReturn;
     private TextView tvJobTitle;
+    private ImageView ivFavourite;
+    private TextView mTvMethod;
+    private TextView mTvLable;
+    private TextView mTvNum;
     private TextView tvPrice;
     private TextView tvPrice2;
     private TextView tvNumber;
     private TextView tvDuration;
     private TextView tvPlace;
-    private RelativeLayout mRlCompany;
     private TextView tvCompany;
-    private LinearLayout llLink;
     private TextView tvContract;
     private ImageView ivContract;
     private TextView ivCopy;
+    private RelativeLayout mRlCompany;
     private WebView webView;
+    private RelativeLayout mExpressRlContainer;
+    private FrameLayout mExpressContainer;
+    private ImageView mIvAdClose;
     private ListViewInScrollView lvLove;
     private ImageView mImgTip;
+    private View mVoView;
+
     private String id;
     private String position;
     private String sortId;
@@ -88,12 +98,9 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
     private int i = 0;
     //广告
     private TTAdNative mTTAdNative;
-    private FrameLayout mExpressContainer;
     private TTNativeExpressAd mTTAd;
     private long startTime = 0;
     private boolean mHasShowDownloadActive = false;
-    private ImageView mIvAdClose;
-    private RelativeLayout mExpressRlContainer;
 
     @Override
     protected void init() {
@@ -120,29 +127,34 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
 
     @Override
     protected void initView() {
-        setToolBarVisible(false);
-        setImmerseLayout(findViewById(R.id.vo_rl_title));
-        mVoIvReturn = findViewById(R.id.vo_iv_return);
-        ivFavourite = findViewById(R.id.iv_favourite);
         tvJoined = findViewById(R.id.tv_joined);
+        mVoIvReturn = findViewById(R.id.vo_iv_return);
         tvJobTitle = findViewById(R.id.tv_job_title);
+        ivFavourite = findViewById(R.id.iv_favourite);
+        mTvMethod = findViewById(R.id.tv_method);
+        mTvLable = findViewById(R.id.tv_lable);
+        mTvNum = findViewById(R.id.tv_num);
         tvPrice = findViewById(R.id.tv_price1);
         tvPrice2 = findViewById(R.id.tv_price2);
         tvNumber = findViewById(R.id.tv_number);
         tvDuration = findViewById(R.id.tv_duration);
         tvPlace = findViewById(R.id.tv_place);
-        mRlCompany = findViewById(R.id.rl_company);
         tvCompany = findViewById(R.id.tv_company);
-        llLink = findViewById(R.id.ll_link);
         tvContract = findViewById(R.id.tv_contract);
         ivContract = findViewById(R.id.iv_contract);
         ivCopy = findViewById(R.id.iv_copy);
+        mRlCompany = findViewById(R.id.rl_company);
         webView = findViewById(R.id.webView);
-        lvLove = findViewById(R.id.lv_love);
-        mImgTip = findViewById(R.id.img_tip);
+        mExpressRlContainer = findViewById(R.id.express_rl_container);
         mExpressContainer = findViewById(R.id.express_container);
         mIvAdClose = findViewById(R.id.iv_ad_close);
-        mExpressRlContainer = findViewById(R.id.express_rl_container);
+        lvLove = findViewById(R.id.lv_love);
+        mImgTip = findViewById(R.id.img_tip);
+        mVoView = findViewById(R.id.vo_view);
+
+        setToolBarVisible(false);
+        setImmerseLayout(mVoIvReturn);
+
         mJobListBeanList = new ArrayList<>();
         MobclickAgent.onEvent(VocationActivity.this, "vocation_in");
         mLoveBeanList = new ArrayList<>();
@@ -169,7 +181,7 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
                 //请求广告数量为1到3条
                 .setAdCount(1)
                 //期望模板广告view的size,单位dp
-                .setExpressViewAcceptedSize(320, 50)
+                .setExpressViewAcceptedSize(300, 75)
                 .setImageAcceptedSize(320, 50)
                 .build();
         //step5:请求广告，对请求回调的广告作渲染处理
@@ -212,6 +224,7 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
             @Override
             public void onRenderSuccess(View view, float width, float height) {
                 Log.e("ExpressView", "render suc:" + (System.currentTimeMillis() - startTime));
+                mExpressRlContainer.setVisibility(View.VISIBLE);
                 mExpressContainer.removeAllViews();
                 mExpressContainer.addView(view);
             }
@@ -251,7 +264,6 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
 
     @Override
     protected void initData() {
-//        mPresenter.jobDetail(id, position, sortId);
         mPresenter.jobDetailv(id, position, sortId);
     }
 
@@ -300,7 +312,6 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
                     position1++;
                     sortId = String.valueOf(position1);
                 }
-//                mPresenter.jobDetail(list.get(position).getId(), "7", "" + position);
                 mPresenter.jobDetailv(mLoveBeanList.get(position).getId(), "7", "" + position);
             }
         });
@@ -316,39 +327,43 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
                         CopyTextLibrary copyButtonLibrary = new CopyTextLibrary(getApplicationContext(), contract);
                         copyButtonLibrary.init();
                         mPresenter.copyContact(id, sortId, entity.getContact());
-                        if (contact_type.equals("1")) {
-                            //微信
-                            if (OpenUtils.isWeixinAvilible(VocationActivity.this)) {
-                                //弹框
-                                OpenUtils.initDialog(VocationActivity.this, "微信");
-                                mHandler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        //弹框消失
-                                        //拉起微信
-                                        OpenUtils.cancelDialog();
-                                        OpenUtils.openWx(VocationActivity.this);
-                                    }
-                                }, 1000);
+                        if (PreferenceUUID.getInstence().getShowWx() == 1) {
+                            if (contact_type.equals("1")) {
+                                //微信
+                                if (OpenUtils.isWeixinAvilible(VocationActivity.this)) {
+                                    //弹框
+                                    OpenUtils.initDialog(VocationActivity.this, "微信");
+                                    mHandler.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            //弹框消失
+                                            //拉起微信
+                                            OpenUtils.cancelDialog();
+                                            OpenUtils.openWx(VocationActivity.this);
+                                        }
+                                    }, 1000);
+                                } else {
+                                    showToast("请安装微信");
+                                }
+                            } else if (contact_type.equals("2")) {
+                                //QQ
+                                if (OpenUtils.isQQInstall(VocationActivity.this)) {
+                                    //弹框
+                                    OpenUtils.initDialog(VocationActivity.this, "QQ");
+                                    mHandler.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            //弹框消失
+                                            //拉起微信
+                                            OpenUtils.cancelDialog();
+                                            OpenUtils.openQQ(VocationActivity.this);
+                                        }
+                                    }, 1000);
+                                } else {
+                                    showToast("请安装QQ");
+                                }
                             } else {
-                                showToast("请安装微信");
-                            }
-                        } else if (contact_type.equals("2")) {
-                            //QQ
-                            if (OpenUtils.isQQInstall(VocationActivity.this)) {
-                                //弹框
-                                OpenUtils.initDialog(VocationActivity.this, "QQ");
-                                mHandler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        //弹框消失
-                                        //拉起微信
-                                        OpenUtils.cancelDialog();
-                                        OpenUtils.openQQ(VocationActivity.this);
-                                    }
-                                }, 1000);
-                            } else {
-                                showToast("请安装QQ");
+                                showToast("复制成功");
                             }
                         } else {
                             showToast("复制成功");
@@ -393,7 +408,6 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
                         Dialog dialog = new SignUpJoinDialog(VocationActivity.this, mPresenter.loadUserInfo(), mJobListBeanList, entity, new SignUpJoinDialog.OnJoinedClickListener() {
                             @Override
                             public void onJoinedClick(String jobid) {
-//                                mPresenter.join(id, sortId, entity.getContact());
                                 mPresenter.joinJobV2(jobid, sortId, entity.getContact());
                             }
                         });
@@ -405,7 +419,6 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
                         dialog.getWindow().setAttributes(p);
                     } else {
                         //单个报名 直接调用报名接口
-//                        mPresenter.join(id, sortId, entity.getContact());
                         mPresenter.joinJobV2(id, sortId, entity.getContact());
                     }
                 } else {
@@ -488,6 +501,24 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
         tvPrice2.setText(entity.getPrice2());
         tvCompany.setText(entity.getCompany());
         tvDuration.setText(entity.getDuration());
+        mTvMethod.setText(entity.getMethod());
+        ivFavourite.setSelected(TextUtils.equals("1", entity.getIsfavourite()));
+        if (entity.getLabel() == null || entity.getLabel() == "") {
+            mTvLable.setVisibility(View.GONE);
+            mVoView.setVisibility(View.GONE);
+        } else {
+            mTvLable.setVisibility(View.VISIBLE);
+            mVoView.setVisibility(View.VISIBLE);
+            mTvLable.setText(entity.getLabel());
+        }
+        if (entity.getNumber() != null) {
+            mTvNum.setText(entity.getNumber() + "人");
+        }
+        if (entity.getNumber() == null || entity.getNumber() == "") {
+            tvNumber.setText("不限");
+        } else {
+            tvNumber.setText(entity.getNumber() + "人");
+        }
         if (entity.getPlace() == null || entity.getPlace() == "") {
             if (PreferenceUUID.getInstence().getCity() == "" || PreferenceUUID.getInstence().getCity() == null) {
                 tvPlace.setText("不限");
@@ -496,12 +527,6 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
             }
         } else {
             tvPlace.setText(entity.getPlace());
-        }
-        ivFavourite.setSelected(TextUtils.equals("1", entity.getIsfavourite()));
-        if (entity.getNumber() == null || entity.getNumber() == "") {
-            tvNumber.setText("3人");
-        } else {
-            tvNumber.setText(entity.getNumber() + "人");
         }
         contract = entity.getContact();
         contact_type = entity.getContact_type();

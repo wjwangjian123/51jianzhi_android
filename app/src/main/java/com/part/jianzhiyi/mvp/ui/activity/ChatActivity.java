@@ -22,6 +22,7 @@ import com.part.jianzhiyi.model.entity.MsgResponseEntity;
 import com.part.jianzhiyi.model.entity.ViewedEntity;
 import com.part.jianzhiyi.mvp.contract.InformationContract;
 import com.part.jianzhiyi.mvp.presenter.InformationPresenter;
+import com.part.jianzhiyi.preference.PreferenceUUID;
 import com.part.jianzhiyi.utils.OpenUtils;
 import com.umeng.analytics.MobclickAgent;
 
@@ -64,6 +65,11 @@ public class ChatActivity extends BaseActivity<InformationPresenter> implements 
         mChatLinearZhiwei = (LinearLayout) findViewById(R.id.chat_linear_zhiwei);
         mChatTvTime = (TextView) findViewById(R.id.chat_tv_time);
         mLvMessage = (ListViewInScrollView) findViewById(R.id.lv_message);
+        if (PreferenceUUID.getInstence().getShowWx() == 1) {
+            mChatLinearWechat.setVisibility(View.VISIBLE);
+        } else {
+            mChatLinearWechat.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -127,39 +133,43 @@ public class ChatActivity extends BaseActivity<InformationPresenter> implements 
                     CopyTextLibrary copyButtonLibrary = new CopyTextLibrary(getApplicationContext(), contact);
                     copyButtonLibrary.init();
                     mPresenter.joincopyContact(id, sortId, contact, 3);
-                    if (contact_type == 1) {
-                        //微信
-                        if (OpenUtils.isWeixinAvilible(ChatActivity.this)) {
-                            //弹框
-                            OpenUtils.initDialog(ChatActivity.this, "微信");
-                            mHandler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //弹框消失
-                                    //拉起微信
-                                    OpenUtils.cancelDialog();
-                                    OpenUtils.openWx(ChatActivity.this);
-                                }
-                            }, 1000);
+                    if (PreferenceUUID.getInstence().getShowWx() == 1) {
+                        if (contact_type == 1) {
+                            //微信
+                            if (OpenUtils.isWeixinAvilible(ChatActivity.this)) {
+                                //弹框
+                                OpenUtils.initDialog(ChatActivity.this, "微信");
+                                mHandler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        //弹框消失
+                                        //拉起微信
+                                        OpenUtils.cancelDialog();
+                                        OpenUtils.openWx(ChatActivity.this);
+                                    }
+                                }, 1000);
+                            } else {
+                                showToast("请安装微信");
+                            }
+                        } else if (contact_type == 2) {
+                            //QQ
+                            if (OpenUtils.isQQInstall(ChatActivity.this)) {
+                                //弹框
+                                OpenUtils.initDialog(ChatActivity.this, "QQ");
+                                mHandler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        //弹框消失
+                                        //拉起微信
+                                        OpenUtils.cancelDialog();
+                                        OpenUtils.openQQ(ChatActivity.this);
+                                    }
+                                }, 1000);
+                            } else {
+                                showToast("请安装QQ");
+                            }
                         } else {
-                            showToast("请安装微信");
-                        }
-                    } else if (contact_type == 2) {
-                        //QQ
-                        if (OpenUtils.isQQInstall(ChatActivity.this)) {
-                            //弹框
-                            OpenUtils.initDialog(ChatActivity.this, "QQ");
-                            mHandler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //弹框消失
-                                    //拉起微信
-                                    OpenUtils.cancelDialog();
-                                    OpenUtils.openQQ(ChatActivity.this);
-                                }
-                            }, 1000);
-                        } else {
-                            showToast("请安装QQ");
+                            showToast("复制成功");
                         }
                     } else {
                         showToast("复制成功");

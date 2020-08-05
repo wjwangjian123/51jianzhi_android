@@ -58,17 +58,21 @@ public class DialogContactBusinessAdapter extends RecyclerView.Adapter<DialogCon
             }else {
                 viewHolder.mConTvPlace.setText(mDatas.get(position).getPlace());
             }
-            //1是微信，2是QQ，3是公众号，4是手机号，5是网址
-            if (mDatas.get(position).getContact_type()==1){
-                viewHolder.mConTvAdd.setText("复制微信号");
-            }else if (mDatas.get(position).getContact_type()==2){
-                viewHolder.mConTvAdd.setText("复制QQ号");
-            }else if (mDatas.get(position).getContact_type()==3){
-                viewHolder.mConTvAdd.setText("复制公众号");
-            }else if (mDatas.get(position).getContact_type()==4){
-                viewHolder.mConTvAdd.setText("复制手机号");
-            }else if (mDatas.get(position).getContact_type()==5){
-                viewHolder.mConTvAdd.setText("复制网址");
+            if (PreferenceUUID.getInstence().getShowWx()==1){
+                //1是微信，2是QQ，3是公众号，4是手机号，5是网址
+                if (mDatas.get(position).getContact_type()==1){
+                    viewHolder.mConTvAdd.setText("复制微信号");
+                }else if (mDatas.get(position).getContact_type()==2){
+                    viewHolder.mConTvAdd.setText("复制QQ号");
+                }else if (mDatas.get(position).getContact_type()==3){
+                    viewHolder.mConTvAdd.setText("复制公众号");
+                }else if (mDatas.get(position).getContact_type()==4){
+                    viewHolder.mConTvAdd.setText("复制手机号");
+                }else if (mDatas.get(position).getContact_type()==5){
+                    viewHolder.mConTvAdd.setText("复制网址");
+                }
+            }else {
+                viewHolder.mConTvAdd.setText("复制联系方式");
             }
             viewHolder.mConTvAdd.setOnClickListener(new View.OnClickListener() {
                 @Override

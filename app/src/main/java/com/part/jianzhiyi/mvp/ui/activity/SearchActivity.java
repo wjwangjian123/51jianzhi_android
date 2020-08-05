@@ -30,6 +30,7 @@ import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -81,6 +82,9 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
         setToolBarVisible(false);
         setImmerseLayout(mLlSearch);
         mIfetSearch.setEnableDefaultHeight(false);
+        list=new ArrayList<>();
+        jobList=new ArrayList<>();
+        jobList1=new ArrayList<>();
     }
 
     @Override

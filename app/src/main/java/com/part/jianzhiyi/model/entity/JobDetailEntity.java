@@ -179,7 +179,7 @@ public class JobDetailEntity {
             private String love;
             private Object city_ids;
             private String reason;
-            private Object label;
+            private String label;
             private String isJoin;
             private String price1;
             private String price2;
@@ -187,6 +187,15 @@ public class JobDetailEntity {
             private String join_msg;
             private int error_type;
             private boolean is_show;
+            private int default_checknum;
+
+            public int getDefault_checknum() {
+                return default_checknum;
+            }
+
+            public void setDefault_checknum(int default_checknum) {
+                this.default_checknum = default_checknum;
+            }
 
             public String getContactXing() {
                 return contactXing;
@@ -516,11 +525,11 @@ public class JobDetailEntity {
                 this.reason = reason;
             }
 
-            public Object getLabel() {
+            public String getLabel() {
                 return label;
             }
 
-            public void setLabel(Object label) {
+            public void setLabel(String label) {
                 this.label = label;
             }
 

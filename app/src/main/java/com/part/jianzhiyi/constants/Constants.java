@@ -11,7 +11,7 @@ package com.part.jianzhiyi.constants;
 public class Constants {
 
 //    public static final String URI = "http://ejianzhi.net/";
-    public static final String URI = "http://test.ejianzhi.net/";
+    public static final String URI = "http://api.tjaili.cn/";
 
     public static final String IP_URI = "http://ip-api.com/json/";
     public static final String HTML_URL = "http://ejianzhi.net/api/index/userPolicy";
@@ -19,12 +19,12 @@ public class Constants {
     public static final String HTML_PRIVACY_URL = "http://ejianzhi.net/api/Index/privacys?appid=";
     public static String SP_UUID_FILE_NAME = ".jianzhiyi_uuid.txt";
     public static final String DB_NAME = "jianzhiyi-db";
-    public static final String APPID = "22";
+    public static final String APPID = "2";
+    public static final String OS = "1";
     //友盟的渠道名称
     public static final String UMENG_NAME = "jzy";
     //隐私协议是否展示公司信息 1：展示    0：不展示
     public static final String STATUS = "1";
-    public static final String OS = "1";
 
     //广告
     public static final String TTAD_APPID = "5090179";

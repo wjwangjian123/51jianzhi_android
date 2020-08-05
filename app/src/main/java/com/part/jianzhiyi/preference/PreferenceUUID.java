@@ -155,4 +155,61 @@ public class PreferenceUUID {
     public String getCity() {
         return sharedPreferences.getString("city", "");
     }
+
+    //pv
+    public void putPv(String pv) {
+        editor.putString("pv", pv);
+        editor.apply();
+    }
+    public String getPv() {
+        return sharedPreferences.getString("pv", "");
+    }
+    //pe
+    public void putPe(String pe) {
+        editor.putString("pe", pe);
+        editor.apply();
+    }
+    public String getPe() {
+        return sharedPreferences.getString("pe", "");
+    }
+    //pt
+    public void putPt(String pt) {
+        editor.putString("pt", pt);
+        editor.apply();
+    }
+    public String getPt() {
+        return sharedPreferences.getString("pt", "");
+    }
+    //androidid
+    public void putAndroidid(String androidid) {
+        editor.putString("androidid", androidid);
+        editor.apply();
+    }
+    public String getAndroidid() {
+        return sharedPreferences.getString("androidid", "");
+    }
+    //imei
+    public void putImei(String imei) {
+        editor.putString("imei", imei);
+        editor.apply();
+    }
+    public String getImei() {
+        return sharedPreferences.getString("imei", "");
+    }
+    //ua
+    public void putUa(String ua) {
+        editor.putString("ua", ua);
+        editor.apply();
+    }
+    public String getUa() {
+        return sharedPreferences.getString("ua", "");
+    }
+    //ua2
+    public void putUa2(String ua2) {
+        editor.putString("ua2", ua2);
+        editor.apply();
+    }
+    public String getUa2() {
+        return sharedPreferences.getString("ua2", "");
+    }
 }

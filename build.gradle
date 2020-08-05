@@ -15,7 +15,8 @@ buildscript {
         classpath 'com.android.tools.build:gradle:3.5.3'
         classpath "com.alibaba:arouter-register:1.0.2"
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2' // 添加插件 更好支持GreenDao
-        
+        // 添加emas-services插件
+        classpath 'com.aliyun.ams:emas-services:1.0.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

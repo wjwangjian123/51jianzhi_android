@@ -13,6 +13,7 @@ import com.part.jianzhiyi.constants.IntentConstant;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.mvp.contract.mine.MineUpdateProfileContract;
 import com.part.jianzhiyi.mvp.presenter.mine.MineUpdateProfilePresenter;
+import com.umeng.analytics.MobclickAgent;
 
 public class MineUpdateProfileActivity extends BaseActivity<MineUpdateProfilePresenter> implements MineUpdateProfileContract.IMineUpdateProfileView {
 
@@ -109,5 +110,19 @@ public class MineUpdateProfileActivity extends BaseActivity<MineUpdateProfilePre
     @Override
     public void startIntent() {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("我的信息");
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("我的信息");
+        MobclickAgent.onPause(this);
     }
 }

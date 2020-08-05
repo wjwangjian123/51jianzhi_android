@@ -270,18 +270,21 @@ public class ChoiceFragment extends BaseFragment<ChoicePresenter> implements Cho
         mTwoRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MobclickAgent.onEvent(getActivity(), "choice_weekly_ranking");
                 goToDetail(rankList.get(0).getId(), 0, Constants.POSITION_RANK);
             }
         });
         mOneRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MobclickAgent.onEvent(getActivity(), "choice_weekly_ranking");
                 goToDetail(rankList.get(1).getId(), 1, Constants.POSITION_RANK);
             }
         });
         mThreeRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MobclickAgent.onEvent(getActivity(), "choice_weekly_ranking");
                 goToDetail(rankList.get(2).getId(), 2, Constants.POSITION_RANK);
             }
         });
@@ -291,12 +294,14 @@ public class ChoiceFragment extends BaseFragment<ChoicePresenter> implements Cho
                 if (choiceList.get(position).getUiType() == 1) {
                     return;
                 }
+                MobclickAgent.onEvent(getActivity(), "choice_reecommend");
                 goToDetail(choiceList.get(position).getId(), position, Constants.POSITION_CHOICE);
             }
         });
         mLvRecommend.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                MobclickAgent.onEvent(getActivity(), "choice_editors");
                 goToDetail(recommendList.get(position).getId(), position, Constants.POSITION_CHOICE_RECOMMEND);
             }
         });
@@ -466,6 +471,15 @@ public class ChoiceFragment extends BaseFragment<ChoicePresenter> implements Cho
         if (adapter != null) {
             adapter.notifyDataSetChanged();
         }
+        MobclickAgent.onPageStart("精选页面");
+        MobclickAgent.onResume(getActivity());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("精选页面");
+        MobclickAgent.onPause(getActivity());
     }
 
     @Override

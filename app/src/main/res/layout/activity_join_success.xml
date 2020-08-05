@@ -210,7 +210,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="17dp"
             android:paddingRight="22dp"
-            android:divider="@color/color_D8D8D8"
+            android:divider="@color/transparency"
             android:dividerHeight="@dimen/line_height"
             android:listSelector="@color/transparency"
             android:overScrollMode="never"

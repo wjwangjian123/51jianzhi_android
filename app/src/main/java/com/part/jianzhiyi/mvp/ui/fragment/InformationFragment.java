@@ -22,6 +22,7 @@ import com.part.jianzhiyi.mvp.contract.InformationContract;
 import com.part.jianzhiyi.mvp.presenter.InformationPresenter;
 import com.part.jianzhiyi.mvp.ui.activity.ChatActivity;
 import com.part.jianzhiyi.mvp.ui.activity.SeeMineActivity;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,6 +103,7 @@ public class InformationFragment extends BaseFragment<InformationPresenter> impl
         mLvMessage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                MobclickAgent.onEvent(getActivity(), "message_click_list");
                 MessageResponseEntityDao messageResponseEntityDao = GreenDaoManager.getInstance().getDaoSession().getMessageResponseEntityDao();
                 if (messageResponseEntityDao != null) {
                     MessageResponseEntity mlist = messageResponseEntityDao.queryBuilder().where(MessageResponseEntityDao.Properties.CompanyId.eq(list.get(position).getCompanyId())).unique();
@@ -129,6 +131,7 @@ public class InformationFragment extends BaseFragment<InformationPresenter> impl
     @Override
     public void onClick(View v) {
         if (v.getId()==R.id.info_con){
+            MobclickAgent.onEvent(getActivity(), "message_see_mine");
             mViewIvRed.setVisibility(View.GONE);
             Intent intent = new Intent(getActivity(), SeeMineActivity.class);
             startActivity(intent);
@@ -181,6 +184,8 @@ public class InformationFragment extends BaseFragment<InformationPresenter> impl
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("消息页");
+        MobclickAgent.onResume(getActivity());
         if (list != null) {
             list.clear();
         }
@@ -197,5 +202,12 @@ public class InformationFragment extends BaseFragment<InformationPresenter> impl
                 mLvMessage.setVisibility(View.GONE);
             }
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("消息页");
+        MobclickAgent.onPause(getActivity());
     }
 }

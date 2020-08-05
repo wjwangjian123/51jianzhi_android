@@ -30,7 +30,7 @@ public class MineUpdateResumeModel extends UserModel implements MineUpdateResume
 
     @Override
     public Observable<ResumeEntity> updateResumeV2(UResumeRequest request) {
-        return HttpAPI.getInstence().getServiceApi().updateResumeV2(request.getUser_id(), request.getName(), request.getSex(), request.getAge(), request.getSchool_year(), request.getSchool_name(), request.getExperience(), request.getIntroduce(), Constants.APPID, request.getProfession(), request.getJob_status(), request.getJob_type(), Constants.OS, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()));
+        return HttpAPI.getInstence().getServiceApi().updateResumeV2(request.getUser_id(), request.getName(), request.getSex(), request.getAge(), request.getSchool_year(), request.getSchool_name(), request.getExperience(), request.getIntroduce(), Constants.APPID, request.getProfession(), request.getJob_status(), request.getJob_type(),request.getMyitem(),request.getExpect(), Constants.OS, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()));
     }
 
     @Override

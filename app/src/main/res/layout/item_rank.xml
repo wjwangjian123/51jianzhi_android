@@ -104,11 +104,11 @@
             android:paddingHorizontal="6dp"
             android:paddingVertical="@dimen/dimen_2"
             android:textSize="@dimen/font_10"
-            android:textColor="@color/color_E9525F"
+            android:textColor="@color/color_999999"
             android:layout_marginLeft="@dimen/dimen_10"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dimen_5"
-            android:background="@drawable/shape_text_red"/>
+            android:background="@drawable/shape_text_grey"/>
     </RelativeLayout>
 </RelativeLayout>

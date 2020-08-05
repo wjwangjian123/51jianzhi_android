@@ -33,6 +33,7 @@ import com.part.jianzhiyi.mvp.ui.activity.MineSettingActivity;
 import com.part.jianzhiyi.mvp.ui.activity.MineUpdateProfileActivity;
 import com.part.jianzhiyi.mvp.ui.activity.MineUpdateResumeActivity;
 import com.part.jianzhiyi.preference.PreferenceUUID;
+import com.umeng.analytics.MobclickAgent;
 
 import androidx.annotation.Nullable;
 
@@ -65,6 +66,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
     private RelativeLayout mRlAbout;
     private RelativeLayout mRlSet;
     private DaySignEntity mDaySignEntity;
+    private int type=1;
 
     @Override
     protected MinePresenter createPresenter() {
@@ -147,6 +149,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
             @Override
             public void onClick(View v) {
                 //签到
+                type=2;
                 mPresenter.addDaySign(PreferenceUUID.getInstence().getUserId(), String.valueOf(mDaySignEntity.getData().getDay()+1));
             }
         });
@@ -154,11 +157,6 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.rl_set) {
-            Intent intent = new Intent(mActivity, MineSettingActivity.class);
-            startActivity(intent);
-            return;
-        }
         if (v.getId() == R.id.rl_about) {
             Intent intent = new Intent(mActivity, MineAboutActivity.class);
             startActivityForResult(intent, IntentConstant.REQEUST_CODE);
@@ -167,6 +165,10 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         if (!mPresenter.isUserLogin()) {
             mActivity.reStartLogin();
             return;
+        }
+        if (v.getId() == R.id.rl_set) {
+            Intent intent = new Intent(mActivity, MineSettingActivity.class);
+            startActivity(intent);
         }
         if (v.getId() == R.id.rl_feekback) {
             Intent intent = new Intent(mActivity, MineFeekbackActivity.class);
@@ -219,11 +221,11 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         mMineTvPhone.setText(username);
     }
 
-    private String active;
+    private String mactive;
     @Override
     public void updateUserInfoPer(UserInfoEntity userInfoEntity) {
         mPresenter.loadUserInfo();
-        active=userInfoEntity.getData().getResume_active();
+        mactive=userInfoEntity.getData().getResume_active();
         int active= Integer.parseInt(userInfoEntity.getData().getResume_active());
         mMineTvActive.setText(userInfoEntity.getData().getResume_active());
         mMineProgressCircular.setProgress(active);
@@ -239,6 +241,13 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
             mMineTvAdvantage3.setVisibility(View.VISIBLE);
             mMineTvAdvantage3.setText(userInfoEntity.getData().getMyitem().get(2).getItem());
         }
+        if (type==2){
+            SignDialog signDialog=new SignDialog(getActivity(), mactive, mDaySignEntity);
+            signDialog.show();
+            Window window = signDialog.getWindow();
+            window.setGravity(Gravity.CENTER);
+            type=1;
+        }
     }
 
     @Override
@@ -252,10 +261,8 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
             showToast(responseData.getMsg());
             return;
         }
-        SignDialog signDialog=new SignDialog(getActivity(), active, mDaySignEntity);
-        signDialog.show();
-        Window window = signDialog.getWindow();
-        window.setGravity(Gravity.CENTER);
+        type=2;
+        mPresenter.userInfo(PreferenceUUID.getInstence().getUserId());
     }
 
     @Override
@@ -269,8 +276,18 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
     @Override
     public void onResume() {
         super.onResume();
+        type=1;
         if (mPresenter!=null){
             mPresenter.userInfo(PreferenceUUID.getInstence().getUserId());
         }
+        MobclickAgent.onPageStart("我的页面");
+        MobclickAgent.onResume(getActivity());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("我的页面");
+        MobclickAgent.onPause(getActivity());
     }
 }

@@ -1,6 +1,7 @@
 package com.part.jianzhiyi.mvp.presenter.user;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.part.jianzhiyi.base.BasePresenter;
@@ -11,6 +12,7 @@ import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.ConfigEntity;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.model.entity.UMEntity;
+import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.mvp.contract.user.LoginContract;
 import com.part.jianzhiyi.mvp.model.user.LoginModel;
 import com.part.jianzhiyi.preference.PreferenceUUID;
@@ -80,7 +82,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.ILoginModel, Log
                                     PreferenceUUID.getInstence().loginIn();
                                     PreferenceUUID.getInstence().changeShowResume(entity.getShowResume());
                                     weakReferenceView.get().startIntent();
-                                    weakReferenceView.get().updatelogin(entity.getShowResume());
+                                    weakReferenceView.get().updatelogin(entity);
                                 }
                             } else {
                                 weakReferenceView.get().showToast(responseData.getMsg());
@@ -130,6 +132,28 @@ public class LoginPresenter extends BasePresenter<LoginContract.ILoginModel, Log
                             if (isAttach()) {
                             }
                         }
+                    }
+                }));
+    }
+
+    public void userInfo(String userid) {
+        mModel.userInfo(userid)
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<UserInfoEntity>() {
+                    @Override
+                    public void onNext(UserInfoEntity responseData) {
+                        if (TextUtils.equals(responseData.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                PreferenceUUID.getInstence().changeShowResume(responseData.getData().isShowResume());
+                                weakReferenceView.get().updateUserInfoPer(responseData);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        Log.e("tag", "解析异常");
                     }
                 }));
     }

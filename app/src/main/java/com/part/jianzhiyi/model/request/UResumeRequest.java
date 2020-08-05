@@ -4,7 +4,7 @@ package com.part.jianzhiyi.model.request;
  * Created by jyx on 2020/6/10
  *
  * @author jyx
- * @describe  第二版修改简历参数
+ * @describe 第二版修改简历参数
  */
 public class UResumeRequest {
 
@@ -16,12 +16,14 @@ public class UResumeRequest {
     private String school_name;
     private String experience;
     private String introduce;
-    private String os="1";
+    private String os = "1";
     private int profession;
     private int job_status;
     private String job_type;
+    private String myitem;
+    private String expect;
 
-    public UResumeRequest(String user_id, String name, String sex, String age, String school_year, String school_name, String experience, String introduce, int profession, int job_status, String job_type) {
+    public UResumeRequest(String user_id, String name, String sex, String age, String school_year, String school_name, String experience, String introduce, int profession, int job_status, String job_type, String myitem, String expect) {
         this.user_id = user_id;
         this.name = name;
         this.sex = sex;
@@ -33,6 +35,8 @@ public class UResumeRequest {
         this.profession = profession;
         this.job_status = job_status;
         this.job_type = job_type;
+        this.myitem = myitem;
+        this.expect = expect;
     }
 
     public String getUser_id() {
@@ -129,5 +133,21 @@ public class UResumeRequest {
 
     public void setJob_type(String job_type) {
         this.job_type = job_type;
+    }
+
+    public String getMyitem() {
+        return myitem;
+    }
+
+    public void setMyitem(String myitem) {
+        this.myitem = myitem;
+    }
+
+    public String getExpect() {
+        return expect;
+    }
+
+    public void setExpect(String expect) {
+        this.expect = expect;
     }
 }

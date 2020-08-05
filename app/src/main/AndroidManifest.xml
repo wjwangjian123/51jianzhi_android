@@ -13,9 +13,27 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".mvp.ui.activity.JoinSuccessActivity"></activity>
+        <activity android:name=".mvp.ui.activity.PopupPushActivity"
+            android:exported="true"></activity>
+        <activity android:name=".mvp.ui.activity.HtmlBannerUrlActivity" />
+        <activity android:name=".mvp.ui.activity.ExpectPositionActivity" />
+        <activity android:name=".mvp.ui.activity.AboutMineActivity" />
+        <activity android:name=".mvp.ui.activity.MyStatusActivity" />
+        <activity android:name=".mvp.ui.activity.JoinSuccessActivity" />
         <activity android:name=".mvp.ui.activity.ActionListActivity" />
-        <activity android:name=".mvp.ui.activity.MineDeliveryActivity" />
+        <activity android:name=".mvp.ui.activity.MineDeliveryActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="lp"
+                    android:path="/registeredlist"
+                    android:scheme="com.part.jianzhiyi"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".mvp.ui.activity.MineUpdateProfileActivity" />
         <activity android:name=".mvp.ui.activity.MineUpdateResumeActivity" />
         <activity android:name=".mvp.ui.activity.MineFavouriteActivity" />
@@ -31,7 +49,8 @@
         <activity android:name=".mvp.ui.activity.CityActivity" />
         <activity android:name=".mvp.ui.activity.SearchActivity" />
         <activity android:name=".mvp.ui.activity.HomeVocationListActivity" />
-        <activity android:name=".mvp.ui.activity.VocationActivity" />
+        <activity android:name=".mvp.ui.activity.VocationActivity"
+            android:launchMode="singleTask"/>
         <activity android:name=".mvp.ui.activity.ResumeActivity" />
         <activity
             android:name=".mvp.ui.activity.SplashActivity"
@@ -46,10 +65,23 @@
             </intent-filter>
         </activity>
         <activity android:name=".mvp.ui.activity.HtmlActivity" />
-        <activity android:name=".mvp.ui.activity.LoginActivity" />
+        <activity android:name=".mvp.ui.activity.LoginActivity"
+            android:launchMode="singleTask" />
         <activity
             android:name=".mvp.ui.activity.MainActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="lp"
+                    android:path="/main"
+                    android:scheme="com.part.jianzhiyi"/>
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="UMENG_APPKEY"
@@ -57,6 +89,15 @@
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="jzy" />
+<!--        <meta-data-->
+<!--            android:name="com.huawei.hms.client.appid"-->
+<!--            android:value="102165627" />-->
+<!--        <meta-data-->
+<!--            android:name="com.vivo.push.api_key"-->
+<!--            android:value="7cc423a540edbc3be805c7d21430f478" />-->
+<!--        <meta-data-->
+<!--            android:name="com.vivo.push.app_id"-->
+<!--            android:value="103897857" />-->
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -80,6 +121,26 @@
             android:name="com.bytedance.sdk.openadsdk.multipro.TTMultiProvider"
             android:authorities="${applicationId}.TTMultiProvider"
             android:exported="false" />
+        <receiver
+            android:name=".MyMessageReceiver"
+            android:exported="false"> <!-- 为保证receiver安全，建议设置不可导出，如需对其他应用开放可通过android：permission进行限制 -->
+            <intent-filter>
+                <action android:name="com.alibaba.push2.action.NOTIFICATION_OPENED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.alibaba.push2.action.NOTIFICATION_REMOVED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.alibaba.sdk.android.push.RECEIVE" />
+            </intent-filter>
+        </receiver>
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="459f11f8d3cff0fcb089dc62dbacc873" />
+        <service android:name="com.amap.api.location.APSService" />
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

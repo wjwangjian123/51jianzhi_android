@@ -77,6 +77,7 @@ public class ContactBusinessDialog extends AlertDialog {
                 if (onJoinedClickListener == null) {
                     return;
                 }
+                dismiss();
                 onJoinedClickListener.onJoinedClick(id, position);
             }
         });

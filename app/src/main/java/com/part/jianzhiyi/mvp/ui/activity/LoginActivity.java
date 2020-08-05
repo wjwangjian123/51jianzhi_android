@@ -27,10 +27,14 @@ import com.part.jianzhiyi.constants.Constants;
 import com.part.jianzhiyi.constants.IntentConstant;
 import com.part.jianzhiyi.corecommon.ui.SendCodeView;
 import com.part.jianzhiyi.model.entity.ConfigEntity;
+import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.model.entity.UMEntity;
+import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.mvp.contract.user.LoginContract;
 import com.part.jianzhiyi.mvp.presenter.user.LoginPresenter;
+import com.part.jianzhiyi.preference.PreferenceUUID;
 import com.part.jianzhiyi.utils.AppUtils;
+import com.umeng.analytics.MobclickAgent;
 import com.umeng.umverify.UMVerifyHelper;
 import com.umeng.umverify.listener.UMAuthUIControlClickListener;
 import com.umeng.umverify.listener.UMCustomInterface;
@@ -51,7 +55,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     private int a = 1;
     private String AppSecret;
     private String SMcode;
-
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
@@ -76,6 +79,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         mLoginTvAgree = (TextView) findViewById(R.id.login_tv_agree);
         mLoginSendCode = (SendCodeView) findViewById(R.id.login_send_code);
         setToolBarVisible(false);
+        MobclickAgent.onEvent(this, "login_in");
         if (!getIntent().getExtras().isEmpty() && getIntent().getExtras() != null) {
             Bundle extras = getIntent().getExtras();
             a = extras.getInt("ToLogin");
@@ -97,6 +101,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 if (smsCode) {
                     mLoginSendCode.startTimer();
                 }
+                MobclickAgent.onEvent(LoginActivity.this, "login_code");
             }
         });
         mLoginTvAgree.setOnClickListener(new View.OnClickListener() {
@@ -116,6 +121,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         mLoginTvOther.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MobclickAgent.onEvent(LoginActivity.this, "login_one_click");
                 initUMVerify(AppSecret);
             }
         });
@@ -137,6 +143,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             @Override
             public void onTokenSuccess(String ret) {
                 Log.e("xxxxxx", "onTokenSuccess:$ret"+ret);
+                MobclickAgent.onEvent(LoginActivity.this, "um_show");
                 LoginActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -299,23 +306,41 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         if (umEntity.getData() != null) {
             String phone = umEntity.getData().getPhone();
             mPresenter.login(phone, SMcode);
+            MobclickAgent.onEvent(LoginActivity.this, "um_login_success");
         }
     }
 
     @Override
-    public void updatelogin(boolean showResume) {
+    public void updatelogin(LoginResponseEntity entity) {
+        mPresenter.userInfo(String.valueOf(entity.getId()));
+    }
+
+    @Override
+    public void updateUserInfoPer(UserInfoEntity userInfoEntity) {
         if (a == 2) {
             Intent intent = new Intent(LoginActivity.this, VocationActivity.class);
             startActivity(intent);
         } else {
-            if (showResume) {
+            if (userInfoEntity.getData().getAge()==null||userInfoEntity.getData().getAge()=="" ||
+                    userInfoEntity.getData().getSex()==null||userInfoEntity.getData().getSex()==""||
+                    userInfoEntity.getData().getProfession()==null||userInfoEntity.getData().getProfession()==""){
                 Intent intent = new Intent(LoginActivity.this, ResumeActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putInt("ToResume", 1);
                 bundle.putInt("errorType", 1);
                 intent.putExtras(bundle);
                 startActivity(intent);
-            } else {
+            }else if (userInfoEntity.getData().getJob_status()==null||userInfoEntity.getData().getJob_status()==""||
+                    userInfoEntity.getData().getJob_type()==null||userInfoEntity.getData().getJob_type()==""){
+                Intent intent = new Intent(LoginActivity.this, MyStatusActivity.class);
+                startActivity(intent);
+            }else if (userInfoEntity.getData().getMyitem()==null){
+                Intent intent = new Intent(LoginActivity.this, AboutMineActivity.class);
+                startActivity(intent);
+            }else if (userInfoEntity.getData().getExpect()==null){
+                Intent intent = new Intent(LoginActivity.this, ExpectPositionActivity.class);
+                startActivity(intent);
+            }else {
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 intent.putExtra("type", 1);
                 startActivity(intent);
@@ -337,6 +362,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                alertDialog.dismiss();
                 finish();
             }
         });
@@ -351,9 +377,24 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            MobclickAgent.onEvent(this, "login_back");
             initDialog();
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("登录页面");
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("登录页面");
+        MobclickAgent.onPause(this);
     }
 }

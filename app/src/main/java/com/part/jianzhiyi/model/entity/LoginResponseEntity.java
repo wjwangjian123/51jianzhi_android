@@ -56,14 +56,17 @@ public class LoginResponseEntity {
     private int profession_type;
     private int job_status_type;
     private String job_position_type;
-    @Generated(hash = 404461353)
+    private String myitem;
+    private String expect;
+    @Generated(hash = 1978124572)
     public LoginResponseEntity(Long id, String username, String signature,
             String create_time, String update_time, String phone, String email,
             String status, String name, String sex, String age, String school_year,
             String school_name, String experience, String introduce, String appid,
             String resume_complete, boolean showResume, String profession,
             String job_status, String job_type, int profession_type,
-            int job_status_type, String job_position_type) {
+            int job_status_type, String job_position_type, String myitem,
+            String expect) {
         this.id = id;
         this.username = username;
         this.signature = signature;
@@ -88,6 +91,8 @@ public class LoginResponseEntity {
         this.profession_type = profession_type;
         this.job_status_type = job_status_type;
         this.job_position_type = job_position_type;
+        this.myitem = myitem;
+        this.expect = expect;
     }
     @Generated(hash = 1746094175)
     public LoginResponseEntity() {
@@ -235,5 +240,17 @@ public class LoginResponseEntity {
     }
     public void setJob_position_type(String job_position_type) {
         this.job_position_type = job_position_type;
+    }
+    public String getMyitem() {
+        return this.myitem;
+    }
+    public void setMyitem(String myitem) {
+        this.myitem = myitem;
+    }
+    public String getExpect() {
+        return this.expect;
+    }
+    public void setExpect(String expect) {
+        this.expect = expect;
     }
 }

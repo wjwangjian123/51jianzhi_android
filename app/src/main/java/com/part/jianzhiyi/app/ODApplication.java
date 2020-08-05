@@ -1,8 +1,20 @@
 package com.part.jianzhiyi.app;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
 import android.util.Log;
 
+import com.alibaba.sdk.android.push.CloudPushService;
+import com.alibaba.sdk.android.push.CommonCallback;
+import com.alibaba.sdk.android.push.huawei.HuaWeiRegister;
+import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
+import com.alibaba.sdk.android.push.register.MeizuRegister;
+import com.alibaba.sdk.android.push.register.MiPushRegister;
+import com.alibaba.sdk.android.push.register.OppoRegister;
+import com.alibaba.sdk.android.push.register.VivoRegister;
 import com.bun.miitmdid.core.JLibrary;
 import com.part.jianzhiyi.ad.TTAdManagerHolder;
 import com.part.jianzhiyi.constants.Constants;
@@ -15,6 +27,8 @@ import com.umeng.commonsdk.statistics.common.DeviceConfig;
 
 import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
+import cn.shuzilm.core.Listener;
+import cn.shuzilm.core.Main;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.plugins.RxJavaPlugins;
 
@@ -38,6 +52,17 @@ public class ODApplication extends MultiDexApplication {
         mContext = this;
         MultiDex.install(this);
         Context applicationContext = getApplicationContext();
+//        try {
+//            Main.init(applicationContext, apiKey);
+//            Main.getQueryID(applicationContext, "channel1", PreferenceUUID.getInstence().getUserPhone(), 1, new Listener() {
+//                @Override
+//                public void handler(String s) {
+//                    Log.i("Logs", "query id:" + s);
+//                }
+//            });
+//        } catch (Exception e) {
+//            Log.e("Logs", "错误异常：" + e.getMessage());
+//        }
         setRxJavaErrorHandler();
         //友盟统计 String appkey, String channel, int deviceType, String pushSecret
         UMConfigure.init(this, "5eb65a45978eea078b7e9ac8", Constants.UMENG_NAME, UMConfigure.DEVICE_TYPE_PHONE, "");
@@ -47,6 +72,7 @@ public class ODApplication extends MultiDexApplication {
 //        MobclickAgent.setDebugMode(true);
         MobclickAgent.setCatchUncaughtExceptions(true);
         MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
+        //通过集成代码方式获取获取手机中的设备识别信息
 //        getTestDeviceInfo(this);
         //fresco图片框架初始化
         FrescoUtil.initialize(this);
@@ -54,6 +80,17 @@ public class ODApplication extends MultiDexApplication {
         initTTAdSdk();
         MiitHelper miitHelper = new MiitHelper(appIdsUpdater);
         miitHelper.getDeviceIds(this);
+        initCloudChannel(this);
+//        // 注册方法会自动判断是否支持小米系统推送，如不支持会跳过注册。
+//        MiPushRegister.register(applicationContext, "2882303761518314643", "5621831466643");
+//        // 注册方法会自动判断是否支持华为系统推送，如不支持会跳过注册。
+//        HuaWeiRegister.register(this);
+//        // OPPO通道注册
+//        OppoRegister.register(applicationContext, "c9549a5372d84fcfaf72fc0a32801c5c", "92f53c18e8664e709b91e769ddcc0833");
+//        // 魅族通道注册
+//        MeizuRegister.register(applicationContext, "3290513", "ceef586eb967432dab431044c1ff4fef");
+//        // VIVO通道注册
+//        VivoRegister.register(applicationContext);
     }
 
     private void initTTAdSdk() {
@@ -106,6 +143,67 @@ public class ODApplication extends MultiDexApplication {
         } catch (Exception e) {
         }
         return deviceInfo;
+    }
+
+    /**
+     * 初始化云推送通道
+     *
+     * @param applicationContext
+     */
+    private void initCloudChannel(Context applicationContext) {
+        // 创建notificaiton channel
+        this.createNotificationChannel();
+        PushServiceFactory.init(applicationContext);
+        final CloudPushService pushService = PushServiceFactory.getCloudPushService();
+        pushService.register(applicationContext, new CommonCallback() {
+            @Override
+            public void onSuccess(String response) {
+                String deviceId = pushService.getDeviceId();
+                PreferenceUUID.getInstence().putPush_id(deviceId);
+                Log.d(TAG, deviceId);
+                Log.d(TAG, "init cloudchannel success");
+            }
+
+            @Override
+            public void onFailed(String errorCode, String errorMessage) {
+                Log.d(TAG, "init cloudchannel failed -- errorcode:" + errorCode + " -- errorMessage:" + errorMessage);
+            }
+        });
+//        pushService.turnOnPushChannel(new CommonCallback() {
+//            @Override
+//            public void onSuccess(String response) {
+//                Log.i(TAG, "cloudchannel turn on success");
+//            }
+//
+//            @Override
+//            public void onFailed(String errorCode, String errorMessage) {
+//                Log.e(TAG, "init cloudchannel turn on failed -- errorcode:" + errorCode + " -- errorMessage:" + errorMessage);
+//            }
+//        });
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            // 通知渠道的id
+            String id = "1";
+            // 用户可以看到的通知渠道的名字.
+            CharSequence name = "51兼职";
+            // 用户可以看到的通知渠道的描述
+            String description = "51兼职";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel mChannel = new NotificationChannel(id, name, importance);
+            // 配置通知渠道的属性
+            mChannel.setDescription(description);
+            // 设置通知出现时的闪灯（如果 android 设备支持的话）
+            mChannel.enableLights(true);
+            mChannel.setLightColor(Color.RED);
+            // 设置通知出现时的震动（如果 android 设备支持的话）
+            mChannel.enableVibration(false);
+            mChannel.setVibrationPattern(null);
+            //最后在notificationmanager中创建该通知渠道
+            mNotificationManager.createNotificationChannel(mChannel);
+        }
     }
 
 }

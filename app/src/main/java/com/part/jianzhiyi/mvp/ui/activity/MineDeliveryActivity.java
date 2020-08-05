@@ -2,6 +2,7 @@ package com.part.jianzhiyi.mvp.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -67,7 +68,20 @@ public class MineDeliveryActivity extends BaseActivity<JobListPresenter> impleme
         initToolbar("我的投递");
 
         Intent intent = getIntent();
-        positionType = intent.getIntExtra("positionType", 1);
+        if (intent != null) {
+            positionType = intent.getIntExtra("positionType", 0);
+            if (positionType==0){
+                if (intent.getData() != null) {
+                    String type = intent.getData().getQueryParameter("type");
+                    if (!type.equals(null)){
+                        if (type.equals("6")){
+                            positionType=2;
+                        }
+                    }
+//                    Log.d("aaaaaaaaaaaaa", intent.getData().toString() + "," + type);
+                }
+            }
+        }
         if (positionType == 1) {
             type = 1;
             mDeliveryRbSee.setChecked(true);

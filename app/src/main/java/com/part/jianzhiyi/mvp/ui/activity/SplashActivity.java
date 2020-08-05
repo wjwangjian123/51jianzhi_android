@@ -26,11 +26,19 @@ import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.ad.PositionId;
 import com.part.jianzhiyi.ad.TTAdManagerHolder;
 import com.part.jianzhiyi.ad.UIUtils;
+import com.part.jianzhiyi.app.ODApplication;
 import com.part.jianzhiyi.base.BaseActivity;
 import com.part.jianzhiyi.base.BasePresenter;
+import com.part.jianzhiyi.corecommon.utils.Tools;
 import com.part.jianzhiyi.dbmodel.GreenDaoManager;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
+import com.part.jianzhiyi.model.entity.MyitemEntity;
+import com.part.jianzhiyi.model.entity.ResumeEntity;
+import com.part.jianzhiyi.model.entity.UserInfoEntity;
+import com.part.jianzhiyi.mvp.contract.mine.MineUpdateResumeContract;
+import com.part.jianzhiyi.mvp.presenter.mine.MineUpdateResumePresenter;
 import com.part.jianzhiyi.preference.PreferenceUUID;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,7 +48,7 @@ import androidx.annotation.MainThread;
 import androidx.annotation.RequiresApi;
 
 @Route(path = "/app/activity/splash")
-public class SplashActivity extends BaseActivity {
+public class SplashActivity extends BaseActivity<MineUpdateResumePresenter> implements MineUpdateResumeContract.IMineUpdateResumeView {
 
     private static final String TAG = "SplashActivity";
     //是否强制跳转到主页面
@@ -55,10 +63,11 @@ public class SplashActivity extends BaseActivity {
     private ImageView mSplashHolder;
     private FrameLayout mSplashContainer;
     private Handler handler = new Handler();
+    private UserInfoEntity userInfoEntity;
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
-
+        mPresenter.userInfo(PreferenceUUID.getInstence().getUserId());
     }
 
     @Override
@@ -82,6 +91,15 @@ public class SplashActivity extends BaseActivity {
             //加载开屏广告
             loadSplashAd();
         }
+//        if (PreferenceUUID.getInstence().getPv().equals(null)){
+            PreferenceUUID.getInstence().putPv(Tools.getPhoneOSVersion());//手机系统
+            PreferenceUUID.getInstence().putPe(Tools.getManufacturer());//手机厂商
+            PreferenceUUID.getInstence().putPt(Tools.getPhoneType());//手机型号
+            PreferenceUUID.getInstence().putAndroidid(Tools.getDeviceID(ODApplication.context()));//deviceId
+            PreferenceUUID.getInstence().putImei(Tools.getIMEI(ODApplication.context()));//imei
+            PreferenceUUID.getInstence().putUa(Tools.getUa());//ua
+            PreferenceUUID.getInstence().putUa2(Tools.getUa2(ODApplication.context()));//ua2
+//        }
     }
 
     private void getExtraInfo() {
@@ -338,27 +356,39 @@ public class SplashActivity extends BaseActivity {
                 intent.putExtras(bundle);
                 startActivity(intent);
             }else {
-                if (showResume){
                     //判断是否是当天首次进入App
                     //如果是跳转到简历模板
                     if (currentTime<dayTime){
                         PreferenceUUID.getInstence().putCurrentTime(millis);
-                        Intent intent = new Intent(SplashActivity.this, ResumeActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("ToResume", 1);
-                        bundle.putInt("errorType", 1);
-                        intent.putExtras(bundle);
-                        SplashActivity.this.startActivity(intent);
+                        if (userInfoEntity.getData().getAge()==null||userInfoEntity.getData().getAge()=="" ||
+                                userInfoEntity.getData().getSex()==null||userInfoEntity.getData().getSex()==""||
+                                userInfoEntity.getData().getProfession()==null||userInfoEntity.getData().getProfession()==""){
+                            Intent intent = new Intent(SplashActivity.this, ResumeActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("ToResume", 1);
+                            bundle.putInt("errorType", 1);
+                            intent.putExtras(bundle);
+                            SplashActivity.this.startActivity(intent);
+                        }else if (userInfoEntity.getData().getJob_status()==null||userInfoEntity.getData().getJob_status()==""||
+                                userInfoEntity.getData().getJob_type()==null||userInfoEntity.getData().getJob_type()==""){
+                            Intent intent = new Intent(SplashActivity.this, MyStatusActivity.class);
+                            startActivity(intent);
+                        }else if (userInfoEntity.getData().getMyitem()==null){
+                            Intent intent = new Intent(SplashActivity.this, AboutMineActivity.class);
+                            startActivity(intent);
+                        }else if (userInfoEntity.getData().getExpect()==null){
+                            Intent intent = new Intent(SplashActivity.this, ExpectPositionActivity.class);
+                            startActivity(intent);
+                        }else {
+                            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                            intent.putExtra("type", 1);
+                            startActivity(intent);
+                        }
                     }else {
                         Intent intent=new Intent(SplashActivity.this, MainActivity.class);
                         intent.putExtra("type", 1);
                         startActivity(intent);
                     }
-                }else {
-                    Intent intent=new Intent(SplashActivity.this, MainActivity.class);
-                    intent.putExtra("type", 1);
-                    startActivity(intent);
-                }
             }
         }
         mSplashContainer.removeAllViews();
@@ -379,8 +409,8 @@ public class SplashActivity extends BaseActivity {
     }
 
     @Override
-    protected BasePresenter createPresenter() {
-        return null;
+    protected MineUpdateResumePresenter createPresenter() {
+        return new MineUpdateResumePresenter(this);
     }
 
     @Override
@@ -395,12 +425,16 @@ public class SplashActivity extends BaseActivity {
         if (mForceGoMain) {
             goToMainActivity();
         }
+        MobclickAgent.onPageStart("闪屏页");
+        MobclickAgent.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         canJump = false;
+        MobclickAgent.onPageEnd("闪屏页");
+        MobclickAgent.onPause(this);
     }
 
     @Override
@@ -412,7 +446,9 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        handler.removeCallbacksAndMessages(null);
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
     }
 
     /**
@@ -427,5 +463,30 @@ public class SplashActivity extends BaseActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void updateSuccess() {
+
+    }
+
+    @Override
+    public void updateUserInfo(LoginResponseEntity entity) {
+
+    }
+
+    @Override
+    public void updateupdateResumeV2(ResumeEntity resumeEntity) {
+
+    }
+
+    @Override
+    public void updateUserInfoPer(UserInfoEntity entity) {
+        userInfoEntity = entity;
+    }
+
+    @Override
+    public void updategetMyitem(MyitemEntity myitemEntity) {
+
     }
 }

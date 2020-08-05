@@ -16,6 +16,7 @@ import com.part.jianzhiyi.mvp.contract.mine.MineFavouriteContract;
 import com.part.jianzhiyi.mvp.presenter.mine.MineFavouritePresenter;
 import com.umeng.analytics.MobclickAgent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MineFavouriteActivity extends BaseActivity<MineFavouritePresenter> implements MineFavouriteContract.IMineFavouriteView {
@@ -38,6 +39,7 @@ public class MineFavouriteActivity extends BaseActivity<MineFavouritePresenter> 
     protected void initView() {
         mListView = (ListView) findViewById(R.id.list_view);
         initToolbar("我的收藏");
+        list=new ArrayList<>();
         adapter = new FavouriteAdapter(this, list);
         mListView.setAdapter(adapter);
     }

@@ -4,7 +4,9 @@ import com.part.jianzhiyi.corecommon.base.view.IModel;
 import com.part.jianzhiyi.corecommon.base.view.IView;
 import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.ConfigEntity;
+import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.model.entity.UMEntity;
+import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.mvp.model.user.IUserModel;
 
 import io.reactivex.Observable;
@@ -26,11 +28,13 @@ public interface LoginContract {
         Observable<ConfigEntity> getConfig();
         Observable<UMEntity> verifys(String token);
         Observable<ResponseData> getSussOrErrLog(String type, String status);
+        Observable<UserInfoEntity> userInfo(String userid);
     }
 
     interface ILoginView extends IView {
         void updategetConfig(ConfigEntity configEntity);
         void updateverifys(UMEntity umEntity);
-        void updatelogin(boolean showResume);
+        void updatelogin(LoginResponseEntity entity);
+        void updateUserInfoPer(UserInfoEntity userInfoEntity);
     }
 }

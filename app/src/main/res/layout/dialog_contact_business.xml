@@ -36,23 +36,23 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_below="@+id/contact_view"
-        android:gravity="center"
         android:layout_marginTop="14dp"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="21dp">
         <ImageView
-            android:layout_width="19dp"
-            android:layout_height="19dp"
-            android:src="@drawable/icon_tip_bg"
-            android:layout_gravity="center"/>
+            android:layout_width="@dimen/dimen_15"
+            android:layout_height="@dimen/dimen_15"
+            android:src="@drawable/icon_tip_bg"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="您已报名多个职位,请及时联系商家,获取更多收益"
+            android:text="请主动联系商家咨询相关工作内容，完成录取流程，否则以放鸽子处理，影响你的信誉"
             android:textSize="@dimen/font_12"
             android:textColor="@color/color_FF5155"
             android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_marginLeft="@dimen/dimen_5"/>
+            android:layout_marginLeft="@dimen/dimen_5"
+            android:lineSpacingExtra="@dimen/dimen_3"/>
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/contact_recycle"

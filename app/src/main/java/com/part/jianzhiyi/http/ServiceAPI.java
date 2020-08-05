@@ -280,7 +280,7 @@ public interface ServiceAPI {
      */
     @POST("Api/Activity/getConfig")
     @FormUrlEncoded
-    Observable<ConfigEntity> getConfig(@Field("id") String id);
+    Observable<ConfigEntity> getConfig(@Field("id") String id,@Field("appid") String appid);
 
     /**
      * 验证友盟TOKEN
@@ -298,7 +298,7 @@ public interface ServiceAPI {
      */
     @POST("Api/Index/updateResumeV2")
     @FormUrlEncoded
-    Observable<ResumeEntity> updateResumeV2(@Field("user_id") String user_id, @Field("name") String name, @Field("sex") String sex, @Field("age") String age, @Field("school_year") String school_year, @Field("school_name") String school_name, @Field("experience") String experience, @Field("introduce") String introduce, @Field("appid") String appid, @Field("profession") int profession, @Field("job_status") int job_status, @Field("job_type") String job_type, @Field("os") String os, @Field("imei") String imei, @Field("androidid") String deviceid);
+    Observable<ResumeEntity> updateResumeV2(@Field("user_id") String user_id, @Field("name") String name, @Field("sex") String sex, @Field("age") String age, @Field("school_year") String school_year, @Field("school_name") String school_name, @Field("experience") String experience, @Field("introduce") String introduce, @Field("appid") String appid, @Field("profession") int profession, @Field("job_status") int job_status, @Field("job_type") String job_type, @Field("myitem") String myitem,@Field("expect") String expect,@Field("os") String os, @Field("imei") String imei, @Field("androidid") String deviceid);
 
     /**
      * 搜索

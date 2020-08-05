@@ -11,6 +11,7 @@ import com.part.jianzhiyi.adapter.DialogJoinUpAdapter;
 import com.part.jianzhiyi.model.entity.JobDetailEntity;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.preference.PreferenceUUID;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.List;
 
@@ -88,6 +89,11 @@ public class SignUpJoinDialog extends AlertDialog {
         mJoinRecycle.setLayoutManager(linearLayoutManager);
         mDialogJoinUpAdapter = new DialogJoinUpAdapter(context);
         mJoinRecycle.setAdapter(mDialogJoinUpAdapter);
+        for (int i = 0; i <mJobListBean.size() ; i++) {
+            if (i<mInfoBean.getDefault_checknum()){
+                mJobListBean.get(i).setIvType(1);
+            }
+        }
         if (mJobListBean.size() > 0) {
             mDialogJoinUpAdapter.setList(mJobListBean);
         }
@@ -115,6 +121,7 @@ public class SignUpJoinDialog extends AlertDialog {
         mTvJoined.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MobclickAgent.onEvent(context, "vocation_sign");
                 dismiss();
                 if (onJoinedClickListener == null) {
                     return;
@@ -133,6 +140,7 @@ public class SignUpJoinDialog extends AlertDialog {
         mIvCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MobclickAgent.onEvent(context, "vocation_cancel");
                 dismiss();
             }
         });

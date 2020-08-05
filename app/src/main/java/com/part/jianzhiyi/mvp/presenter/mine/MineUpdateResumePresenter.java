@@ -36,18 +36,8 @@ public class MineUpdateResumePresenter extends BasePresenter<MineUpdateResumeCon
 
     }
 
-    public void updateResumeV2(String name, String sex, String age, String school_year, String school_name, String experience, String introduce,int profession,int job_status,String job_type,String profession1,String job_status1,String job_type1) {
-        if (TextUtils.isEmpty(sex)) {
-            if (isAttach()) {
-                weakReferenceView.get().showToast("请选择性别");
-                return;
-            }
-        }
-        if (TextUtils.isEmpty(age)) {
-            showToast("请选择年龄");
-            return;
-        }
-        UResumeRequest request = new UResumeRequest(PreferenceUUID.getInstence().getUserId(), name, sex, age, school_year, school_name, experience, introduce,profession,job_status,job_type);
+    public void updateResumeV2(String name, String sex, String age, String school_year, String school_name, String experience, String introduce,int profession,int job_status,String job_type,String myitem,String expect,String profession1,String job_status1,String job_type1) {
+        UResumeRequest request = new UResumeRequest(PreferenceUUID.getInstence().getUserId(), name, sex, age, school_year, school_name, experience, introduce,profession,job_status,job_type,myitem,expect);
         mModel.updateResumeV2(request)
                 .compose(schedulersTransformer(HttpAPI.LOADING_CUSTOM_TIME))
                 .subscribe(getResult(new ResultObserver<ResumeEntity>() {

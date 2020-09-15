@@ -457,7 +457,7 @@ public class SplashActivity extends BaseActivity<MineUpdateResumePresenter> impl
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
-            if (keyCode == KeyEvent.KEYCODE_BACK && mSplashContainer.getVisibility() == View.VISIBLE) {
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
                 return super.onKeyDown(keyCode, event);
             }
             return true;

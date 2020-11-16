@@ -26,10 +26,10 @@ import io.reactivex.Observable;
 public class LoginModel extends UserModel implements LoginContract.ILoginModel {
     @Override
     public Observable<ResponseData<String>> sendSms(String phone) {
-//        times+’gzhl’+手机号前6位
-        String content = System.currentTimeMillis() + "gzhl" + phone.substring(0, 6);
+        long currentTimeMillis = System.currentTimeMillis();
+        String content = currentTimeMillis + "gzhl" + phone.substring(0, 6);
         Log.i(HttpAPI.class.getSimpleName(), "content:" + content);
-        return HttpAPI.getInstence().getServiceApi().sendSms(Constants.APPID, phone, Constants.OS, String.valueOf(System.currentTimeMillis()), Tools.md5(content), Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()));
+        return HttpAPI.getInstence().getServiceApi().sendSms(Constants.APPID, phone, Constants.OS, String.valueOf(currentTimeMillis), Tools.md5(content), Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()));
     }
 
     @Override
@@ -39,7 +39,7 @@ public class LoginModel extends UserModel implements LoginContract.ILoginModel {
 
     @Override
     public Observable<ConfigEntity> getConfig() {
-        return HttpAPI.getInstence().getServiceApi().getConfig(Constants.APPID,"2");
+        return HttpAPI.getInstence().getServiceApi().getConfig(Constants.APPID, "2");
     }
 
     @Override

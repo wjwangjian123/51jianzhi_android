@@ -114,8 +114,53 @@ public class UserInfoEntity {
         private int join_num;
         private int ylq;
         private int ywc;
+        private String integral;
+        private String ali_nick;
+        private String wechat_openid;
+        private String ali_user_id;
+        private String money;
         private List<MyitemBean> myitem;
         private List<ExpectBean> expect;
+
+        public String getWechat_openid() {
+            return wechat_openid;
+        }
+
+        public void setWechat_openid(String wechat_openid) {
+            this.wechat_openid = wechat_openid;
+        }
+
+        public String getAli_user_id() {
+            return ali_user_id;
+        }
+
+        public void setAli_user_id(String ali_user_id) {
+            this.ali_user_id = ali_user_id;
+        }
+
+        public String getMoney() {
+            return money;
+        }
+
+        public void setMoney(String money) {
+            this.money = money;
+        }
+
+        public String getAli_nick() {
+            return ali_nick;
+        }
+
+        public void setAli_nick(String ali_nick) {
+            this.ali_nick = ali_nick;
+        }
+
+        public String getIntegral() {
+            return integral;
+        }
+
+        public void setIntegral(String integral) {
+            this.integral = integral;
+        }
 
         public String getId() {
             return id;

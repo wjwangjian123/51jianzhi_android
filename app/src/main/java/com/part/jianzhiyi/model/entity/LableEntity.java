@@ -58,8 +58,17 @@ public class LableEntity {
         private String title;
         private String pid;
         private String create_time;
-        private Object update_time;
+        private String update_time;
         private String status;
+        private int select = 0;
+
+        public int getSelect() {
+            return select;
+        }
+
+        public void setSelect(int select) {
+            this.select = select;
+        }
 
         public String getId() {
             return id;
@@ -93,11 +102,11 @@ public class LableEntity {
             this.create_time = create_time;
         }
 
-        public Object getUpdate_time() {
+        public String getUpdate_time() {
             return update_time;
         }
 
-        public void setUpdate_time(Object update_time) {
+        public void setUpdate_time(String update_time) {
             this.update_time = update_time;
         }
 

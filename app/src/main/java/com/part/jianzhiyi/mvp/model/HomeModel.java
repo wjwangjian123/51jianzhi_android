@@ -8,6 +8,8 @@ import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.BannerEntity;
 import com.part.jianzhiyi.model.entity.CategoryEntity;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity2;
+import com.part.jianzhiyi.model.entity.LableEntity;
+import com.part.jianzhiyi.model.entity.SearchEntity;
 import com.part.jianzhiyi.mvp.contract.HomeContract;
 import com.part.jianzhiyi.mvp.model.user.UserModel;
 import com.part.jianzhiyi.preference.PreferenceUUID;
@@ -23,8 +25,8 @@ import io.reactivex.Observable;
  **/
 public class HomeModel extends UserModel implements HomeContract.IHomeModel {
     @Override
-    public Observable<ResponseData<JobListResponseEntity2>> jobList(String userid, String type, String position, int page) {
-        return HttpAPI.getInstence().getServiceApi().jobList(String.valueOf(page), Constants.APPID, PreferenceUUID.getInstence().getUserId(), type, position, "0", HttpAPI.ip, Constants.OS, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()));
+    public Observable<ResponseData<JobListResponseEntity2>> jobList(String userid, String type, String position, int page,String label) {
+        return HttpAPI.getInstence().getServiceApi().jobList(String.valueOf(page), Constants.APPID, PreferenceUUID.getInstence().getUserId(), type, position, "0", HttpAPI.ip, Constants.OS, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()),label);
     }
 
     @Override
@@ -42,4 +44,13 @@ public class HomeModel extends UserModel implements HomeContract.IHomeModel {
         return HttpAPI.getInstence().getServiceApi().getHomeCategory(Constants.APPID);
     }
 
+    @Override
+    public Observable<SearchEntity> search(String title, String lable) {
+        return HttpAPI.getInstence().getServiceApi().search(Constants.APPID,title, lable, HttpAPI.ip);
+    }
+
+    @Override
+    public Observable<LableEntity> getHomeLabel() {
+        return HttpAPI.getInstence().getServiceApi().getHomeLabel();
+    }
 }

@@ -37,11 +37,10 @@ public class MineFeekbackPresenter extends BasePresenter<MineFeekbackContract.IM
                 return;
             }
         }
-        if (TextUtils.isEmpty(contact) || !RegularUtils.isMobileNumber(contact)) {
+        if (TextUtils.isEmpty(contact) || !RegularUtils.isEmail(contact)) {
             showToast("请填写正确的联系方式");
             return;
         }
-
 
         mModel.jobfeedback(userId, content, contact)
                 .compose(schedulersTransformer(HttpAPI.LOADING_CUSTOM_TIME))

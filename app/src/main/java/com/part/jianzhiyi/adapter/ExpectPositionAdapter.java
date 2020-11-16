@@ -65,7 +65,7 @@ public class ExpectPositionAdapter extends RecyclerView.Adapter<ExpectPositionAd
                         tv.setTextColor(mContext.getResources().getColor(R.color.color_666666));
                     }else if (mlist.get(position).getIvType()==1){
                         tv.setBackgroundResource(R.drawable.shape_about_select);
-                        tv.setTextColor(mContext.getResources().getColor(R.color.color_333333));
+                        tv.setTextColor(mContext.getResources().getColor(R.color.color_ffffff));
                     }
                     return tv;
                 }

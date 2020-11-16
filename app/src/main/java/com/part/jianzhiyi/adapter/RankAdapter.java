@@ -1,6 +1,7 @@
 package com.part.jianzhiyi.adapter;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.TextView;
 
 import com.part.jianzhiyi.R;
@@ -27,26 +28,46 @@ public class RankAdapter extends CustomBaseAdapter<JobListResponseEntity2.DataBe
 
     @Override
     protected void convert(ViewHolder viewHolder, JobListResponseEntity2.DataBean item, int position) {
-        ((TextView) viewHolder.getView(R.id.tv_rank)).setText((position + 4) + "");
-        ((TextView) viewHolder.getView(R.id.tv_type_content)).setText(item.getTitle());
-        ((TextView) viewHolder.getView(R.id.tv_price1)).setText(item.getPrice1());
-        ((TextView) viewHolder.getView(R.id.tv_price2)).setText(item.getPrice2());
-        ((TextView) viewHolder.getView(R.id.item_tv_settlement)).setText(item.getMethod());
-        ((TextView) viewHolder.getView(R.id.item_tv_time)).setText(item.getTime());
-
-        if (item.getPlace() == null || item.getPlace() == "") {
-            if (PreferenceUUID.getInstence().getCity() == "" || PreferenceUUID.getInstence().getCity() == null) {
-                ((TextView) viewHolder.getView(R.id.item_tv_place)).setText("不限");
-            } else {
-                ((TextView) viewHolder.getView(R.id.item_tv_place)).setText(PreferenceUUID.getInstence().getCity());
+        if (item != null) {
+            if (position == 0) {
+                ((TextView) viewHolder.getView(R.id.item_rank_position)).setBackgroundResource(R.drawable.icon_rank_one);
+                ((TextView) viewHolder.getView(R.id.item_rank_position)).setText("");
             }
-        } else {
-            ((TextView) viewHolder.getView(R.id.item_tv_place)).setText(item.getPlace());
-        }
-        if (item.getTime() == null || item.getTime() == "") {
-            ((TextView) viewHolder.getView(R.id.item_tv_time)).setText("不限");
-        } else {
-            ((TextView) viewHolder.getView(R.id.item_tv_time)).setText(item.getTime());
+            if (position == 1) {
+                ((TextView) viewHolder.getView(R.id.item_rank_position)).setBackgroundResource(R.drawable.icon_rank_two);
+                ((TextView) viewHolder.getView(R.id.item_rank_position)).setText("");
+            }
+            if (position == 2) {
+                ((TextView) viewHolder.getView(R.id.item_rank_position)).setBackgroundResource(R.drawable.icon_rank_three);
+                ((TextView) viewHolder.getView(R.id.item_rank_position)).setText("");
+            }
+            if (position > 2) {
+                int i = position + 1;
+                ((TextView) viewHolder.getView(R.id.item_rank_position)).setText(String.valueOf(i));
+            }
+            ((TextView) viewHolder.getView(R.id.item_rank_title)).setText(item.getTitle());
+            if (item.getPlace().equals(null) || item.getPlace().equals("")) {
+                if (PreferenceUUID.getInstence().getCity() == "" || PreferenceUUID.getInstence().getCity() == null) {
+                    ((TextView) viewHolder.getView(R.id.item_tv_place)).setText("不限");
+                } else {
+                    ((TextView) viewHolder.getView(R.id.item_tv_place)).setText(PreferenceUUID.getInstence().getCity());
+                }
+            } else {
+                ((TextView) viewHolder.getView(R.id.item_tv_place)).setText(item.getPlace());
+            }
+            if (item.getMethod().equals(null) || item.getMethod().equals("")) {
+                ((View) viewHolder.getView(R.id.view_method)).setVisibility(View.GONE);
+            } else {
+                ((View) viewHolder.getView(R.id.view_method)).setVisibility(View.VISIBLE);
+                ((TextView) viewHolder.getView(R.id.item_tv_method)).setText(item.getMethod());
+            }
+            if (item.getTime() == null || item.getTime() == "") {
+                ((TextView) viewHolder.getView(R.id.item_tv_time)).setText("不限");
+            } else {
+                ((TextView) viewHolder.getView(R.id.item_tv_time)).setText(item.getTime());
+            }
+            ((TextView) viewHolder.getView(R.id.item_rank_price1)).setText(item.getPrice1());
+            ((TextView) viewHolder.getView(R.id.item_rank_price2)).setText(item.getPrice2());
         }
     }
 }

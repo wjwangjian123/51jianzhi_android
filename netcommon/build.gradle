@@ -50,4 +50,5 @@ dependencies {
     api rootProject.ext.dependencies["retrofit-converter-scalars"]
     api rootProject.ext.dependencies["okhttp-logging-interceptor"]
     api rootProject.ext.dependencies["okhttp"]
+    api 'com.jakewharton.rxrelay2:rxrelay:2.1.1'
 }

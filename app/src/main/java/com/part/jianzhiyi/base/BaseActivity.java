@@ -78,7 +78,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     @SuppressLint({"InflateParams", "WrongConstant"})
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
-        View view = getLayoutInflater().inflate(R.layout.activity_base, null);
+        View view = getLayoutInflater().inflate(R.layout.activity_main_base, null);
         //设置填充activity_base布局
         super.setContentView(view);
         setImmerseLayout(view.findViewById(R.id.custom_toolbar));

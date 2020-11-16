@@ -3,9 +3,9 @@
     android:layout_width="263dp"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginHorizontal="48dp"
     android:background="@color/transparency"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_gravity="center_horizontal">
     <LinearLayout
         android:id="@+id/dialog_linear"
         android:layout_width="wrap_content"
@@ -14,7 +14,7 @@
         android:paddingHorizontal="21dp"
         android:paddingTop="@dimen/dimen_20"
         android:paddingBottom="21dp"
-        android:background="@drawable/shape_home_search_bg"
+        android:background="@drawable/shape_bg_white10"
         android:gravity="center"
         android:layout_gravity="center_horizontal">
         <TextView
@@ -22,15 +22,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/color_1E1E1E"
-            android:textSize="@dimen/font_18"
+            android:textSize="21sp"
             android:text="报名成功"/>
         <TextView
             android:id="@+id/dialog_tv_tip"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
-            android:text="请主动联系商家咨询相关工作内容，完成录取流程，否则以放鸽子处理，影响你的信誉"
             android:textColor="@color/color_666666"
-            android:textSize="11sp"
+            android:textSize="@dimen/font_12"
             android:lineSpacingExtra="@dimen/dimen_3"
             android:gravity="center"
             android:layout_marginTop="@dimen/dimen_24"
@@ -39,7 +38,7 @@
             android:id="@+id/dialog_tv_copy"
             android:layout_width="220dp"
             android:layout_height="@dimen/dimen_30"
-            android:textColor="@color/color_333333"
+            android:textColor="@color/color_ffffff"
             android:textSize="@dimen/font_12"
             android:layout_marginTop="@dimen/dimen_15"
             android:layout_gravity="center_horizontal"
@@ -60,10 +59,11 @@
     <TextView
         android:id="@+id/dialog_tv_cancel"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:textSize="@dimen/font_15"
         android:textColor="@color/color_ffffff"
         android:layout_gravity="center_horizontal"
+        android:gravity="center"
         android:padding="@dimen/dimen_12"
         android:visibility="gone"/>
 </LinearLayout>

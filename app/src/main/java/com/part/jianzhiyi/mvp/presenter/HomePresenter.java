@@ -10,6 +10,8 @@ import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.BannerEntity;
 import com.part.jianzhiyi.model.entity.CategoryEntity;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity2;
+import com.part.jianzhiyi.model.entity.LableEntity;
+import com.part.jianzhiyi.model.entity.SearchEntity;
 import com.part.jianzhiyi.mvp.contract.HomeContract;
 import com.part.jianzhiyi.mvp.model.HomeModel;
 import com.part.jianzhiyi.preference.PreferenceUUID;
@@ -27,8 +29,8 @@ public class HomePresenter extends BasePresenter<HomeContract.IHomeModel, HomeCo
         super(mView, new HomeModel());
     }
 
-    public void jobList(String type, String position, int page) {
-        mModel.jobList(PreferenceUUID.getInstence().getUserId(), type, position, page)
+    public void jobList(String type, String position, int page, String label) {
+        mModel.jobList(PreferenceUUID.getInstence().getUserId(), type, position, page, label)
                 .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
                 .subscribe(getResult(new ResultObserver<ResponseData<JobListResponseEntity2>>() {
                     @Override
@@ -106,6 +108,37 @@ public class HomePresenter extends BasePresenter<HomeContract.IHomeModel, HomeCo
                         super.onError(e);
                         Log.i("tag", "解析异常");
                     }
+                }));
+    }
+
+    public void search(String title, String lable) {
+        mModel.search(title, lable)
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<SearchEntity>() {
+                    @Override
+                    public void onNext(SearchEntity searchEntity) {
+                        if (TextUtils.equals(searchEntity.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updatesearch(searchEntity);
+                            }
+                        }
+                    }
+                }));
+    }
+
+    public void getHomeLabel() {
+        mModel.getHomeLabel()
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<LableEntity>() {
+                    @Override
+                    public void onNext(LableEntity lableEntity) {
+                        if (TextUtils.equals(lableEntity.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetHomeLabel(lableEntity);
+                            }
+                        }
+                    }
+
                 }));
     }
 }

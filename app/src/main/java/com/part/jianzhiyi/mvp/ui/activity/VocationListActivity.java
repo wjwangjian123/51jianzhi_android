@@ -26,7 +26,6 @@ import java.util.List;
 
 public class VocationListActivity extends BaseActivity<JobListPresenter> implements ChoiceContract.IChoiceView {
 
-
     private List<JobListResponseEntity> oldList = new ArrayList<>();
     private List<ViewedEntity.DataBean> mBeanList = new ArrayList<>();
     private List<JobListResponseEntity2.DataBean> list = new ArrayList<>();
@@ -148,7 +147,7 @@ public class VocationListActivity extends BaseActivity<JobListPresenter> impleme
                 mPresenter.donedJob();
                 break;
             default:
-                mPresenter.jobList(type, postion, Constants.PAGE_INDEX);
+                mPresenter.jobList(type, postion, Constants.PAGE_INDEX,"0");
         }
     }
 

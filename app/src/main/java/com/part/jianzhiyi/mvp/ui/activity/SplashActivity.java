@@ -28,7 +28,6 @@ import com.part.jianzhiyi.ad.TTAdManagerHolder;
 import com.part.jianzhiyi.ad.UIUtils;
 import com.part.jianzhiyi.app.ODApplication;
 import com.part.jianzhiyi.base.BaseActivity;
-import com.part.jianzhiyi.base.BasePresenter;
 import com.part.jianzhiyi.corecommon.utils.Tools;
 import com.part.jianzhiyi.dbmodel.GreenDaoManager;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
@@ -92,14 +91,15 @@ public class SplashActivity extends BaseActivity<MineUpdateResumePresenter> impl
             loadSplashAd();
         }
 //        if (PreferenceUUID.getInstence().getPv().equals(null)){
-            PreferenceUUID.getInstence().putPv(Tools.getPhoneOSVersion());//手机系统
-            PreferenceUUID.getInstence().putPe(Tools.getManufacturer());//手机厂商
-            PreferenceUUID.getInstence().putPt(Tools.getPhoneType());//手机型号
-            PreferenceUUID.getInstence().putAndroidid(Tools.getDeviceID(ODApplication.context()));//deviceId
-            PreferenceUUID.getInstence().putImei(Tools.getIMEI(ODApplication.context()));//imei
-            PreferenceUUID.getInstence().putUa(Tools.getUa());//ua
-            PreferenceUUID.getInstence().putUa2(Tools.getUa2(ODApplication.context()));//ua2
+        PreferenceUUID.getInstence().putPv(Tools.getPhoneOSVersion());//手机系统
+        PreferenceUUID.getInstence().putPe(Tools.getManufacturer());//手机厂商
+        PreferenceUUID.getInstence().putPt(Tools.getPhoneType());//手机型号
+        PreferenceUUID.getInstence().putAndroidid(Tools.getDeviceID(ODApplication.context()));//deviceId
+        PreferenceUUID.getInstence().putImei(Tools.getIMEI(ODApplication.context()));//imei
+        PreferenceUUID.getInstence().putUa(Tools.getUa());//ua
+        PreferenceUUID.getInstence().putUa2(Tools.getUa2(ODApplication.context()));//ua2
 //        }
+//        goToMainActivity();
     }
 
     private void getExtraInfo() {
@@ -151,14 +151,14 @@ public class SplashActivity extends BaseActivity<MineUpdateResumePresenter> impl
             @MainThread
             public void onError(int code, String message) {
                 Log.d(TAG, String.valueOf(message));
-                Log.d(TAG,message);
+                Log.d(TAG, message);
                 goToMainActivity();
             }
 
             @Override
             @MainThread
             public void onTimeout() {
-                Log.d(TAG,"开屏广告加载超时");
+                Log.d(TAG, "开屏广告加载超时");
                 goToMainActivity();
             }
 
@@ -186,19 +186,19 @@ public class SplashActivity extends BaseActivity<MineUpdateResumePresenter> impl
                     @Override
                     public void onAdClicked(View view, int type) {
                         Log.d(TAG, "onAdClicked");
-                        Log.d(TAG,"开屏广告点击");
+                        Log.d(TAG, "开屏广告点击");
                     }
 
                     @Override
                     public void onAdShow(View view, int type) {
                         Log.d(TAG, "onAdShow");
-                        Log.d(TAG,"开屏广告展示");
+                        Log.d(TAG, "开屏广告展示");
                     }
 
                     @Override
                     public void onAdSkip() {
                         Log.d(TAG, "onAdSkip");
-                        Log.d(TAG,"开屏广告跳过");
+                        Log.d(TAG, "开屏广告跳过");
                         goToMainActivity();
 
                     }
@@ -206,7 +206,7 @@ public class SplashActivity extends BaseActivity<MineUpdateResumePresenter> impl
                     @Override
                     public void onAdTimeOver() {
                         Log.d(TAG, "onAdTimeOver");
-                        Log.d(TAG,"开屏广告倒计时结束");
+                        Log.d(TAG, "开屏广告倒计时结束");
                         goToMainActivity();
                     }
                 });
@@ -221,32 +221,32 @@ public class SplashActivity extends BaseActivity<MineUpdateResumePresenter> impl
                         @Override
                         public void onDownloadActive(long totalBytes, long currBytes, String fileName, String appName) {
                             if (!hasShow) {
-                                Log.d(TAG,"下载中...");
+                                Log.d(TAG, "下载中...");
                                 hasShow = true;
                             }
                         }
 
                         @Override
                         public void onDownloadPaused(long totalBytes, long currBytes, String fileName, String appName) {
-                            Log.d(TAG,"下载暂停...");
+                            Log.d(TAG, "下载暂停...");
 
                         }
 
                         @Override
                         public void onDownloadFailed(long totalBytes, long currBytes, String fileName, String appName) {
-                            Log.d(TAG,"下载失败...");
+                            Log.d(TAG, "下载失败...");
 
                         }
 
                         @Override
                         public void onDownloadFinished(long totalBytes, String fileName, String appName) {
-                            Log.d(TAG,"下载完成...");
+                            Log.d(TAG, "下载完成...");
 
                         }
 
                         @Override
                         public void onInstalled(String fileName, String appName) {
-                            Log.d(TAG,"安装完成...");
+                            Log.d(TAG, "安装完成...");
 
                         }
                     });
@@ -261,6 +261,12 @@ public class SplashActivity extends BaseActivity<MineUpdateResumePresenter> impl
      */
     private void goToMainActivity() {
         toActivity();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                toActivity();
+//            }
+//        }, 2000);
     }
 
     /**
@@ -296,6 +302,7 @@ public class SplashActivity extends BaseActivity<MineUpdateResumePresenter> impl
         // 如果需要的权限都已经有了，那么直接调用SDK
         if (lackedPermission.size() == 0) {
             loadSplashAd();
+//            goToMainActivity();
         } else {
             // 否则，建议请求所缺少的权限，在onRequestPermissionsResult中再看是否获得权限
             String[] requestPermissions = new String[lackedPermission.size()];
@@ -319,8 +326,10 @@ public class SplashActivity extends BaseActivity<MineUpdateResumePresenter> impl
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1024 && hasAllPermissionsGranted(grantResults)) {
             loadSplashAd();
+//            goToMainActivity();
         } else {
             loadSplashAd();
+//            goToMainActivity();
         }
     }
 
@@ -333,7 +342,7 @@ public class SplashActivity extends BaseActivity<MineUpdateResumePresenter> impl
         return timeInMillis;
     }
 
-    private void toActivity(){
+    private void toActivity() {
         //判断是否是第一次登陆
         boolean userLogin = PreferenceUUID.getInstence().isUserLogin();
         //判断是否需要填写简历
@@ -348,47 +357,47 @@ public class SplashActivity extends BaseActivity<MineUpdateResumePresenter> impl
             bundle.putInt("ToLogin", 1);
             intent.putExtras(bundle);
             startActivity(intent);
-        }else {
-            if (!userLogin){
+        } else {
+            if (!userLogin) {
                 Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putInt("ToLogin", 1);
                 intent.putExtras(bundle);
                 startActivity(intent);
-            }else {
-                    //判断是否是当天首次进入App
-                    //如果是跳转到简历模板
-                    if (currentTime<dayTime){
-                        PreferenceUUID.getInstence().putCurrentTime(millis);
-                        if (userInfoEntity.getData().getAge()==null||userInfoEntity.getData().getAge()=="" ||
-                                userInfoEntity.getData().getSex()==null||userInfoEntity.getData().getSex()==""||
-                                userInfoEntity.getData().getProfession()==null||userInfoEntity.getData().getProfession()==""){
-                            Intent intent = new Intent(SplashActivity.this, ResumeActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("ToResume", 1);
-                            bundle.putInt("errorType", 1);
-                            intent.putExtras(bundle);
-                            SplashActivity.this.startActivity(intent);
-                        }else if (userInfoEntity.getData().getJob_status()==null||userInfoEntity.getData().getJob_status()==""||
-                                userInfoEntity.getData().getJob_type()==null||userInfoEntity.getData().getJob_type()==""){
-                            Intent intent = new Intent(SplashActivity.this, MyStatusActivity.class);
-                            startActivity(intent);
-                        }else if (userInfoEntity.getData().getMyitem()==null){
-                            Intent intent = new Intent(SplashActivity.this, AboutMineActivity.class);
-                            startActivity(intent);
-                        }else if (userInfoEntity.getData().getExpect()==null){
-                            Intent intent = new Intent(SplashActivity.this, ExpectPositionActivity.class);
-                            startActivity(intent);
-                        }else {
-                            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                            intent.putExtra("type", 1);
-                            startActivity(intent);
-                        }
-                    }else {
-                        Intent intent=new Intent(SplashActivity.this, MainActivity.class);
+            } else {
+                //判断是否是当天首次进入App
+                //如果是跳转到简历模板
+                if (currentTime < dayTime) {
+                    PreferenceUUID.getInstence().putCurrentTime(millis);
+                    if (userInfoEntity.getData().getAge() == null || userInfoEntity.getData().getAge() == "" ||
+                            userInfoEntity.getData().getSex() == null || userInfoEntity.getData().getSex() == "" ||
+                            userInfoEntity.getData().getProfession() == null || userInfoEntity.getData().getProfession() == "") {
+                        Intent intent = new Intent(SplashActivity.this, ResumeActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("ToResume", 1);
+                        bundle.putInt("errorType", 1);
+                        intent.putExtras(bundle);
+                        SplashActivity.this.startActivity(intent);
+                    } else if (userInfoEntity.getData().getJob_status() == null || userInfoEntity.getData().getJob_status() == "" ||
+                            userInfoEntity.getData().getJob_type() == null || userInfoEntity.getData().getJob_type() == "") {
+                        Intent intent = new Intent(SplashActivity.this, MyStatusActivity.class);
+                        startActivity(intent);
+                    } else if (userInfoEntity.getData().getMyitem() == null) {
+                        Intent intent = new Intent(SplashActivity.this, AboutMineActivity.class);
+                        startActivity(intent);
+                    } else if (userInfoEntity.getData().getExpect() == null) {
+                        Intent intent = new Intent(SplashActivity.this, ExpectPositionActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                         intent.putExtra("type", 1);
                         startActivity(intent);
                     }
+                } else {
+                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                    intent.putExtra("type", 1);
+                    startActivity(intent);
+                }
             }
         }
         mSplashContainer.removeAllViews();

@@ -30,36 +30,12 @@
         android:background="@color/color_EEEEEE"
         android:layout_below="@+id/contact_tv_text"
         android:layout_marginTop="@dimen/dimen_20"/>
-    <LinearLayout
-        android:id="@+id/contact_linear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/contact_view"
-        android:layout_marginTop="14dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="22dp"
-        android:layout_marginRight="21dp">
-        <ImageView
-            android:layout_width="@dimen/dimen_15"
-            android:layout_height="@dimen/dimen_15"
-            android:src="@drawable/icon_tip_bg"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="请主动联系商家咨询相关工作内容，完成录取流程，否则以放鸽子处理，影响你的信誉"
-            android:textSize="@dimen/font_12"
-            android:textColor="@color/color_FF5155"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/dimen_5"
-            android:lineSpacingExtra="@dimen/dimen_3"/>
-    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/contact_recycle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/contact_linear"
-        android:layout_marginTop="17dp"
         android:layout_marginLeft="22dp"
-        android:layout_marginRight="21dp"/>
+        android:layout_marginRight="21dp"
+        android:layout_below="@+id/contact_view"
+        android:layout_marginTop="14dp"/>
 </RelativeLayout>

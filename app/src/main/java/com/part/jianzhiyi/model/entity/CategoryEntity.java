@@ -23,6 +23,15 @@ public class CategoryEntity {
     private String introduction;
     private String type;
     private String position;
+    private String rdtype;
+
+    public String getRdtype() {
+        return rdtype;
+    }
+
+    public void setRdtype(String rdtype) {
+        this.rdtype = rdtype;
+    }
 
     public String getId() {
         return id;

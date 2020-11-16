@@ -9,6 +9,7 @@ import com.part.jianzhiyi.model.entity.ActJobListEntity;
 import com.part.jianzhiyi.model.entity.ActivityEntity;
 import com.part.jianzhiyi.model.entity.ConfigEntity;
 import com.part.jianzhiyi.model.entity.IpResponseEntity;
+import com.part.jianzhiyi.model.entity.SearchEntity;
 import com.part.jianzhiyi.mvp.contract.MainContract;
 import com.part.jianzhiyi.mvp.model.MainModel;
 
@@ -30,7 +31,7 @@ public class MainPresenter extends BasePresenter<MainContract.IMainModel, MainCo
 
     public void getIp() {
         mModel.getIp()
-                .compose(schedulersTransformer(HttpAPI.LOADING_CUSTOM_TIME))
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
                 .subscribe(getResult(new ResultObserver<IpResponseEntity>() {
                     @Override
                     public void onNext(IpResponseEntity jobListResponseEntityResponseData) {

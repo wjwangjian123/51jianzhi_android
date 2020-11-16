@@ -23,7 +23,7 @@ import io.reactivex.Observable;
 public class RankModel extends UserModel implements RankContract.IRankModel{
 
     @Override
-    public Observable<ResponseData<JobListResponseEntity2>> jobList(String type, String position, int page) {
-        return HttpAPI.getInstence().getServiceApi().jobList(String.valueOf(page), Constants.APPID, PreferenceUUID.getInstence().getUserId(),type,position,"0",HttpAPI.ip,Constants.OS, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()));
+    public Observable<ResponseData<JobListResponseEntity2>> jobList(String type, String position, int page,String label) {
+        return HttpAPI.getInstence().getServiceApi().jobList(String.valueOf(page), Constants.APPID, PreferenceUUID.getInstence().getUserId(),type,position,"0",HttpAPI.ip,Constants.OS, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()),label);
     }
 }

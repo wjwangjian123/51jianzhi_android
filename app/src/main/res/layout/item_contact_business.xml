@@ -31,11 +31,13 @@
         android:background="@drawable/shape_resume_btn"
         android:gravity="center"
         android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true"
+        android:singleLine="true"
+        android:ellipsize="end"/>
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_1"
-        android:background="@color/color_EEEEEE"
+        android:layout_height="0.5dp"
+        android:background="#E7ECF5"
         android:layout_below="@+id/con_tv_place"
         android:layout_marginTop="@dimen/dimen_10"/>
 </RelativeLayout>

@@ -16,12 +16,11 @@
             android:id="@+id/lv_recommend_vocation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/dimen_15"
             android:divider="@color/transparency"
             android:dividerHeight="0dp"
             android:listSelector="@color/transparency"
-            android:paddingLeft="@dimen/dimen_15"
-            android:paddingRight="@dimen/dimen_15"
-            android:scrollbars="none" />
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp"
+            android:scrollbars="none"/>
     </LinearLayout>
 </ScrollView>

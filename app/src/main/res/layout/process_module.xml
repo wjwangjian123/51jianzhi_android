@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/icon_task_bg">
+    <TextView
+        android:id="@+id/tv_process_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="任务说明"
+        android:textColor="#777EFD"
+        android:textSize="@dimen/font_20"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"/>
+
+    <LinearLayout
+        android:id="@+id/ll_child_process"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="31dp"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_below="@id/tv_process_label"/>
+
+</RelativeLayout>

@@ -14,7 +14,7 @@ import com.umeng.analytics.MobclickAgent;
 public class MineFeekbackActivity extends BaseActivity<MineFeekbackPresenter> implements MineFeekbackContract.IMineFeekbackView {
 
     private EditText mEtSuggest;
-    private EditText mEtPhone;
+    private EditText mEtEmail;
     private TextView mTvSend;
 
     @Override
@@ -30,7 +30,7 @@ public class MineFeekbackActivity extends BaseActivity<MineFeekbackPresenter> im
     @Override
     protected void initView() {
         mEtSuggest = (EditText) findViewById(R.id.et_suggest);
-        mEtPhone = (EditText) findViewById(R.id.et_phone);
+        mEtEmail = (EditText) findViewById(R.id.et_email);
         mTvSend = (TextView) findViewById(R.id.tv_send);
         initToolbar("意见反馈");
     }
@@ -46,7 +46,7 @@ public class MineFeekbackActivity extends BaseActivity<MineFeekbackPresenter> im
         mTvSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.jobfeedback(mEtSuggest.getText().toString(), mEtPhone.getText().toString());
+                mPresenter.jobfeedback(mEtSuggest.getText().toString(), mEtEmail.getText().toString());
             }
         });
     }

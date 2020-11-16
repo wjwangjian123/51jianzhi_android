@@ -21,7 +21,6 @@
             android:id="@+id/dialog_version_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="有新版本啦！"
             android:textColor="@color/color_333333"
             android:textSize="@dimen/font_16"
             android:layout_marginHorizontal="22dp"/>
@@ -29,7 +28,6 @@
             android:id="@+id/dialog_version_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="新版本可以支持。。。。功能呦！"
             android:textColor="@color/color_999999"
             android:textSize="@dimen/font_12"
             android:layout_marginTop="@dimen/dimen_10"
@@ -48,11 +46,11 @@
             <TextView
                 android:id="@+id/dialog_tv_cancel"
                 android:layout_width="0dp"
-                android:layout_height="35dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="残忍拒绝"
-                android:textColor="@color/color_999999"
+                android:textColor="#D1D1D1"
                 android:textSize="13sp"/>
             <View
                 android:layout_width="@dimen/dimen_1"
@@ -65,7 +63,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="立即升级"
-                android:textColor="@color/color_F3A922"
+                android:textColor="#FD9133"
                 android:textSize="@dimen/font_14"
                 android:layout_marginLeft="13dp"/>
         </LinearLayout>

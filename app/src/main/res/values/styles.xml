@@ -44,4 +44,11 @@
         <attr name="HorizontalProgresTextSize" ></attr>
         <attr name="HorizontalProgresTextOffset"></attr>
     </declare-styleable>
+
+    <style name="MyDialogTheme" parent="dialog">
+        <!-- 是否透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 背景颜色 -->
+        <item name="android:windowBackground">@color/transparency</item>
+    </style>
 </resources>

@@ -215,10 +215,10 @@ public class MyStatusActivity extends BaseActivity<MineUpdateResumePresenter> im
             job_status = entity.getData().getJob_status_type();
             job_type = entity.getData().getJob_position_type();
             for (int i = 0; i < entity.getData().getMyitem().size(); i++) {
-                stringBuffer = stringBuffer.append(entity.getData().getMyitem().get(i).getItem() + ",");
+                stringBuffer = stringBuffer.append(entity.getData().getMyitem().get(i).getId() + ",");
             }
             for (int i = 0; i < entity.getData().getExpect().size(); i++) {
-                stringBuffer1 = stringBuffer1.append(entity.getData().getExpect().get(i).getItem() + ",");
+                stringBuffer1 = stringBuffer1.append(entity.getData().getExpect().get(i).getId() + ",");
             }
             myitem = String.valueOf(stringBuffer);
             expect = String.valueOf(stringBuffer1);

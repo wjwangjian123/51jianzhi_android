@@ -27,7 +27,6 @@ public class HomeVocationListActivity extends BaseActivity<HomeVocationListPrese
     private String type;
     private String category;
     private String postion;
-    private ImageView ivHomeVaction;
     private ListViewInScrollView lvHomeVocation;
     private List<JobListResponseEntity2.DataBean> list = new ArrayList<>();
     private HomeVocationAdapter adapter;
@@ -54,11 +53,7 @@ public class HomeVocationListActivity extends BaseActivity<HomeVocationListPrese
 
     @Override
     protected void initView() {
-        initToolbar(title, R.color.color_F3A922, R.color.color_ffffff, R.drawable.ic_white_back);
-        if (isMaxVersion()) {
-            addStatusViewWithColor(this, getResources().getColor(R.color.color_F3A922));
-        }
-        ivHomeVaction = findViewById(R.id.iv_home_vaction);
+        initToolbar(title);
         lvHomeVocation = findViewById(R.id.lv_home_vocation);
         lvHomeVocation = findViewById(R.id.lv_home_vocation);
         adapter = new HomeVocationAdapter(this, list);
@@ -68,17 +63,7 @@ public class HomeVocationListActivity extends BaseActivity<HomeVocationListPrese
 
     @Override
     protected void initData() {
-        switch (type) {
-            case Constants.TYPE_HIGH_PAY:
-//                postion = Constants.POSITION_HIGH_PAY;
-                ivHomeVaction.setImageResource(R.drawable.ic_salary_title_bg);
-                break;
-            case Constants.TYPE_SPEED_WORK:
-//                postion = Constants.POSITION_SPEED_WORK;
-                ivHomeVaction.setImageResource(R.drawable.ic_speeds_title_bg);
-                break;
-        }
-        mPresenter.jobList(type, postion, Constants.PAGE_INDEX, category);
+        mPresenter.jobList1(type, postion, Constants.PAGE_INDEX, category);
     }
 
     @Override

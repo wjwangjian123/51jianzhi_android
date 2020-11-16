@@ -21,60 +21,20 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_edition"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dimen_15"
-                android:layout_marginRight="@dimen/dimen_18">
-                <TextView
-                    android:id="@+id/tv_edition"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:text="小编推荐"
-                    android:textColor="@color/color_333333"
-                    android:textSize="@dimen/font_16"
-                    android:textStyle="bold"/>
-                <TextView
-                    android:id="@+id/tv_edition_more"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/dimen_5"
-                    android:text="更多"
-                    android:textColor="@color/color_999999"
-                    android:textSize="@dimen/font_12"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toLeftOf="@+id/iv_edition_more"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.5" />
-                <ImageView
-                    android:id="@+id/iv_edition_more"
-                    android:layout_width="@dimen/dimen_5"
-                    android:layout_height="9dp"
-                    android:src="@drawable/ic_grey_more"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.5" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <com.part.jianzhiyi.corecommon.ui.ListViewInScrollView
-                android:id="@+id/lv_recommend"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="11dp"
-                android:layout_marginHorizontal="13dp"
-                android:divider="@color/transparency"
-                android:dividerHeight="0dp"
-                android:listSelector="@color/transparency"
-                android:scrollbars="none"/>
-            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_rank"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_10"
-                android:layout_marginLeft="@dimen/dimen_15"
-                android:layout_marginRight="@dimen/dimen_18">
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="@dimen/dimen_20">
+                <ImageView
+                    android:id="@+id/iv_rank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="5dp"
+                    android:src="@drawable/icon_join_tab"
+                    app:layout_constraintLeft_toLeftOf="@+id/tv_rank"
+                    app:layout_constraintRight_toRightOf="@+id/tv_rank"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_rank"/>
                 <TextView
                     android:id="@+id/tv_rank"
                     android:layout_width="wrap_content"
@@ -82,16 +42,16 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     android:text="每周排行"
-                    android:textColor="@color/color_333333"
-                    android:textSize="@dimen/font_16"
+                    android:textColor="@color/color_292E3B"
+                    android:textSize="@dimen/font_15"
                     android:textStyle="bold"/>
                 <TextView
                     android:id="@+id/tv_rank_more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/dimen_5"
+                    android:layout_marginRight="@dimen/dimen_2"
                     android:text="排行榜"
-                    android:textColor="@color/color_999999"
+                    android:textColor="#979BAC"
                     android:textSize="@dimen/font_12"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toLeftOf="@+id/iv_rank_more"
@@ -107,269 +67,343 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.5" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-            <RelativeLayout
+            <com.part.jianzhiyi.corecommon.ui.ListViewInScrollView
+                android:id="@+id/lv_rank"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dimen_10">
-                <RelativeLayout
-                    android:id="@+id/one_rl"
-                    android:layout_width="119dp"
+                android:divider="@color/transparency"
+                android:dividerHeight="0dp"
+                android:listSelector="@color/transparency"
+                android:scrollbars="none"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="14dp"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_edition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="@dimen/dimen_20">
+                <ImageView
+                    android:id="@+id/iv_edition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="5dp"
+                    android:src="@drawable/icon_join_tab"
+                    app:layout_constraintLeft_toLeftOf="@+id/tv_edition"
+                    app:layout_constraintRight_toRightOf="@+id/tv_edition"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_edition"/>
+                <TextView
+                    android:id="@+id/tv_edition"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_20"
-                    android:background="@drawable/icon_choice_top_two"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:paddingTop="32dp"
-                    android:layout_toLeftOf="@+id/two_rl">
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:text="小编推荐"
+                    android:textColor="@color/color_292E3B"
+                    android:textSize="@dimen/font_15"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/tv_edition_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dimen_2"
+                    android:text="更多"
+                    android:textColor="#979BAC"
+                    android:textSize="@dimen/font_12"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/iv_edition_more"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.5"/>
+                <ImageView
+                    android:id="@+id/iv_edition_more"
+                    android:layout_width="@dimen/dimen_5"
+                    android:layout_height="9dp"
+                    android:src="@drawable/ic_grey_more"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.5"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="173dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="14dp">
+                <RelativeLayout
+                    android:id="@+id/ch_rl_one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="173dp"
+                    android:layout_weight="1"
+                    android:paddingLeft="26dp"
+                    android:paddingTop="27dp"
+                    android:paddingRight="28dp"
+                    android:paddingBottom="26dp"
+                    android:background="@drawable/icon_edition_bg_one"
+                    android:visibility="gone">
                     <TextView
                         android:id="@+id/one_tv_title"
-                        android:layout_width="wrap_content"
+                        android:layout_width="101dp"
                         android:layout_height="wrap_content"
+                        android:textSize="@dimen/font_15"
+                        android:textColor="@color/color_292E3B"
+                        android:textStyle="bold"
+                        android:maxLines="2"
                         android:ellipsize="end"
-                        android:lines="2"
-                        android:lineSpacingExtra="@dimen/dimen_3"
-                        android:textColor="@color/color_333333"
-                        android:textSize="@dimen/font_10"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/one_tv_method"
-                        android:layout_width="wrap_content"
+                        android:lineSpacingExtra="@dimen/dimen_3"/>
+                    <LinearLayout
+                        android:id="@+id/one_ll_info"
+                        android:layout_width="101dp"
                         android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
                         android:layout_below="@+id/one_tv_title"
-                        android:layout_marginTop="@dimen/dimen_10"
-                        android:textColor="@color/color_666666"
-                        android:textSize="7sp" />
-
-                    <View
-                        android:id="@+id/one_view1"
-                        android:layout_width="0.5dp"
-                        android:layout_height="@dimen/dimen_5"
-                        android:layout_alignTop="@+id/one_tv_method"
-                        android:layout_marginLeft="@dimen/dimen_2"
-                        android:layout_marginTop="@dimen/dimen_2"
-                        android:layout_toRightOf="@+id/one_tv_method"
-                        android:background="@color/color_666666" />
-                    <TextView
-                        android:id="@+id/one_tv_time"
+                        android:layout_marginTop="@dimen/dimen_10">
+                        <TextView
+                            android:id="@+id/one_tv_place"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="8sp"
+                            android:textColor="@color/color_717785"/>
+                        <View
+                            android:id="@+id/one_view_method"
+                            android:layout_width="@dimen/dimen_1"
+                            android:layout_height="7dp"
+                            android:background="@color/color_717785"
+                            android:layout_marginLeft="@dimen/dimen_3"/>
+                        <TextView
+                            android:id="@+id/one_tv_method"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="8sp"
+                            android:textColor="@color/color_717785"
+                            android:layout_marginLeft="@dimen/dimen_3"/>
+                        <View
+                            android:id="@+id/one_view_time"
+                            android:layout_width="@dimen/dimen_1"
+                            android:layout_height="7dp"
+                            android:background="@color/color_717785"
+                            android:layout_marginLeft="@dimen/dimen_3"/>
+                        <TextView
+                            android:id="@+id/one_tv_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="8sp"
+                            android:textColor="@color/color_717785"
+                            android:layout_marginLeft="@dimen/dimen_3"/>
+                    </LinearLayout>
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/color_666666"
-                        android:textSize="7sp"
-                        android:layout_alignTop="@+id/one_tv_method"
-                        android:layout_marginLeft="@dimen/dimen_2"
-                        android:layout_toRightOf="@+id/one_view1"/>
-                    <View
-                        android:id="@+id/one_view2"
-                        android:layout_width="0.5dp"
-                        android:layout_height="@dimen/dimen_5"
-                        android:layout_alignTop="@+id/one_tv_method"
-                        android:layout_marginLeft="@dimen/dimen_2"
-                        android:layout_marginTop="@dimen/dimen_2"
-                        android:layout_toRightOf="@+id/one_tv_time"
-                        android:background="@color/color_666666" />
-                    <TextView
-                        android:id="@+id/one_tv_sex"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dimen_2"
-                        android:layout_toRightOf="@+id/one_view2"
-                        android:textColor="@color/color_666666"
-                        android:textSize="7sp"
-                        android:layout_alignTop="@+id/one_tv_method"/>
-                    <ImageView
-                        android:id="@+id/one_iv_score"
-                        android:layout_width="22dp"
-                        android:layout_height="13dp"
-                        android:layout_below="@+id/one_tv_method"
-                        android:layout_marginTop="17dp"
-                        android:src="@drawable/icon_choice_two"/>
-                    <TextView
-                        android:id="@+id/one_tv_num"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/color_666666"
-                        android:textSize="@dimen/font_8"
-                        android:gravity="right"
-                        android:layout_toRightOf="@+id/one_iv_score"
-                        android:layout_marginLeft="@dimen/dimen_3"
-                        android:layout_alignBottom="@+id/one_iv_score"
-                        android:layout_alignParentRight="true"/>
+                        android:orientation="horizontal"
+                        android:gravity="bottom"
+                        android:layout_alignParentBottom="true">
+                        <TextView
+                            android:id="@+id/one_tv_price1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="19sp"
+                            android:textColor="@color/color_text_theme"
+                            android:textStyle="bold"
+                            android:gravity="bottom"/>
+                        <TextView
+                            android:id="@+id/one_tv_price2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/font_15"
+                            android:textColor="@color/color_text_theme"/>
+                    </LinearLayout>
                 </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/two_rl"
-                    android:layout_width="119dp"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:paddingTop="45dp"
-                    android:layout_marginTop="@dimen/dimen_1"
-                    android:background="@drawable/icon_choice_top_one"
-                    android:layout_centerHorizontal="true">
-                    <TextView
-                        android:id="@+id/two_tv_title"
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="173dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <RelativeLayout
+                        android:id="@+id/ch_rl_two"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/color_333333"
-                        android:textSize="@dimen/font_10"
-                        android:textStyle="bold"
-                        android:lines="2"
-                        android:ellipsize="end"
-                        android:lineSpacingExtra="@dimen/dimen_3"/>
-                    <TextView
-                        android:id="@+id/two_tv_method"
+                        android:layout_weight="1"
+                        android:paddingLeft="22dp"
+                        android:paddingTop="19dp"
+                        android:paddingRight="33dp"
+                        android:paddingBottom="@dimen/dimen_15"
+                        android:background="@drawable/icon_edition_bg_two"
+                        android:visibility="gone">
+                        <TextView
+                            android:id="@+id/two_tv_title"
+                            android:layout_width="128dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:textColor="@color/color_292E3B"
+                            android:textStyle="bold"
+                            android:singleLine="true"
+                            android:ellipsize="end"/>
+                        <LinearLayout
+                            android:id="@+id/two_ll_info"
+                            android:layout_width="128dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_below="@+id/two_tv_title"
+                            android:layout_marginTop="@dimen/dimen_3">
+                            <TextView
+                                android:id="@+id/two_tv_place"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="8sp"
+                                android:textColor="@color/color_717785"/>
+                            <View
+                                android:id="@+id/two_view_place"
+                                android:layout_width="@dimen/dimen_1"
+                                android:layout_height="7dp"
+                                android:background="@color/color_717785"
+                                android:layout_marginLeft="@dimen/dimen_3"/>
+                            <TextView
+                                android:id="@+id/two_tv_method"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="8sp"
+                                android:textColor="@color/color_717785"
+                                android:layout_marginLeft="@dimen/dimen_3"/>
+                            <View
+                                android:id="@+id/two_view_method"
+                                android:layout_width="@dimen/dimen_1"
+                                android:layout_height="7dp"
+                                android:background="@color/color_717785"
+                                android:layout_marginLeft="@dimen/dimen_3"/>
+                            <TextView
+                                android:id="@+id/two_tv_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="8sp"
+                                android:textColor="@color/color_717785"
+                                android:layout_marginLeft="@dimen/dimen_3"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="bottom"
+                            android:layout_alignParentBottom="true">
+                            <TextView
+                                android:id="@+id/two_tv_price1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/font_14"
+                                android:textColor="@color/color_text_theme"
+                                android:textStyle="bold"
+                                android:gravity="bottom"/>
+                            <TextView
+                                android:id="@+id/two_tv_price2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="11sp"
+                                android:textColor="@color/color_text_theme"/>
+                        </LinearLayout>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/ch_rl_three"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/color_666666"
-                        android:textSize="7sp"
-                        android:layout_below="@+id/two_tv_title"
-                        android:layout_marginTop="@dimen/dimen_10"/>
-                    <View
-                        android:id="@+id/two_view1"
-                        android:layout_width="0.5dp"
-                        android:layout_height="@dimen/dimen_5"
-                        android:background="@color/color_666666"
-                        android:layout_alignTop="@+id/two_tv_method"
-                        android:layout_toRightOf="@+id/two_tv_method"
-                        android:layout_marginLeft="@dimen/dimen_2"
-                        android:layout_marginTop="@dimen/dimen_2"/>
-                    <TextView
-                        android:id="@+id/two_tv_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/color_666666"
-                        android:textSize="7sp"
-                        android:layout_alignTop="@+id/two_tv_method"
-                        android:layout_toRightOf="@+id/two_view1"
-                        android:layout_marginLeft="@dimen/dimen_2"/>
-                    <View
-                        android:id="@+id/two_view2"
-                        android:layout_width="0.5dp"
-                        android:layout_height="@dimen/dimen_5"
-                        android:background="@color/color_666666"
-                        android:layout_alignTop="@+id/two_tv_method"
-                        android:layout_toRightOf="@+id/two_tv_time"
-                        android:layout_marginLeft="@dimen/dimen_2"
-                        android:layout_marginTop="@dimen/dimen_2"/>
-                    <TextView
-                        android:id="@+id/two_tv_sex"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/color_666666"
-                        android:textSize="7sp"
-                        android:layout_alignTop="@+id/two_tv_method"
-                        android:layout_toRightOf="@+id/two_view2"
-                        android:layout_marginLeft="@dimen/dimen_2"/>
-                    <ImageView
-                        android:id="@+id/two_iv_score"
-                        android:layout_width="22dp"
-                        android:layout_height="13dp"
-                        android:layout_below="@+id/two_tv_method"
-                        android:layout_marginTop="17dp"
-                        android:src="@drawable/icon_choice_one"/>
-                    <TextView
-                        android:id="@+id/two_tv_num"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/font_8"
-                        android:textColor="@color/color_666666"
-                        android:gravity="right"
-                        android:layout_toRightOf="@+id/two_iv_score"
-                        android:layout_marginLeft="@dimen/dimen_3"
-                        android:layout_alignBottom="@+id/two_iv_score"
-                        android:layout_alignParentRight="true"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/three_rl"
-                    android:layout_width="119dp"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:paddingTop="32dp"
-                    android:layout_marginTop="@dimen/dimen_20"
-                    android:background="@drawable/icon_choice_top_three"
-                    android:layout_toRightOf="@+id/two_rl">
-                    <TextView
-                        android:id="@+id/three_tv_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/color_333333"
-                        android:textSize="@dimen/font_10"
-                        android:textStyle="bold"
-                        android:lines="2"
-                        android:ellipsize="end"
-                        android:lineSpacingExtra="@dimen/dimen_3"/>
-                    <TextView
-                        android:id="@+id/three_tv_method"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/color_666666"
-                        android:textSize="7sp"
-                        android:layout_below="@+id/three_tv_title"
-                        android:layout_marginTop="@dimen/dimen_10"/>
-                    <View
-                        android:id="@+id/three_view1"
-                        android:layout_width="0.5dp"
-                        android:layout_height="@dimen/dimen_5"
-                        android:background="@color/color_666666"
-                        android:layout_alignTop="@+id/three_tv_method"
-                        android:layout_toRightOf="@+id/three_tv_method"
-                        android:layout_marginLeft="@dimen/dimen_2"
-                        android:layout_marginTop="@dimen/dimen_2"/>
-                    <TextView
-                        android:id="@+id/three_tv_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/color_666666"
-                        android:textSize="7sp"
-                        android:layout_alignTop="@+id/three_tv_method"
-                        android:layout_toRightOf="@+id/three_view1"
-                        android:layout_marginLeft="@dimen/dimen_2"/>
-                    <View
-                        android:id="@+id/three_view2"
-                        android:layout_width="0.5dp"
-                        android:layout_height="@dimen/dimen_5"
-                        android:background="@color/color_666666"
-                        android:layout_alignTop="@+id/three_tv_method"
-                        android:layout_toRightOf="@+id/three_tv_time"
-                        android:layout_marginLeft="@dimen/dimen_2"
-                        android:layout_marginTop="@dimen/dimen_2"/>
-                    <TextView
-                        android:id="@+id/three_tv_sex"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/color_666666"
-                        android:textSize="7sp"
-                        android:layout_alignTop="@+id/three_tv_method"
-                        android:layout_toRightOf="@+id/three_view2"
-                        android:layout_marginLeft="@dimen/dimen_2"/>
-                    <ImageView
-                        android:id="@+id/three_iv_score"
-                        android:layout_width="22dp"
-                        android:layout_height="13dp"
-                        android:layout_below="@+id/three_tv_method"
-                        android:layout_marginTop="17dp"
-                        android:src="@drawable/icon_choice_three"/>
-                    <TextView
-                        android:id="@+id/three_tv_num"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/font_8"
-                        android:textColor="@color/color_666666"
-                        android:gravity="right"
-                        android:layout_toRightOf="@+id/three_iv_score"
-                        android:layout_marginLeft="@dimen/dimen_3"
-                        android:layout_alignBottom="@+id/three_iv_score"
-                        android:layout_alignParentRight="true"/>
-                </RelativeLayout>
-            </RelativeLayout>
+                        android:layout_weight="1"
+                        android:paddingLeft="22dp"
+                        android:paddingTop="19dp"
+                        android:paddingRight="33dp"
+                        android:paddingBottom="@dimen/dimen_15"
+                        android:background="@drawable/icon_edition_bg_three"
+                        android:visibility="gone">
+                        <TextView
+                            android:id="@+id/three_tv_title"
+                            android:layout_width="128dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:textColor="@color/color_292E3B"
+                            android:textStyle="bold"
+                            android:singleLine="true"
+                            android:ellipsize="end"/>
+                        <LinearLayout
+                            android:id="@+id/three_ll_info"
+                            android:layout_width="128dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_below="@+id/three_tv_title"
+                            android:layout_marginTop="@dimen/dimen_3">
+                            <TextView
+                                android:id="@+id/three_tv_place"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="8sp"
+                                android:textColor="@color/color_717785"/>
+                            <View
+                                android:id="@+id/three_view_place"
+                                android:layout_width="@dimen/dimen_1"
+                                android:layout_height="7dp"
+                                android:background="@color/color_717785"
+                                android:layout_marginLeft="@dimen/dimen_3"/>
+                            <TextView
+                                android:id="@+id/three_tv_method"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="8sp"
+                                android:textColor="@color/color_717785"
+                                android:layout_marginLeft="@dimen/dimen_3"/>
+                            <View
+                                android:id="@+id/three_view_method"
+                                android:layout_width="@dimen/dimen_1"
+                                android:layout_height="7dp"
+                                android:background="@color/color_717785"
+                                android:layout_marginLeft="@dimen/dimen_3"/>
+                            <TextView
+                                android:id="@+id/three_tv_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="8sp"
+                                android:textColor="@color/color_717785"
+                                android:layout_marginLeft="@dimen/dimen_3"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="bottom"
+                            android:layout_alignParentBottom="true">
+                            <TextView
+                                android:id="@+id/three_tv_price1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/font_14"
+                                android:textColor="@color/color_text_theme"
+                                android:textStyle="bold"
+                                android:gravity="bottom"/>
+                            <TextView
+                                android:id="@+id/three_tv_price2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="11sp"
+                                android:textColor="@color/color_text_theme"/>
+                        </LinearLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_selected"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="27dp"
-                android:layout_marginLeft="@dimen/dimen_15"
-                android:layout_marginRight="@dimen/dimen_18">
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="@dimen/dimen_20">
+                <ImageView
+                    android:id="@+id/iv_selected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="5dp"
+                    android:src="@drawable/icon_join_tab"
+                    app:layout_constraintLeft_toLeftOf="@+id/tv_selected"
+                    app:layout_constraintRight_toRightOf="@+id/tv_selected"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_selected"/>
                 <TextView
                     android:id="@+id/tv_selected"
                     android:layout_width="wrap_content"
@@ -377,21 +411,21 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     android:text="推荐精选"
-                    android:textColor="@color/color_333333"
-                    android:textSize="@dimen/font_16"
+                    android:textColor="@color/color_292E3B"
+                    android:textSize="@dimen/font_15"
                     android:textStyle="bold"/>
                 <TextView
                     android:id="@+id/tv_selected_more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/dimen_5"
+                    android:layout_marginRight="@dimen/dimen_2"
                     android:text="更多"
-                    android:textColor="@color/color_999999"
+                    android:textColor="#979BAC"
                     android:textSize="@dimen/font_12"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toLeftOf="@+id/iv_selected_more"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.5" />
+                    app:layout_constraintVertical_bias="0.5"/>
                 <ImageView
                     android:id="@+id/iv_selected_more"
                     android:layout_width="@dimen/dimen_5"
@@ -400,25 +434,28 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.5" />
+                    app:layout_constraintVertical_bias="0.5"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
             <com.part.jianzhiyi.corecommon.ui.ListViewInScrollView
                 android:id="@+id/lv_selected"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="11dp"
                 android:layout_marginHorizontal="13dp"
                 android:divider="@color/transparency"
                 android:dividerHeight="@dimen/dimen_1"
                 android:listSelector="@color/transparency"
-                android:scrollbars="none" />
+                android:scrollbars="none"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="14dp"/>
             <RelativeLayout
                 android:id="@+id/express_rl_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/dimen_15"
                 android:layout_marginTop="11dp"
-                android:layout_marginBottom="@dimen/dimen_10">
+                android:layout_marginBottom="@dimen/dimen_10"
+                android:visibility="gone">
                 <FrameLayout
                     android:id="@+id/express_container"
                     android:layout_width="match_parent"

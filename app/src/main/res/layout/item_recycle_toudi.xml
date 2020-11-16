@@ -1,35 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/color_ffffff">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/con"
+    android:background="@color/color_ffffff"
+    android:orientation="vertical">
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/dimen_20"
         android:paddingLeft="19dp"
-        android:paddingRight="@dimen/dimen_18"
-        app:layout_constraintTop_toTopOf="parent">
+        android:paddingRight="@dimen/dimen_18">
         <TextView
             android:id="@+id/item_tv_jobname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/font_15"
             android:textColor="@color/color_333333"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textStyle="bold"
             android:layout_marginRight="90dp"
             android:singleLine="true"
             android:ellipsize="end"/>
-        <TextView
-            android:id="@+id/item_tv_price"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/font_16"
-            android:textColor="@color/color_F3AF3D"
-            android:textStyle="bold"
-            app:layout_constraintRight_toRightOf="parent"/>
+            android:orientation="horizontal"
+            android:gravity="bottom"
+            android:layout_alignParentRight="true">
+            <TextView
+                android:id="@+id/item_tv_price1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/font_16"
+                android:textColor="#FD833A"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/item_tv_price2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:textColor="#FD833A"/>
+        </LinearLayout>
         <TextView
             android:id="@+id/item_tv_company"
             android:layout_width="wrap_content"
@@ -38,38 +49,24 @@
             android:ellipsize="end"
             android:textSize="@dimen/font_10"
             android:textColor="@color/color_666666"
-            app:layout_constraintTop_toBottomOf="@+id/item_tv_jobname"
+            android:layout_below="@+id/item_tv_jobname"
             android:layout_marginTop="@dimen/dimen_8"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            app:layout_constraintTop_toBottomOf="@+id/item_tv_company"
+            android:layout_below="@+id/item_tv_company"
             android:layout_marginTop="@dimen/dimen_10">
-            <ImageView
-                android:layout_width="@dimen/dimen_10"
-                android:layout_height="@dimen/dimen_10"
-                android:src="@drawable/icon_dizhi"/>
             <TextView
-                android:id="@+id/item_tv_address"
+                android:id="@+id/item_tv_place"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="@dimen/dimen_2"
                 android:textSize="@dimen/font_10"
-                android:textColor="@color/color_999999"
-                android:layout_marginLeft="@dimen/dimen_3"/>
-            <ImageView
-                android:layout_width="@dimen/dimen_10"
-                android:layout_height="9dp"
-                android:src="@drawable/icon_shijian"
-                android:layout_marginLeft="@dimen/dimen_10"/>
-            <TextView
-                android:id="@+id/item_tv_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/font_10"
-                android:textColor="@color/color_999999"
-                android:layout_marginLeft="@dimen/dimen_3"/>
+                android:textColor="@color/color_666666"
+                android:background="@drawable/shape_text_grey"/>
             <TextView
                 android:id="@+id/item_tv_settlement"
                 android:layout_width="wrap_content"
@@ -77,15 +74,14 @@
                 android:paddingHorizontal="6dp"
                 android:paddingVertical="@dimen/dimen_2"
                 android:textSize="@dimen/font_10"
-                android:textColor="@color/color_999999"
-                android:layout_marginLeft="@dimen/dimen_12"
+                android:textColor="@color/color_666666"
+                android:layout_marginLeft="@dimen/dimen_10"
                 android:background="@drawable/shape_text_grey"/>
         </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="6dp"
         android:background="@color/color_F7F8FA"
-        app:layout_constraintTop_toBottomOf="@+id/con"
         android:layout_marginTop="@dimen/dimen_20"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

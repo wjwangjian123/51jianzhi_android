@@ -44,7 +44,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View inflate = inflater.inflate(R.layout.activity_base, container, false);
+        View inflate = inflater.inflate(R.layout.activity_main_base, container, false);
         fragmentContainer = inflate.findViewById(R.id.custom_toolbar);
         mActivity.setImmerseLayout(fragmentContainer);
         fragmentView = LayoutInflater.from(mActivity).inflate(getLayoutId(), null);

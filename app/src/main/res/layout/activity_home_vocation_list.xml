@@ -1,38 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="none"
-    android:background="@color/color_F7F7F7"
+    android:orientation="vertical"
+    android:background="@color/color_F7F8FA"
     tools:context=".mvp.ui.activity.HomeVocationListActivity">
-    <LinearLayout
+    <com.part.jianzhiyi.corecommon.ui.ObservableScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <ImageView
-            android:id="@+id/iv_home_vaction"
-            android:layout_width="match_parent"
-            android:layout_height="153dp"
-            android:layout_marginTop="@dimen/dimen_15"
-            android:layout_marginLeft="@dimen/dimen_15"
-            android:layout_marginRight="@dimen/dimen_15"
-            android:scaleType="fitXY"
-            android:layout_marginBottom="@dimen/dimen_18"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:src="@drawable/ic_salary_title_bg" />
-
+        android:overScrollMode="never"
+        android:scrollbars="none">
         <com.part.jianzhiyi.corecommon.ui.ListViewInScrollView
             android:id="@+id/lv_home_vocation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@color/transparency"
-            android:dividerHeight="0dp"
+            android:dividerHeight="14dp"
             android:scrollbars="none"
             android:listSelector="@color/transparency"
-            android:paddingLeft="@dimen/dimen_15"
-            android:paddingRight="@dimen/dimen_15" />
-    </LinearLayout>
-</ScrollView>
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="@dimen/dimen_20"
+            android:paddingBottom="@dimen/dimen_20"/>
+    </com.part.jianzhiyi.corecommon.ui.ObservableScrollView>
+</LinearLayout>

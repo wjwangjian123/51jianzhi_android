@@ -11,12 +11,13 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-
+        flavorDimensions "default"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
         multiDexEnabled true
-        ndk {
-            abiFilters "armeabi-v7a", "x86"
-        }
+//        ndk {
+//            abiFilters "armeabi-v7a", "x86"
+//        }
     }
 
     //签名
@@ -46,8 +47,8 @@ android {
     }
 
     compileOptions {
-        targetCompatibility 1.8
-        sourceCompatibility 1.8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     packagingOptions {
@@ -77,9 +78,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation project(':corecommon')
-    implementation project(':netcommon')
-    implementation(name: 'open_ad_sdk', ext: 'aar')
+
     implementation 'org.greenrobot:greendao:3.2.2' // 添加库
     // 友盟统计SDK
     implementation "com.umeng.umsdk:analytics:8.1.3"
@@ -95,8 +94,17 @@ dependencies {
     implementation 'com.aliyun.ams:huawei-push-base:2.6.3.305'
     implementation 'com.aliyun.ams:meizu-push:3.8.7.1'
     implementation 'com.aliyun.ams:third_vivopush:2.9.0.1'
-    //
+
     implementation 'com.amap.api:location:4.9.0'
     implementation files('libs/du.jar')
+    implementation(name: 'open_ad_sdk', ext: 'aar')
+    implementation files('libs/msa_mdid_1.0.13.aar')
+    implementation project(':corecommon')
+    implementation project(':netcommon')
 
+    implementation files('libs/moku-planet-api-native-sdk-1.0.1.aar')
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+    // 支付宝 SDK AAR 包所需的配置
+    implementation (name: 'alipaySdk-15.7.9-20200727142814-noUtdid', ext: 'aar')
 }

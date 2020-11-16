@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="263dp"
+    android:layout_width="254dp"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="48dp"
     android:orientation="vertical"
-    android:background="@color/transparency">
+    android:background="@color/transparency"
+    android:layout_gravity="center_horizontal">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="254dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingTop="26dp"
-        android:background="@drawable/shape_home_search_bg"
+        android:background="@drawable/shape_bg_white10"
         android:gravity="center_horizontal"
         android:layout_gravity="center_horizontal">
         <TextView
@@ -62,7 +62,7 @@
                 android:layout_weight="1"
                 android:text="立即联系"
                 android:textSize="@dimen/font_14"
-                android:textColor="@color/color_F3A922"
+                android:textColor="#EB6848"
                 android:gravity="center"/>
         </LinearLayout>
     </LinearLayout>

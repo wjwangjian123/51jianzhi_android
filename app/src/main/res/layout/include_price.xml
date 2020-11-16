@@ -4,19 +4,11 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:text="￥"
-        android:textColor="@color/color_F3AF3D"
-        android:textStyle="bold"
-        android:textSize="@dimen/font_8" />
-    <TextView
         android:id="@+id/tv_price1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:textColor="@color/color_F3AF3D"
+        android:textColor="@color/color_text_theme"
         android:textStyle="bold"
         android:textSize="@dimen/font_16" />
     <TextView
@@ -24,7 +16,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginLeft="@dimen/dimen_1"
-        android:textColor="@color/color_666666"
-        android:textSize="@dimen/font_8" />
+        android:textColor="@color/color_text_theme"
+        android:textSize="13sp" />
 </LinearLayout>

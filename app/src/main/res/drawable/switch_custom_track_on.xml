@@ -4,7 +4,10 @@
     <!--圆角-->
     <corners android:radius="11dp" />
     <!--背景-->
-    <gradient android:startColor="@color/color_FFB347"
-        android:endColor="@color/color_FFCC33"/>
-
+    <gradient
+        android:angle="180"
+        android:endColor="@color/color_FD9301"
+        android:startColor="@color/color_FD6C00"
+        android:type="linear"
+        android:useLevel="true" />
 </shape>

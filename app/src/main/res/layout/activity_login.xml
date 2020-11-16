@@ -9,7 +9,8 @@
     tools:context=".mvp.ui.activity.LoginActivity">
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -30,11 +31,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="41dp"
                 android:layout_marginHorizontal="49dp"/>
+            <TextView
+                android:id="@+id/login_tv_other"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="一键登录"
+                android:textSize="13sp"
+                android:padding="@dimen/dimen_5"
+                android:textColor="@color/color_999999"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="23dp"/>
             <LinearLayout
                 android:id="@+id/login_linear"
                 android:layout_width="67dp"
                 android:layout_height="67dp"
-                android:layout_marginTop="54dp"
+                android:layout_marginTop="28dp"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:layout_gravity="center_horizontal"
@@ -45,43 +56,33 @@
                     android:gravity="center"
                     android:src="@drawable/icon_login_jiantou"/>
             </LinearLayout>
-            <TextView
-                android:id="@+id/login_tv_other"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="本机手机号一键登录"
-                android:textSize="11sp"
-                android:padding="@dimen/dimen_5"
-                android:textColor="@color/color_5C6272"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/dimen_20"/>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:paddingVertical="@dimen/dimen_5"
-                android:paddingHorizontal="@dimen/dimen_5"
                 android:orientation="horizontal"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/dimen_60">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="点击登录/注册即表示同意"
-                    android:textSize="11sp"
-                    android:textColor="@color/color_666666"
-                    android:layout_gravity="center"
-                    android:gravity="center"/>
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal">
+                <CheckBox
+                    android:id="@+id/login_ck"
+                    android:layout_width="@dimen/dimen_20"
+                    android:layout_height="@dimen/dimen_20"
+                    android:button="@drawable/selector_login"
+                    android:layout_alignTop="@+id/login_tv_agree"
+                    android:gravity="top"
+                    android:layout_marginTop="@dimen/dimen_1"/>
                 <TextView
                     android:id="@+id/login_tv_agree"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="@dimen/dimen_5"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="《用户协议》"
                     android:textSize="11sp"
-                    android:textColor="@color/color_FFC308"/>
-            </LinearLayout>
+                    android:textColor="@color/color_666666"
+                    android:gravity="center"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toRightOf="@+id/login_ck"
+                    android:lineSpacingExtra="@dimen/dimen_3"
+                    android:layout_marginLeft="-3dp"/>
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

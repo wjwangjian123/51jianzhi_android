@@ -37,23 +37,19 @@ public class FavouriteAdapter extends CustomBaseAdapter<JobListResponseEntity> {
     @Override
     protected void convert(ViewHolder viewHolder, JobListResponseEntity item, int position) {
         if (item != null) {
-            ((TextView) viewHolder.getView(R.id.fa_tv_jobname)).setText(item.getTitle());
-            ((TextView) viewHolder.getView(R.id.fa_tv_price)).setText(item.getPrice());
-            ((TextView) viewHolder.getView(R.id.fa_tv_company)).setText(item.getCompany());
-            ((TextView) viewHolder.getView(R.id.fa_tv_settlement)).setText(item.getMethod());
+            ((TextView) viewHolder.getView(R.id.item_tv_jobname)).setText(item.getTitle());
+            ((TextView) viewHolder.getView(R.id.item_tv_price1)).setText(item.getPrice1());
+            ((TextView) viewHolder.getView(R.id.item_tv_price2)).setText(item.getPrice2());
+            ((TextView) viewHolder.getView(R.id.item_tv_company)).setText(item.getCompany());
+            ((TextView) viewHolder.getView(R.id.item_tv_settlement)).setText(item.getMethod());
             if (item.getPlace() == null || item.getPlace() == "") {
                 if (PreferenceUUID.getInstence().getCity() == "" || PreferenceUUID.getInstence().getCity() == null) {
-                    ((TextView) viewHolder.getView(R.id.fa_tv_address)).setText("不限");
+                    ((TextView) viewHolder.getView(R.id.item_tv_place)).setText("不限");
                 } else {
-                    ((TextView) viewHolder.getView(R.id.fa_tv_address)).setText(PreferenceUUID.getInstence().getCity());
+                    ((TextView) viewHolder.getView(R.id.item_tv_place)).setText(PreferenceUUID.getInstence().getCity());
                 }
             } else {
-                ((TextView) viewHolder.getView(R.id.fa_tv_address)).setText(item.getPlace());
-            }
-            if (item.getTime() == null || item.getTime() == "") {
-                ((TextView) viewHolder.getView(R.id.fa_tv_time)).setText("不限");
-            } else {
-                ((TextView) viewHolder.getView(R.id.fa_tv_time)).setText(item.getTime());
+                ((TextView) viewHolder.getView(R.id.item_tv_place)).setText(item.getPlace());
             }
             viewHolder.getView(R.id.fa_tv_cancel).setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="263dp"
+    android:layout_width="254dp"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <LinearLayout
-        android:layout_width="263dp"
+        android:layout_width="254dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="27dp"
-        android:background="@drawable/shape_tip_bg"
+        android:paddingTop="41dp"
+        android:background="@drawable/shape_bg_white6"
         android:gravity="center_horizontal"
         android:layout_gravity="center_horizontal">
         <TextView
@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_20"
-            android:textSize="13sp"
+            android:textSize="@dimen/font_16"
             android:textColor="@color/color_333333"
             android:gravity="center"
             android:layout_gravity="center_horizontal"/>
@@ -26,14 +26,14 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_1"
             android:background="@color/color_EEEEEE"
-            android:layout_marginTop="27dp"/>
+            android:layout_marginTop="36dp"/>
         <TextView
             android:id="@+id/tv_back"
             android:layout_width="match_parent"
-            android:layout_height="47dp"
+            android:layout_height="45dp"
             android:text="返回"
-            android:textSize="@dimen/font_15"
-            android:textColor="@color/color_F3A922"
+            android:textSize="@dimen/font_16"
+            android:textColor="#FE7023"
             android:gravity="center"
             android:layout_gravity="center_horizontal"/>
     </LinearLayout>

@@ -26,8 +26,8 @@ public class JobListPresenter extends BasePresenter<ChoiceContract.IChoiceModel,
         super(mView, new JobListModel());
     }
 
-    public void jobList(String type, String position, int page) {
-        mModel.jobList(PreferenceUUID.getInstence().getUserId(), type, position, page)
+    public void jobList(String type, String position, int page,String label) {
+        mModel.jobList(PreferenceUUID.getInstence().getUserId(), type, position, page,label)
                 .compose(schedulersTransformer(HttpAPI.LOADING_CUSTOM_TIME))
                 .subscribe(getResult(new ResultObserver<ResponseData<JobListResponseEntity2>>() {
                     @Override

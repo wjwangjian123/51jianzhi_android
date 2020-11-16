@@ -22,12 +22,12 @@ import io.reactivex.Observable;
  **/
 public class HomeVocationListModel implements HomeVocationListContract.IVocationListModel {
     @Override
-    public Observable<ResponseData<JobListResponseEntity2>> jobList(String userid, String type, String position, int page, String category) {
-        return HttpAPI.getInstence().getServiceApi().jobList(String.valueOf(page), Constants.APPID, PreferenceUUID.getInstence().getUserId(), type, position, "0", HttpAPI.ip, Constants.OS, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()), category);
+    public Observable<ResponseData<JobListResponseEntity2>> jobList1(String userid, String type, String position, int page, String category) {
+        return HttpAPI.getInstence().getServiceApi().jobList1(String.valueOf(page), Constants.APPID, PreferenceUUID.getInstence().getUserId(), type, position, "0", HttpAPI.ip, Constants.OS, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()), category);
     }
 
     @Override
-    public Observable<ResponseData<JobListResponseEntity2>> jobList(String userid, String type, String position, int page) {
-        return HttpAPI.getInstence().getServiceApi().jobList(String.valueOf(page), Constants.APPID, PreferenceUUID.getInstence().getUserId(), type, position, "0", HttpAPI.ip, Constants.OS, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()));
+    public Observable<ResponseData<JobListResponseEntity2>> jobList(String userid, String type, String position, int page,String label) {
+        return HttpAPI.getInstence().getServiceApi().jobList(String.valueOf(page), Constants.APPID, PreferenceUUID.getInstence().getUserId(), type, position, "0", HttpAPI.ip, Constants.OS, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()),label);
     }
 }

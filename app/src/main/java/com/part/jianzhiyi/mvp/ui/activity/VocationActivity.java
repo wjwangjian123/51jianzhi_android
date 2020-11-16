@@ -15,7 +15,6 @@ import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -32,7 +31,6 @@ import com.part.jianzhiyi.adapter.HomeLoveAdapter;
 import com.part.jianzhiyi.base.BaseActivity;
 import com.part.jianzhiyi.corecommon.constants.ConstantsDimens;
 import com.part.jianzhiyi.corecommon.ui.ListViewInScrollView;
-import com.part.jianzhiyi.corecommon.ui.ObservableScrollView;
 import com.part.jianzhiyi.corecommon.utils.CopyTextLibrary;
 import com.part.jianzhiyi.corecommon.utils.DateUtils;
 import com.part.jianzhiyi.corecommon.utils.UiUtils;
@@ -52,23 +50,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 @Route(path = "/app/activity/vocation")
 public class VocationActivity extends BaseActivity<VocationPresenter> implements VocationContract.IVocationView {
 
     private TextView tvJoined;
     private ImageView mVoIvReturn;
     private TextView tvJobTitle;
-    private ImageView ivFavourite;
+    private TextView tvFavourite;
     private TextView mTvMethod;
-    private TextView mTvLable;
-    private TextView mTvNum;
+    private TextView mTvTime;
+    private TextView mTvSex;
     private TextView tvPrice;
     private TextView tvPrice2;
-    private TextView tvNumber;
-    private TextView tvDuration;
-    private TextView tvPlace;
     private TextView tvCompany;
     private TextView tvContract;
     private ImageView ivContract;
@@ -80,7 +73,8 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
     private ImageView mIvAdClose;
     private ListViewInScrollView lvLove;
     private ImageView mImgTip;
-    private View mVoView;
+    private View mViewMethod;
+    private View mViewTime;
 
     private String id;
     private String position;
@@ -130,15 +124,12 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
         tvJoined = findViewById(R.id.tv_joined);
         mVoIvReturn = findViewById(R.id.vo_iv_return);
         tvJobTitle = findViewById(R.id.tv_job_title);
-        ivFavourite = findViewById(R.id.iv_favourite);
+        tvFavourite = findViewById(R.id.tv_favourite);
         mTvMethod = findViewById(R.id.tv_method);
-        mTvLable = findViewById(R.id.tv_lable);
-        mTvNum = findViewById(R.id.tv_num);
+        mTvTime = findViewById(R.id.tv_time);
+        mTvSex = findViewById(R.id.tv_sex);
         tvPrice = findViewById(R.id.tv_price1);
         tvPrice2 = findViewById(R.id.tv_price2);
-        tvNumber = findViewById(R.id.tv_number);
-        tvDuration = findViewById(R.id.tv_duration);
-        tvPlace = findViewById(R.id.tv_place);
         tvCompany = findViewById(R.id.tv_company);
         tvContract = findViewById(R.id.tv_contract);
         ivContract = findViewById(R.id.iv_contract);
@@ -150,10 +141,11 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
         mIvAdClose = findViewById(R.id.iv_ad_close);
         lvLove = findViewById(R.id.lv_love);
         mImgTip = findViewById(R.id.img_tip);
-        mVoView = findViewById(R.id.vo_view);
+        mViewMethod = findViewById(R.id.view_method);
+        mViewTime = findViewById(R.id.view_time);
 
         setToolBarVisible(false);
-        setImmerseLayout(mVoIvReturn);
+        setImmerseLayout(findViewById(R.id.vo_rl_title));
 
         mJobListBeanList = new ArrayList<>();
         MobclickAgent.onEvent(VocationActivity.this, "vocation_in");
@@ -326,7 +318,7 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
                     if (contract != null && contract != "") {
                         CopyTextLibrary copyButtonLibrary = new CopyTextLibrary(getApplicationContext(), contract);
                         copyButtonLibrary.init();
-                        mPresenter.copyContact(id, sortId, entity.getContact());
+                        mPresenter.joincopyContact(id, sortId, entity.getContact(), 5);
                         if (PreferenceUUID.getInstence().getShowWx() == 1) {
                             if (contact_type.equals("1")) {
                                 //微信
@@ -468,7 +460,7 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
             }
         });
 
-        ivFavourite.setOnClickListener(new View.OnClickListener() {
+        tvFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MobclickAgent.onEvent(VocationActivity.this, "vocation_collect");
@@ -500,34 +492,19 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
         tvPrice.setText(entity.getPrice1());
         tvPrice2.setText(entity.getPrice2());
         tvCompany.setText(entity.getCompany());
-        tvDuration.setText(entity.getDuration());
-        mTvMethod.setText(entity.getMethod());
-        ivFavourite.setSelected(TextUtils.equals("1", entity.getIsfavourite()));
-        if (entity.getLabel() == null || entity.getLabel() == "") {
-            mTvLable.setVisibility(View.GONE);
-            mVoView.setVisibility(View.GONE);
-        } else {
-            mTvLable.setVisibility(View.VISIBLE);
-            mVoView.setVisibility(View.VISIBLE);
-            mTvLable.setText(entity.getLabel());
+        if (entity.getMethod().equals("")||entity.getMethod().equals(null)){
+            mViewMethod.setVisibility(View.GONE);
+        }else {
+            mTvMethod.setText(entity.getMethod());
+            mViewMethod.setVisibility(View.VISIBLE);
         }
-        if (entity.getNumber() != null) {
-            mTvNum.setText(entity.getNumber() + "人");
+        if (entity.getTime().equals("")||entity.getTime().equals(null)){
+            mViewTime.setVisibility(View.GONE);
+        }else {
+            mTvTime.setText(entity.getTime());
+            mViewTime.setVisibility(View.VISIBLE);
         }
-        if (entity.getNumber() == null || entity.getNumber() == "") {
-            tvNumber.setText("不限");
-        } else {
-            tvNumber.setText(entity.getNumber() + "人");
-        }
-        if (entity.getPlace() == null || entity.getPlace() == "") {
-            if (PreferenceUUID.getInstence().getCity() == "" || PreferenceUUID.getInstence().getCity() == null) {
-                tvPlace.setText("不限");
-            } else {
-                tvPlace.setText(PreferenceUUID.getInstence().getCity());
-            }
-        } else {
-            tvPlace.setText(entity.getPlace());
-        }
+        mTvSex.setText(entity.getSex());
         contract = entity.getContact();
         contact_type = entity.getContact_type();
         String name = "icon_detail" + entity.getContact_type();
@@ -539,8 +516,10 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
             ivContract.setVisibility(View.GONE);
         }
         webView.loadData(entity.getContent(), "text/html; charset=UTF-8", null);
+        boolean isCollect = PreferenceUUID.getInstence().isUserLogin() && TextUtils.equals("1", entity.getIsfavourite());
+        tvFavourite.setSelected(isCollect);
+        tvFavourite.setText(isCollect ? "已收藏" : "收藏");
         boolean isJoined = PreferenceUUID.getInstence().isUserLogin() && TextUtils.equals("1", entity.getIsJoin());
-        tvJoined.setBackgroundResource(R.drawable.item_join_selected);
         tvJoined.setSelected(isJoined);
         tvJoined.setText(isJoined ? "已报名" : "立即报名");
         if (!isJoined) {
@@ -747,6 +726,7 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        setIntent(intent);
         if (intent != null) {
             id = intent.getStringExtra("id");
             position = intent.getStringExtra("position");

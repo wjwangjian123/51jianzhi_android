@@ -45,8 +45,8 @@
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_1"
-            android:background="@color/color_EEEEEE"
+            android:layout_height="0.5dp"
+            android:background="#E7ECF5"
             android:layout_marginTop="13dp"/>
         <TextView
             android:id="@+id/chat_tv_copy"
@@ -58,7 +58,7 @@
             android:text="复制并联系商家"
             android:textSize="@dimen/font_15"
             android:layout_gravity="center_horizontal"
-            android:textColor="@color/color_F3A922"/>
+            android:textColor="@color/color_text_theme"/>
     </LinearLayout>
     <RelativeLayout
         android:id="@+id/chat_tv_relative"
@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:text="130元/天"
             android:textSize="@dimen/font_14"
-            android:textColor="@color/color_F3A922"
+            android:textColor="@color/color_text_theme"
             android:layout_alignParentRight="true"/>
         <com.zhy.view.flowlayout.TagFlowLayout
             android:id="@+id/tfl_lable"
@@ -123,8 +123,8 @@
         <View
             android:id="@+id/chat_view"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/color_EDEDED"
+            android:layout_height="0.5dp"
+            android:background="#E7ECF5"
             android:layout_below="@+id/webView"/>
         <TextView
             android:id="@+id/chat_tv_info"
@@ -132,7 +132,7 @@
             android:layout_height="wrap_content"
             android:text="查看详情"
             android:textSize="@dimen/font_15"
-            android:textColor="@color/color_F3A922"
+            android:textColor="@color/color_text_theme"
             android:paddingTop="@dimen/dimen_10"
             android:paddingHorizontal="@dimen/dimen_10"
             android:paddingBottom="@dimen/dimen_2"

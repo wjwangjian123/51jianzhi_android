@@ -32,6 +32,7 @@ public interface LoginContract {
     }
 
     interface ILoginView extends IView {
+        void updatesendSms(ResponseData<String> responseData);
         void updategetConfig(ConfigEntity configEntity);
         void updateverifys(UMEntity umEntity);
         void updatelogin(LoginResponseEntity entity);

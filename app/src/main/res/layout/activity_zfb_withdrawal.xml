@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ffffff"
+    tools:context=".mvp.ui.activity.ZfbWithdrawalActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_44"
+        android:layout_above="@+id/zfb_layout_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/icon_zfb_bg_top"
+        android:scaleType="fitXY" />
+
+    <RelativeLayout
+        android:id="@+id/zfb_rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/zfb_iv_return"
+            android:layout_width="@dimen/dimen_44"
+            android:layout_height="@dimen/dimen_44"
+            android:paddingHorizontal="19dp"
+            android:paddingVertical="16dp"
+            android:src="@drawable/ic_white_back" />
+
+        <TextView
+            android:id="@+id/zfb_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_44"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="支付宝提现"
+            android:textColor="@color/color_ffffff"
+            android:textSize="@dimen/font_18"
+            android:textStyle="bold" />
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/zfb_layout_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/zfb_rl_title">
+        <ScrollView
+            android:id="@+id/zfb_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="134dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/icon_zfb_bg_bottom" />
+                <TextView
+                    android:id="@+id/zfb_tv_yue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="34dp"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:text="我的余额(元)"
+                    android:textColor="#F1FFFC"
+                    android:textSize="13sp" />
+                <TextView
+                    android:id="@+id/zfb_tv_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/zfb_tv_yue"
+                    android:layout_alignLeft="@+id/zfb_tv_yue"
+                    android:layout_marginTop="@dimen/dimen_2"
+                    android:textColor="@color/color_ffffff"
+                    android:textSize="27sp"
+                    android:textStyle="bold" />
+                <LinearLayout
+                    android:id="@+id/zfb_linear_jine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/zfb_tv_money"
+                    android:layout_marginHorizontal="@dimen/dimen_10"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:background="@drawable/icon_mine_toudi_bg"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_centerHorizontal="true">
+
+                    <com.zhy.view.flowlayout.TagFlowLayout
+                        android:id="@+id/zfb_tfl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:itemSpacing="@dimen/dimen_12"
+                        app:lineSpacing="@dimen/dimen_12"
+                        app:max_select="1" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/zfb_rl_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/zfb_linear_jine"
+                    android:layout_marginHorizontal="@dimen/dimen_10"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:background="@drawable/icon_mine_toudi_bg"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/dimen_30"
+                    android:paddingTop="@dimen/dimen_44"
+                    android:paddingRight="@dimen/dimen_30"
+                    android:paddingBottom="@dimen/dimen_20">
+
+                    <TextView
+                        android:id="@+id/zfb_tv_nickname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:text="支付宝昵称"
+                        android:textColor="#BABAC6"
+                        android:textSize="@dimen/font_12" />
+
+                    <TextView
+                        android:id="@+id/zfb_tv_nickShow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dimen_30"
+                        android:layout_below="@+id/zfb_tv_nickname"
+                        android:ellipsize="end"
+                        android:gravity="bottom"
+                        android:singleLine="true"
+                        android:textColor="#BABAC6"
+                        android:textColorHint="#BABAC6"
+                        android:textSize="@dimen/font_15" />
+
+                    <View
+                        android:id="@+id/zfb_view_nickname"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/zfb_tv_nickShow"
+                        android:layout_marginTop="@dimen/dimen_2"
+                        android:background="#F5F5F7" />
+
+                    <TextView
+                        android:id="@+id/zfb_tv_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/zfb_view_nickname"
+                        android:layout_marginTop="22dp"
+                        android:textColor="#BABAC6"
+                        android:textSize="@dimen/font_12" />
+
+                    <com.part.jianzhiyi.corecommon.ui.InputFilteEditText
+                        android:id="@+id/zfb_et_code"
+                        style="@style/MyEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_30"
+                        android:layout_below="@+id/zfb_tv_code"
+                        android:layout_toLeftOf="@+id/zfb_tv_send"
+                        android:background="@null"
+                        android:ellipsize="end"
+                        android:gravity="bottom"
+                        android:hint="请输入验证码"
+                        android:inputType="number"
+                        android:paddingLeft="0dp"
+                        android:paddingRight="@dimen/dimen_10"
+                        android:singleLine="true"
+                        android:textColor="#626376"
+                        android:textColorHint="#626376"
+                        android:textSize="@dimen/font_15" />
+
+                    <TextView
+                        android:id="@+id/zfb_tv_send"
+                        android:layout_width="87dp"
+                        android:layout_height="@dimen/dimen_30"
+                        android:layout_alignBottom="@+id/zfb_et_code"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        android:background="@drawable/shape_tixian_send_bg"
+                        android:gravity="center"
+                        android:text="发送验证码"
+                        android:textColor="@color/color_ffffff"
+                        android:textSize="@dimen/font_10" />
+                    <View
+                        android:id="@+id/zfb_view_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/zfb_et_code"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginBottom="@dimen/dimen_30"
+                        android:background="#F5F5F7" />
+                </RelativeLayout>
+                <TextView
+                    android:id="@+id/zfb_tv_tixian"
+                    android:layout_width="200dp"
+                    android:layout_height="43dp"
+                    android:layout_below="@+id/zfb_rl_info"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:background="@drawable/shape_tixian_bg"
+                    android:gravity="center"
+                    android:text="提现"
+                    android:textColor="@color/color_ffffff"
+                    android:textSize="@dimen/font_16" />
+            </RelativeLayout>
+        </ScrollView>
+        <RelativeLayout
+            android:id="@+id/layout_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</RelativeLayout>

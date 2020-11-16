@@ -1,6 +1,9 @@
 package com.part.jianzhiyi.adapter;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.part.jianzhiyi.R;
@@ -28,24 +31,39 @@ public class ChoiceRecommendMoreAdapter extends CustomBaseAdapter<JobListRespons
 
     @Override
     protected void convert(ViewHolder viewHolder, JobListResponseEntity2.DataBean item, int position) {
-        ((TextView) viewHolder.getView(R.id.tv_content)).setText(item.getTitle());
-        ((TextView) viewHolder.getView(R.id.tv_method)).setText(item.getMethod());
-        ((TextView) viewHolder.getView(R.id.tv_company)).setText(item.getCompany());
-        ((TextView) viewHolder.getView(R.id.tv_price1)).setText(item.getPrice1());
-        ((TextView) viewHolder.getView(R.id.tv_price2)).setText(item.getPrice2());
-        if (item.getPlace() == null || item.getPlace() == "") {
-            if (PreferenceUUID.getInstence().getCity() == "" || PreferenceUUID.getInstence().getCity() == null) {
-                ((TextView) viewHolder.getView(R.id.item_tv_place)).setText("不限");
-            } else {
-                ((TextView) viewHolder.getView(R.id.item_tv_place)).setText(PreferenceUUID.getInstence().getCity());
+        if (item!=null){
+            if (position%3==0){
+                ((LinearLayout) viewHolder.getView(R.id.choice_rl)).setBackgroundResource(R.drawable.icon_edition_bg1);
             }
-        } else {
-            ((TextView) viewHolder.getView(R.id.item_tv_place)).setText(item.getPlace());
-        }
-        if (item.getTime() == null || item.getTime() == "") {
-            ((TextView) viewHolder.getView(R.id.item_tv_time)).setText("不限");
-        } else {
-            ((TextView) viewHolder.getView(R.id.item_tv_time)).setText(item.getTime());
+            if (position%3==1){
+                ((LinearLayout) viewHolder.getView(R.id.choice_rl)).setBackgroundResource(R.drawable.icon_edition_bg2);
+            }
+            if (position%3==2){
+                ((LinearLayout) viewHolder.getView(R.id.choice_rl)).setBackgroundResource(R.drawable.icon_edition_bg3);
+            }
+            ((TextView) viewHolder.getView(R.id.choice_tv_title)).setText(item.getTitle());
+            if (item.getPlace().equals(null) || item.getPlace().equals("")) {
+                if (PreferenceUUID.getInstence().getCity() == "" || PreferenceUUID.getInstence().getCity() == null) {
+                    ((TextView) viewHolder.getView(R.id.item_tv_place)).setText("不限");
+                } else {
+                    ((TextView) viewHolder.getView(R.id.item_tv_place)).setText(PreferenceUUID.getInstence().getCity());
+                }
+            } else {
+                ((TextView) viewHolder.getView(R.id.item_tv_place)).setText(item.getPlace());
+            }
+            if (item.getMethod().equals(null) || item.getMethod().equals("")){
+                ((View) viewHolder.getView(R.id.view_method)).setVisibility(View.GONE);
+            }else {
+                ((View) viewHolder.getView(R.id.view_method)).setVisibility(View.VISIBLE);
+                ((TextView) viewHolder.getView(R.id.item_tv_method)).setText(item.getMethod());
+            }
+            if (item.getTime() == null || item.getTime() == "") {
+                ((TextView) viewHolder.getView(R.id.item_tv_time)).setText("不限");
+            } else {
+                ((TextView) viewHolder.getView(R.id.item_tv_time)).setText(item.getTime());
+            }
+            ((TextView) viewHolder.getView(R.id.choice_tv_price1)).setText(item.getPrice1());
+            ((TextView) viewHolder.getView(R.id.choice_tv_price2)).setText(item.getPrice2());
         }
     }
 }

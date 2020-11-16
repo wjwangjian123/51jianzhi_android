@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:overScrollMode="never"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:fillViewport="true">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -114,7 +115,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:paddingRight="22dp"
+                        android:paddingRight="11dp"
                         android:layout_toRightOf="@id/tv_name"
                         android:background="@null"
                         android:gravity="right"
@@ -149,7 +150,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/tv_sex"
-                        android:paddingRight="22dp"
+                        android:paddingRight="11dp"
                         android:gravity="right"
                         android:paddingTop="7dp"
                         android:paddingBottom="7dp"
@@ -183,7 +184,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/tv_age"
-                        android:paddingRight="22dp"
+                        android:paddingRight="11dp"
                         android:gravity="right"
                         android:paddingTop="7dp"
                         android:paddingBottom="7dp"
@@ -256,7 +257,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:paddingRight="22dp"
+                        android:paddingRight="11dp"
                         android:layout_toRightOf="@id/profession"
                         android:gravity="right"
                         android:hint="请选择身份"
@@ -289,7 +290,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/job_status"
-                        android:paddingRight="22dp"
+                        android:paddingRight="11dp"
                         android:gravity="right"
                         android:paddingTop="7dp"
                         android:paddingBottom="7dp"
@@ -323,7 +324,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/job_type"
-                        android:paddingRight="22dp"
+                        android:paddingRight="11dp"
                         android:gravity="right"
                         android:paddingTop="7dp"
                         android:paddingBottom="7dp"
@@ -359,7 +360,7 @@
                 android:background="@drawable/shape_resume_btn"
                 android:gravity="center"
                 android:text="完成修改"
-                android:textColor="#F7FFFC"
+                android:textColor="@color/color_ffffff"
                 android:textSize="@dimen/font_15" />
         </LinearLayout>
     </com.part.jianzhiyi.corecommon.ui.ObservableScrollView>

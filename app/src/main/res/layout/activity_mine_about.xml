@@ -8,11 +8,11 @@
     tools:context=".mvp.ui.activity.MineAboutActivity">
     <ImageView
         android:id="@+id/mine_about_img"
-        android:layout_width="71dp"
-        android:layout_height="71dp"
+        android:layout_width="105dp"
+        android:layout_height="105dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dimen_44"
-        android:src="@mipmap/ic_launcher" />
+        android:layout_marginTop="27dp"
+        android:src="@drawable/icon_logo" />
     <TextView
         android:id="@+id/mine_about_name"
         android:layout_width="wrap_content"
@@ -27,7 +27,6 @@
         android:id="@+id/mine_about_version"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="version 1.001"
         android:textSize="13sp"
         android:textColor="@color/color_999999"
         android:layout_centerHorizontal="true"
@@ -37,7 +36,7 @@
         android:id="@+id/mine_about_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_1"
-        android:background="@color/color_F7F8FA"
+        android:background="#E7ECF5"
         android:layout_below="@+id/mine_about_version"
         android:layout_marginTop="31dp"
         android:layout_marginHorizontal="25dp"/>

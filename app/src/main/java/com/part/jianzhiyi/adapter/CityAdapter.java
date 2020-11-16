@@ -30,7 +30,7 @@ public class CityAdapter extends CustomBaseAdapter<String> {
         tvCity = ((TextView) viewHolder.getView(R.id.tv_city));
         tvCity.setText(item);
         tvCity.setTextSize(aChar ? 18 : 16);
-        int resColor = context.getResources().getColor(aChar ? R.color.color_F3A922 : R.color.color_333333);
+        int resColor = context.getResources().getColor(aChar ? R.color.color_text_theme : R.color.color_333333);
         tvCity.setTextColor(resColor);
     }
 }

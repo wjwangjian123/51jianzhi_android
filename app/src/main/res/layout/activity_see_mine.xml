@@ -14,7 +14,8 @@
         android:paddingRight="@dimen/dimen_20"
         android:listSelector="@color/transparency"
         android:overScrollMode="never"
-        android:divider="@null"
+        android:divider="#E7ECF5"
+        android:dividerHeight="0.5dp"
         android:scrollbars="none"
         android:layout_marginTop="@dimen/dimen_1"/>
     <LinearLayout

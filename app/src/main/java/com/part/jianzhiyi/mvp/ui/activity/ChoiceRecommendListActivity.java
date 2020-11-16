@@ -25,7 +25,6 @@ public class ChoiceRecommendListActivity extends BaseActivity<HomeVocationListPr
     private List<JobListResponseEntity2.DataBean> list = new ArrayList<>();
     private ChoiceRecommendMoreAdapter adapter;
 
-
     @Override
     protected void init() {
         super.init();
@@ -51,7 +50,7 @@ public class ChoiceRecommendListActivity extends BaseActivity<HomeVocationListPr
 
     @Override
     protected void initData() {
-        mPresenter.jobList(Constants.TYPE_CHOICE, Constants.POSITION_CHOICE_RECOMMEND, Constants.PAGE_INDEX);
+        mPresenter.jobList(Constants.TYPE_CHOICE, Constants.POSITION_CHOICE_RECOMMEND, Constants.PAGE_INDEX, "0");
     }
 
     @Override
@@ -81,8 +80,13 @@ public class ChoiceRecommendListActivity extends BaseActivity<HomeVocationListPr
 
     @Override
     public void updateNewList(String position, List<JobListResponseEntity2.DataBean> dataBeanList) {
-        this.list.addAll(dataBeanList);
-        adapter.notifyDataSetChanged();
+        if (list != null) {
+            this.list.clear();
+        }
+        if (dataBeanList != null) {
+            this.list.addAll(dataBeanList);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override

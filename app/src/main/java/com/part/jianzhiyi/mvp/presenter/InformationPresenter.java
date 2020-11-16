@@ -31,7 +31,7 @@ public class InformationPresenter extends BasePresenter<InformationContract.IInf
 
     public void msgList() {
         mModel.msgList(PreferenceUUID.getInstence().getUserId())
-                .compose(schedulersTransformer(HttpAPI.LOADING_CUSTOM_TIME))
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
                 .subscribe(getResult(new ResultObserver<ResponseData<List<MsgResponseEntity>>>() {
                     @Override
                     public void onNext(ResponseData<List<MsgResponseEntity>> jobListResponseEntityResponseData) {
@@ -89,7 +89,6 @@ public class InformationPresenter extends BasePresenter<InformationContract.IInf
                 .subscribe(getResult(new ResultObserver<ResponseData<AddFavouriteResponseEntity>>() {
                     @Override
                     public void onNext(ResponseData<AddFavouriteResponseEntity> stringResponseData) {
-                        Log.d("testaaa", "onNext: " + stringResponseData);
                         if (stringResponseData.getCode().equals(HttpAPI.REQUEST_SUCCESS)) {
 //                            weakReferenceView.get().joinSuccess();
                         } else {

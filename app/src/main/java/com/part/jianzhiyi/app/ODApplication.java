@@ -9,12 +9,7 @@ import android.util.Log;
 
 import com.alibaba.sdk.android.push.CloudPushService;
 import com.alibaba.sdk.android.push.CommonCallback;
-import com.alibaba.sdk.android.push.huawei.HuaWeiRegister;
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
-import com.alibaba.sdk.android.push.register.MeizuRegister;
-import com.alibaba.sdk.android.push.register.MiPushRegister;
-import com.alibaba.sdk.android.push.register.OppoRegister;
-import com.alibaba.sdk.android.push.register.VivoRegister;
 import com.bun.miitmdid.core.JLibrary;
 import com.part.jianzhiyi.ad.TTAdManagerHolder;
 import com.part.jianzhiyi.constants.Constants;
@@ -27,8 +22,6 @@ import com.umeng.commonsdk.statistics.common.DeviceConfig;
 
 import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
-import cn.shuzilm.core.Listener;
-import cn.shuzilm.core.Main;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.plugins.RxJavaPlugins;
 
@@ -40,7 +33,6 @@ import io.reactivex.plugins.RxJavaPlugins;
 public class ODApplication extends MultiDexApplication {
 
     private static Context mContext;
-    private static final String apiKey = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALvSHDXhOSMD17Bg0Hu4GtM9EgioguwMVZSKUaLe210KQ9C35KmrMYFbc7CpJFQJ3k5T5GCnr4u8CiM5xl5OK/MCAwEAAQ==";
     public static String city = "北京市";
     //获取手机oaid
     private String oaid;
@@ -52,22 +44,12 @@ public class ODApplication extends MultiDexApplication {
         mContext = this;
         MultiDex.install(this);
         Context applicationContext = getApplicationContext();
-//        try {
-//            Main.init(applicationContext, apiKey);
-//            Main.getQueryID(applicationContext, "channel1", PreferenceUUID.getInstence().getUserPhone(), 1, new Listener() {
-//                @Override
-//                public void handler(String s) {
-//                    Log.i("Logs", "query id:" + s);
-//                }
-//            });
-//        } catch (Exception e) {
-//            Log.e("Logs", "错误异常：" + e.getMessage());
-//        }
+
         setRxJavaErrorHandler();
         //友盟统计 String appkey, String channel, int deviceType, String pushSecret
         UMConfigure.init(this, "5eb65a45978eea078b7e9ac8", Constants.UMENG_NAME, UMConfigure.DEVICE_TYPE_PHONE, "");
         //是否打印日志
-        UMConfigure.setLogEnabled(true);
+        UMConfigure.setLogEnabled(false);
         //打开调试模式
 //        MobclickAgent.setDebugMode(true);
         MobclickAgent.setCatchUncaughtExceptions(true);
@@ -82,11 +64,11 @@ public class ODApplication extends MultiDexApplication {
         miitHelper.getDeviceIds(this);
         initCloudChannel(this);
 //        // 注册方法会自动判断是否支持小米系统推送，如不支持会跳过注册。
-//        MiPushRegister.register(applicationContext, "2882303761518314643", "5621831466643");
+//        MiPushRegister.register(applicationContext, "2882303761518753186", "5221875346186");
 //        // 注册方法会自动判断是否支持华为系统推送，如不支持会跳过注册。
 //        HuaWeiRegister.register(this);
 //        // OPPO通道注册
-//        OppoRegister.register(applicationContext, "c9549a5372d84fcfaf72fc0a32801c5c", "92f53c18e8664e709b91e769ddcc0833");
+//        OppoRegister.register(applicationContext, "6c5aca3233554e28ae1a822a4ffcdb0a", "e4d6c48123f34d859971622e6f782f1d");
 //        // 魅族通道注册
 //        MeizuRegister.register(applicationContext, "3290513", "ceef586eb967432dab431044c1ff4fef");
 //        // VIVO通道注册
@@ -102,12 +84,12 @@ public class ODApplication extends MultiDexApplication {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        try {//初始化
+        try {
             JLibrary.InitEntry(base);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }
+        }//初始化
     }
 
     private MiitHelper.AppIdsUpdater appIdsUpdater = new MiitHelper.AppIdsUpdater() {
@@ -169,17 +151,6 @@ public class ODApplication extends MultiDexApplication {
                 Log.d(TAG, "init cloudchannel failed -- errorcode:" + errorCode + " -- errorMessage:" + errorMessage);
             }
         });
-//        pushService.turnOnPushChannel(new CommonCallback() {
-//            @Override
-//            public void onSuccess(String response) {
-//                Log.i(TAG, "cloudchannel turn on success");
-//            }
-//
-//            @Override
-//            public void onFailed(String errorCode, String errorMessage) {
-//                Log.e(TAG, "init cloudchannel turn on failed -- errorcode:" + errorCode + " -- errorMessage:" + errorMessage);
-//            }
-//        });
     }
 
     private void createNotificationChannel() {

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="top">
+
+    <TextView
+        android:id="@+id/tv_child_process_index"
+        android:layout_width="53dp"
+        android:layout_height="26dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:text="1"
+        android:textSize="@dimen/font_16"
+        android:textColor="@color/color_ffffff"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/shape_moku_num_blue"/>
+
+    <TextView
+        android:id="@+id/tv_child_process_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="打开 应用宝 搜索 中原地产 找到该图标软件"
+        android:textSize="@dimen/font_10"
+        android:textColor="@color/color_666666"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="17dp"/>
+
+</LinearLayout>

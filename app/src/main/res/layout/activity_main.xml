@@ -13,13 +13,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:src="@drawable/icon_main_bottom_bg"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="61dp"
+        android:layout_height="@dimen/dimen_52"
         android:orientation="horizontal"
-        android:background="@drawable/icon_main_bottom_bg"
-        android:gravity="center"
-        android:paddingTop="@dimen/dimen_10">
+        android:background="@color/color_ffffff"
+        android:gravity="center">
         <LinearLayout
             android:id="@+id/main_linear_home"
             android:layout_width="wrap_content"
@@ -63,6 +66,28 @@
                 android:text="精选"
                 android:textColor="@color/bottom_view_text"
                 android:textSize="@dimen/font_10" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/main_linear_moku"
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            android:visibility="gone">
+            <ImageView
+                android:id="@+id/main_iv_moku"
+                android:layout_width="@dimen/dimen_60"
+                android:layout_height="@dimen/dimen_44"
+                android:src="@drawable/icon_moku"
+                android:layout_marginTop="7dp"
+                android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/main_tv_moku"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/bottom_view_text"/>
         </LinearLayout>
         <RelativeLayout
             android:id="@+id/main_linear_message"

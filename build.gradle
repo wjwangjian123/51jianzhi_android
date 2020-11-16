@@ -34,6 +34,10 @@ allprojects {
         maven {
             url 'http://maven.aliyun.com/nexus/content/repositories/releases/'
         }
+        // 支付宝 SDK AAR 包所需的配置
+        flatDir {
+            dirs 'libs'
+        }
     }
 }
 

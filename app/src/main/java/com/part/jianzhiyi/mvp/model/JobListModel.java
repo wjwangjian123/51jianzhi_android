@@ -26,8 +26,8 @@ import io.reactivex.Observable;
  **/
 public class JobListModel implements ChoiceContract.IChoiceModel {
     @Override
-    public Observable<ResponseData<JobListResponseEntity2>> jobList(String userid, String type, String position, int page) {
-        return HttpAPI.getInstence().getServiceApi().jobList(String.valueOf(page), Constants.APPID, PreferenceUUID.getInstence().getUserId(), type, position, "0", HttpAPI.ip, Constants.OS, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()));
+    public Observable<ResponseData<JobListResponseEntity2>> jobList(String userid, String type, String position, int page,String label) {
+        return HttpAPI.getInstence().getServiceApi().jobList(String.valueOf(page), Constants.APPID, PreferenceUUID.getInstence().getUserId(), type, position, "0", HttpAPI.ip, Constants.OS, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()),label);
     }
 
     @Override

@@ -6,6 +6,8 @@ import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.BannerEntity;
 import com.part.jianzhiyi.model.entity.CategoryEntity;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity2;
+import com.part.jianzhiyi.model.entity.LableEntity;
+import com.part.jianzhiyi.model.entity.SearchEntity;
 import com.part.jianzhiyi.mvp.model.user.IUserModel;
 
 import java.util.List;
@@ -19,7 +21,7 @@ import io.reactivex.Observable;
  **/
 public interface HomeContract {
     interface IHomeModel extends IModel, IUserModel {
-        Observable<ResponseData<JobListResponseEntity2>> jobList(String userid, String type, String position, int page);
+        Observable<ResponseData<JobListResponseEntity2>> jobList(String userid, String type, String position, int page,String label);
 
         Observable<ResponseData<List<BannerEntity>>> getBanner();
 
@@ -27,7 +29,9 @@ public interface HomeContract {
 
         Observable<ResponseData<List<CategoryEntity>>> getHomeCategory();
 
+        Observable<SearchEntity> search(String title, String lable);
 
+        Observable<LableEntity> getHomeLabel();
     }
 
     interface IHomeView extends IView {
@@ -41,5 +45,8 @@ public interface HomeContract {
 
         void updateCategory(List<CategoryEntity> categoryEntityList);
 
+        void updatesearch(SearchEntity searchEntity);
+
+        void updategetHomeLabel(LableEntity searchEntity);
     }
 }

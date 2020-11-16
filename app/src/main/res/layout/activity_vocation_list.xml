@@ -10,11 +10,11 @@
         android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="@dimen/dimen_15"
+        android:paddingLeft="@dimen/dimen_12"
         android:paddingTop="@dimen/dimen_10"
-        android:paddingRight="@dimen/dimen_15"
-        android:divider="@color/color_F4F4F4"
-        android:dividerHeight="@dimen/line_height"
+        android:paddingRight="@dimen/dimen_12"
+        android:divider="@color/transparency"
+        android:dividerHeight="0dp"
         android:scrollbars="none"
-        android:listSelector="@color/transparency" />
+        android:listSelector="@color/transparency"/>
 </LinearLayout>

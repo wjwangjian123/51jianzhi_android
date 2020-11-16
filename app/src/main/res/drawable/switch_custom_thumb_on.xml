@@ -10,13 +10,13 @@
         android:top="1dp">
 
         <shape android:shape="oval">
-            <size
-                android:width="@dimen/dimen_20"
-                android:height="@dimen/dimen_20" />
             <gradient
                 android:angle="90"
                 android:endColor="@color/color_292928"
                 android:startColor="@color/color_292928" />
+            <size
+                android:width="@dimen/dimen_20"
+                android:height="@dimen/dimen_20" />
         </shape>
     </item>
 
@@ -28,12 +28,12 @@
         android:right="1dp"
         android:top="1dp">
         <shape android:shape="oval">
-            <size
-                android:width="@dimen/dimen_20"
-                android:height="@dimen/dimen_20" />
             <gradient
                 android:endColor="@color/color_ffffff"
                 android:startColor="@color/color_ffffff" />
+            <size
+                android:width="@dimen/dimen_20"
+                android:height="@dimen/dimen_20" />
         </shape>
     </item>
 </layer-list>

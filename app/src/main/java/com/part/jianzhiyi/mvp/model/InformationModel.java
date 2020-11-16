@@ -24,23 +24,25 @@ import io.reactivex.Observable;
  * @modified time:2019/9/28
  * @modified by:shixinxin
  **/
-public class InformationModel implements InformationContract.IInformationModel{
+public class InformationModel implements InformationContract.IInformationModel {
     @Override
     public Observable<ResponseData<List<MsgResponseEntity>>> msgList(String userid) {
-        return HttpAPI.getInstence().getServiceApi().msgList(Constants.APPID,userid,Constants.OS, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()));    }
+        return HttpAPI.getInstence().getServiceApi().msgList(Constants.APPID, userid, Constants.OS, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()));
+    }
 
     @Override
     public Observable<ChatJobInfoEntity> getChatJobinfo(String id) {
-        return HttpAPI.getInstence().getServiceApi().getChatJobinfo(Constants.APPID,id);
+        return HttpAPI.getInstence().getServiceApi().getChatJobinfo(Constants.APPID, id, Constants.OS);
     }
 
     @Override
     public Observable<ViewedEntity> viewedJob(String userid) {
-        return HttpAPI.getInstence().getServiceApi().viewedJob(Constants.APPID,userid,Constants.OS,HttpAPI.ip, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()));    }
+        return HttpAPI.getInstence().getServiceApi().viewedJob(Constants.APPID, userid, Constants.OS, HttpAPI.ip, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()));
+    }
 
     @Override
     public Observable<ResponseData<AddFavouriteResponseEntity>> joincopyContact(String appid, String user_id, String job_id, String sortId, String contact, int type) {
-        return HttpAPI.getInstence().getServiceApi().joincopyContact(Constants.APPID, user_id, job_id, Constants.OS, HttpAPI.ip, sortId, contact, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()),type);
+        return HttpAPI.getInstence().getServiceApi().joincopyContact(Constants.APPID, user_id, job_id, Constants.OS, HttpAPI.ip, sortId, contact, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()), type);
     }
 
 }

@@ -5,6 +5,7 @@ import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.ActJobListEntity;
 import com.part.jianzhiyi.model.entity.ActivityEntity;
 import com.part.jianzhiyi.model.entity.AddFavouriteResponseEntity;
+import com.part.jianzhiyi.model.entity.AddSignEntity;
 import com.part.jianzhiyi.model.entity.BannerEntity;
 import com.part.jianzhiyi.model.entity.CategoryEntity;
 import com.part.jianzhiyi.model.entity.ChatJobInfoEntity;
@@ -17,7 +18,6 @@ import com.part.jianzhiyi.model.entity.JobListResponseEntity;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity2;
 import com.part.jianzhiyi.model.entity.JoinJobEntity;
 import com.part.jianzhiyi.model.entity.LableEntity;
-import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.model.entity.MsgResponseEntity;
 import com.part.jianzhiyi.model.entity.MyitemEntity;
 import com.part.jianzhiyi.model.entity.ResumeEntity;
@@ -26,6 +26,17 @@ import com.part.jianzhiyi.model.entity.UMEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.model.entity.ViewedEntity;
 import com.part.jianzhiyi.model.entity.VocationEntity;
+import com.part.jianzhiyi.model.entity.integral.MyExchangeEntity;
+import com.part.jianzhiyi.model.entity.integral.MyIntegralEntity;
+import com.part.jianzhiyi.model.entity.moku.KuaibaoEntity;
+import com.part.jianzhiyi.model.entity.moku.MokuBillListEntity;
+import com.part.jianzhiyi.model.entity.moku.MokuTaskListEntity;
+import com.part.jianzhiyi.model.entity.moku.TxBindingEntity;
+import com.part.jianzhiyi.model.entity.moku.TxInfoEntity;
+import com.part.jianzhiyi.model.entity.moku.TxLogEntity;
+import com.part.jianzhiyi.model.entity.moku.TxTypeEntity;
+import com.part.jianzhiyi.model.entity.moku.WalletEntity;
+import com.part.jianzhiyi.model.entity.pay.AuthInfoEntity;
 
 import java.util.List;
 
@@ -73,10 +84,10 @@ public interface ServiceAPI {
      * @return
      */
     @GET("api/Apiv2/jobListAndroidV2")
-    Observable<ResponseData<JobListResponseEntity2>> jobList(@Query("page") String page, @Query("appid") String appid, @Query("userid") String userid, @Query("type") String type, @Query("position") String position, @Query("sort_id") String sort_id, @Query("ip") String ip, @Query("os") String os, @Query("imei") String imei, @Query("androidid") String deviceid);
+    Observable<ResponseData<JobListResponseEntity2>> jobList(@Query("page") String page, @Query("appid") String appid, @Query("userid") String userid, @Query("type") String type, @Query("position") String position, @Query("sort_id") String sort_id, @Query("ip") String ip, @Query("os") String os, @Query("imei") String imei, @Query("androidid") String deviceid, @Query("label") String label);
 
     @GET("api/Apiv2/jobListAndroidV2")
-    Observable<ResponseData<JobListResponseEntity2>> jobList(@Query("page") String page, @Query("appid") String appid, @Query("userid") String userid, @Query("type") String type, @Query("position") String position, @Query("sort_id") String sort_id, @Query("ip") String ip, @Query("os") String os, @Query("imei") String imei, @Query("androidid") String deviceid, @Query("category") String category);
+    Observable<ResponseData<JobListResponseEntity2>> jobList1(@Query("page") String page, @Query("appid") String appid, @Query("userid") String userid, @Query("type") String type, @Query("position") String position, @Query("sort_id") String sort_id, @Query("ip") String ip, @Query("os") String os, @Query("imei") String imei, @Query("androidid") String deviceid, @Query("category") String category);
 
     /**
      * 工作邀请
@@ -217,16 +228,6 @@ public interface ServiceAPI {
     Observable<ResponseData<List<JobListResponseEntity>>> recommendList(@Query("appid") String appid, @Query("userid") String userid, @Query("jobid") String jobid, @Query("os") String os, @Query("ip") String ip, @Query("sort_id") String sort_id, @Query("imei") String imei, @Query("androidid") String deviceid);
 
     /**
-     * 复制联系方式
-     *
-     * @param user_id 用户id
-     * @return
-     */
-    @GET("api/index/copyContact")
-    Observable<String> copyContact(@Query("appid") String appid, @Query("user_id") String user_id, @Query("job_id") String job_id, @Query("os") String os, @Query("ip") String ip, @Query("sort_id") String sort_id, @Query("contact") String contact, @Query("imei") String imei, @Query("androidid") String deviceid);
-
-
-    /**
      * 监控报名
      *
      * @param user_id 用户id
@@ -265,7 +266,7 @@ public interface ServiceAPI {
     Observable<ResponseData<List<CategoryEntity>>> getHomeCategory(@Query("appid") String appid);
 
     /**
-     * 获取个人中心信息
+     * 刷新个人中心信息接口
      *
      * @return
      */
@@ -278,9 +279,8 @@ public interface ServiceAPI {
      *
      * @return
      */
-    @POST("Api/Activity/getConfig")
-    @FormUrlEncoded
-    Observable<ConfigEntity> getConfig(@Field("id") String id,@Field("appid") String appid);
+    @GET("Api/Activity/getConfig")
+    Observable<ConfigEntity> getConfig(@Query("appid") String appid, @Query("os") String os);
 
     /**
      * 验证友盟TOKEN
@@ -298,7 +298,7 @@ public interface ServiceAPI {
      */
     @POST("Api/Index/updateResumeV2")
     @FormUrlEncoded
-    Observable<ResumeEntity> updateResumeV2(@Field("user_id") String user_id, @Field("name") String name, @Field("sex") String sex, @Field("age") String age, @Field("school_year") String school_year, @Field("school_name") String school_name, @Field("experience") String experience, @Field("introduce") String introduce, @Field("appid") String appid, @Field("profession") int profession, @Field("job_status") int job_status, @Field("job_type") String job_type, @Field("myitem") String myitem,@Field("expect") String expect,@Field("os") String os, @Field("imei") String imei, @Field("androidid") String deviceid);
+    Observable<ResumeEntity> updateResumeV2(@Field("user_id") String user_id, @Field("name") String name, @Field("sex") String sex, @Field("age") String age, @Field("school_year") String school_year, @Field("school_name") String school_name, @Field("experience") String experience, @Field("introduce") String introduce, @Field("appid") String appid, @Field("profession") int profession, @Field("job_status") int job_status, @Field("job_type") String job_type, @Field("myitem") String myitem, @Field("expect") String expect, @Field("os") String os, @Field("imei") String imei, @Field("androidid") String deviceid);
 
     /**
      * 搜索
@@ -341,7 +341,7 @@ public interface ServiceAPI {
      * @return
      */
     @GET("Api/Detail/joinJobV2")
-    Observable<JoinJobEntity> joinJobV2(@Query("appid") String appid, @Query("userid") String userid, @Query("jobid") String jobid, @Query("os") String os, @Query("ip") String ip, @Query("sort_id") String sort_id, @Query("contact") String contact, @Query("imei") String imei, @Query("androidid") String deviceid);
+    Observable<JoinJobEntity> joinJobV2(@Query("appid") String appid, @Query("userid") String userid, @Query("jobid") String jobid, @Query("os") String os, @Query("ip") String ip, @Query("sort_id") String sort_id, @Query("contact") String contact, @Query("imei") String imei, @Query("androidid") String deviceid, @Query("push_type") String push_type);
 
     /**
      * 职位详情第三版
@@ -370,7 +370,7 @@ public interface ServiceAPI {
      */
     @FormUrlEncoded
     @POST("Api/Detail/getJobinfo")
-    Observable<ChatJobInfoEntity> getChatJobinfo(@Field("appid") String appid, @Field("id") String id);
+    Observable<ChatJobInfoEntity> getChatJobinfo(@Field("appid") String appid, @Field("id") String id, @Field("os") String os);
 
     /**
      * 记录成功OR失败
@@ -406,5 +406,147 @@ public interface ServiceAPI {
      */
     @FormUrlEncoded
     @POST("api/Users/addDaySign")
-    Observable<ResponseData> addDaySign(@Field("user_id") String user_id,@Field("day") String day);
+    Observable<AddSignEntity> addDaySign(@Field("user_id") String user_id, @Field("day") String day, @Field("os") String os);
+
+    /**
+     * 获取分类标签
+     *
+     * @return
+     */
+    @GET("api/Apiv2/getLabel")
+    Observable<LableEntity> getHomeLabel();
+
+    /**
+     * 蘑菇任务列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("Api/ThirdParty/taskList")
+    Observable<MokuTaskListEntity> getTaskList(@Field("user_id") String user_id);
+
+    /**
+     * 任务添加修改
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("Api/ThirdParty/addTask")
+    Observable<ResponseData> getAddTask(@Field("task_data_id") String task_data_id, @Field("user_id") String user_id, @Field("show_name") String show_name, @Field("icon") String icon, @Field("show_money") String show_money, @Field("desc") String desc, @Field("status") String status);
+
+    /**
+     * 流水
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("Api/ThirdParty/liushui")
+    Observable<MokuBillListEntity> getLiushuiList(@Field("user_id") String user_id, @Field("status") String status);
+
+    /**
+     * 我的钱包
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("Api/ThirdParty/myMoney")
+    Observable<WalletEntity> getMyMoney(@Field("user_id") String user_id);
+
+    /**
+     * 提现快报
+     *
+     * @return
+     */
+    @POST("Api/ThirdParty/txkb")
+    Observable<KuaibaoEntity> getTxkb();
+
+    /**
+     * 提现选择类型页面
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/pay/tx_type")
+    Observable<TxTypeEntity> getTxtype(@Field("user_id") String user_id);
+
+    /**
+     * 支付宝绑定
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/pay/binding_ali")
+    Observable<TxBindingEntity> getTxbinding(@Field("user_id") String user_id, @Field("code") String code);
+
+    /**
+     * 提现详情页面
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/pay/tx_ali")
+    Observable<TxInfoEntity> getTxInfo(@Field("user_id") String user_id);
+
+    /**
+     * 提现验证码
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/pay/tx_code")
+    Observable<TxBindingEntity> getTxcode(@Field("user_id") String user_id,@Field("times") String times,@Field("token") String token);
+
+    /**
+     * 提现接口
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/pay/tx_app")
+    Observable<TxBindingEntity> getTxapp(@Field("user_id") String user_id, @Field("code") String code, @Field("money") String money);
+
+    /**
+     * 提现记录
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/pay/tx_log")
+    Observable<TxLogEntity> getTxLog(@Field("user_id") String user_id, @Field("page") int page);
+
+    /**
+     * 支付宝授权url
+     *
+     * @return
+     */
+    @POST("api/pay/infostr")
+    Observable<AuthInfoEntity> getAuthInfo();
+
+    /**
+     * 我的兑换
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("Api/Integral/getMyGoods")
+    Observable<MyExchangeEntity> getMyGoods(@Field("user_id") String user_id);
+
+    /**
+     * 我的积分详情
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("Api/Integral/myIntegInfo")
+    Observable<MyIntegralEntity> getMyIntegInfo(@Field("user_id") String user_id, @Field("page") int page);
+
+    /**
+     * 浏览和签到接口
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("Api/Integral/addInteg")
+    Observable<ResponseData> getAddInteg(@Field("user_id") String user_id, @Field("type") int type);
+
 }

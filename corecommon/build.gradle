@@ -64,7 +64,6 @@ dependencies {
     api 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'
     api 'com.youth.banner:banner:1.4.10'
     api 'com.hyman:flowlayout-lib:1.1.2'
-    api files('libs/msa_mdid_1.0.13.aar')
     implementation project(':netcommon')
     api 'com.yanzhenjie.permission:support:2.0.0'
 }

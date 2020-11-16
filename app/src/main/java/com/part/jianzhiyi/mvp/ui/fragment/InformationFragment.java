@@ -153,7 +153,7 @@ public class InformationFragment extends BaseFragment<InformationPresenter> impl
         if (list.getData().size() > 0) {
             mViewIvRed.setVisibility(View.VISIBLE);
             number = list.getData().size();
-            mInfoTvNum.setText("有" + number + "位招聘者对你感兴趣并向你发出邀请");
+            mInfoTvNum.setText("共有" + number + "位招聘负责人看过你的简历");
             mInfoTvTime.setText(list.getData().get(0).getData());
         }
     }

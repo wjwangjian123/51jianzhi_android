@@ -98,21 +98,16 @@ public class HomeAdapter extends BaseAdapter {
                     homeViewHolder.mTvTypeContent.setText(item.getTitle());
                     homeViewHolder.mTvPrice1.setText(item.getPrice1());
                     homeViewHolder.mTvPrice2.setText(item.getPrice2());
-                    if (item.getPlace() == null || item.getPlace() == "") {
-                        if (PreferenceUUID.getInstence().getCity() == "" || PreferenceUUID.getInstence().getCity() == null) {
-                            homeViewHolder.mItemTvPlace.setText("不限");
-                        } else {
-                            homeViewHolder.mItemTvPlace.setText(PreferenceUUID.getInstence().getCity());
-                        }
+                    if (item.getMethod() == null || item.getMethod() == "") {
+                        homeViewHolder.mItemTvSettlement.setText("不限");
                     } else {
-                        homeViewHolder.mItemTvPlace.setText(item.getPlace());
+                        homeViewHolder.mItemTvSettlement.setText(item.getMethod());
                     }
                     if (item.getTime() == null || item.getTime() == "") {
                         homeViewHolder.mItemTvTime.setText("不限");
                     } else {
                         homeViewHolder.mItemTvTime.setText(item.getTime());
                     }
-                    homeViewHolder.mItemTvSettlement.setText(item.getMethod());
                 }
                 break;
             case 1:
@@ -160,7 +155,6 @@ public class HomeAdapter extends BaseAdapter {
         private TextView mTvTypeContent;
         private TextView mTvPrice1;
         private TextView mTvPrice2;
-        private TextView mItemTvPlace;
         private TextView mItemTvTime;
         private TextView mItemTvSettlement;
 
@@ -168,7 +162,6 @@ public class HomeAdapter extends BaseAdapter {
             mTvTypeContent = view.findViewById(R.id.tv_type_content);
             mTvPrice1 = view.findViewById(R.id.tv_price1);
             mTvPrice2 = view.findViewById(R.id.tv_price2);
-            mItemTvPlace = view.findViewById(R.id.item_tv_place);
             mItemTvTime = view.findViewById(R.id.item_tv_time);
             mItemTvSettlement = view.findViewById(R.id.item_tv_settlement);
         }

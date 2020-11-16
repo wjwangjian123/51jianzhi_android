@@ -16,8 +16,8 @@ import io.reactivex.Observable;
  **/
 public interface HomeVocationListContract {
     interface IVocationListModel extends IModel {
-        Observable<ResponseData<JobListResponseEntity2>> jobList(String userid, String type, String position, int page, String category);
-        Observable<ResponseData<JobListResponseEntity2>> jobList(String userid, String type, String position, int page);
+        Observable<ResponseData<JobListResponseEntity2>> jobList1(String userid, String type, String position, int page, String category);
+        Observable<ResponseData<JobListResponseEntity2>> jobList(String userid, String type, String position, int page,String label);
 
     }
 

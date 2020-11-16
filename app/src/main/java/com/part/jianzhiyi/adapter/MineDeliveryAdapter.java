@@ -50,21 +50,17 @@ public class MineDeliveryAdapter extends RecyclerView.Adapter<MineDeliveryAdapte
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int position) {
         if (mDatas != null && mDatas.size() > 0) {
             viewHolder.mItemTvJobname.setText(mDatas.get(position).getTitle());
-            viewHolder.mItemTvPrice.setText(mDatas.get(position).getPrice());
+            viewHolder.mItemTvPrice1.setText(mDatas.get(position).getPrice1());
+            viewHolder.mItemTvPrice2.setText(mDatas.get(position).getPrice2());
             viewHolder.mItemTvCompany.setText(mDatas.get(position).getCompany());
             if (mDatas.get(position).getPlace() == null || mDatas.get(position).getPlace() == "") {
                 if (PreferenceUUID.getInstence().getCity() == "" || PreferenceUUID.getInstence().getCity() == null) {
-                    viewHolder.mItemTvAddress.setText("不限");
+                    viewHolder.mItemTvPlace.setText("不限");
                 } else {
-                    viewHolder.mItemTvAddress.setText(PreferenceUUID.getInstence().getCity());
+                    viewHolder.mItemTvPlace.setText(PreferenceUUID.getInstence().getCity());
                 }
             } else {
-                viewHolder.mItemTvAddress.setText(mDatas.get(position).getPlace());
-            }
-            if (mDatas.get(position).getTime() == null || mDatas.get(position).getTime() == "") {
-                viewHolder.mItemTvTime.setText("不限");
-            } else {
-                viewHolder.mItemTvTime.setText(mDatas.get(position).getTime());
+                viewHolder.mItemTvPlace.setText(mDatas.get(position).getPlace());
             }
             viewHolder.mItemTvSettlement.setText(mDatas.get(position).getMethod());
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -86,19 +82,19 @@ public class MineDeliveryAdapter extends RecyclerView.Adapter<MineDeliveryAdapte
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mItemTvJobname;
-        private TextView mItemTvPrice;
+        private TextView mItemTvPrice1;
+        private TextView mItemTvPrice2;
         private TextView mItemTvCompany;
-        private TextView mItemTvAddress;
-        private TextView mItemTvTime;
+        private TextView mItemTvPlace;
         private TextView mItemTvSettlement;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mItemTvJobname = (TextView) itemView.findViewById(R.id.item_tv_jobname);
-            mItemTvPrice = (TextView) itemView.findViewById(R.id.item_tv_price);
+            mItemTvPrice1 = (TextView) itemView.findViewById(R.id.item_tv_price1);
+            mItemTvPrice2 = (TextView) itemView.findViewById(R.id.item_tv_price2);
             mItemTvCompany = (TextView) itemView.findViewById(R.id.item_tv_company);
-            mItemTvAddress = (TextView) itemView.findViewById(R.id.item_tv_address);
-            mItemTvTime = (TextView) itemView.findViewById(R.id.item_tv_time);
+            mItemTvPlace = (TextView) itemView.findViewById(R.id.item_tv_place);
             mItemTvSettlement = (TextView) itemView.findViewById(R.id.item_tv_settlement);
         }
     }

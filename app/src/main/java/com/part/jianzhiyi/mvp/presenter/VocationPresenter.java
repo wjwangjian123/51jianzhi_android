@@ -171,23 +171,6 @@ public class VocationPresenter extends BasePresenter<VocationContract.IVocationM
                 }));
     }
 
-    public void copyContact(String jobId, String sortId, String contact) {
-        String userId = PreferenceUUID.getInstence().getUserId();
-//        if (TextUtils.isEmpty(userId)) {
-//            if (isAttach()) {
-//                //weakReferenceView.get().reStartLogin();
-//                return;
-//            }
-//        }
-        mModel.copyContact(Constants.APPID, userId, jobId, sortId, contact)
-                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
-                .subscribe(getResult(new ResultObserver<String>() {
-                    @Override
-                    public void onNext(String stringResponseData) {
-                    }
-                }));
-    }
-
     public void jobDetailv(String jobId, String position, String sortId) {
         mModel.jobDetailv(jobId, position, sortId)
                 .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
@@ -225,6 +208,28 @@ public class VocationPresenter extends BasePresenter<VocationContract.IVocationM
                         if (TextUtils.equals(responseData.getCode(), HttpAPI.REQUEST_SUCCESS)) {
                             if (isAttach()) {
                             }
+                        }
+                    }
+                }));
+    }
+
+    public void joincopyContact(String jobId, String sortId, String contact, int type) {
+        String userId = PreferenceUUID.getInstence().getUserId();
+        if (TextUtils.isEmpty(userId)) {
+            if (isAttach()) {
+                weakReferenceView.get().reStartLogin();
+                return;
+            }
+        }
+        mModel.joincopyContact(Constants.APPID, userId, jobId, sortId, contact, type)
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<ResponseData<AddFavouriteResponseEntity>>() {
+                    @Override
+                    public void onNext(ResponseData<AddFavouriteResponseEntity> stringResponseData) {
+                        Log.d("testaaa", "onNext: " + stringResponseData);
+                        if (stringResponseData.getCode().equals(HttpAPI.REQUEST_SUCCESS)) {
+//                            weakReferenceView.get().joinSuccess();
+                        } else {
                         }
                     }
                 }));

@@ -21,6 +21,8 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
+import com.fendasz.moku.planet.exception.MokuException;
+import com.fendasz.moku.planet.helper.MokuHelper;
 import com.greendao.gen.MessageResponseEntityDao;
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.app.ODApplication;
@@ -42,6 +44,7 @@ import com.part.jianzhiyi.mvp.ui.fragment.ChoiceFragment;
 import com.part.jianzhiyi.mvp.ui.fragment.HomeFragment;
 import com.part.jianzhiyi.mvp.ui.fragment.InformationFragment;
 import com.part.jianzhiyi.mvp.ui.fragment.MineFragment;
+import com.part.jianzhiyi.mvp.ui.fragment.MokuFragment;
 import com.part.jianzhiyi.preference.PreferenceUUID;
 import com.part.jianzhiyi.utils.HProgressDialogUtils;
 import com.part.jianzhiyi.utils.UpdateAppHttpUtil;
@@ -83,6 +86,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private TextView mMainTvMine;
     private LinearLayout mMainLinearMine;
     private ImageView mViewIvRed;
+    private ImageView mMainIvMoku;
+    private TextView mMainTvMoku;
+    private LinearLayout mMainLinearMoku;
 
     private String TAG = "MainActivity";
     private View[] mViews;
@@ -110,6 +116,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     private HomeFragment homeFragment = null;
+
     private Boolean openLocationService() {
         if (locationService != null) {
             return true;
@@ -161,29 +168,30 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        setIntent(intent);
         if (intent != null) {
             type = intent.getIntExtra("type", 0);
             if (type == 2) {
                 setTabSelected(0);
                 mMainViewpager.setCurrentItem(0);
             }
-            if (intent.getData()!=null){
-                String type=intent.getData().getQueryParameter("type");
-                if (!type.equals(null)){
-                    if (type.equals("4")){
+            if (intent.getData() != null) {
+                String type = intent.getData().getQueryParameter("type");
+                if (!type.equals(null)) {
+                    if (type.equals("4")) {
                         setTabSelected(0);
                         mMainViewpager.setCurrentItem(0);
-                    }else if (type.equals("5")){
-                        setTabSelected(2);
-                        mMainViewpager.setCurrentItem(2);
+                    } else if (type.equals("5")) {
+                        setTabSelected(3);
+                        mMainViewpager.setCurrentItem(3);
                     }
                 }
-//                Log.d("aaaaaaaaaaaaa","2"+intent.getData().toString()+","+type);
             }
         }
     }
 
     private int isShowType = 1;
+
     @Override
     protected void initView() {
         mMainViewpager = (NoScrollViewPager) findViewById(R.id.main_viewpager);
@@ -200,29 +208,48 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mMainIvMine = (ImageView) findViewById(R.id.main_iv_mine);
         mMainTvMine = (TextView) findViewById(R.id.main_tv_mine);
         mMainLinearMine = (LinearLayout) findViewById(R.id.main_linear_mine);
+        mMainIvMoku = (ImageView) findViewById(R.id.main_iv_moku);
+        mMainTvMoku = (TextView) findViewById(R.id.main_tv_moku);
+        mMainLinearMoku = (LinearLayout) findViewById(R.id.main_linear_moku);
         mMainLinearHome.setOnClickListener(this);
         mMainLinearChoice.setOnClickListener(this);
+        mMainLinearMoku.setOnClickListener(this);
         mMainLinearMessage.setOnClickListener(this);
         mMainLinearMine.setOnClickListener(this);
         setToolBarVisible(false);
-        mViews = new View[]{mMainTvHome, mMainTvChoice, mMainTvMessage, mMainTvMine};
-        mViewImgs = new View[]{mMainIvHome, mMainIvChoice, mMainIvMessage, mMainIvMine};
+        mViews = new View[]{mMainTvHome, mMainTvChoice, mMainTvMoku, mMainTvMessage, mMainTvMine};
+        mViewImgs = new View[]{mMainIvHome, mMainIvChoice, mMainIvMoku, mMainIvMessage, mMainIvMine};
         setTabSelected(0);
         initViewPager();
         type = getIntent().getIntExtra("type", 0);
         mPresenter.androidInfo(MainActivity.this);
-        if (getIntent().getData()!=null){
-            String type=getIntent().getData().getQueryParameter("type");
-            if (!type.equals(null)){
-                if (type.equals("4")){
+        if (getIntent().getData() != null) {
+            String type = getIntent().getData().getQueryParameter("type");
+            if (!type.equals(null)) {
+                if (type.equals("4")) {
                     setTabSelected(0);
                     mMainViewpager.setCurrentItem(0);
-                }else if (type.equals("5")){
-                    setTabSelected(2);
-                    mMainViewpager.setCurrentItem(2);
+                } else if (type.equals("5")) {
+                    setTabSelected(3);
+                    mMainViewpager.setCurrentItem(3);
                 }
             }
-//            Log.d("aaaaaaaaaaaaa","1"+getIntent().getData().toString()+","+type);
+        }
+        initLoad();
+    }
+
+    private void initLoad() {
+        //初始化sdk
+        MokuHelper.initSdk(MainActivity.this);
+        String userId = PreferenceUUID.getInstence().getUserId();
+        if (!TextUtils.isEmpty(userId)) {
+            MokuHelper.initOaid(PreferenceUUID.getInstence().getOaid());
+            try {
+                //启动sdk
+                MokuHelper.startSdk(MainActivity.this, userId);
+            } catch (MokuException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -230,6 +257,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         final ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(new HomeFragment());
         fragments.add(new ChoiceFragment());
+        fragments.add(new MokuFragment());
         fragments.add(new InformationFragment());
         fragments.add(new MineFragment());
         //设置viewpager的缓存
@@ -260,13 +288,17 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             mMainViewpager.setCurrentItem(1);
             setTabSelected(1);
             MobclickAgent.onEvent(this, "main_choice");
-        } else if (v.getId() == R.id.main_linear_message) {
+        } else if (v.getId() == R.id.main_linear_moku) {
             mMainViewpager.setCurrentItem(2);
             setTabSelected(2);
-            MobclickAgent.onEvent(this, "main_information");
-        } else if (v.getId() == R.id.main_linear_mine) {
+            MobclickAgent.onEvent(this, "main_moku");
+        } else if (v.getId() == R.id.main_linear_message) {
             mMainViewpager.setCurrentItem(3);
             setTabSelected(3);
+            MobclickAgent.onEvent(this, "main_information");
+        } else if (v.getId() == R.id.main_linear_mine) {
+            mMainViewpager.setCurrentItem(4);
+            setTabSelected(4);
             MobclickAgent.onEvent(this, "main_mine");
         }
     }
@@ -312,6 +344,18 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         return calendar.getTimeInMillis();
     }
 
+    @Override
+    protected void setListener() {
+        super.setListener();
+        HomeFragment.setmBtnClickListener(new HomeFragment.BtnClickListener() {
+            @Override
+            public void onTabClick() {
+                mMainViewpager.setCurrentItem(2);
+                setTabSelected(2);
+            }
+        });
+    }
+
     private void finishApp() {
         showToast("不同意将无法使用app");
     }
@@ -321,6 +365,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         int versionCode = AppUtil.getVersionCode(MainActivity.this);
         if (configEntity.getData() != null) {
             PreferenceUUID.getInstence().putShowWx(configEntity.getData().getShow_wx());
+            if (configEntity.getData().getIs_sw() == 0) {
+                mMainLinearMoku.setVisibility(View.GONE);
+            } else if (configEntity.getData().getIs_sw() == 1) {
+                mMainLinearMoku.setVisibility(View.VISIBLE);
+            }
             int androidVersion = configEntity.getData().getAndroid_version();
             String androidTitle = configEntity.getData().getAndroid_title();
             String androidDesc = configEntity.getData().getAndroid_desc();

@@ -16,20 +16,18 @@
             android:id="@+id/sign_tv_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="签到成功"
+            android:text="简历刷新成功"
             android:textSize="@dimen/font_24"
-            android:textColor="@color/color_333333"
+            android:textColor="@color/color_ffffff"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="53dp"
-            android:textStyle="bold"/>
+            android:layout_marginTop="55dp"/>
         <TextView
             android:id="@+id/sign_tv_active"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="简历活跃度      36%"
             android:textSize="11sp"
-            android:textColor="@color/color_333333"
-            android:layout_marginTop="@dimen/dimen_8"
+            android:textColor="@color/color_ffffff"
+            android:layout_marginTop="@dimen/dimen_12"
             android:layout_marginLeft="22dp"/>
         <com.part.jianzhiyi.customview.CustomHorizontalProgresNoNum
             android:id="@+id/sign_progress"
@@ -37,8 +35,7 @@
             android:layout_height="@dimen/dimen_10"
             android:layout_marginTop="@dimen/dimen_5"
             android:layout_marginHorizontal="22dp"
-            android:progress="80"
-            app:HorizontalProgresReachColor="@color/color_FBC10F"
+            app:HorizontalProgresReachColor="#FDA633"
             app:HorizontalProgresUnReachColor="@color/color_ffffff"/>
     </LinearLayout>
     <RelativeLayout
@@ -74,16 +71,13 @@
                     android:gravity="center"
                     android:layout_marginTop="@dimen/dimen_5"
                     android:background="@drawable/selector_sign_bg">
-                    <ImageView
-                        android:layout_width="@dimen/dimen_20"
-                        android:layout_height="@dimen/dimen_20"
-                        android:src="@drawable/icon_sign_ic"/>
                     <TextView
+                        android:id="@+id/sign_tv_one"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="+5%"
                         android:textSize="@dimen/font_10"
-                        android:textColor="@color/color_524E40"
+                        android:textColor="@color/sign_text"
                         android:layout_marginTop="@dimen/dimen_2"/>
                 </LinearLayout>
             </LinearLayout>
@@ -107,16 +101,13 @@
                     android:gravity="center"
                     android:layout_marginTop="@dimen/dimen_5"
                     android:background="@drawable/selector_sign_bg">
-                    <ImageView
-                        android:layout_width="@dimen/dimen_20"
-                        android:layout_height="@dimen/dimen_20"
-                        android:src="@drawable/icon_sign_ic"/>
                     <TextView
+                        android:id="@+id/sign_tv_two"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="+5%"
                         android:textSize="@dimen/font_10"
-                        android:textColor="@color/color_524E40"
+                        android:textColor="@color/sign_text"
                         android:layout_marginTop="@dimen/dimen_2"/>
                 </LinearLayout>
             </LinearLayout>
@@ -140,16 +131,13 @@
                     android:gravity="center"
                     android:layout_marginTop="@dimen/dimen_5"
                     android:background="@drawable/selector_sign_bg">
-                    <ImageView
-                        android:layout_width="@dimen/dimen_20"
-                        android:layout_height="@dimen/dimen_20"
-                        android:src="@drawable/icon_sign_ic"/>
                     <TextView
+                        android:id="@+id/sign_tv_three"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="+10%"
                         android:textSize="@dimen/font_10"
-                        android:textColor="@color/color_524E40"
+                        android:textColor="@color/sign_text"
                         android:layout_marginTop="@dimen/dimen_2"/>
                 </LinearLayout>
             </LinearLayout>
@@ -173,16 +161,13 @@
                     android:gravity="center"
                     android:layout_marginTop="@dimen/dimen_5"
                     android:background="@drawable/selector_sign_bg">
-                    <ImageView
-                        android:layout_width="@dimen/dimen_20"
-                        android:layout_height="@dimen/dimen_20"
-                        android:src="@drawable/icon_sign_ic"/>
                     <TextView
+                        android:id="@+id/sign_tv_four"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="+10%"
                         android:textSize="@dimen/font_10"
-                        android:textColor="@color/color_524E40"
+                        android:textColor="@color/sign_text"
                         android:layout_marginTop="@dimen/dimen_2"/>
                 </LinearLayout>
             </LinearLayout>
@@ -214,16 +199,13 @@
                     android:gravity="center"
                     android:layout_marginTop="@dimen/dimen_5"
                     android:background="@drawable/selector_sign_bg">
-                    <ImageView
-                        android:layout_width="@dimen/dimen_20"
-                        android:layout_height="@dimen/dimen_20"
-                        android:src="@drawable/icon_sign_ic"/>
                     <TextView
+                        android:id="@+id/sign_tv_five"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="+10%"
                         android:textSize="@dimen/font_10"
-                        android:textColor="@color/color_524E40"
+                        android:textColor="@color/sign_text"
                         android:layout_marginTop="@dimen/dimen_2"/>
                 </LinearLayout>
             </LinearLayout>
@@ -247,16 +229,13 @@
                     android:gravity="center"
                     android:layout_marginTop="@dimen/dimen_5"
                     android:background="@drawable/selector_sign_bg">
-                    <ImageView
-                        android:layout_width="@dimen/dimen_20"
-                        android:layout_height="@dimen/dimen_20"
-                        android:src="@drawable/icon_sign_ic"/>
                     <TextView
+                        android:id="@+id/sign_tv_six"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="+15%"
                         android:textSize="@dimen/font_10"
-                        android:textColor="@color/color_524E40"
+                        android:textColor="@color/sign_text"
                         android:layout_marginTop="@dimen/dimen_2"/>
                 </LinearLayout>
             </LinearLayout>
@@ -280,16 +259,13 @@
                     android:gravity="center"
                     android:layout_marginTop="@dimen/dimen_5"
                     android:background="@drawable/selector_sign_bg">
-                    <ImageView
-                        android:layout_width="@dimen/dimen_20"
-                        android:layout_height="@dimen/dimen_20"
-                        android:src="@drawable/icon_sign_ic"/>
                     <TextView
+                        android:id="@+id/sign_tv_seven"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="+15%"
                         android:textSize="@dimen/font_10"
-                        android:textColor="@color/color_524E40"
+                        android:textColor="@color/sign_text"
                         android:layout_marginTop="@dimen/dimen_2"/>
                 </LinearLayout>
             </LinearLayout>
@@ -301,10 +277,9 @@
             android:text="好的"
             android:textSize="@dimen/font_16"
             android:textColor="@color/color_ffffff"
-            android:textStyle="bold"
             android:gravity="center"
             android:layout_marginHorizontal="@dimen/dimen_30"
-            android:background="@drawable/shape_dialog_agree"
+            android:background="@drawable/shape_sign_btn"
             android:layout_marginTop="@dimen/dimen_18"
             android:layout_below="@+id/sign_linear2"/>
     </RelativeLayout>

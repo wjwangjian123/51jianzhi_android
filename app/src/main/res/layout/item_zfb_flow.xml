@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_flow_title"
+    android:layout_width="87dp"
+    android:layout_height="37dp"
+    android:background="@drawable/selector_zfb_flow_bg"
+    android:textSize="@dimen/font_16"
+    android:textColor="@color/zfb_flow_text"
+    android:layout_marginHorizontal="6dp"
+    android:layout_marginVertical="5dp"
+    android:gravity="center"
+    android:layout_gravity="center_horizontal"/>

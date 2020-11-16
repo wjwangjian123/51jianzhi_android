@@ -44,8 +44,10 @@ public class LoginPresenter extends BasePresenter<LoginContract.ILoginModel, Log
                             String code = responseData.getCode();
                             if (code.equals(HttpAPI.REQUEST_SUCCESS)) {
                                 if (isAttach()) {
-                                    weakReferenceView.get().showToast(responseData.getData());
+                                    weakReferenceView.get().updatesendSms(responseData);
                                 }
+                            } else {
+                                weakReferenceView.get().updatesendSms(responseData);
                             }
                         }
                     }
@@ -54,15 +56,6 @@ public class LoginPresenter extends BasePresenter<LoginContract.ILoginModel, Log
     }
 
     public void login(String phone, String code) {
-        if (TextUtils.isEmpty(phone) || !RegularUtils.isMobileNumber(phone)) {
-            showToast("请填写正确的手机号");
-            return;
-        }
-
-        if (TextUtils.isEmpty(code)) {
-            showToast("请填写正确的验证码");
-            return;
-        }
         mModel.login(phone, code)
                 .compose(schedulersTransformer(HttpAPI.LOADING_CUSTOM_TIME))
                 .subscribe(getResult(new ResultObserver<String>() {

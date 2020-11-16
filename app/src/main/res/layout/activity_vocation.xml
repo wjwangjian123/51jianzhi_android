@@ -6,6 +6,29 @@
     android:layout_height="match_parent"
     android:background="@color/color_ffffff"
     tools:context=".mvp.ui.activity.VocationActivity">
+    <RelativeLayout
+        android:id="@+id/vo_rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_44">
+        <ImageView
+            android:id="@+id/vo_iv_return"
+            android:layout_width="@dimen/dimen_44"
+            android:layout_height="@dimen/dimen_44"
+            android:layout_centerVertical="true"
+            android:paddingHorizontal="19dp"
+            android:paddingVertical="16dp"
+            android:src="@drawable/ic_arrow_return"/>
+        <TextView
+            android:id="@+id/vo_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="兼职详情"
+            android:textColor="@color/color_051b28"
+            android:textSize="@dimen/font_18"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
     <ImageView
         android:id="@+id/iv_vaction_bg"
         android:layout_width="match_parent"
@@ -15,22 +38,31 @@
     <LinearLayout
         android:id="@+id/ll_bottom"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="58dp"
         android:layout_alignParentBottom="true"
         android:background="@color/color_ffffff"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingHorizontal="19dp"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/tv_favourite"
+            android:layout_width="125dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textColor="@color/join_text"
+            android:textSize="@dimen/font_15"
+            android:background="@drawable/selector_favourite_selected"/>
         <TextView
             android:id="@+id/tv_joined"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_40"
+            android:layout_height="38dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginHorizontal="14dp"
             android:gravity="center"
-            android:text="立即报名"
-            android:textColor="@color/color_333333"
+            android:textColor="@color/join_text"
             android:textSize="@dimen/font_15"
-            android:textStyle="bold"
-            android:background="@drawable/shape_dialog_agree"/>
+            android:background="@drawable/item_join_selected"
+            android:layout_marginLeft="@dimen/dimen_15"/>
     </LinearLayout>
     <com.part.jianzhiyi.corecommon.ui.ObservableScrollView
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -38,6 +70,7 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/vo_rl_title"
         android:layout_above="@id/iv_vaction_bg"
         android:background="@color/color_ffffff"
         android:overScrollMode="never"
@@ -54,37 +87,15 @@
                 android:id="@+id/vo_con"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/icon_vocation_bg"
-                android:paddingBottom="@dimen/dimen_15">
-                <ImageView
-                    android:id="@+id/vo_iv_return"
-                    android:layout_width="@dimen/dimen_44"
-                    android:layout_height="@dimen/dimen_44"
-                    android:paddingHorizontal="17dp"
-                    android:paddingVertical="16dp"
-                    android:src="@drawable/ic_white_back"/>
+                android:paddingTop="@dimen/dimen_3"
+                android:layout_marginHorizontal="27dp">
                 <TextView
                     android:id="@+id/tv_job_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/color_FEFEFE"
-                    android:textSize="@dimen/font_20"
-                    android:textStyle="bold"
-                    android:layout_marginRight="@dimen/dimen_10"
-                    android:layout_toLeftOf="@+id/iv_favourite"
-                    android:layout_below="@+id/vo_iv_return"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginLeft="17dp"/>
-                <ImageView
-                    android:id="@+id/iv_favourite"
-                    android:layout_width="@dimen/dimen_44"
-                    android:layout_height="@dimen/dimen_44"
-                    android:padding="14dp"
-                    android:src="@drawable/selector_favourite_selected"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/dimen_5"
-                    android:layout_below="@+id/vo_iv_return"
-                    android:layout_marginTop="@dimen/dimen_2"/>
+                    android:textColor="@color/color_292E3B"
+                    android:textSize="17sp"
+                    android:textStyle="bold"/>
                 <LinearLayout
                     android:id="@+id/linear_info"
                     android:layout_width="wrap_content"
@@ -92,39 +103,39 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:layout_below="@+id/tv_job_title"
-                    android:layout_marginTop="@dimen/dimen_10"
-                    android:layout_marginHorizontal="17dp">
+                    android:layout_marginTop="@dimen/dimen_3">
                     <TextView
                         android:id="@+id/tv_method"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="11sp"
-                        android:textColor="@color/color_ffffff"/>
+                        android:textSize="9sp"
+                        android:textColor="@color/color_A1A7B7"/>
                     <View
+                        android:id="@+id/view_method"
                         android:layout_width="@dimen/dimen_1"
                         android:layout_height="7dp"
-                        android:background="@color/color_ffffff"
-                        android:layout_marginLeft="@dimen/dimen_8"/>
+                        android:background="@color/color_A1A7B7"
+                        android:layout_marginLeft="@dimen/dimen_5"/>
                     <TextView
-                        android:id="@+id/tv_lable"
+                        android:id="@+id/tv_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="11sp"
-                        android:textColor="@color/color_ffffff"
-                        android:layout_marginLeft="@dimen/dimen_8"/>
+                        android:textSize="9sp"
+                        android:textColor="@color/color_A1A7B7"
+                        android:layout_marginLeft="@dimen/dimen_5"/>
                     <View
-                        android:id="@+id/vo_view"
+                        android:id="@+id/view_time"
                         android:layout_width="@dimen/dimen_1"
                         android:layout_height="7dp"
-                        android:background="@color/color_ffffff"
-                        android:layout_marginLeft="@dimen/dimen_8"/>
+                        android:background="@color/color_A1A7B7"
+                        android:layout_marginLeft="@dimen/dimen_5"/>
                     <TextView
-                        android:id="@+id/tv_num"
+                        android:id="@+id/tv_sex"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="11sp"
-                        android:textColor="@color/color_ffffff"
-                        android:layout_marginLeft="@dimen/dimen_8"/>
+                        android:textSize="9sp"
+                        android:textColor="@color/color_A1A7B7"
+                        android:layout_marginLeft="@dimen/dimen_5"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/linear_price"
@@ -133,136 +144,95 @@
                     android:orientation="horizontal"
                     android:gravity="bottom"
                     android:layout_below="@+id/linear_info"
-                    android:layout_marginTop="@dimen/dimen_15"
-                    android:layout_marginHorizontal="17dp">
+                    android:layout_marginTop="@dimen/dimen_4">
                     <TextView
                         android:id="@+id/tv_price1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:gravity="bottom"
                         android:layout_gravity="bottom"
-                        android:textColor="@color/color_FFCC00"
+                        android:textColor="@color/color_text_theme"
                         android:textStyle="bold"
-                        android:textSize="23sp"/>
+                        android:textSize="@dimen/font_20"/>
                     <TextView
                         android:id="@+id/tv_price2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:gravity="bottom"
                         android:layout_gravity="bottom"
-                        android:layout_marginLeft="@dimen/dimen_5"
-                        android:textColor="@color/color_FFCC00"
-                        android:textSize="11sp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_below="@+id/linear_price"
-                    android:layout_marginTop="@dimen/dimen_15"
-                    android:layout_marginHorizontal="17dp">
-                    <ImageView
-                        android:layout_width="11dp"
-                        android:layout_height="@dimen/dimen_12"
-                        android:src="@drawable/icon_vo_num"
-                        android:layout_gravity="top"/>
-                    <TextView
-                        android:id="@+id/tv_number"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="11sp"
-                        android:textColor="@color/color_ffffff"
-                        android:layout_marginLeft="@dimen/dimen_2"
-                        android:layout_gravity="top"/>
-                    <ImageView
-                        android:layout_width="14dp"
-                        android:layout_height="@dimen/dimen_12"
-                        android:src="@drawable/icon_vo_intro"
-                        android:layout_marginLeft="@dimen/dimen_10"
-                        android:layout_gravity="top"/>
-                    <TextView
-                        android:id="@+id/tv_duration"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="11sp"
-                        android:textColor="@color/color_ffffff"
-                        android:layout_marginLeft="@dimen/dimen_2"
-                        android:layout_gravity="top"/>
-                    <ImageView
-                        android:layout_width="@dimen/dimen_10"
-                        android:layout_height="@dimen/dimen_12"
-                        android:src="@drawable/icon_vo_dizhi"
-                        android:layout_marginLeft="@dimen/dimen_10"
-                        android:layout_gravity="top"/>
-                    <TextView
-                        android:id="@+id/tv_place"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="11sp"
-                        android:textColor="@color/color_ffffff"
-                        android:layout_marginLeft="@dimen/dimen_2"
-                        android:layout_gravity="top"/>
+                        android:textColor="@color/color_text_theme"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/font_16"
+                        android:layout_marginLeft="@dimen/dimen_1"/>
                 </LinearLayout>
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/rl_company"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="@dimen/dimen_18"
-                android:paddingTop="23dp"
-                android:paddingBottom="@dimen/dimen_18"
-                android:background="@color/color_ffffff">
+                android:paddingLeft="@dimen/dimen_12"
+                android:paddingRight="@dimen/dimen_12"
+                android:paddingTop="@dimen/dimen_12"
+                android:paddingBottom="@dimen/dimen_12"
+                android:background="@drawable/shape_bg_purple"
+                android:layout_marginTop="13dp"
+                android:layout_marginHorizontal="27dp">
                 <ImageView
+                    android:id="@+id/vo_iv_company"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/sy_tab"
-                    android:layout_alignBottom="@+id/vo_tv_text"
-                    android:layout_alignRight="@+id/vo_tv_text"/>
-                <TextView
-                    android:id="@+id/vo_tv_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="公司信息"
-                    android:textSize="@dimen/font_18"
-                    android:textColor="@color/color_333333"
-                    android:textStyle="bold"/>
+                    android:src="@drawable/icon_vo_company"
+                    android:layout_centerVertical="true"/>
                 <TextView
                     android:id="@+id/tv_company"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/vo_tv_text"
-                    android:layout_marginTop="17dp"
-                    android:textColor="@color/color_333333"
-                    android:textSize="13sp"/>
+                    android:textSize="13sp"
+                    android:textColor="@color/color_ffffff"
+                    android:layout_toRightOf="@+id/vo_iv_company"
+                    android:layout_marginLeft="11dp"
+                    android:layout_alignTop="@+id/vo_iv_company"
+                    android:layout_marginTop="6dp"/>
                 <TextView
                     android:id="@+id/tv_renzheng"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_company"
-                    android:layout_marginTop="@dimen/dimen_10"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:layout_alignLeft="@+id/tv_company"
                     android:text="已认证"
-                    android:textColor="@color/color_FDC503"
-                    android:textSize="11sp"
+                    android:textColor="@color/color_ffffff"
+                    android:textSize="9sp"
                     android:drawableLeft="@drawable/icon_vo_renzheng"
-                    android:drawablePadding="@dimen/dimen_4"/>
+                    android:drawablePadding="@dimen/dimen_3"/>
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/dimen_12"
+                android:paddingRight="@dimen/dimen_8"
+                android:paddingTop="@dimen/dimen_5"
+                android:paddingBottom="@dimen/dimen_5"
+                android:layout_marginTop="17dp"
+                android:gravity="center"
+                android:background="@drawable/shape_bg_grey5"
+                android:layout_marginHorizontal="27dp">
                 <TextView
                     android:id="@+id/text1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="联系方式"
-                    android:textColor="@color/color_333333"
-                    android:textSize="@dimen/font_12"
-                    android:layout_below="@+id/tv_renzheng"
-                    android:layout_marginTop="13dp"/>
+                    android:textColor="@color/color_717785"
+                    android:textSize="11sp"/>
                 <LinearLayout
                     android:id="@+id/ll_link"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="horizontal"
                     android:gravity="center"
-                    android:layout_toRightOf="@+id/text1"
-                    android:layout_toLeftOf="@+id/iv_copy"
-                    android:layout_marginHorizontal="@dimen/dimen_5"
-                    android:layout_below="@+id/tv_renzheng"
-                    android:layout_alignTop="@+id/text1">
+                    android:layout_marginHorizontal="@dimen/dimen_5">
                     <ImageView
                         android:id="@+id/iv_contract"
                         android:layout_width="@dimen/dimen_15"
@@ -272,9 +242,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:textColor="@color/color_999999"
-                        android:textSize="@dimen/font_10"
-                        android:layout_marginLeft="@dimen/dimen_3"
+                        android:textColor="@color/color_717785"
+                        android:textSize="11sp"
+                        android:layout_marginLeft="@dimen/dimen_2"
                         android:singleLine="true"
                         android:ellipsize="end"/>
                 </LinearLayout>
@@ -283,81 +253,110 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="17dp"
-                    android:paddingVertical="6dp"
-                    android:background="@drawable/shape_dialog_agree"
+                    android:paddingVertical="@dimen/dimen_4"
+                    android:background="@drawable/shape_btn_purple14"
                     android:gravity="center"
                     android:textColor="@color/color_ffffff"
-                    android:textSize="@dimen/font_12"
-                    android:layout_below="@+id/tv_renzheng"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="7dp"/>
-            </RelativeLayout>
+                    android:textSize="@dimen/font_12"/>
+            </LinearLayout>
             <View
                 android:layout_width="match_parent"
-                android:layout_height="8dp"
-                android:background="@color/color_EEEEEE"/>
+                android:layout_height="11dp"
+                android:background="@color/color_F7F8FA"
+                android:layout_marginTop="14dp"/>
             <RelativeLayout
                 android:id="@+id/rl_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dimen_18"
-                android:layout_marginTop="21dp">
+                android:layout_marginHorizontal="27dp"
+                android:layout_marginTop="@dimen/dimen_20">
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/sy_tab"
+                    android:layout_height="6dp"
+                    android:src="@drawable/icon_vo_tab"
                     android:layout_alignBottom="@+id/tv_content"
+                    android:layout_alignLeft="@+id/tv_content"
                     android:layout_alignRight="@+id/tv_content"/>
                 <TextView
                     android:id="@+id/tv_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="工作内容"
-                    android:textColor="@color/color_333333"
-                    android:textSize="@dimen/font_18"
+                    android:text="职位详情"
+                    android:textColor="@color/color_292E3B"
+                    android:textSize="@dimen/font_15"
                     android:textStyle="bold" />
                 <WebView
                     android:id="@+id/webView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_content"
-                    android:layout_marginTop="@dimen/dimen_10"
+                    android:layout_marginTop="@dimen/dimen_15"
                     android:scrollbars="none">
                 </WebView>
             </RelativeLayout>
             <View
                 android:layout_width="match_parent"
-                android:layout_height="8dp"
-                android:background="@color/color_EEEEEE"
-                android:layout_marginTop="@dimen/dimen_10"/>
-            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_height="11dp"
+                android:background="@color/color_F7F8FA"
+                android:layout_marginTop="14dp"/>
+            <RelativeLayout
                 android:id="@+id/vo_com"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="21dp"
-                android:layout_marginHorizontal="@dimen/dimen_18">
+                android:layout_marginHorizontal="27dp"
+                android:layout_marginTop="@dimen/dimen_20">
                 <ImageView
-                    android:layout_width="34dp"
-                    android:layout_height="9dp"
-                    android:src="@drawable/sy_tab"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="6dp"
+                    android:src="@drawable/icon_vo_tab"
+                    android:layout_alignBottom="@+id/tv_process"
+                    android:layout_alignLeft="@+id/tv_process"
+                    android:layout_alignRight="@+id/tv_process"/>
                 <TextView
+                    android:id="@+id/tv_process"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="工作流程"
-                    android:textColor="@color/color_333333"
-                    android:textSize="@dimen/font_18"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <ImageView
-                android:layout_width="314dp"
-                android:layout_height="78dp"
-                android:src="@drawable/icon_vo_work"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="17dp"/>
+                    android:textColor="@color/color_292E3B"
+                    android:textSize="@dimen/font_15"
+                    android:textStyle="bold"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_vo_work"
+                    android:layout_below="@id/tv_process"
+                    android:layout_marginTop="@dimen/dimen_20"/>
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="11dp"
+                android:background="@color/color_F7F8FA"
+                android:layout_marginTop="@dimen/dimen_20"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="61dp"
+                android:layout_marginHorizontal="42dp">
+                <ImageView
+                    android:id="@+id/vo_iv_tip"
+                    android:layout_width="@dimen/dimen_24"
+                    android:layout_height="@dimen/dimen_24"
+                    android:src="@drawable/icon_vo_tip"
+                    android:layout_centerVertical="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/vo_iv_tip"
+                    android:text="未标明收费的职位不会收取任何费用，若商家要求缴纳费用或押金，请提高警惕并第一时间向我们举报！"
+                    android:textSize="9sp"
+                    android:textColor="#FD575B"
+                    android:layout_marginLeft="9dp"
+                    android:lineSpacingExtra="@dimen/dimen_3"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="11dp"
+                android:background="@color/color_F7F8FA"/>
             <RelativeLayout
                 android:id="@+id/express_rl_container"
                 android:layout_width="match_parent"
@@ -386,45 +385,39 @@
                     android:src="@drawable/ic_ad_close"
                     android:layout_alignParentRight="true" />
             </RelativeLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="8dp"
-                android:background="@color/color_EEEEEE"
-                android:layout_marginTop="21dp"/>
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <RelativeLayout
                 android:id="@+id/rl_love"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="21dp"
-                android:layout_marginHorizontal="@dimen/dimen_18">
+                android:layout_marginHorizontal="27dp"
+                android:layout_marginTop="@dimen/dimen_20">
                 <ImageView
                     android:id="@+id/iv_type"
-                    android:layout_width="34dp"
-                    android:layout_height="9dp"
-                    android:src="@drawable/sy_tab"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="6dp"
+                    android:src="@drawable/icon_vo_tab"
+                    android:layout_alignBottom="@+id/tv_love"
+                    android:layout_alignLeft="@+id/tv_love"
+                    android:layout_alignRight="@+id/tv_love"/>
                 <TextView
                     android:id="@+id/tv_love"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="猜你喜欢"
-                    android:textColor="@color/color_333333"
-                    android:textSize="@dimen/font_18"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <com.part.jianzhiyi.corecommon.ui.ListViewInScrollView
-                android:id="@+id/lv_love"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="@dimen/dimen_15"
-                android:layout_marginTop="@dimen/dimen_5"
-                android:divider="@color/transparency"
-                android:dividerHeight="@dimen/line_height"
-                android:listSelector="@color/transparency"
-                android:overScrollMode="never" />
+                    android:text="相关推荐"
+                    android:textColor="@color/color_292E3B"
+                    android:textSize="@dimen/font_15"
+                    android:textStyle="bold"/>
+                <com.part.jianzhiyi.corecommon.ui.ListViewInScrollView
+                    android:id="@+id/lv_love"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:divider="#E7ECF5"
+                    android:dividerHeight="0.5dp"
+                    android:listSelector="@color/transparency"
+                    android:overScrollMode="never"
+                    android:layout_below="@+id/tv_love"/>
+            </RelativeLayout>
         </LinearLayout>
     </com.part.jianzhiyi.corecommon.ui.ObservableScrollView>
     <ImageView

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingTop="@dimen/dimen_30"
-        android:background="@drawable/shape_home_search_bg"
+        android:background="@drawable/shape_bg_white10"
         android:gravity="center_horizontal"
         android:layout_gravity="center_horizontal">
         <TextView
@@ -54,7 +54,7 @@
                 android:layout_weight="1"
                 android:text="去设置"
                 android:textSize="@dimen/font_14"
-                android:textColor="@color/color_F3A922"
+                android:textColor="@color/color_text_theme"
                 android:gravity="center"/>
         </LinearLayout>
     </LinearLayout>

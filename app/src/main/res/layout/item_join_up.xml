@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/dimen_5"
         android:textSize="@dimen/font_14"
-        android:textColor="@color/color_494949"
+        android:textColor="@color/color_4A4A4A"
         android:singleLine="true"
         android:ellipsize="end"/>
     <ImageView
@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/font_12"
-        android:textColor="@color/color_656565"
+        android:textColor="@color/color_666666"
         android:layout_below="@+id/item_tv_title"
         android:layout_marginTop="@dimen/dimen_10"
         android:layout_toRightOf="@+id/item_iv_num"
@@ -50,14 +50,14 @@
             android:layout_height="wrap_content"
             android:text="￥"
             android:textSize="@dimen/font_8"
-            android:textColor="@color/color_F3AF3D"
+            android:textColor="#FD763A"
             android:layout_gravity="bottom"/>
         <TextView
             android:id="@+id/item_tv_price1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/font_16"
-            android:textColor="@color/color_F3AF3D"
+            android:textColor="#FD763A"
             android:layout_marginLeft="@dimen/dimen_1"
             android:layout_gravity="bottom"/>
         <TextView

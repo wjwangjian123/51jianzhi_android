@@ -3,12 +3,14 @@ package com.part.jianzhiyi.base;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONException;
 import com.part.jianzhiyi.app.ODApplication;
 import com.part.jianzhiyi.constants.Constants;
 import com.part.jianzhiyi.corecommon.base.view.IModel;
 import com.part.jianzhiyi.corecommon.base.view.IView;
+import com.part.jianzhiyi.corecommon.utils.NetworkUtils;
 import com.part.jianzhiyi.corecommon.utils.Tools;
 import com.part.jianzhiyi.corecommon.utils.toast.CustomToast;
 import com.part.jianzhiyi.http.HttpAPI;
@@ -144,17 +146,21 @@ public abstract class BasePresenter<M extends IModel, V extends IView> {
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
-                String s = e.toString();
-                String error = "服务器异常,请重试";
-                if (!TextUtils.isEmpty(error)) {
-                    CustomToast.normalToast(error + "");
-                }
+                if (!NetworkUtils.checkNetworkConnect(ODApplication.context())) {
+                    Toast.makeText(ODApplication.context(), "请检查您的网络哦", Toast.LENGTH_SHORT).show();
+                }else if (NetworkUtils.isWifiProxy(ODApplication.context())){
+                    Toast.makeText(ODApplication.context(), "请关闭您的代理哦", Toast.LENGTH_SHORT).show();
+                } else {
+                    String error = "服务器太火爆啦，请稍候再试";
+                    if (!TextUtils.isEmpty(error))
+                        CustomToast.normalToast(error + "");
 
-                resultObserver.onError(e);
-                if (isAttach()) {
-                    weakReferenceView.get().requestError();
+                    resultObserver.onError(e);
+                    if (isAttach()) {
+                        weakReferenceView.get().requestError();
+                    }
+                    Log.e("RetrofitLog", "base" + e.toString());
                 }
-                Log.e("RetrofitLog", "base" + e.toString());
             }
 
             @Override

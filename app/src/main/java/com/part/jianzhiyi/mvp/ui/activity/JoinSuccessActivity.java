@@ -24,17 +24,15 @@ import com.bytedance.sdk.openadsdk.TTAdConstant;
 import com.bytedance.sdk.openadsdk.TTAdNative;
 import com.bytedance.sdk.openadsdk.TTAppDownloadListener;
 import com.bytedance.sdk.openadsdk.TTNativeExpressAd;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.ad.PositionId;
 import com.part.jianzhiyi.ad.TTAdManagerHolder;
-import com.part.jianzhiyi.adapter.SearchListAdapter;
+import com.part.jianzhiyi.adapter.JoinSuccessListAdapter;
 import com.part.jianzhiyi.base.BaseActivity;
 import com.part.jianzhiyi.constants.Constants;
 import com.part.jianzhiyi.corecommon.constants.ConstantsDimens;
 import com.part.jianzhiyi.corecommon.ui.ListViewInScrollView;
 import com.part.jianzhiyi.corecommon.utils.CopyTextLibrary;
-import com.part.jianzhiyi.corecommon.utils.FrescoUtil;
 import com.part.jianzhiyi.corecommon.utils.UiUtils;
 import com.part.jianzhiyi.dialog.ContactBusinessDialog;
 import com.part.jianzhiyi.model.entity.JoinJobEntity;
@@ -60,23 +58,21 @@ public class JoinSuccessActivity extends BaseActivity<JoinSuccessPresenter> impl
     private TextView mJoinTvTip2;
     private LinearLayout mJoinLinearOne;
     private TextView mJoinTvTip3;
-    private TextView mJoinTvTip4;
     private TextView mJoinTvContact2;
     private LinearLayout mJoinLinearTwo;
     private ImageView mIvType;
     private TextView mTvOptimization;
     private ConstraintLayout mRlOptimization;
     private ListViewInScrollView mLvOptimization;
-    private SimpleDraweeView mJoinIvCopy;
-    private SimpleDraweeView mJoinIvContact2;
-    private SearchListAdapter mSearchListAdapter;
+    private TextView mJoinTvTip;
+
+    private JoinSuccessListAdapter mJoinSuccessListAdapter;
     private List<SearchEntity.DataBean> mList;
     private int join_type;
     private JoinJobEntity joinJobEntity;
     private List<JoinJobEntity.DataBean> jobListBean;
     private int contact_type;
     private String contact;
-    private String contact_method;
     private String id;
     private String position;
     private String sortId;
@@ -110,18 +106,17 @@ public class JoinSuccessActivity extends BaseActivity<JoinSuccessPresenter> impl
         mJoinTvTip2 = (TextView) findViewById(R.id.join_tv_tip2);
         mJoinLinearOne = (LinearLayout) findViewById(R.id.join_linear_one);
         mJoinTvTip3 = (TextView) findViewById(R.id.join_tv_tip3);
-        mJoinTvTip4 = (TextView) findViewById(R.id.join_tv_tip4);
         mJoinTvContact2 = (TextView) findViewById(R.id.join_tv_contact2);
         mJoinLinearTwo = (LinearLayout) findViewById(R.id.join_linear_two);
         mIvType = (ImageView) findViewById(R.id.iv_type);
         mTvOptimization = (TextView) findViewById(R.id.tv_Optimization);
         mRlOptimization = (ConstraintLayout) findViewById(R.id.rl_Optimization);
         mLvOptimization = (ListViewInScrollView) findViewById(R.id.lv_Optimization);
-        mJoinIvCopy = (SimpleDraweeView) findViewById(R.id.join_iv_copy);
-        mJoinIvContact2 = (SimpleDraweeView) findViewById(R.id.join_iv_contact2);
         mExpressContainer = findViewById(R.id.express_container);
         mIvAdClose = findViewById(R.id.iv_ad_close);
         mExpressRlContainer = findViewById(R.id.express_rl_container);
+        mJoinTvTip = findViewById(R.id.join_tv_tip);
+
         setToolBarVisible(false);
         setImmerseLayout(findViewById(R.id.join_rl_title));
 
@@ -137,13 +132,11 @@ public class JoinSuccessActivity extends BaseActivity<JoinSuccessPresenter> impl
         if (join_type == 1) {
             mJoinLinearOne.setVisibility(View.VISIBLE);
             mJoinLinearTwo.setVisibility(View.GONE);
-            FrescoUtil.setGifPic(("res://" + getPackageName() + "/" + R.drawable.join_success_one), mJoinIvCopy);
             //单个报名
             initDialog1();
         } else if (join_type == 2) {
             mJoinLinearOne.setVisibility(View.GONE);
             mJoinLinearTwo.setVisibility(View.VISIBLE);
-            FrescoUtil.setGifPic(("res://" + getPackageName() + "/" + R.drawable.join_success_one), mJoinIvContact2);
             //多个报名
             initDialog2();
         }
@@ -154,29 +147,36 @@ public class JoinSuccessActivity extends BaseActivity<JoinSuccessPresenter> impl
             if (PreferenceUUID.getInstence().getShowWx() == 1) {
                 //1是微信，2是QQ，3是公众号，4是手机号，5是网址
                 if (jobListBean.get(0).getContact_type() == 1) {
-                    mJoinTvCopy.setText("复制微信号");
+                    mJoinTvTip.setText("请加微信联系商家，完成录取");
+                    mJoinTvCopy.setText("复制微信号并打开微信");
                     mJoinTvTip2.setVisibility(View.VISIBLE);
                     mJoinTvTip2.setText("加微信申请提交姓名、性别、年龄");
                 } else if (jobListBean.get(0).getContact_type() == 2) {
-                    mJoinTvCopy.setText("复制QQ号");
+                    mJoinTvTip.setText("请加QQ联系商家，完成录取");
+                    mJoinTvCopy.setText("复制QQ号并打开QQ");
                     mJoinTvTip2.setVisibility(View.VISIBLE);
                     mJoinTvTip2.setText("加QQ申请提交姓名、性别、年龄");
                 } else if (jobListBean.get(0).getContact_type() == 3) {
+                    mJoinTvTip.setText("请关注商家公众号联系商家，完成录取");
                     mJoinTvCopy.setText("复制公众号");
                     mJoinTvTip2.setVisibility(View.GONE);
                 } else if (jobListBean.get(0).getContact_type() == 4) {
+                    mJoinTvTip.setText("请联系商家，完成录取");
                     mJoinTvCopy.setText("复制手机号");
                     mJoinTvTip2.setVisibility(View.GONE);
                 } else if (jobListBean.get(0).getContact_type() == 5) {
+                    mJoinTvTip.setText("请打开链接联系商家，完成录取");
                     mJoinTvCopy.setText("复制网址");
                     mJoinTvTip2.setVisibility(View.GONE);
                 } else {
                     mJoinTvTip2.setVisibility(View.GONE);
+                    mJoinTvTip.setText("请联系商家，完成录取");
                 }
                 String name = "icon_detail" + jobListBean.get(0).getContact_type();
                 int imageResId = UiUtils.getImageResId(this, name);
                 mJoinIvContact.setImageResource(imageResId);
             } else {
+                mJoinTvTip.setText("请联系商家，完成录取");
                 mJoinTvCopy.setText("复制联系方式");
                 mJoinTvTip2.setVisibility(View.GONE);
             }
@@ -188,8 +188,8 @@ public class JoinSuccessActivity extends BaseActivity<JoinSuccessPresenter> impl
     @Override
     protected void initData() {
         mList = new ArrayList<>();
-        mSearchListAdapter = new SearchListAdapter(JoinSuccessActivity.this, mList);
-        mLvOptimization.setAdapter(mSearchListAdapter);
+        mJoinSuccessListAdapter = new JoinSuccessListAdapter(JoinSuccessActivity.this, mList);
+        mLvOptimization.setAdapter(mJoinSuccessListAdapter);
         mLvOptimization.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -236,6 +236,7 @@ public class JoinSuccessActivity extends BaseActivity<JoinSuccessPresenter> impl
                 if (ads == null || ads.size() == 0) {
                     return;
                 }
+                mExpressRlContainer.setVisibility(View.VISIBLE);
                 mTTAd = ads.get(0);
                 mTTAd.setSlideIntervalTime(30 * 1000);
                 bindAdListener(mTTAd);
@@ -408,7 +409,7 @@ public class JoinSuccessActivity extends BaseActivity<JoinSuccessPresenter> impl
                 alertDialog1.dismiss();
                 if (contact != null && contact != "") {
                     type = 2;
-                    mPresenter.joincopyContact(id, sortId, contact, 5);
+                    mPresenter.joincopyContact(id, sortId, contact, 6);
                     CopyTextLibrary copyButtonLibrary = new CopyTextLibrary(JoinSuccessActivity.this, contact);
                     copyButtonLibrary.init();
                     if (PreferenceUUID.getInstence().getShowWx() == 1) {
@@ -480,24 +481,23 @@ public class JoinSuccessActivity extends BaseActivity<JoinSuccessPresenter> impl
             contact_type = joinJobEntity.getData().get(0).getContact_type();
             if (PreferenceUUID.getInstence().getShowWx() == 1) {
                 if (contact_type == 1) {
-                    contact_method = "微信";
                     copy.setText("复制微信号:" + contact);
+                    tip.setText("添加商家微信，马上开启赚钱之旅！");
                 } else if (contact_type == 2) {
-                    contact_method = "QQ";
                     copy.setText("复制QQ号:" + contact);
+                    tip.setText("添加商家QQ，马上开启赚钱之旅！");
                 } else if (contact_type == 3) {
-                    contact_method = "公众号";
                     copy.setText("复制公众号:" + contact);
+                    tip.setText("关注商家公众号，马上开启赚钱之旅！");
                 } else if (contact_type == 4) {
-                    contact_method = "手机号";
                     copy.setText("复制手机号:" + contact);
+                    tip.setText("联系商家，马上开启赚钱之旅！");
                 } else if (contact_type == 5) {
-                    contact_method = "网址";
                     copy.setText("复制网址:" + contact);
+                    tip.setText("联系商家，马上开启赚钱之旅！");
                 }
-//                tip.setText("添加商家" + contact_method + "，马上开启赚钱之旅！");
             } else {
-//                tip.setText("联系商家" + "，马上开启赚钱之旅！");
+                tip.setText("联系商家，马上开启赚钱之旅！");
                 copy.setText("复制联系方式:" + contact);
             }
         }
@@ -667,7 +667,7 @@ public class JoinSuccessActivity extends BaseActivity<JoinSuccessPresenter> impl
         }
         if (searchEntity != null) {
             mList.addAll(searchEntity.getData());
-            mSearchListAdapter.notifyDataSetChanged();
+            mJoinSuccessListAdapter.notifyDataSetChanged();
         }
     }
 

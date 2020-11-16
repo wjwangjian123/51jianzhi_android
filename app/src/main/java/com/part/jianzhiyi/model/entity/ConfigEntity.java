@@ -67,6 +67,15 @@ public class ConfigEntity {
         private String android_desc;
         private String android_url;
         private int show_wx;
+        private int is_sw;
+
+        public int getIs_sw() {
+            return is_sw;
+        }
+
+        public void setIs_sw(int is_sw) {
+            this.is_sw = is_sw;
+        }
 
         public int getShow_wx() {
             return show_wx;

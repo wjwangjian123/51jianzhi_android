@@ -123,6 +123,6 @@
         android:gravity="center"
         android:layout_marginTop="@dimen/dimen_20"
         android:text="保存"
-        android:textColor="@color/color_F7FFFD"
+        android:textColor="@color/color_ffffff"
         android:textSize="@dimen/font_15" />
 </LinearLayout>

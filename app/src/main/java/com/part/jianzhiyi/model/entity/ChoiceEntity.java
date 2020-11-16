@@ -210,6 +210,15 @@ public class ChoiceEntity {
         private String desc;
         private String price1;
         private String price2;
+        private String place;
+
+        public String getPlace() {
+            return place;
+        }
+
+        public void setPlace(String place) {
+            this.place = place;
+        }
 
         public String getId() {
             return id;

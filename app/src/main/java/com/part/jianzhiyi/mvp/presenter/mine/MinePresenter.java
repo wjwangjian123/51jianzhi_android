@@ -7,6 +7,7 @@ import com.part.jianzhiyi.base.BasePresenter;
 import com.part.jianzhiyi.http.HttpAPI;
 import com.part.jianzhiyi.http.ResultObserver;
 import com.part.jianzhiyi.model.base.ResponseData;
+import com.part.jianzhiyi.model.entity.AddSignEntity;
 import com.part.jianzhiyi.model.entity.DaySignEntity;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
@@ -84,9 +85,9 @@ public class MinePresenter extends BasePresenter<MineContract.IMineModel, MineCo
     public void addDaySign(String user_id,String day) {
         mModel.addDaySign(user_id, day)
                 .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
-                .subscribe(getResult(new ResultObserver<ResponseData>() {
+                .subscribe(getResult(new ResultObserver<AddSignEntity>() {
                     @Override
-                    public void onNext(ResponseData responseData) {
+                    public void onNext(AddSignEntity responseData) {
                         if (TextUtils.equals(responseData.getCode(), HttpAPI.REQUEST_SUCCESS)) {
                             if (isAttach()) {
                                 weakReferenceView.get().updateaddDaySign(responseData);

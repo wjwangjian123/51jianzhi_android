@@ -19,7 +19,7 @@ import io.reactivex.Observable;
  **/
 public interface RankContract {
     interface IRankModel extends IModel {
-        Observable<ResponseData<JobListResponseEntity2>> jobList(String type, String position, int page);
+        Observable<ResponseData<JobListResponseEntity2>> jobList(String type, String position, int page,String label);
 
     }
 

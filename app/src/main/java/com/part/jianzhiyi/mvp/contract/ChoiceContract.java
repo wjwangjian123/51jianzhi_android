@@ -18,7 +18,7 @@ import io.reactivex.Observable;
  **/
 public interface ChoiceContract {
     interface IChoiceModel extends IModel {
-        Observable<ResponseData<JobListResponseEntity2>> jobList(String userid, String type, String position, int page);
+        Observable<ResponseData<JobListResponseEntity2>> jobList(String userid, String type, String position, int page,String label);
 
         Observable<ViewedEntity> viewedJob(String userid);
 

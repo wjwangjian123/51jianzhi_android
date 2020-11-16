@@ -186,14 +186,14 @@ public class AboutMineActivity extends BaseActivity<MineUpdateResumePresenter> i
             if (entity.getData().getMyitem()!=null){
                 StringBuffer stringBuffer = new StringBuffer();
                 for (int i = 0; i < entity.getData().getMyitem().size(); i++) {
-                    stringBuffer = stringBuffer.append(entity.getData().getMyitem().get(i).getItem() + ",");
+                    stringBuffer = stringBuffer.append(entity.getData().getMyitem().get(i).getId() + ",");
                 }
                 myitem = String.valueOf(stringBuffer);
             }
            if (entity.getData().getExpect()!=null){
                StringBuffer stringBuffer1 = new StringBuffer();
                for (int i = 0; i < entity.getData().getExpect().size(); i++) {
-                   stringBuffer1 = stringBuffer1.append(entity.getData().getExpect().get(i).getItem() + ",");
+                   stringBuffer1 = stringBuffer1.append(entity.getData().getExpect().get(i).getId() + ",");
                }
                expect = String.valueOf(stringBuffer1);
            }

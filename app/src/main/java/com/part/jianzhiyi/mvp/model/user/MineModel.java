@@ -5,9 +5,11 @@ import com.part.jianzhiyi.constants.Constants;
 import com.part.jianzhiyi.corecommon.utils.Tools;
 import com.part.jianzhiyi.http.HttpAPI;
 import com.part.jianzhiyi.model.base.ResponseData;
+import com.part.jianzhiyi.model.entity.AddSignEntity;
 import com.part.jianzhiyi.model.entity.DaySignEntity;
-import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
+import com.part.jianzhiyi.model.entity.integral.MyExchangeEntity;
+import com.part.jianzhiyi.model.entity.integral.MyIntegralEntity;
 import com.part.jianzhiyi.mvp.contract.user.MineContract;
 import com.part.jianzhiyi.preference.PreferenceUUID;
 
@@ -31,7 +33,22 @@ public class MineModel extends UserModel implements MineContract.IMineModel {
     }
 
     @Override
-    public Observable<ResponseData> addDaySign(String user_id, String day) {
-        return HttpAPI.getInstence().getServiceApi().addDaySign(user_id, day);
+    public Observable<AddSignEntity> addDaySign(String user_id, String day) {
+        return HttpAPI.getInstence().getServiceApi().addDaySign(user_id, day, Constants.OS);
+    }
+
+    @Override
+    public Observable<MyExchangeEntity> getMyGoods(String user_id) {
+        return null;
+    }
+
+    @Override
+    public Observable<MyIntegralEntity> getMyIntegInfo(String user_id, int page) {
+        return null;
+    }
+
+    @Override
+    public Observable<ResponseData> getAddInteg(String user_id, int type) {
+        return null;
     }
 }

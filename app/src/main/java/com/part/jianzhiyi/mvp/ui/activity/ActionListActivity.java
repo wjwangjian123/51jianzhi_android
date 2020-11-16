@@ -32,7 +32,6 @@ public class ActionListActivity extends BaseActivity<MainPresenter> implements M
     private ImageView mActionImg;
     private ActionListAdapter mActionListAdapter;
     private List<ActJobListEntity.DataBeanX.DataBean> mList;
-    private String url;
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
@@ -53,7 +52,6 @@ public class ActionListActivity extends BaseActivity<MainPresenter> implements M
         mLvAction = (ListView) findViewById(R.id.lv_action);
         Intent intent = getIntent();
         String id = intent.getStringExtra("id");
-        url="http://jxw-img.oss-cn-beijing.aliyuncs.com/LJZ/20200624/1592981829.png";
         mPresenter.getActJobList(id);
     }
 
@@ -111,9 +109,7 @@ public class ActionListActivity extends BaseActivity<MainPresenter> implements M
             Glide.with(ActionListActivity.this).load(actJobListEntity.getData().getInfo().getBackimg()).error(R.drawable.shape_action_list_bg).diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true).into(mActionImg);
         }else {
-            //磁盘不缓存 跳过内存缓存
-            Glide.with(ActionListActivity.this).load(url).error(R.drawable.shape_action_list_bg).diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true).into(mActionImg);
+            mActionImg.setImageResource(R.drawable.shape_action_list_bg);
         }
         if (actJobListEntity.getData().getData().size() > 0) {
             mList.addAll(actJobListEntity.getData().getData());

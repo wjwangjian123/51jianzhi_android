@@ -36,16 +36,16 @@ public interface VocationContract {
 
         Observable<ResponseData<List<JobListResponseEntity>>> recommendList(String jobid);
 
-        Observable<String> copyContact(String appid, String user_id, String job_id, String sortId, String contact);
-
         Observable<JobDetailEntity> jobDetailv(String jobId, String position, String sort_id);
 
         Observable<ResponseData> getSussOrErrLog(String type, String status);
 
+        Observable<ResponseData<AddFavouriteResponseEntity>> joincopyContact(String appid, String user_id, String job_id, String sortId, String contact, int type);
+
+
     }
 
     interface IVocationView extends IView {
-
         void updateEntity(JobDetailEntity.DataBean.InfoBean entity);
 
         void updateJobList(List<JobDetailEntity.DataBean.JobListBean> job_list);

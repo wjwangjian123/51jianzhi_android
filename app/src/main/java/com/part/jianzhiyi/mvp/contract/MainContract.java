@@ -6,6 +6,7 @@ import com.part.jianzhiyi.model.entity.ActJobListEntity;
 import com.part.jianzhiyi.model.entity.ActivityEntity;
 import com.part.jianzhiyi.model.entity.ConfigEntity;
 import com.part.jianzhiyi.model.entity.IpResponseEntity;
+import com.part.jianzhiyi.model.entity.SearchEntity;
 
 import io.reactivex.Observable;
 
@@ -23,6 +24,7 @@ public interface MainContract {
         Observable<ActJobListEntity> getActJobList(String id);
 
         Observable<ConfigEntity> getConfig();
+
     }
 
     interface IMainView extends IView {
@@ -31,5 +33,6 @@ public interface MainContract {
         void updategetActJobList(ActJobListEntity actJobListEntity);
 
         void updategetConfig(ConfigEntity configEntity);
+
     }
 }

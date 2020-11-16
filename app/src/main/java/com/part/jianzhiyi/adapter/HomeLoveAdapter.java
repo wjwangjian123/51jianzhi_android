@@ -34,21 +34,16 @@ public class HomeLoveAdapter extends CustomBaseAdapter<JobDetailEntity.DataBean.
             ((TextView) viewHolder.getView(R.id.tv_type_content)).setText(item.getTitle());
             ((TextView) viewHolder.getView(R.id.tv_price1)).setText(item.getPrice1());
             ((TextView) viewHolder.getView(R.id.tv_price2)).setText(item.getPrice2());
-            if (item.getPlace() == null || item.getPlace() == "") {
-                if (PreferenceUUID.getInstence().getCity() == "" || PreferenceUUID.getInstence().getCity() == null) {
-                    ((TextView) viewHolder.getView(R.id.item_tv_place)).setText("不限");
-                } else {
-                    ((TextView) viewHolder.getView(R.id.item_tv_place)).setText(PreferenceUUID.getInstence().getCity());
-                }
+            if (item.getMethod() == null || item.getMethod() == "") {
+                ((TextView) viewHolder.getView(R.id.item_tv_settlement)).setText("不限");
             } else {
-                ((TextView) viewHolder.getView(R.id.item_tv_place)).setText(item.getPlace());
+                ((TextView) viewHolder.getView(R.id.item_tv_settlement)).setText(item.getMethod());
             }
             if (item.getTime() == null || item.getTime() == "") {
                 ((TextView) viewHolder.getView(R.id.item_tv_time)).setText("不限");
             } else {
                 ((TextView) viewHolder.getView(R.id.item_tv_time)).setText(item.getTime());
             }
-            ((TextView) viewHolder.getView(R.id.item_tv_settlement)).setText(item.getMethod());
         }
     }
 }

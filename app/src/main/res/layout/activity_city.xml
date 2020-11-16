@@ -14,11 +14,10 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:scrollbars="none"
-        android:divider="@color/transparency"
-        android:dividerHeight="0dp"
+        android:divider="#E7ECF5"
+        android:dividerHeight="0.5dp"
         android:listSelector="@color/transparency"
         android:overScrollMode="never" />
-
 
     <ListView
         android:id="@+id/lv_char"

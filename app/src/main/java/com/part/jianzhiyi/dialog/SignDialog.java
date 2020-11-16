@@ -7,9 +7,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.part.jianzhiyi.R;
-import com.part.jianzhiyi.adapter.DialogContactBusinessAdapter;
 import com.part.jianzhiyi.customview.CustomHorizontalProgresNoNum;
-import com.part.jianzhiyi.model.entity.DaySignEntity;
+import com.part.jianzhiyi.model.entity.AddSignEntity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,9 +20,7 @@ public class SignDialog extends AlertDialog {
 
     private Context context;
     private OnSignClickListener mOnSignClickListener;
-    private String active;
-    private DaySignEntity mDaySignEntity;
-    private TextView mSignTvText;
+    private AddSignEntity.DataBean mDaySignEntity;
     private TextView mSignTvActive;
     private CustomHorizontalProgresNoNum mSignProgress;
     private LinearLayout mSignLinearOne;
@@ -33,8 +30,16 @@ public class SignDialog extends AlertDialog {
     private LinearLayout mSignLinearFive;
     private LinearLayout mSignLinearSix;
     private LinearLayout mSignLinearSeven;
+    private TextView mSignTvOne;
+    private TextView mSignTvTwo;
+    private TextView mSignTvThree;
+    private TextView mSignTvFour;
+    private TextView mSignTvFive;
+    private TextView mSignTvSix;
+    private TextView mSignTvSeven;
     private TextView mSignTvOk;
     private View[] mViews;
+    private View[] mtextViews;
 
     protected SignDialog(@NonNull Context context) {
         super(context);
@@ -51,10 +56,9 @@ public class SignDialog extends AlertDialog {
         init(context);
     }
 
-    public SignDialog(@NonNull Context context, String active, DaySignEntity mDaySignEntity) {
+    public SignDialog(@NonNull Context context, AddSignEntity.DataBean mDaySignEntity) {
         super(context, R.style.CircularDialog);
         init(context);
-        this.active = active;
         this.mDaySignEntity = mDaySignEntity;
     }
 
@@ -72,20 +76,21 @@ public class SignDialog extends AlertDialog {
     }
 
     private void initData() {
-        mSignTvActive.setText("简历活跃度      " + active + "%");
-        mSignProgress.setProgress(Integer.parseInt(active));
+        mSignTvActive.setText("简历活跃度      " + mDaySignEntity.getResume() + "%");
+        mSignProgress.setProgress(Integer.parseInt(mDaySignEntity.getResume()));
         int count = mViews.length;
         for (int i = 0; i < count; i++) {
-            if (mDaySignEntity.getData().getDay()>=i) {
+            if (mDaySignEntity.getDay() > i) {
                 mViews[i].setSelected(true);
+                mtextViews[i].setSelected(true);
             } else {
                 mViews[i].setSelected(false);
+                mtextViews[i].setSelected(false);
             }
         }
     }
 
     private void initView() {
-        mSignTvText = findViewById(R.id.sign_tv_text);
         mSignTvActive = findViewById(R.id.sign_tv_active);
         mSignProgress = findViewById(R.id.sign_progress);
         mSignLinearOne = findViewById(R.id.sign_linear_one);
@@ -95,9 +100,18 @@ public class SignDialog extends AlertDialog {
         mSignLinearFive = findViewById(R.id.sign_linear_five);
         mSignLinearSix = findViewById(R.id.sign_linear_six);
         mSignLinearSeven = findViewById(R.id.sign_linear_seven);
+        mSignTvOne = findViewById(R.id.sign_tv_one);
+        mSignTvTwo = findViewById(R.id.sign_tv_two);
+        mSignTvThree = findViewById(R.id.sign_tv_three);
+        mSignTvFour = findViewById(R.id.sign_tv_four);
+        mSignTvFive = findViewById(R.id.sign_tv_five);
+        mSignTvSix = findViewById(R.id.sign_tv_six);
+        mSignTvSeven = findViewById(R.id.sign_tv_seven);
         mSignTvOk = findViewById(R.id.sign_tv_ok);
-        mViews = new View[]{mSignLinearOne, mSignLinearTwo, mSignLinearThree,mSignLinearFour,
-                mSignLinearFive,mSignLinearSix,mSignLinearSeven};
+        mViews = new View[]{mSignLinearOne, mSignLinearTwo, mSignLinearThree, mSignLinearFour,
+                mSignLinearFive, mSignLinearSix, mSignLinearSeven};
+        mtextViews = new View[]{mSignTvOne, mSignTvTwo, mSignTvThree, mSignTvFour,
+                mSignTvFive, mSignTvSix, mSignTvSeven};
     }
 
     private void initListener() {

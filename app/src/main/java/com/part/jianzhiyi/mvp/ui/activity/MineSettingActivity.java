@@ -10,12 +10,15 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.base.BaseActivity;
 import com.part.jianzhiyi.base.BasePresenter;
+import com.part.jianzhiyi.constants.Constants;
+import com.part.jianzhiyi.constants.IntentConstant;
 import com.part.jianzhiyi.corecommon.utils.ActivityUtils;
 import com.part.jianzhiyi.preference.PreferenceUUID;
 import com.part.jianzhiyi.utils.NotificationUtil;
@@ -23,8 +26,10 @@ import com.umeng.analytics.MobclickAgent;
 
 public class MineSettingActivity extends BaseActivity {
 
-    TextView tvExit;
+    private TextView tvExit;
     private Switch mSetSwitch;
+    private RelativeLayout mSetRlUser;
+    private RelativeLayout mSetRlPrivacy;
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
@@ -41,6 +46,8 @@ public class MineSettingActivity extends BaseActivity {
         initToolbar("设置");
         tvExit = mView.findViewById(R.id.tv_exit);
         mSetSwitch = mView.findViewById(R.id.set_switch);
+        mSetRlUser = mView.findViewById(R.id.set_rl_user);
+        mSetRlPrivacy = mView.findViewById(R.id.set_rl_privacy);
     }
 
     @Override
@@ -77,6 +84,22 @@ public class MineSettingActivity extends BaseActivity {
                         initDialogNotification();
                     }
                 }
+            }
+        });
+        mSetRlUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MineSettingActivity.this,HtmlActivity.class);
+                intent.putExtra(IntentConstant.HTML_URL, Constants.HTML_USER_URL + Constants.APPID + "&status=" + Constants.STATUS);
+                startActivity(intent);
+            }
+        });
+        mSetRlPrivacy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MineSettingActivity.this,HtmlActivity.class);
+                intent.putExtra(IntentConstant.HTML_URL, Constants.HTML_PRIVACY_URL + Constants.APPID + "&status=" + Constants.STATUS);
+                startActivity(intent);
             }
         });
     }

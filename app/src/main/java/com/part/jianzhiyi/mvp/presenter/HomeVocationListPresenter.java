@@ -23,8 +23,8 @@ public class HomeVocationListPresenter extends BasePresenter<HomeVocationListCon
     }
 
 
-    public void jobList(String type,String position,int page,String category){
-        mModel.jobList(PreferenceUUID.getInstence().getUserId(),type,position,page,category)
+    public void jobList1(String type,String position,int page,String category){
+        mModel.jobList1(PreferenceUUID.getInstence().getUserId(),type,position,page,category)
                 .compose(schedulersTransformer(HttpAPI.LOADING_CUSTOM_TIME))
                 .subscribe(getResult(new ResultObserver<ResponseData<JobListResponseEntity2>>() {
                     @Override
@@ -39,8 +39,8 @@ public class HomeVocationListPresenter extends BasePresenter<HomeVocationListCon
                 }));
     }
 
-    public void jobList(String type,String position,int page){
-        mModel.jobList(PreferenceUUID.getInstence().getUserId(),type,position,page)
+    public void jobList(String type,String position,int page,String label){
+        mModel.jobList(PreferenceUUID.getInstence().getUserId(),type,position,page,label)
                 .compose(schedulersTransformer(HttpAPI.LOADING_CUSTOM_TIME))
                 .subscribe(getResult(new ResultObserver<ResponseData<JobListResponseEntity2>>() {
                     @Override

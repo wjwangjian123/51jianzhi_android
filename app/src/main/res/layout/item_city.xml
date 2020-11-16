@@ -10,17 +10,11 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingLeft="@dimen/dimen_10"
+        android:paddingRight="@dimen/dimen_10"
         android:paddingTop="@dimen/dimen_10"
         android:paddingBottom="@dimen/dimen_10"
         android:textColor="@color/color_4A4A4A"
         android:textSize="@dimen/font_14">
-
     </TextView>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/line_height"
-        android:layout_below="@+id/tv_city"
-        android:background="@color/color_F7F7F7" />
 
 </RelativeLayout>

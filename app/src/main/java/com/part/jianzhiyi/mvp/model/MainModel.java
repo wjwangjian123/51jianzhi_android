@@ -6,6 +6,7 @@ import com.part.jianzhiyi.model.entity.ActJobListEntity;
 import com.part.jianzhiyi.model.entity.ActivityEntity;
 import com.part.jianzhiyi.model.entity.ConfigEntity;
 import com.part.jianzhiyi.model.entity.IpResponseEntity;
+import com.part.jianzhiyi.model.entity.SearchEntity;
 import com.part.jianzhiyi.mvp.contract.MainContract;
 
 import io.reactivex.Observable;

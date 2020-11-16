@@ -72,7 +72,7 @@
         android:padding="10dp"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="@color/color_33ffcc"
+        android:textColor="@color/color_text_theme"
         android:text="我知道了" />
 
     <LinearLayout
@@ -109,7 +109,7 @@
             android:text="确定"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:textColor="@color/color_DB6579"
+            android:textColor="@color/color_text_theme"
             android:gravity="center"
             android:padding="10dp"/>
     </LinearLayout>

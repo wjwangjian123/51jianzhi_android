@@ -2,10 +2,10 @@ package com.part.jianzhiyi.mvp.ui.fragment;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -15,13 +15,15 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.base.BaseFragment;
 import com.part.jianzhiyi.constants.IntentConstant;
-import com.part.jianzhiyi.corecommon.constants.ConstantsDimens;
 import com.part.jianzhiyi.customview.CircularProgressView;
 import com.part.jianzhiyi.dialog.SignDialog;
 import com.part.jianzhiyi.model.base.ResponseData;
+import com.part.jianzhiyi.model.entity.AddSignEntity;
 import com.part.jianzhiyi.model.entity.DaySignEntity;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
+import com.part.jianzhiyi.model.entity.integral.MyExchangeEntity;
+import com.part.jianzhiyi.model.entity.integral.MyIntegralEntity;
 import com.part.jianzhiyi.mvp.contract.user.MineContract;
 import com.part.jianzhiyi.mvp.presenter.mine.MinePresenter;
 import com.part.jianzhiyi.mvp.ui.activity.BusinessActivity;
@@ -32,6 +34,7 @@ import com.part.jianzhiyi.mvp.ui.activity.MineFeekbackActivity;
 import com.part.jianzhiyi.mvp.ui.activity.MineSettingActivity;
 import com.part.jianzhiyi.mvp.ui.activity.MineUpdateProfileActivity;
 import com.part.jianzhiyi.mvp.ui.activity.MineUpdateResumeActivity;
+import com.part.jianzhiyi.mvp.ui.activity.MyWalletActivity;
 import com.part.jianzhiyi.preference.PreferenceUUID;
 import com.umeng.analytics.MobclickAgent;
 
@@ -65,8 +68,9 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
     private RelativeLayout mRlFeekback;
     private RelativeLayout mRlAbout;
     private RelativeLayout mRlSet;
+    private TextView mMineTvMoney;
+    private TextView mMineTvTixian;
     private DaySignEntity mDaySignEntity;
-    private int type=1;
 
     @Override
     protected MinePresenter createPresenter() {
@@ -100,6 +104,8 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         mRlFeekback = view.findViewById(R.id.rl_feekback);
         mRlAbout = view.findViewById(R.id.rl_about);
         mRlSet = view.findViewById(R.id.rl_set);
+        mMineTvMoney = view.findViewById(R.id.mine_tv_money);
+        mMineTvTixian = view.findViewById(R.id.mine_tv_tixian);
         setToolbarVisible(false);
         mPresenter.userInfo(PreferenceUUID.getInstence().getUserId());
         if (mPresenter.isUserLogin()) {
@@ -136,6 +142,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         mRlFeekback.setOnClickListener(this);
         mRlAbout.setOnClickListener(this);
         mRlSet.setOnClickListener(this);
+        mMineTvTixian.setOnClickListener(this);
         mMineTvPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,8 +156,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
             @Override
             public void onClick(View v) {
                 //签到
-                type=2;
-                mPresenter.addDaySign(PreferenceUUID.getInstence().getUserId(), String.valueOf(mDaySignEntity.getData().getDay()+1));
+                mPresenter.addDaySign(PreferenceUUID.getInstence().getUserId(), String.valueOf(mDaySignEntity.getData().getDay() + 1));
             }
         });
     }
@@ -192,22 +198,27 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         }
         if (v.getId() == R.id.mine_linear_see) {
             Intent intent = new Intent(getActivity(), MineDeliveryActivity.class);
-            intent.putExtra("positionType",1);
+            intent.putExtra("positionType", 1);
             startActivity(intent);
         }
         if (v.getId() == R.id.tv_joined) {
             Intent intent = new Intent(getActivity(), MineDeliveryActivity.class);
-            intent.putExtra("positionType",2);
+            intent.putExtra("positionType", 2);
             startActivity(intent);
         }
         if (v.getId() == R.id.tv_approved) {
             Intent intent = new Intent(getActivity(), MineDeliveryActivity.class);
-            intent.putExtra("positionType",3);
+            intent.putExtra("positionType", 3);
             startActivity(intent);
         }
         if (v.getId() == R.id.tv_doned) {
             Intent intent = new Intent(getActivity(), MineDeliveryActivity.class);
-            intent.putExtra("positionType",4);
+            intent.putExtra("positionType", 4);
+            startActivity(intent);
+        }
+        if (v.getId() == R.id.mine_tv_tixian) {
+            Intent intent = new Intent(getActivity(), MyWalletActivity.class);
+            intent.putExtra("type", 0);
             startActivity(intent);
         }
     }
@@ -221,48 +232,61 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         mMineTvPhone.setText(username);
     }
 
-    private String mactive;
     @Override
     public void updateUserInfoPer(UserInfoEntity userInfoEntity) {
         mPresenter.loadUserInfo();
-        mactive=userInfoEntity.getData().getResume_active();
-        int active= Integer.parseInt(userInfoEntity.getData().getResume_active());
+        mMineTvMoney.setText(userInfoEntity.getData().getMoney() + "元");
+        int active = Integer.parseInt(userInfoEntity.getData().getResume_active());
         mMineTvActive.setText(userInfoEntity.getData().getResume_active());
         mMineProgressCircular.setProgress(active);
-        if (userInfoEntity.getData().getMyitem().size()>0){
+        if (userInfoEntity.getData().getMyitem().size() > 0) {
             mMineTvAdvantage1.setVisibility(View.VISIBLE);
             mMineTvAdvantage1.setText(userInfoEntity.getData().getMyitem().get(0).getItem());
         }
-        if (userInfoEntity.getData().getMyitem().size()>1){
+        if (userInfoEntity.getData().getMyitem().size() > 1) {
             mMineTvAdvantage2.setVisibility(View.VISIBLE);
             mMineTvAdvantage2.setText(userInfoEntity.getData().getMyitem().get(1).getItem());
         }
-        if (userInfoEntity.getData().getMyitem().size()>2){
+        if (userInfoEntity.getData().getMyitem().size() > 2) {
             mMineTvAdvantage3.setVisibility(View.VISIBLE);
             mMineTvAdvantage3.setText(userInfoEntity.getData().getMyitem().get(2).getItem());
-        }
-        if (type==2){
-            SignDialog signDialog=new SignDialog(getActivity(), mactive, mDaySignEntity);
-            signDialog.show();
-            Window window = signDialog.getWindow();
-            window.setGravity(Gravity.CENTER);
-            type=1;
         }
     }
 
     @Override
     public void updategetDaySign(DaySignEntity daySignEntity) {
-        mDaySignEntity=daySignEntity;
+        mDaySignEntity = daySignEntity;
     }
 
     @Override
-    public void updateaddDaySign(ResponseData responseData) {
-        if (responseData.getCode().equals("201")){
+    public void updateaddDaySign(AddSignEntity responseData) {
+        if (responseData.getCode().equals("200")) {
+            int active = Integer.parseInt(responseData.getData().getResume());
+            mMineTvActive.setText(responseData.getData().getResume() + "");
+            mMineProgressCircular.setProgress(active);
             showToast(responseData.getMsg());
-            return;
+            SignDialog signDialog = new SignDialog(getActivity(), responseData.getData());
+            signDialog.show();
+            Window window = signDialog.getWindow();
+            window.setGravity(Gravity.CENTER);
+        } else {
+            showToast(responseData.getMsg());
         }
-        type=2;
-        mPresenter.userInfo(PreferenceUUID.getInstence().getUserId());
+    }
+
+    @Override
+    public void updategetMyGoods(MyExchangeEntity responseData) {
+
+    }
+
+    @Override
+    public void updategetMyIntegInfo(MyIntegralEntity responseData) {
+
+    }
+
+    @Override
+    public void updategetAddInteg(ResponseData responseData) {
+
     }
 
     @Override
@@ -276,8 +300,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
     @Override
     public void onResume() {
         super.onResume();
-        type=1;
-        if (mPresenter!=null){
+        if (mPresenter != null) {
             mPresenter.userInfo(PreferenceUUID.getInstence().getUserId());
         }
         MobclickAgent.onPageStart("我的页面");

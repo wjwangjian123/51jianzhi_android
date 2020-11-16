@@ -8,15 +8,18 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -26,22 +29,21 @@ import com.part.jianzhiyi.base.BaseActivity;
 import com.part.jianzhiyi.constants.Constants;
 import com.part.jianzhiyi.constants.IntentConstant;
 import com.part.jianzhiyi.corecommon.ui.SendCodeView;
+import com.part.jianzhiyi.corecommon.utils.RegularUtils;
+import com.part.jianzhiyi.customview.MyClickableSpan;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.ConfigEntity;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.model.entity.UMEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.mvp.contract.user.LoginContract;
 import com.part.jianzhiyi.mvp.presenter.user.LoginPresenter;
-import com.part.jianzhiyi.preference.PreferenceUUID;
-import com.part.jianzhiyi.utils.AppUtils;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.umverify.UMVerifyHelper;
 import com.umeng.umverify.listener.UMAuthUIControlClickListener;
-import com.umeng.umverify.listener.UMCustomInterface;
 import com.umeng.umverify.listener.UMTokenResultListener;
 import com.umeng.umverify.model.UMTokenRet;
 import com.umeng.umverify.view.UMAbstractPnsViewDelegate;
-import com.umeng.umverify.view.UMAuthRegisterViewConfig;
 import com.umeng.umverify.view.UMAuthRegisterXmlConfig;
 import com.umeng.umverify.view.UMAuthUIConfig;
 
@@ -52,6 +54,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     private TextView mLoginTvOther;
     private TextView mLoginTvAgree;
     private SendCodeView mLoginSendCode;
+    private CheckBox mLoginCk;
     private int a = 1;
     private String AppSecret;
     private String SMcode;
@@ -78,17 +81,40 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         mLoginTvOther = (TextView) findViewById(R.id.login_tv_other);
         mLoginTvAgree = (TextView) findViewById(R.id.login_tv_agree);
         mLoginSendCode = (SendCodeView) findViewById(R.id.login_send_code);
+        mLoginCk = (CheckBox) findViewById(R.id.login_ck);
         setToolBarVisible(false);
         MobclickAgent.onEvent(this, "login_in");
         if (!getIntent().getExtras().isEmpty() && getIntent().getExtras() != null) {
             Bundle extras = getIntent().getExtras();
             a = extras.getInt("ToLogin");
         }
+        mLoginCk.setChecked(true);
     }
 
     @Override
     protected void initData() {
-
+        String contextString = "点击登录/注册即表示同意《用户协议》\n和《隐私政策》";
+        SpannableString spannableString = new SpannableString(contextString);
+        MyClickableSpan user = new MyClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                Intent intent = new Intent(LoginActivity.this, HtmlActivity.class);
+                intent.putExtra(IntentConstant.HTML_URL, Constants.HTML_USER_URL + Constants.APPID + "&status=" + Constants.STATUS);
+                startActivity(intent);
+            }
+        };
+        MyClickableSpan privacy = new MyClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                Intent intent = new Intent(LoginActivity.this, HtmlActivity.class);
+                intent.putExtra(IntentConstant.HTML_URL, Constants.HTML_PRIVACY_URL + Constants.APPID + "&status=" + Constants.STATUS);
+                startActivity(intent);
+            }
+        };
+        spannableString.setSpan(user, 12, 18, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(privacy, 20, 26, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mLoginTvAgree.setMovementMethod(LinkMovementMethod.getInstance());
+        mLoginTvAgree.setText(spannableString);
     }
 
     @Override
@@ -97,24 +123,25 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         mLoginSendCode.setOnSendCodeClickListener(new SendCodeView.OnSendCodeClickListener() {
             @Override
             public void onSendCodeClick() {
-                boolean smsCode = mPresenter.sendSmsCode(mLoginSendCode.getPhone());
-                if (smsCode) {
-                    mLoginSendCode.startTimer();
-                }
+                mPresenter.sendSmsCode(mLoginSendCode.getPhone());
                 MobclickAgent.onEvent(LoginActivity.this, "login_code");
-            }
-        });
-        mLoginTvAgree.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, HtmlActivity.class);
-                intent.putExtra(IntentConstant.HTML_URL, Constants.HTML_USER_URL + Constants.APPID + "&status=" + Constants.STATUS);
-                startActivity(intent);
             }
         });
         mLoginLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (TextUtils.isEmpty(mLoginSendCode.getPhone()) || !RegularUtils.isMobileNumber(mLoginSendCode.getPhone())) {
+                    showToast("请填写正确的手机号");
+                    return;
+                }
+                if (TextUtils.isEmpty(mLoginSendCode.getSmsCode())) {
+                    showToast("请填写正确的验证码");
+                    return;
+                }
+                if (!mLoginCk.isChecked()) {
+                    showToast("请阅读并同意协议");
+                    return;
+                }
                 mPresenter.login(mLoginSendCode.getPhone(), mLoginSendCode.getSmsCode());
             }
         });
@@ -142,7 +169,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         mTokenListener = new UMTokenResultListener() {
             @Override
             public void onTokenSuccess(String ret) {
-                Log.e("xxxxxx", "onTokenSuccess:$ret"+ret);
+                Log.e("xxxxxx", "onTokenSuccess:$ret" + ret);
                 MobclickAgent.onEvent(LoginActivity.this, "um_show");
                 LoginActivity.this.runOnUiThread(new Runnable() {
                     @Override
@@ -169,7 +196,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
             @Override
             public void onTokenFailed(String ret) {
-                Log.e("xxxxxx", "onTokenFailed:$ret"+ret);
+                Log.e("xxxxxx", "onTokenFailed:$ret" + ret);
                 LoginActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -266,22 +293,25 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 .setLogBtnBackgroundPath("shape_dialog_agree")
                 .setLogBtnOffsetY(287)
                 .setLogBtnLayoutGravity(Gravity.CENTER_HORIZONTAL)
-                .setLogBtnToastHidden(true)
+                .setLogBtnToastHidden(false)
                 .setSwitchAccText("其他方式登录/注册")
                 .setSwitchAccTextSize(12)
                 .setSwitchAccTextColor(Color.parseColor("#333333"))
                 .setSwitchOffsetY(357)
-                .setCheckboxHidden(true)
+                .setCheckboxHidden(false)
+                .setUncheckedImgPath("icon_login_unselect")
+                .setCheckedImgPath("icon_login_selected")
+                .setPrivacyState(true)
                 .setProtocolLayoutGravity(Gravity.CENTER_HORIZONTAL)
                 .setPrivacyOffsetY_B(45)
                 .setAppPrivacyOne("《用户协议》", Constants.HTML_USER_URL + Constants.APPID + "&status=" + Constants.STATUS)
-                .setAppPrivacyColor(Color.parseColor("#666666"), Color.parseColor("#FFC308"))
+                .setAppPrivacyColor(Color.parseColor("#666666"), Color.parseColor("#FD8347"))
                 .setPrivacyTextSize(12)
                 .setPrivacyBefore("点击登录/注册即表示同意")
                 .setVendorPrivacyPrefix("《")
                 .setVendorPrivacySuffix("》")
-                .setAuthPageActIn("in_right","out_left")
-                .setAuthPageActOut("in_left","out_right")
+                .setAuthPageActIn("in_right", "out_left")
+                .setAuthPageActOut("in_left", "out_right")
                 .setScreenOrientation(authPageOrientation)
                 .create());
     }
@@ -289,6 +319,18 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     public void startIntent() {
 
+    }
+
+    @Override
+    public void updatesendSms(ResponseData<String> responseData) {
+        if (responseData != null) {
+            if (responseData.getCode().equals("200")) {
+                mLoginSendCode.startTimer();
+                showToast(responseData.getMsg());
+            } else {
+                showToast(responseData.getMsg());
+            }
+        }
     }
 
     @Override
@@ -321,26 +363,26 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             Intent intent = new Intent(LoginActivity.this, VocationActivity.class);
             startActivity(intent);
         } else {
-            if (userInfoEntity.getData().getAge()==null||userInfoEntity.getData().getAge()=="" ||
-                    userInfoEntity.getData().getSex()==null||userInfoEntity.getData().getSex()==""||
-                    userInfoEntity.getData().getProfession()==null||userInfoEntity.getData().getProfession()==""){
+            if (userInfoEntity.getData().getAge() == null || userInfoEntity.getData().getAge() == "" ||
+                    userInfoEntity.getData().getSex() == null || userInfoEntity.getData().getSex() == "" ||
+                    userInfoEntity.getData().getProfession() == null || userInfoEntity.getData().getProfession() == "") {
                 Intent intent = new Intent(LoginActivity.this, ResumeActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putInt("ToResume", 1);
                 bundle.putInt("errorType", 1);
                 intent.putExtras(bundle);
                 startActivity(intent);
-            }else if (userInfoEntity.getData().getJob_status()==null||userInfoEntity.getData().getJob_status()==""||
-                    userInfoEntity.getData().getJob_type()==null||userInfoEntity.getData().getJob_type()==""){
+            } else if (userInfoEntity.getData().getJob_status() == null || userInfoEntity.getData().getJob_status() == "" ||
+                    userInfoEntity.getData().getJob_type() == null || userInfoEntity.getData().getJob_type() == "") {
                 Intent intent = new Intent(LoginActivity.this, MyStatusActivity.class);
                 startActivity(intent);
-            }else if (userInfoEntity.getData().getMyitem()==null){
+            } else if (userInfoEntity.getData().getMyitem() == null) {
                 Intent intent = new Intent(LoginActivity.this, AboutMineActivity.class);
                 startActivity(intent);
-            }else if (userInfoEntity.getData().getExpect()==null){
+            } else if (userInfoEntity.getData().getExpect() == null) {
                 Intent intent = new Intent(LoginActivity.this, ExpectPositionActivity.class);
                 startActivity(intent);
-            }else {
+            } else {
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 intent.putExtra("type", 1);
                 startActivity(intent);

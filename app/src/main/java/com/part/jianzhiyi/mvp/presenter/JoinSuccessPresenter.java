@@ -54,7 +54,6 @@ public class JoinSuccessPresenter extends BasePresenter<JoinSuccessContract.IJoi
                 .subscribe(getResult(new ResultObserver<ResponseData<AddFavouriteResponseEntity>>() {
                     @Override
                     public void onNext(ResponseData<AddFavouriteResponseEntity> stringResponseData) {
-                        Log.d("testaaa", "onNext: " + stringResponseData);
                         if (stringResponseData.getCode().equals(HttpAPI.REQUEST_SUCCESS)) {
 //                            weakReferenceView.get().joinSuccess();
                         } else {

@@ -96,7 +96,6 @@ public class UserInfoEntity {
         private String chan_id;
         private String campagin_id;
         private String imei;
-        private String idfa;
         private String os;
         private String androidid;
         private String profession;
@@ -312,14 +311,6 @@ public class UserInfoEntity {
 
         public void setImei(String imei) {
             this.imei = imei;
-        }
-
-        public String getIdfa() {
-            return idfa;
-        }
-
-        public void setIdfa(String idfa) {
-            this.idfa = idfa;
         }
 
         public String getOs() {

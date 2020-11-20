@@ -382,10 +382,10 @@ public class SplashActivity extends BaseActivity<MineUpdateResumePresenter> impl
                             userInfoEntity.getData().getJob_type() == null || userInfoEntity.getData().getJob_type() == "") {
                         Intent intent = new Intent(SplashActivity.this, MyStatusActivity.class);
                         startActivity(intent);
-                    } else if (userInfoEntity.getData().getMyitem() == null) {
+                    } else if (userInfoEntity.getData().getMyitem().size() == 0) {
                         Intent intent = new Intent(SplashActivity.this, AboutMineActivity.class);
                         startActivity(intent);
-                    } else if (userInfoEntity.getData().getExpect() == null) {
+                    } else if (userInfoEntity.getData().getExpect().size() == 0) {
                         Intent intent = new Intent(SplashActivity.this, ExpectPositionActivity.class);
                         startActivity(intent);
                     } else {

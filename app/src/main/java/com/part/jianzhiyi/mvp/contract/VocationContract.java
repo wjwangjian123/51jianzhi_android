@@ -42,7 +42,7 @@ public interface VocationContract {
 
         Observable<ResponseData<AddFavouriteResponseEntity>> joincopyContact(String appid, String user_id, String job_id, String sortId, String contact, int type);
 
-
+        Observable<ResponseData> getAddIntegBrowse(String user_id, int type, String job_id);
     }
 
     interface IVocationView extends IView {
@@ -60,5 +60,7 @@ public interface VocationContract {
         void cancelFavoriteSuccess();
 
         void joinSuccess(JoinJobEntity joinJobEntity);
+
+        void updategetAddIntegBrowse(ResponseData responseData);
     }
 }

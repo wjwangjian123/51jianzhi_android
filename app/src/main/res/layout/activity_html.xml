@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".mvp.ui.activity.HtmlActivity">
 
-    <WebView
+    <com.part.jianzhiyi.customview.ProgressWebView
         android:id="@+id/webView"
         android:overScrollMode="never"
         android:layout_width="match_parent"

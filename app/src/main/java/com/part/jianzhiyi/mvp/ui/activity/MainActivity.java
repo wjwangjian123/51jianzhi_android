@@ -583,6 +583,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 if (activityEntity.getData().getType().equals("1")) {
                     Intent intent = new Intent(MainActivity.this, ActionListActivity.class);
                     intent.putExtra("id", activityEntity.getData().getId());
+                    intent.putExtra("type", "0");
                     startActivity(intent);
                 } else if (activityEntity.getData().getType().equals("2")) {
                     String urls = activityEntity.getData().getUrl();
@@ -596,6 +597,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                         } else if (activityEntity.getData().getUrl_redirect() == 0) {
                             Intent intent = new Intent(MainActivity.this, HtmlActivity.class);
                             intent.putExtra(IntentConstant.HTML_URL, urls);
+                            intent.putExtra("title", "");
                             startActivity(intent);
                         }
                     }

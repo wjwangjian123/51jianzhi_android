@@ -6,7 +6,6 @@ import com.part.jianzhiyi.model.entity.ActJobListEntity;
 import com.part.jianzhiyi.model.entity.ActivityEntity;
 import com.part.jianzhiyi.model.entity.ConfigEntity;
 import com.part.jianzhiyi.model.entity.IpResponseEntity;
-import com.part.jianzhiyi.model.entity.SearchEntity;
 
 import io.reactivex.Observable;
 
@@ -21,7 +20,7 @@ public interface MainContract {
 
         Observable<ActivityEntity> getAction();
 
-        Observable<ActJobListEntity> getActJobList(String id);
+        Observable<ActJobListEntity> getActJobList(String id, String type);
 
         Observable<ConfigEntity> getConfig();
 

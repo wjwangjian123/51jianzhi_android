@@ -235,6 +235,21 @@ public class VocationPresenter extends BasePresenter<VocationContract.IVocationM
                 }));
     }
 
+    public void getAddIntegBrowse(String user_id, int type, String job_id) {
+        mModel.getAddIntegBrowse(user_id, type, job_id)
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<ResponseData>() {
+                    @Override
+                    public void onNext(ResponseData entity) {
+                        if (TextUtils.equals(entity.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetAddIntegBrowse(entity);
+                            }
+                        }
+                    }
+                }));
+    }
+
     public LoginResponseEntity loadUserInfo() {
         return mModel.loadUserInfo();
     }

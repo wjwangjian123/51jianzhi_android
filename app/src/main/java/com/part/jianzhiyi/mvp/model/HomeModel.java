@@ -10,6 +10,8 @@ import com.part.jianzhiyi.model.entity.CategoryEntity;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity2;
 import com.part.jianzhiyi.model.entity.LableEntity;
 import com.part.jianzhiyi.model.entity.SearchEntity;
+import com.part.jianzhiyi.model.entity.integral.SignEntity;
+import com.part.jianzhiyi.model.entity.integral.SignInfoEntity;
 import com.part.jianzhiyi.mvp.contract.HomeContract;
 import com.part.jianzhiyi.mvp.model.user.UserModel;
 import com.part.jianzhiyi.preference.PreferenceUUID;
@@ -25,8 +27,8 @@ import io.reactivex.Observable;
  **/
 public class HomeModel extends UserModel implements HomeContract.IHomeModel {
     @Override
-    public Observable<ResponseData<JobListResponseEntity2>> jobList(String userid, String type, String position, int page,String label) {
-        return HttpAPI.getInstence().getServiceApi().jobList(String.valueOf(page), Constants.APPID, PreferenceUUID.getInstence().getUserId(), type, position, "0", HttpAPI.ip, Constants.OS, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()),label);
+    public Observable<ResponseData<JobListResponseEntity2>> jobList(String userid, String type, String position, int page, String label) {
+        return HttpAPI.getInstence().getServiceApi().jobList(String.valueOf(page), Constants.APPID, PreferenceUUID.getInstence().getUserId(), type, position, "0", HttpAPI.ip, Constants.OS, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()), label);
     }
 
     @Override
@@ -36,7 +38,7 @@ public class HomeModel extends UserModel implements HomeContract.IHomeModel {
 
     @Override
     public Observable<ResponseData> getBannerUrl(String imei) {
-        return HttpAPI.getInstence().getServiceApi().getBannerUrl(imei,PreferenceUUID.getInstence().getUserId());
+        return HttpAPI.getInstence().getServiceApi().getBannerUrl(imei, PreferenceUUID.getInstence().getUserId());
     }
 
     @Override
@@ -46,11 +48,21 @@ public class HomeModel extends UserModel implements HomeContract.IHomeModel {
 
     @Override
     public Observable<SearchEntity> search(String title, String lable) {
-        return HttpAPI.getInstence().getServiceApi().search(Constants.APPID,title, lable, HttpAPI.ip);
+        return HttpAPI.getInstence().getServiceApi().search(Constants.APPID, title, lable, HttpAPI.ip);
     }
 
     @Override
     public Observable<LableEntity> getHomeLabel() {
         return HttpAPI.getInstence().getServiceApi().getHomeLabel();
+    }
+
+    @Override
+    public Observable<SignEntity> getSignInfos(String user_id) {
+        return HttpAPI.getInstence().getServiceApi().getSignInfos(user_id);
+    }
+
+    @Override
+    public Observable<SignInfoEntity> getAddInteg(String user_id, int type, String job_id) {
+        return HttpAPI.getInstence().getServiceApi().getAddInteg(user_id, type, job_id);
     }
 }

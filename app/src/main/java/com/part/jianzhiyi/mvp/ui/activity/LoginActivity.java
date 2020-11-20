@@ -100,6 +100,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             public void onClick(View widget) {
                 Intent intent = new Intent(LoginActivity.this, HtmlActivity.class);
                 intent.putExtra(IntentConstant.HTML_URL, Constants.HTML_USER_URL + Constants.APPID + "&status=" + Constants.STATUS);
+                intent.putExtra("title", "");
                 startActivity(intent);
             }
         };
@@ -108,6 +109,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             public void onClick(View widget) {
                 Intent intent = new Intent(LoginActivity.this, HtmlActivity.class);
                 intent.putExtra(IntentConstant.HTML_URL, Constants.HTML_PRIVACY_URL + Constants.APPID + "&status=" + Constants.STATUS);
+                intent.putExtra("title", "");
                 startActivity(intent);
             }
         };
@@ -376,10 +378,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                     userInfoEntity.getData().getJob_type() == null || userInfoEntity.getData().getJob_type() == "") {
                 Intent intent = new Intent(LoginActivity.this, MyStatusActivity.class);
                 startActivity(intent);
-            } else if (userInfoEntity.getData().getMyitem() == null) {
+            } else if (userInfoEntity.getData().getMyitem().size() == 0) {
                 Intent intent = new Intent(LoginActivity.this, AboutMineActivity.class);
                 startActivity(intent);
-            } else if (userInfoEntity.getData().getExpect() == null) {
+            } else if (userInfoEntity.getData().getExpect().size() == 0) {
                 Intent intent = new Intent(LoginActivity.this, ExpectPositionActivity.class);
                 startActivity(intent);
             } else {

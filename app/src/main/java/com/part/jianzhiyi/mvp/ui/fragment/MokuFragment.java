@@ -201,7 +201,7 @@ public class MokuFragment extends BaseFragment<MokuPresenter> implements MokuCon
                     @Override
                     public void error(int code, String message) {
                         LogUtils.log(TAG, "code:" + code + " message:" + message);
-                        Toast.makeText(getActivity(), "获取任务列表失败" + message, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getActivity(), "获取任务列表失败" + message, Toast.LENGTH_SHORT).show();
                         if (action != null) {
                             try {
                                 action.run();

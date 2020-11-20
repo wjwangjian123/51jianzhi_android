@@ -1,7 +1,5 @@
 package com.part.jianzhiyi.mvp.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -52,7 +50,8 @@ public class ActionListActivity extends BaseActivity<MainPresenter> implements M
         mLvAction = (ListView) findViewById(R.id.lv_action);
         Intent intent = getIntent();
         String id = intent.getStringExtra("id");
-        mPresenter.getActJobList(id);
+        String type = intent.getStringExtra("type");
+        mPresenter.getActJobList(id, type);
     }
 
     @Override
@@ -108,7 +107,7 @@ public class ActionListActivity extends BaseActivity<MainPresenter> implements M
             //磁盘不缓存 跳过内存缓存
             Glide.with(ActionListActivity.this).load(actJobListEntity.getData().getInfo().getBackimg()).error(R.drawable.shape_action_list_bg).diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true).into(mActionImg);
-        }else {
+        } else {
             mActionImg.setImageResource(R.drawable.shape_action_list_bg);
         }
         if (actJobListEntity.getData().getData().size() > 0) {

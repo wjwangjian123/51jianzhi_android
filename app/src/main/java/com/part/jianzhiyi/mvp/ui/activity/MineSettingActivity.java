@@ -91,6 +91,7 @@ public class MineSettingActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(MineSettingActivity.this,HtmlActivity.class);
                 intent.putExtra(IntentConstant.HTML_URL, Constants.HTML_USER_URL + Constants.APPID + "&status=" + Constants.STATUS);
+                intent.putExtra("title", "");
                 startActivity(intent);
             }
         });
@@ -99,6 +100,7 @@ public class MineSettingActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(MineSettingActivity.this,HtmlActivity.class);
                 intent.putExtra(IntentConstant.HTML_URL, Constants.HTML_PRIVACY_URL + Constants.APPID + "&status=" + Constants.STATUS);
+                intent.putExtra("title", "");
                 startActivity(intent);
             }
         });

@@ -34,32 +34,32 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/font_10"
-                android:textColor="#E2E3FF"/>
+                android:textColor="@color/color_ffffff"/>
             <View
                 android:id="@+id/view_method"
                 android:layout_width="@dimen/dimen_1"
                 android:layout_height="@dimen/dimen_10"
-                android:background="#E2E3FF"
+                android:background="@color/color_ffffff"
                 android:layout_marginLeft="@dimen/dimen_3"/>
             <TextView
                 android:id="@+id/item_tv_method"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/font_10"
-                android:textColor="#E2E3FF"
+                android:textColor="@color/color_ffffff"
                 android:layout_marginLeft="@dimen/dimen_3"/>
             <View
                 android:id="@+id/view_time"
                 android:layout_width="@dimen/dimen_1"
                 android:layout_height="@dimen/dimen_10"
-                android:background="#E2E3FF"
+                android:background="@color/color_ffffff"
                 android:layout_marginLeft="@dimen/dimen_3"/>
             <TextView
                 android:id="@+id/item_tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/font_10"
-                android:textColor="#E2E3FF"
+                android:textColor="@color/color_ffffff"
                 android:layout_marginLeft="@dimen/dimen_3"/>
         </LinearLayout>
         <LinearLayout

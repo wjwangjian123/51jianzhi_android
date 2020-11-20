@@ -53,6 +53,7 @@ public class MyMessageReceiver extends MessageReceiver {
             } else if (type.equals("3")) {
                 Intent intent2 = new Intent(context, ActionListActivity.class);
                 intent2.putExtra("id", job_id);
+                intent2.putExtra("type", "0");
                 intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent2);
             } else {

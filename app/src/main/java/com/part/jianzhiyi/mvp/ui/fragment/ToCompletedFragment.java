@@ -59,19 +59,19 @@ public class ToCompletedFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         mTocompleteRecycle.setLayoutManager(linearLayoutManager);
+        mTaskAdapter = new TaskListToAdapter(getActivity());
+        mTocompleteRecycle.setAdapter(mTaskAdapter);
+        mTaskAdapter.setmOnItemClickListener(new TaskListToAdapter.OnRecyclerItemClickListener() {
+            @Override
+            public void onItemClick(int position, Integer id) {
+                MobclickAgent.onEvent(getActivity(), "moku_tasklist");
+                gotoDetail(id);
+            }
+        });
         if (mTaskDataList != null) {
             mTocompleteRecycle.setVisibility(View.VISIBLE);
             mTocompleteIvEmpty.setVisibility(View.GONE);
-            mTaskAdapter = new TaskListToAdapter(getActivity());
-            mTocompleteRecycle.setAdapter(mTaskAdapter);
             mTaskAdapter.setList(mTaskDataList);
-            mTaskAdapter.setmOnItemClickListener(new TaskListToAdapter.OnRecyclerItemClickListener() {
-                @Override
-                public void onItemClick(int position, Integer id) {
-                    MobclickAgent.onEvent(getActivity(), "moku_tasklist");
-                    gotoDetail(id);
-                }
-            });
         } else {
             mTocompleteRecycle.setVisibility(View.GONE);
             mTocompleteIvEmpty.setVisibility(View.VISIBLE);

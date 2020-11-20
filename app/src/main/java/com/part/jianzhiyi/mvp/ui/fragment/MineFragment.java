@@ -2,7 +2,6 @@ package com.part.jianzhiyi.mvp.ui.fragment;
 
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -17,13 +16,10 @@ import com.part.jianzhiyi.base.BaseFragment;
 import com.part.jianzhiyi.constants.IntentConstant;
 import com.part.jianzhiyi.customview.CircularProgressView;
 import com.part.jianzhiyi.dialog.SignDialog;
-import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.AddSignEntity;
 import com.part.jianzhiyi.model.entity.DaySignEntity;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
-import com.part.jianzhiyi.model.entity.integral.MyExchangeEntity;
-import com.part.jianzhiyi.model.entity.integral.MyIntegralEntity;
 import com.part.jianzhiyi.mvp.contract.user.MineContract;
 import com.part.jianzhiyi.mvp.presenter.mine.MinePresenter;
 import com.part.jianzhiyi.mvp.ui.activity.BusinessActivity;
@@ -272,21 +268,6 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         } else {
             showToast(responseData.getMsg());
         }
-    }
-
-    @Override
-    public void updategetMyGoods(MyExchangeEntity responseData) {
-
-    }
-
-    @Override
-    public void updategetMyIntegInfo(MyIntegralEntity responseData) {
-
-    }
-
-    @Override
-    public void updategetAddInteg(ResponseData responseData) {
-
     }
 
     @Override

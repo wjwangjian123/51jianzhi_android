@@ -10,8 +10,7 @@
         android:id="@+id/action_img"
         android:layout_width="match_parent"
         android:layout_height="458dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/shape_action_list_bg"/>
+        android:scaleType="fitXY"/>
     <RelativeLayout
         android:id="@+id/rl_action"
         android:layout_width="match_parent"
@@ -41,7 +40,7 @@
         android:scrollbars="none"
         android:layout_below="@+id/rl_action"
         android:background="@drawable/shape_bg_white13"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="@dimen/dimen_80"
         android:layout_marginHorizontal="@dimen/dimen_15"
         android:layout_marginBottom="17dp"/>
 </RelativeLayout>

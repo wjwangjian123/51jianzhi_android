@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.adapter.HomeAdapter;
 import com.part.jianzhiyi.adapter.HomeLableAdapter;
@@ -21,6 +22,7 @@ import com.part.jianzhiyi.base.BaseFragment;
 import com.part.jianzhiyi.constants.Constants;
 import com.part.jianzhiyi.constants.IntentConstant;
 import com.part.jianzhiyi.corecommon.ui.ListViewInScrollView;
+import com.part.jianzhiyi.corecommon.utils.FrescoUtil;
 import com.part.jianzhiyi.corecommon.utils.SharedPrefUtils;
 import com.part.jianzhiyi.corecommon.utils.Tools;
 import com.part.jianzhiyi.loader.GlideImageLoader;
@@ -30,15 +32,19 @@ import com.part.jianzhiyi.model.entity.CategoryEntity;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity2;
 import com.part.jianzhiyi.model.entity.LableEntity;
 import com.part.jianzhiyi.model.entity.SearchEntity;
+import com.part.jianzhiyi.model.entity.integral.SignEntity;
+import com.part.jianzhiyi.model.entity.integral.SignInfoEntity;
 import com.part.jianzhiyi.mvp.contract.HomeContract;
 import com.part.jianzhiyi.mvp.presenter.HomePresenter;
 import com.part.jianzhiyi.mvp.ui.activity.CityActivity;
 import com.part.jianzhiyi.mvp.ui.activity.HomeVocationListActivity;
 import com.part.jianzhiyi.mvp.ui.activity.HtmlActivity;
+import com.part.jianzhiyi.mvp.ui.activity.IntegralActivity;
 import com.part.jianzhiyi.mvp.ui.activity.LoginActivity;
 import com.part.jianzhiyi.mvp.ui.activity.SearchActivity;
 import com.part.jianzhiyi.mvp.ui.activity.VocationActivity;
 import com.part.jianzhiyi.preference.PreferenceUUID;
+import com.part.jianzhiyi.utils.IntentUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -85,6 +91,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     private ImageView mIvReliable;
     private TextView mTvReliable;
     private ImageView mHomeIvYin;
+    private SimpleDraweeView mHomeIvSign;
 
     private String type_recommend = Constants.TYPE_HOME_RECOMMEND;
     private String position_recommend;
@@ -134,12 +141,12 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         mIvReliable = view.findViewById(R.id.iv_reliable);
         mTvReliable = view.findViewById(R.id.tv_reliable);
         mHomeIvYin = view.findViewById(R.id.home_iv_yin);
+        mHomeIvSign = view.findViewById(R.id.home_iv_sign);
 
         setToolbarVisible(false);
         mActivity.setImmerseLayout(view.findViewById(R.id.home_rl_title));
 
         mBanner.setDelayTime(5000);
-
     }
 
     private static BtnClickListener mBtnClickListener;
@@ -301,6 +308,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                                 } else if (url_redirect == 0) {
                                     Intent intent = new Intent(mActivity, HtmlActivity.class);
                                     intent.putExtra(IntentConstant.HTML_URL, urls);
+                                    intent.putExtra("title", "");
                                     startActivity(intent);
                                 }
                             }
@@ -315,6 +323,14 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                             }
                         }
                     }
+                }
+            }
+        });
+        mHomeIvSign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!PreferenceUUID.getInstence().getUserId().equals(null) && !PreferenceUUID.getInstence().getUserId().equals("")) {
+                    mPresenter.getAddInteg(PreferenceUUID.getInstence().getUserId(), 1, "0");
                 }
             }
         });
@@ -553,6 +569,28 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     }
 
     @Override
+    public void updategetSignInfos(SignEntity signEntity) {
+        if (signEntity != null) {
+            mHomeIvSign.setVisibility(View.VISIBLE);
+            if (signEntity.getData().isSing()) {
+                FrescoUtil.setGifPic(("res://" + getActivity().getPackageName() + "/" + R.drawable.icon_earn), mHomeIvSign);
+            } else {
+                FrescoUtil.setGifPic(("res://" + getActivity().getPackageName() + "/" + R.drawable.icon_sign), mHomeIvSign);
+            }
+        }
+    }
+
+    @Override
+    public void updategetAddInteg(SignInfoEntity responseData) {
+        if (responseData != null) {
+            Bundle bundle = new Bundle();
+            bundle.putString("code", responseData.getCode());
+            bundle.putSerializable("SignInfoEntity", responseData.getData());
+            IntentUtils.getInstence().intent(getActivity(), IntegralActivity.class, bundle);
+        }
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1001 && data != null) {
@@ -567,12 +605,17 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         super.onResume();
         MobclickAgent.onPageStart("首页");
         MobclickAgent.onResume(getActivity());
-        if (lableList.equals("0")) {
-            position_recommend = Constants.POSITION_HOME_RECOMMEND;
-            mPresenter.jobList(type_recommend, position_recommend, recommendPage, lable);
-        } else {
-            position_recommend = Constants.POSITION_HOME_LABLE;
-            mPresenter.jobList("8", position_recommend, recommendPage, lable);
+        if (mPresenter != null) {
+            if (lableList.equals("0")) {
+                position_recommend = Constants.POSITION_HOME_RECOMMEND;
+                mPresenter.jobList(type_recommend, position_recommend, recommendPage, lable);
+            } else {
+                position_recommend = Constants.POSITION_HOME_LABLE;
+                mPresenter.jobList("8", position_recommend, recommendPage, lable);
+            }
+            if (!PreferenceUUID.getInstence().getUserId().equals(null) && !PreferenceUUID.getInstence().getUserId().equals("")) {
+                mPresenter.getSignInfos(PreferenceUUID.getInstence().getUserId());
+            }
         }
     }
 

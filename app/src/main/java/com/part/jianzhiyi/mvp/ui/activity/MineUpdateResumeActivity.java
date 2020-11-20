@@ -304,14 +304,14 @@ public class MineUpdateResumeActivity extends BaseActivity<MineUpdateResumePrese
             profession = entity.getData().getProfession_type();
             job_status = entity.getData().getJob_status_type();
             job_type = entity.getData().getJob_position_type();
-            if (entity.getData().getMyitem() != null) {
+            if (entity.getData().getMyitem().size() > 0) {
                 StringBuffer stringBuffer = new StringBuffer();
                 for (int i = 0; i < entity.getData().getMyitem().size(); i++) {
                     stringBuffer = stringBuffer.append(entity.getData().getMyitem().get(i).getId() + ",");
                 }
                 myitem = String.valueOf(stringBuffer);
             }
-            if (entity.getData().getExpect() != null) {
+            if (entity.getData().getExpect().size() > 0) {
                 StringBuffer stringBuffer1 = new StringBuffer();
                 for (int i = 0; i < entity.getData().getExpect().size(); i++) {
                     stringBuffer1 = stringBuffer1.append(entity.getData().getExpect().get(i).getId() + ",");

@@ -83,6 +83,7 @@ public class PrivacyPolicyDialog extends AlertDialog {
             public void onClick(View v) {
                 Intent intent = new Intent(context, HtmlActivity.class);
                 intent.putExtra(IntentConstant.HTML_URL, Constants.HTML_PRIVACY_URL + Constants.APPID + "&status=" + Constants.STATUS);
+                intent.putExtra("title", "");
                 context.startActivity(intent);
             }
         });
@@ -91,6 +92,7 @@ public class PrivacyPolicyDialog extends AlertDialog {
             public void onClick(View v) {
                 Intent intent = new Intent(context, HtmlActivity.class);
                 intent.putExtra(IntentConstant.HTML_URL, Constants.HTML_USER_URL + Constants.APPID + "&status=" + Constants.STATUS);
+                intent.putExtra("title", "");
                 context.startActivity(intent);
             }
         });

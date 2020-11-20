@@ -12,6 +12,8 @@ import com.part.jianzhiyi.model.entity.CategoryEntity;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity2;
 import com.part.jianzhiyi.model.entity.LableEntity;
 import com.part.jianzhiyi.model.entity.SearchEntity;
+import com.part.jianzhiyi.model.entity.integral.SignEntity;
+import com.part.jianzhiyi.model.entity.integral.SignInfoEntity;
 import com.part.jianzhiyi.mvp.contract.HomeContract;
 import com.part.jianzhiyi.mvp.model.HomeModel;
 import com.part.jianzhiyi.preference.PreferenceUUID;
@@ -139,6 +141,41 @@ public class HomePresenter extends BasePresenter<HomeContract.IHomeModel, HomeCo
                         }
                     }
 
+                }));
+    }
+
+    public void getSignInfos(String user_id) {
+        mModel.getSignInfos(user_id)
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<SignEntity>() {
+                    @Override
+                    public void onNext(SignEntity signEntity) {
+                        if (TextUtils.equals(signEntity.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetSignInfos(signEntity);
+                            }
+                        }
+                    }
+
+                }));
+    }
+
+    public void getAddInteg(String user_id, int type, String job_id) {
+        mModel.getAddInteg(user_id, type, job_id)
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<SignInfoEntity>() {
+                    @Override
+                    public void onNext(SignInfoEntity entity) {
+                        if (TextUtils.equals(entity.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetAddInteg(entity);
+                            }
+                        }else {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetAddInteg(entity);
+                            }
+                        }
+                    }
                 }));
     }
 }

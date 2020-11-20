@@ -78,6 +78,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.chenlittleping:recyclercoverflow:1.0.6'
 
     implementation 'org.greenrobot:greendao:3.2.2' // 添加库
     // 友盟统计SDK
@@ -106,5 +107,6 @@ dependencies {
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
     // 支付宝 SDK AAR 包所需的配置
-    implementation (name: 'alipaySdk-15.7.9-20200727142814-noUtdid', ext: 'aar')
+    implementation(name: 'alipaySdk-15.7.9-20200727142814-noUtdid', ext: 'aar')
+    implementation 'com.just.agentweb:agentweb:4.0.2'
 }

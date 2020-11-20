@@ -50,7 +50,6 @@ public class Constants {
     public static final String POSITION_RANK = "9";//排行列表
     public static final String POSITION_CHOICE_RECOMMEND = "8";//小编推荐
 
-
     public static final String TYPE_HOME_RECOMMEND = "1";//为你推荐
     public static final String TYPE_HIGH_PAY = "2";//高薪招聘
     public static final String TYPE_CHOICE_SPECIAL = "4";//精选
@@ -59,5 +58,4 @@ public class Constants {
     public static final String TYPE_CHOICE = "6";//小编
     public static final String TYPE_RANK = "7";//排行列表
     public static final String TYPE_LABLE = "8";//首页分类
-
 }

@@ -1,10 +1,7 @@
 package com.part.jianzhiyi.mvp.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -180,7 +177,7 @@ public class ResumeActivity extends BaseActivity<MineUpdateResumePresenter> impl
                 }
                 //更新简历
                 mPresenter.updateResumeV2(nickname, sex, mResumeTvYear.getText().toString(), school_year, school_name, experience,
-                        introduce, profession, job_status, job_type, myitem, expect,profession1, job_status1, job_type1);
+                        introduce, profession, job_status, job_type, myitem, expect, profession1, job_status1, job_type1);
             }
         });
         mResumeLinearYear.setOnClickListener(new View.OnClickListener() {
@@ -232,17 +229,17 @@ public class ResumeActivity extends BaseActivity<MineUpdateResumePresenter> impl
         MobclickAgent.onEvent(ResumeActivity.this, "resume_submit_successful");
         showToast("保存成功");
         if (toResume == 1) {
-            if (mUserInfoEntity.getData().getJob_status()==null||mUserInfoEntity.getData().getJob_status()==""||
-                    mUserInfoEntity.getData().getJob_type()==null||mUserInfoEntity.getData().getJob_type()==""){
+            if (mUserInfoEntity.getData().getJob_status() == null || mUserInfoEntity.getData().getJob_status() == "" ||
+                    mUserInfoEntity.getData().getJob_type() == null || mUserInfoEntity.getData().getJob_type() == "") {
                 Intent intent = new Intent(ResumeActivity.this, MyStatusActivity.class);
                 startActivity(intent);
-            }else if (mUserInfoEntity.getData().getMyitem()==null){
+            } else if (mUserInfoEntity.getData().getMyitem().size() == 0) {
                 Intent intent = new Intent(ResumeActivity.this, AboutMineActivity.class);
                 startActivity(intent);
-            }else if (mUserInfoEntity.getData().getExpect()==null){
+            } else if (mUserInfoEntity.getData().getExpect().size() == 0) {
                 Intent intent = new Intent(ResumeActivity.this, ExpectPositionActivity.class);
                 startActivity(intent);
-            }else {
+            } else {
                 Intent intent = new Intent(ResumeActivity.this, MainActivity.class);
                 intent.putExtra("type", 1);
                 startActivity(intent);
@@ -255,7 +252,7 @@ public class ResumeActivity extends BaseActivity<MineUpdateResumePresenter> impl
 
     @Override
     public void updateUserInfoPer(UserInfoEntity entity) {
-        mUserInfoEntity=entity;
+        mUserInfoEntity = entity;
         StringBuffer stringBuffer = new StringBuffer();
         StringBuffer stringBuffer1 = new StringBuffer();
         if (entity != null) {

@@ -181,10 +181,10 @@ public class MyStatusActivity extends BaseActivity<MineUpdateResumePresenter> im
             bundle.putInt("ToLogin", 1);
             intent.putExtras(bundle);
             startActivity(intent);
-        } else if (mUserInfoEntity.getData().getMyitem() == null) {
+        } else if (mUserInfoEntity.getData().getMyitem().size() == 0) {
             Intent intent = new Intent(MyStatusActivity.this, AboutMineActivity.class);
             startActivity(intent);
-        } else if (mUserInfoEntity.getData().getExpect() == null) {
+        } else if (mUserInfoEntity.getData().getExpect().size() == 0) {
             Intent intent = new Intent(MyStatusActivity.this, ExpectPositionActivity.class);
             startActivity(intent);
         } else {

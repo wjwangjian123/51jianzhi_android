@@ -26,8 +26,10 @@ import com.part.jianzhiyi.model.entity.UMEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.model.entity.ViewedEntity;
 import com.part.jianzhiyi.model.entity.VocationEntity;
-import com.part.jianzhiyi.model.entity.integral.MyExchangeEntity;
+import com.part.jianzhiyi.model.entity.integral.ExcitationInfoEntity;
 import com.part.jianzhiyi.model.entity.integral.MyIntegralEntity;
+import com.part.jianzhiyi.model.entity.integral.SignEntity;
+import com.part.jianzhiyi.model.entity.integral.SignInfoEntity;
 import com.part.jianzhiyi.model.entity.moku.KuaibaoEntity;
 import com.part.jianzhiyi.model.entity.moku.MokuBillListEntity;
 import com.part.jianzhiyi.model.entity.moku.MokuTaskListEntity;
@@ -332,7 +334,7 @@ public interface ServiceAPI {
      */
     @POST("Api/Detail/getActJob")
     @FormUrlEncoded
-    Observable<ActJobListEntity> getActJobList(@Field("appid") String appid, @Field("id") String id, @Field("ip") String ip);
+    Observable<ActJobListEntity> getActJobList(@Field("appid") String appid, @Field("id") String id, @Field("ip") String ip, @Field("type") String type);
 
     /**
      * 报名 第二版
@@ -494,7 +496,7 @@ public interface ServiceAPI {
      */
     @FormUrlEncoded
     @POST("api/pay/tx_code")
-    Observable<TxBindingEntity> getTxcode(@Field("user_id") String user_id,@Field("times") String times,@Field("token") String token);
+    Observable<TxBindingEntity> getTxcode(@Field("user_id") String user_id, @Field("times") String times, @Field("token") String token);
 
     /**
      * 提现接口
@@ -523,15 +525,6 @@ public interface ServiceAPI {
     Observable<AuthInfoEntity> getAuthInfo();
 
     /**
-     * 我的兑换
-     *
-     * @return
-     */
-    @FormUrlEncoded
-    @POST("Api/Integral/getMyGoods")
-    Observable<MyExchangeEntity> getMyGoods(@Field("user_id") String user_id);
-
-    /**
      * 我的积分详情
      *
      * @return
@@ -547,6 +540,33 @@ public interface ServiceAPI {
      */
     @FormUrlEncoded
     @POST("Api/Integral/addInteg")
-    Observable<ResponseData> getAddInteg(@Field("user_id") String user_id, @Field("type") int type);
+    Observable<SignInfoEntity> getAddInteg(@Field("user_id") String user_id, @Field("type") int type, @Field("job_id") String job_id);
+
+    /**
+     * 浏览和签到接口
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("Api/Integral/addInteg")
+    Observable<ResponseData> getAddIntegBrowse(@Field("user_id") String user_id, @Field("type") int type, @Field("job_id") String job_id);
+
+    /**
+     * 激励活动页
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/Integral/excitationInfo")
+    Observable<ExcitationInfoEntity> getExcitationInfo(@Field("user_id") String user_id);
+
+    /**
+     * 判断用户是否签到
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("Api/Integral/qdInfos")
+    Observable<SignEntity> getSignInfos(@Field("user_id") String user_id);
 
 }

@@ -2,7 +2,6 @@ package com.part.jianzhiyi.mvp.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -24,11 +23,8 @@ import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class AboutMineActivity extends BaseActivity<MineUpdateResumePresenter> implements MineUpdateResumeContract.IMineUpdateResumeView {
 
@@ -113,13 +109,13 @@ public class AboutMineActivity extends BaseActivity<MineUpdateResumePresenter> i
             public void onClick(View v) {
                 //选择优点
                 Set<Integer> selectedList = mAboutTfl.getSelectedList();
-                if (selectedList.size()>0){
+                if (selectedList.size() > 0) {
                     StringBuffer stringBuffer = new StringBuffer();
                     for (Integer str : selectedList) {
                         stringBuffer = stringBuffer.append(mList.get(str).getId() + ",");
                     }
                     myitem = String.valueOf(stringBuffer);
-                }else {
+                } else {
                     showToast("请选择你的优点");
                     return;
                 }
@@ -155,7 +151,7 @@ public class AboutMineActivity extends BaseActivity<MineUpdateResumePresenter> i
             bundle.putInt("ToLogin", 1);
             intent.putExtras(bundle);
             startActivity(intent);
-        } else if (mUserInfoEntity.getData().getExpect() == null) {
+        } else if (mUserInfoEntity.getData().getExpect().size() == 0) {
             Intent intent = new Intent(AboutMineActivity.this, ExpectPositionActivity.class);
             startActivity(intent);
         } else {
@@ -183,20 +179,20 @@ public class AboutMineActivity extends BaseActivity<MineUpdateResumePresenter> i
             profession = entity.getData().getProfession_type();
             job_status = entity.getData().getJob_status_type();
             job_type = entity.getData().getJob_position_type();
-            if (entity.getData().getMyitem()!=null){
+            if (entity.getData().getMyitem().size() > 0) {
                 StringBuffer stringBuffer = new StringBuffer();
                 for (int i = 0; i < entity.getData().getMyitem().size(); i++) {
                     stringBuffer = stringBuffer.append(entity.getData().getMyitem().get(i).getId() + ",");
                 }
                 myitem = String.valueOf(stringBuffer);
             }
-           if (entity.getData().getExpect()!=null){
-               StringBuffer stringBuffer1 = new StringBuffer();
-               for (int i = 0; i < entity.getData().getExpect().size(); i++) {
-                   stringBuffer1 = stringBuffer1.append(entity.getData().getExpect().get(i).getId() + ",");
-               }
-               expect = String.valueOf(stringBuffer1);
-           }
+            if (entity.getData().getExpect().size() > 0) {
+                StringBuffer stringBuffer1 = new StringBuffer();
+                for (int i = 0; i < entity.getData().getExpect().size(); i++) {
+                    stringBuffer1 = stringBuffer1.append(entity.getData().getExpect().get(i).getId() + ",");
+                }
+                expect = String.valueOf(stringBuffer1);
+            }
             mPresenter.getMyitem("1");
         }
     }

@@ -36,6 +36,7 @@ import com.part.jianzhiyi.corecommon.utils.DateUtils;
 import com.part.jianzhiyi.corecommon.utils.UiUtils;
 import com.part.jianzhiyi.dbmodel.GreenDaoManager;
 import com.part.jianzhiyi.dialog.SignUpJoinDialog;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.JobDetailEntity;
 import com.part.jianzhiyi.model.entity.JoinJobEntity;
 import com.part.jianzhiyi.model.entity.MessageResponseEntity;
@@ -548,6 +549,9 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
             copy_type = 2;
             tvContract.setText(entity.getContactXing());
         }
+        if (!PreferenceUUID.getInstence().getUserId().equals(null) && !PreferenceUUID.getInstence().getUserId().equals("")) {
+            mPresenter.getAddIntegBrowse(PreferenceUUID.getInstence().getUserId(), 2, entity.getId());
+        }
     }
 
     @Override
@@ -686,6 +690,11 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
         bundle.putString("sortId", sortId);
         bundle.putSerializable("joinJobEntity", joinJobEntity);
         IntentUtils.getInstence().startActivityForResult(VocationActivity.this, JoinSuccessActivity.class, 1002, bundle);
+    }
+
+    @Override
+    public void updategetAddIntegBrowse(ResponseData responseData) {
+
     }
 
     public static boolean isInteger(String str) {

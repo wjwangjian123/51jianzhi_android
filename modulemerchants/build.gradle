@@ -1,17 +1,46 @@
-apply plugin: 'com.android.library'
+if (isModule) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
 
     defaultConfig {
-        minSdkVersion 26
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        multiDexEnabled true
+        //组件模式下
+        if (isModule) {
+            applicationId appId['module_merchants']
+        }
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles 'consumer-rules.pro'
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+
+        //资源配置
+        sourceSets {
+            main {
+                //在组件模式下 使用不同的manifest文件
+                if (isModule) {
+                    manifest.srcFile 'src/main/module/AndroidManifest.xml'
+                    java.srcDirs 'src/main/module/java', 'src/main/java'
+                } else {
+                    manifest.srcFile 'src/main/AndroidManifest.xml'
+                }
+            }
+        }
+
     }
 
     buildTypes {
@@ -20,14 +49,28 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+}
 
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'libs', '../corecommon/libs'
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    annotationProcessor rootProject.ext.dependencies["arouterCompile"]
+
+    implementation project(':corecommon')
+    implementation project(':netcommon')
+    api 'com.jph.takephoto:takephoto_library:4.0.3'
+    //美洽
+    api 'com.meiqia:meiqiasdk:+'
+    api 'top.zibin:Luban:1.1.8'
 }

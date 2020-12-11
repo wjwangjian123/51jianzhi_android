@@ -11,8 +11,8 @@ import android.widget.Toast;
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.model.entity.moku.MokuTaskListEntity;
 import com.part.jianzhiyi.mogu.adapter.TaskListSubAdapter;
+import com.umeng.analytics.MobclickAgent;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -52,27 +52,27 @@ public class SubmitFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         this.mContext = getActivity();
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         mSubmitRecycle.setLayoutManager(linearLayoutManager);
         mTaskListSubAdapter = new TaskListSubAdapter(getActivity());
         mSubmitRecycle.setAdapter(mTaskListSubAdapter);
-        if (mTaskInReviewDataList != null) {
-            if (mTaskInReviewDataList.size() == 0) {
-                mSubmitRecycle.setVisibility(View.GONE);
-                mSubmitIvEmpty.setVisibility(View.VISIBLE);
-            } else {
-                mSubmitRecycle.setVisibility(View.VISIBLE);
-                mSubmitIvEmpty.setVisibility(View.GONE);
-                mTaskListSubAdapter.setList(mTaskInReviewDataList);
-                mTaskListSubAdapter.setmOnItemClickListener(new TaskListSubAdapter.OnRecyclerItemClickListener() {
-                    @Override
-                    public void onItemClick(int position, String reason) {
-                        Toast.makeText(getActivity(), reason, Toast.LENGTH_LONG).show();
-                    }
-                });
+        mTaskListSubAdapter.setmOnItemClickListener(new TaskListSubAdapter.OnRecyclerItemClickListener() {
+            @Override
+            public void onItemClick(int position, String reason) {
+                Toast.makeText(getActivity(), reason, Toast.LENGTH_LONG).show();
             }
+        });
+        mTaskListSubAdapter.setOnMonitorItemClickListener(new TaskListSubAdapter.OnMonitorItemClickListener() {
+            @Override
+            public void onMonitorItemClick(int position) {
+                MobclickAgent.onEvent(getActivity(), "moku_completed_list");
+            }
+        });
+        if (mTaskInReviewDataList.size() > 0) {
+            mSubmitRecycle.setVisibility(View.VISIBLE);
+            mSubmitIvEmpty.setVisibility(View.GONE);
+            mTaskListSubAdapter.setList(mTaskInReviewDataList);
         } else {
             mSubmitRecycle.setVisibility(View.GONE);
             mSubmitIvEmpty.setVisibility(View.VISIBLE);

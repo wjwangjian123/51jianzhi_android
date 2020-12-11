@@ -18,10 +18,12 @@ public interface SystemNotifyContract {
     interface ISystemNotifyModel extends IModel {
         Observable<ResponseData<List<MsgResponseEntity>>> msgList(String userid);
 
+        Observable<ResponseData> getaddMd(String type);
     }
 
     interface ISystemNotifyView extends IView {
-
         void updateList(List<MsgResponseEntity> list);
+
+        void updategetaddMd(ResponseData responseData);
     }
 }

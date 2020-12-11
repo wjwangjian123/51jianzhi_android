@@ -1,6 +1,5 @@
 package com.part.jianzhiyi.mvp.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
 import io.reactivex.Observable;
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
@@ -25,9 +24,10 @@ import com.part.jianzhiyi.app.ODApplication;
 import com.part.jianzhiyi.base.BaseActivity;
 import com.part.jianzhiyi.corecommon.utils.FileUtils;
 import com.part.jianzhiyi.corecommon.utils.RegularUtils;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.mvp.contract.CityContract;
 import com.part.jianzhiyi.mvp.presenter.CityPresenter;
-import com.part.jianzhiyi.preference.PreferenceUUID;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -180,6 +180,11 @@ public class CityActivity extends BaseActivity<CityPresenter> implements CityCon
     @Override
     public void updateCity(String text) {
         parseJson(text);
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
+
     }
 
     private void parseJson(String json) {

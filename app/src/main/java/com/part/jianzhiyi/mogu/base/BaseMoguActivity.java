@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.mogu.utils.PhoneScreenUtils;
-import com.part.jianzhiyi.utils.statusbar.StatusBarUtil;
+import com.part.jianzhiyi.corecommon.utils.statusbar.StatusBarUtil;
 
 import androidx.fragment.app.FragmentActivity;
 

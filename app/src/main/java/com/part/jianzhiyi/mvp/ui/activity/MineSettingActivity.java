@@ -1,7 +1,5 @@
 package com.part.jianzhiyi.mvp.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -16,20 +14,27 @@ import android.widget.TextView;
 
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.base.BaseActivity;
-import com.part.jianzhiyi.base.BasePresenter;
 import com.part.jianzhiyi.constants.Constants;
-import com.part.jianzhiyi.constants.IntentConstant;
+import com.part.jianzhiyi.corecommon.constants.IntentConstant;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.corecommon.utils.ActivityUtils;
-import com.part.jianzhiyi.preference.PreferenceUUID;
+import com.part.jianzhiyi.model.base.ResponseData;
+import com.part.jianzhiyi.model.entity.AddSignEntity;
+import com.part.jianzhiyi.model.entity.DaySignEntity;
+import com.part.jianzhiyi.model.entity.LoginResponseEntity;
+import com.part.jianzhiyi.model.entity.UserInfoEntity;
+import com.part.jianzhiyi.mvp.contract.user.MineContract;
+import com.part.jianzhiyi.mvp.presenter.mine.MinePresenter;
 import com.part.jianzhiyi.utils.NotificationUtil;
 import com.umeng.analytics.MobclickAgent;
 
-public class MineSettingActivity extends BaseActivity {
+public class MineSettingActivity extends BaseActivity<MinePresenter> implements MineContract.IMineView {
 
     private TextView tvExit;
     private Switch mSetSwitch;
     private RelativeLayout mSetRlUser;
     private RelativeLayout mSetRlPrivacy;
+    private TextView mTvCancellation;
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
@@ -48,6 +53,7 @@ public class MineSettingActivity extends BaseActivity {
         mSetSwitch = mView.findViewById(R.id.set_switch);
         mSetRlUser = mView.findViewById(R.id.set_rl_user);
         mSetRlPrivacy = mView.findViewById(R.id.set_rl_privacy);
+        mTvCancellation = mView.findViewById(R.id.tv_cancellation);
     }
 
     @Override
@@ -57,6 +63,7 @@ public class MineSettingActivity extends BaseActivity {
             mSetSwitch.setChecked(false);
         } else {
             mSetSwitch.setChecked(true);
+            MobclickAgent.onEvent(MineSettingActivity.this, "set_Notification_open");
         }
     }
 
@@ -66,6 +73,7 @@ public class MineSettingActivity extends BaseActivity {
         tvExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MobclickAgent.onEvent(MineSettingActivity.this, "set_logout");
                 PreferenceUUID.getInstence().loginOut();
                 ActivityUtils.removeAllActivity();
                 Intent intent = new Intent(MineSettingActivity.this, LoginActivity.class);
@@ -89,17 +97,26 @@ public class MineSettingActivity extends BaseActivity {
         mSetRlUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MineSettingActivity.this,HtmlActivity.class);
+                Intent intent = new Intent(MineSettingActivity.this, HtmlActivity.class);
                 intent.putExtra(IntentConstant.HTML_URL, Constants.HTML_USER_URL + Constants.APPID + "&status=" + Constants.STATUS);
+                intent.putExtra("title", "");
                 startActivity(intent);
             }
         });
         mSetRlPrivacy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MineSettingActivity.this,HtmlActivity.class);
+                Intent intent = new Intent(MineSettingActivity.this, HtmlActivity.class);
                 intent.putExtra(IntentConstant.HTML_URL, Constants.HTML_PRIVACY_URL + Constants.APPID + "&status=" + Constants.STATUS);
+                intent.putExtra("title", "");
                 startActivity(intent);
+            }
+        });
+        mTvCancellation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MobclickAgent.onEvent(MineSettingActivity.this, "set_cancellation");
+                initDialogCancellation();
             }
         });
     }
@@ -135,6 +152,35 @@ public class MineSettingActivity extends BaseActivity {
         });
     }
 
+    private void initDialogCancellation() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MineSettingActivity.this);
+        AlertDialog alertDialog1 = alertDialog.create();
+        View view = View.inflate(MineSettingActivity.this, R.layout.dialog_cancellation_tip, null);
+        TextView confirm = view.findViewById(R.id.tv_confirm);
+        TextView cancel = view.findViewById(R.id.tv_cancel);
+        alertDialog1.getWindow().setBackgroundDrawableResource(R.color.transparency);
+        alertDialog1.setCanceledOnTouchOutside(true);
+        alertDialog1.setCancelable(true);
+        alertDialog1.setView(view);
+        //显示
+        alertDialog1.show();
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog1.dismiss();
+                if (!PreferenceUUID.getInstence().getUserId().equals(null) && !PreferenceUUID.getInstence().getUserId().equals("")) {
+                    mPresenter.getDelUser(PreferenceUUID.getInstence().getUserId());
+                }
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog1.dismiss();
+            }
+        });
+    }
+
     private void ToNotification() {
         Intent localIntent = new Intent();
         //直接跳转到应用通知设置的代码：
@@ -143,12 +189,12 @@ public class MineSettingActivity extends BaseActivity {
             localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             localIntent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
             localIntent.setData(Uri.fromParts("package", getPackageName(), null));
-        } else if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             //5.0以上到8.0以下
             localIntent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
             localIntent.putExtra("app_package", getPackageName());
             localIntent.putExtra("app_uid", getApplicationInfo().uid);
-        } else if (android.os.Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
+        } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
             //4.4
             localIntent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
             localIntent.addCategory(Intent.CATEGORY_DEFAULT);
@@ -169,8 +215,8 @@ public class MineSettingActivity extends BaseActivity {
     }
 
     @Override
-    protected BasePresenter createPresenter() {
-        return null;
+    protected MinePresenter createPresenter() {
+        return new MinePresenter(this);
     }
 
     @Override
@@ -191,6 +237,7 @@ public class MineSettingActivity extends BaseActivity {
             mSetSwitch.setChecked(false);
         } else {
             mSetSwitch.setChecked(true);
+            MobclickAgent.onEvent(MineSettingActivity.this, "set_Notification_open");
         }
     }
 
@@ -206,5 +253,47 @@ public class MineSettingActivity extends BaseActivity {
         super.onPause();
         MobclickAgent.onPageEnd("设置页面");
         MobclickAgent.onPause(this);
+    }
+
+    @Override
+    public void updateUserInfo(LoginResponseEntity entity) {
+
+    }
+
+    @Override
+    public void updateUserInfoPer(UserInfoEntity userInfoEntity) {
+
+    }
+
+    @Override
+    public void updategetDaySign(DaySignEntity daySignEntity) {
+
+    }
+
+    @Override
+    public void updateaddDaySign(AddSignEntity responseData) {
+
+    }
+
+    @Override
+    public void updategetDelUser(ResponseData responseData) {
+        if (responseData != null) {
+            showToast(responseData.getMsg());
+            if (responseData.getCode().equals("200")) {
+                PreferenceUUID.getInstence().loginOut();
+                ActivityUtils.removeAllActivity();
+                Intent intent = new Intent(MineSettingActivity.this, LoginActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("ToLogin", 1);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                finish();
+            }
+        }
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
+
     }
 }

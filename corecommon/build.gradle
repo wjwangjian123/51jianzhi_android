@@ -13,38 +13,32 @@ android {
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
         multiDexEnabled true
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles 'consumer-rules.pro'
-//        javaCompileOptions {
-//            annotationProcessorOptions {
-//                arguments = [AROUTER_MODULE_NAME: project.getName()]
-//            }
-//        }
     }
 
     buildTypes {
-        debug {
-            minifyEnabled false
-            useProguard true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
         release {
             minifyEnabled false
             useProguard true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+}
 
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     implementation 'androidx.appcompat:appcompat:1.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
+
     api 'androidx.constraintlayout:constraintlayout:1.1.3'
     api 'com.android.support:multidex:1.0.3'
     api 'com.android.support:support-v4:28.0.0'
@@ -64,8 +58,24 @@ dependencies {
     api 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'
     api 'com.youth.banner:banner:1.4.10'
     api 'com.hyman:flowlayout-lib:1.1.2'
-    implementation project(':netcommon')
     api 'com.yanzhenjie.permission:support:2.0.0'
+    // 友盟统计SDK
+    api "com.umeng.umsdk:analytics:8.1.3"
+    api files('libs/umeng-uverify-1.2.0.aar')
+    api files('libs/umeng-common-2.2.1.jar')
+    //推送
+    api 'com.aliyun.ams:alicloud-android-push:3.1.9.1'
+    api 'com.aliyun.ams:alicloud-android-third-push:3.1.0@aar'
+    api 'com.aliyun.ams:huawei-push:2.6.3.305'
+    api 'com.aliyun.ams:huawei-push-base:2.6.3.305'
+    api 'com.aliyun.ams:meizu-push:3.8.7.1'
+    api 'com.aliyun.ams:third_vivopush:2.9.0.1'
+    //oaid
+    api files('libs/msa_mdid_1.0.13.aar')
+    // 支付宝 SDK AAR 包所需的配置
+    api(name: 'alipaySdk-15.7.9-20200727142814-noUtdid', ext: 'aar')
+    api 'com.contrarywind:Android-PickerView:4.1.9'
+    implementation project(':netcommon')
 }
 configurations.all {
     resolutionStrategy.eachDependency { DependencyResolveDetails details ->

@@ -17,6 +17,8 @@ import io.reactivex.Observable;
 public interface ChoiceContract2 {
     interface IChoiceModel extends IModel {
         Observable<ResponseData<ChoiceEntity>> getChoice();
+
+        Observable<ResponseData> getaddMd(String type);
     }
 
     interface IChoiceView extends IView {
@@ -27,6 +29,8 @@ public interface ChoiceContract2 {
         void updateChoiceList(List<ChoiceEntity.ChoiceBean> choiceList);
 
         void updateAdvertising(ChoiceEntity.AdvertisingBean advertisingBean);
+
+        void updategetaddMd(ResponseData responseData);
 
     }
 

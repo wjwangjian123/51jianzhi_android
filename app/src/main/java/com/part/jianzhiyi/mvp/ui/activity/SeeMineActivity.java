@@ -10,6 +10,7 @@ import android.widget.ListView;
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.adapter.SeeMineListAdapter;
 import com.part.jianzhiyi.base.BaseActivity;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity;
 import com.part.jianzhiyi.model.entity.ViewedEntity;
 import com.part.jianzhiyi.mvp.contract.ChoiceContract;
@@ -51,6 +52,7 @@ public class SeeMineActivity extends BaseActivity<JobListPresenter> implements C
         mInfoSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mPresenter.getaddMd("59");
                 MobclickAgent.onEvent(SeeMineActivity.this, "see_mine_list");
                 Intent intent = new Intent(SeeMineActivity.this, ChatActivity.class);
                 intent.putExtra("sortId", "" + position);
@@ -90,6 +92,11 @@ public class SeeMineActivity extends BaseActivity<JobListPresenter> implements C
             mInfoSearch.setVisibility(View.GONE);
             mInfoNodata.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
+
     }
 
     @Override

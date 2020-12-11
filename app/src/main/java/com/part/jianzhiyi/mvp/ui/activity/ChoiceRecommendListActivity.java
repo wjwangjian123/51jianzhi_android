@@ -10,6 +10,7 @@ import com.part.jianzhiyi.adapter.ChoiceRecommendMoreAdapter;
 import com.part.jianzhiyi.base.BaseActivity;
 import com.part.jianzhiyi.constants.Constants;
 import com.part.jianzhiyi.corecommon.ui.ListViewInScrollView;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity2;
 import com.part.jianzhiyi.mvp.contract.HomeVocationListContract;
 import com.part.jianzhiyi.mvp.presenter.HomeVocationListPresenter;
@@ -42,7 +43,7 @@ public class ChoiceRecommendListActivity extends BaseActivity<HomeVocationListPr
 
     @Override
     protected void initView() {
-        initToolbar("小编推荐");
+        initToolbar("商家推荐");
         lvHomeVocation = findViewById(R.id.lv_recommend_vocation);
         adapter = new ChoiceRecommendMoreAdapter(this, list);
         lvHomeVocation.setAdapter(adapter);
@@ -87,6 +88,11 @@ public class ChoiceRecommendListActivity extends BaseActivity<HomeVocationListPr
             this.list.addAll(dataBeanList);
             adapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
+
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.part.jianzhiyi.mvp.contract.moku;
 
 import com.part.jianzhiyi.corecommon.base.view.IModel;
 import com.part.jianzhiyi.corecommon.base.view.IView;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.moku.KuaibaoEntity;
 import com.part.jianzhiyi.model.entity.moku.TxBindingEntity;
 import com.part.jianzhiyi.model.entity.moku.TxInfoEntity;
@@ -33,6 +34,8 @@ public interface TxContract {
         Observable<AuthInfoEntity> getAuthInfo();
 
         Observable<KuaibaoEntity> getTxkb();
+
+        Observable<ResponseData> getaddMd(String type);
     }
 
     interface ITxView extends IView {
@@ -49,5 +52,7 @@ public interface TxContract {
         void updategetAuthInfo(AuthInfoEntity authInfoEntity);
 
         void updategetTxkb(KuaibaoEntity responseData);
+
+        void updategetaddMd(ResponseData responseData);
     }
 }

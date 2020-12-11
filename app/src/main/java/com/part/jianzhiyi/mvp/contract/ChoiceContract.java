@@ -18,7 +18,7 @@ import io.reactivex.Observable;
  **/
 public interface ChoiceContract {
     interface IChoiceModel extends IModel {
-        Observable<ResponseData<JobListResponseEntity2>> jobList(String userid, String type, String position, int page,String label);
+        Observable<ResponseData<JobListResponseEntity2>> jobList(String userid, String type, String position, int page, String label);
 
         Observable<ViewedEntity> viewedJob(String userid);
 
@@ -31,6 +31,8 @@ public interface ChoiceContract {
         Observable<ResponseData<List<JobListResponseEntity>>> approvedJob(String userid);
 
         Observable<ResponseData<List<JobListResponseEntity>>> donedJob(String userid);
+
+        Observable<ResponseData> getaddMd(String type);
     }
 
     interface IChoiceView extends IView {
@@ -45,6 +47,7 @@ public interface ChoiceContract {
         default void updateAdvertising(String postion, JobListResponseEntity2.AdvertisingBean bean) {
         }
 
+        void updategetaddMd(ResponseData responseData);
     }
 
 }

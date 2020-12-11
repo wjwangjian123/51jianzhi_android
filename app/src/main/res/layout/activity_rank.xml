@@ -20,74 +20,75 @@
             android:paddingVertical="16dp"
             android:src="@drawable/ic_white_back"/>
     </RelativeLayout>
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="每日排行"
+            android:textSize="29sp"
+            android:textColor="@color/color_ffffff"
+            android:layout_marginTop="13dp"
+            android:layout_marginLeft="26dp"
+            android:layout_alignParentLeft="true"/>
+        <ImageView
+            android:id="@+id/rank_iv_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_rank"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="45dp"/>
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_information_bg"
+            android:layout_below="@+id/rank_iv_img"
+            android:paddingLeft="21dp"
+            android:paddingTop="23dp"
+            android:paddingRight="22dp"
+            android:paddingBottom="14dp">
+            <TextView
+                android:id="@+id/rank_tv_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="排名"
+                android:textSize="@dimen/font_16"
+                android:textColor="#B6BED5"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="每周排行"
-                android:textSize="29sp"
-                android:textColor="@color/color_ffffff"
-                android:layout_marginTop="13dp"
-                android:layout_marginLeft="26dp"
-                android:layout_alignParentLeft="true"/>
-            <ImageView
-                android:id="@+id/rank_iv_img"
+                android:text="兼职名称"
+                android:textSize="@dimen/font_16"
+                android:textColor="#B6BED5"
+                android:layout_toRightOf="@+id/rank_tv_text"
+                android:layout_marginLeft="@dimen/dimen_70"/>
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_rank"
+                android:text="金额"
+                android:textSize="@dimen/font_16"
+                android:textColor="#B6BED5"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="45dp"/>
-            <RelativeLayout
+                android:layout_marginRight="19dp"/>
+            <com.part.jianzhiyi.corecommon.ui.ObservableScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/shape_information_bg"
-                android:layout_below="@+id/rank_iv_img"
-                android:paddingLeft="21dp"
-                android:paddingTop="23dp"
-                android:paddingRight="22dp"
-                android:paddingBottom="14dp">
-                <TextView
-                    android:id="@+id/rank_tv_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="排名"
-                    android:textSize="@dimen/font_16"
-                    android:textColor="#B6BED5"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="兼职名称"
-                    android:textSize="@dimen/font_16"
-                    android:textColor="#B6BED5"
-                    android:layout_toRightOf="@+id/rank_tv_text"
-                    android:layout_marginLeft="@dimen/dimen_70"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="金额"
-                    android:textSize="@dimen/font_16"
-                    android:textColor="#B6BED5"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="19dp"/>
+                android:background="@color/color_ffffff"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                android:layout_below="@+id/rank_tv_text"
+                android:layout_marginTop="@dimen/dimen_12">
                 <com.part.jianzhiyi.corecommon.ui.ListViewInScrollView
                     android:id="@+id/lv_rank"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:divider="@color/transparency"
                     android:dividerHeight="0dp"
-                    android:layout_marginTop="@dimen/dimen_12"
                     android:focusable="false"
                     android:listSelector="@color/transparency"
-                    android:scrollbars="none"
-                    android:layout_below="@+id/rank_tv_text"/>
-            </RelativeLayout>
+                    android:scrollbars="none"/>
+            </com.part.jianzhiyi.corecommon.ui.ObservableScrollView>
         </RelativeLayout>
-    </ScrollView>
+    </RelativeLayout>
 </LinearLayout>

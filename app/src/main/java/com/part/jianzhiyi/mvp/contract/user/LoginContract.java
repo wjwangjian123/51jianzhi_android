@@ -24,18 +24,31 @@ public interface LoginContract {
     interface ILoginModel extends IModel, IUserModel {
 
         Observable<ResponseData<String>> sendSms(@Query("tel") String phone);
+
         Observable<String> login(String phone, String code);
+
         Observable<ConfigEntity> getConfig();
+
         Observable<UMEntity> verifys(String token);
+
         Observable<ResponseData> getSussOrErrLog(String type, String status);
+
         Observable<UserInfoEntity> userInfo(String userid);
+
+        Observable<ResponseData> getaddMd(String type);
     }
 
     interface ILoginView extends IView {
         void updatesendSms(ResponseData<String> responseData);
+
         void updategetConfig(ConfigEntity configEntity);
+
         void updateverifys(UMEntity umEntity);
+
         void updatelogin(LoginResponseEntity entity);
+
         void updateUserInfoPer(UserInfoEntity userInfoEntity);
+
+        void updategetaddMd(ResponseData responseData);
     }
 }

@@ -24,13 +24,19 @@ public interface SearchContract {
         Observable<ResponseData<List<JobListResponseEntity>>> jobSearch(String userid, String key);
 
         Observable<LableEntity> getLable();
+
         Observable<SearchEntity> search(String title, String lable);
+
+        Observable<ResponseData> getaddMd(String type);
     }
 
     interface ISearchView extends IView {
         void updateList(List<JobListResponseEntity> list);
 
         void updategetLable(LableEntity lableEntity);
+
         void updatesearch(SearchEntity searchEntity);
+
+        void updategetaddMd(ResponseData responseData);
     }
 }

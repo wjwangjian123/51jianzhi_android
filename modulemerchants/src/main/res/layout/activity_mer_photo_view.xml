@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_000000"
+    tools:context=".mvp.ui.activity.MerPhotoViewActivity">
+    <ImageView
+        android:id="@+id/iv_cancel"
+        android:layout_width="@dimen/dimen_44"
+        android:layout_height="@dimen/dimen_44"
+        android:src="@drawable/icon_mer_close"
+        android:paddingVertical="16dp"
+        android:paddingHorizontal="16dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dimen_1"/>
+    <ImageView
+        android:id="@+id/iv_photo"
+        android:layout_width="match_parent"
+        android:layout_height="228dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+</RelativeLayout>

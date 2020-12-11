@@ -25,11 +25,15 @@ public class MineFavouriteContract {
         Observable<ResponseData<AddFavouriteResponseEntity>> cancelFavourite(String userid, String job_id, String sortId);
 
         Observable<ResponseData<List<JobListResponseEntity>>> favourite(String userid);
+
+        Observable<ResponseData> getaddMd(String type);
     }
 
     public interface IMineFavouriteView extends IView {
         void updateSuccess();
 
         void updateList(List<JobListResponseEntity> list);
+
+        void updategetaddMd(ResponseData responseData);
     }
 }

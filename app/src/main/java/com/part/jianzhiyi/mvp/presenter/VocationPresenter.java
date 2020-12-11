@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.part.jianzhiyi.base.BasePresenter;
 import com.part.jianzhiyi.constants.Constants;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.http.HttpAPI;
 import com.part.jianzhiyi.http.ResultObserver;
 import com.part.jianzhiyi.model.base.ResponseData;
@@ -16,7 +17,6 @@ import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.model.entity.VocationEntity;
 import com.part.jianzhiyi.mvp.contract.VocationContract;
 import com.part.jianzhiyi.mvp.model.VocationModel;
-import com.part.jianzhiyi.preference.PreferenceUUID;
 
 import java.util.List;
 
@@ -230,6 +230,36 @@ public class VocationPresenter extends BasePresenter<VocationContract.IVocationM
                         if (stringResponseData.getCode().equals(HttpAPI.REQUEST_SUCCESS)) {
 //                            weakReferenceView.get().joinSuccess();
                         } else {
+                        }
+                    }
+                }));
+    }
+
+    public void getAddIntegBrowse(String user_id, int type, String job_id) {
+        mModel.getAddIntegBrowse(user_id, type, job_id)
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<ResponseData>() {
+                    @Override
+                    public void onNext(ResponseData entity) {
+                        if (TextUtils.equals(entity.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetAddIntegBrowse(entity);
+                            }
+                        }
+                    }
+                }));
+    }
+
+    public void getaddMd(String type) {
+        mModel.getaddMd(type)
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<ResponseData>() {
+                    @Override
+                    public void onNext(ResponseData responseData) {
+                        if (TextUtils.equals(responseData.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetaddMd(responseData);
+                            }
                         }
                     }
                 }));

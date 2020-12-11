@@ -14,6 +14,7 @@ import com.part.jianzhiyi.adapter.MessageListAdapter;
 import com.part.jianzhiyi.base.BaseFragment;
 import com.part.jianzhiyi.corecommon.ui.ListViewInScrollView;
 import com.part.jianzhiyi.dbmodel.GreenDaoManager;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.ChatJobInfoEntity;
 import com.part.jianzhiyi.model.entity.MessageResponseEntity;
 import com.part.jianzhiyi.model.entity.MsgResponseEntity;
@@ -103,6 +104,7 @@ public class InformationFragment extends BaseFragment<InformationPresenter> impl
         mLvMessage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mPresenter.getaddMd("61");
                 MobclickAgent.onEvent(getActivity(), "message_click_list");
                 MessageResponseEntityDao messageResponseEntityDao = GreenDaoManager.getInstance().getDaoSession().getMessageResponseEntityDao();
                 if (messageResponseEntityDao != null) {
@@ -131,6 +133,7 @@ public class InformationFragment extends BaseFragment<InformationPresenter> impl
     @Override
     public void onClick(View v) {
         if (v.getId()==R.id.info_con){
+            mPresenter.getaddMd("58");
             MobclickAgent.onEvent(getActivity(), "message_see_mine");
             mViewIvRed.setVisibility(View.GONE);
             Intent intent = new Intent(getActivity(), SeeMineActivity.class);
@@ -156,6 +159,11 @@ public class InformationFragment extends BaseFragment<InformationPresenter> impl
             mInfoTvNum.setText("共有" + number + "位招聘负责人看过你的简历");
             mInfoTvTime.setText(list.getData().get(0).getData());
         }
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
+
     }
 
     @Override

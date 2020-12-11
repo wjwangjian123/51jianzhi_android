@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_flow_title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="@dimen/font_15"
+    android:textColor="@color/view_lable_text"
+    android:paddingHorizontal="@dimen/dimen_18"
+    android:paddingVertical="@dimen/dimen_12"
+    android:layout_marginRight="@dimen/dimen_12"
+    android:layout_marginBottom="@dimen/dimen_12"
+    android:background="@drawable/select_lable_bg">
+</TextView>

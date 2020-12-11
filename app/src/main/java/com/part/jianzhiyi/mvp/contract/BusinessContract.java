@@ -10,9 +10,13 @@ import io.reactivex.Observable;
 public interface BusinessContract {
     interface IBusinessModel extends IModel {
         Observable<ResponseData<AddFavouriteResponseEntity>> getTitle(String appId);
+
+        Observable<ResponseData> getaddMd(String type);
     }
 
     interface IBusinessView extends IView {
         void updateContract(String text);
+
+        void updategetaddMd(ResponseData responseData);
     }
 }

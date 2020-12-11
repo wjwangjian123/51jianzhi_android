@@ -3,21 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/choice_rl"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="108dp"
     android:orientation="vertical"
-    android:background="@drawable/icon_edition_bg1"
-    android:gravity="center">
+    android:background="@drawable/icon_edition_bg1">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="23dp"
-        android:layout_marginRight="@dimen/dimen_24">
+        android:layout_marginTop="@dimen/dimen_24"
+        android:layout_marginLeft="@dimen/dimen_18"
+        android:layout_marginRight="@dimen/dimen_30">
         <TextView
             android:id="@+id/choice_tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/font_15"
-            android:textColor="@color/color_292E3B"
+            android:layout_marginLeft="2dp"
+            android:textSize="15sp"
+            android:textColor="@color/color_ffffff"
             android:textStyle="bold"
             android:singleLine="true"
             android:ellipsize="end"/>
@@ -27,39 +28,39 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_below="@+id/choice_tv_title"
-            android:layout_marginTop="9dp"
+            android:layout_marginTop="29dp"
             android:gravity="center_vertical">
             <TextView
                 android:id="@+id/item_tv_place"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/font_10"
-                android:textColor="@color/color_717785"/>
+                android:textSize="10sp"
+                android:textColor="#C2C6D5"/>
             <View
                 android:id="@+id/view_method"
                 android:layout_width="@dimen/dimen_1"
-                android:layout_height="@dimen/dimen_10"
-                android:background="@color/color_717785"
+                android:layout_height="10dp"
+                android:background="#C2C6D5"
                 android:layout_marginLeft="@dimen/dimen_3"/>
             <TextView
                 android:id="@+id/item_tv_method"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/font_10"
-                android:textColor="@color/color_717785"
+                android:textSize="10sp"
+                android:textColor="#C2C6D5"
                 android:layout_marginLeft="@dimen/dimen_3"/>
             <View
                 android:id="@+id/view_time"
                 android:layout_width="@dimen/dimen_1"
-                android:layout_height="@dimen/dimen_10"
-                android:background="@color/color_717785"
+                android:layout_height="10dp"
+                android:background="#C2C6D5"
                 android:layout_marginLeft="@dimen/dimen_3"/>
             <TextView
                 android:id="@+id/item_tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/font_10"
-                android:textColor="@color/color_717785"
+                android:textSize="10sp"
+                android:textColor="#C2C6D5"
                 android:layout_marginLeft="@dimen/dimen_3"/>
         </LinearLayout>
         <LinearLayout
@@ -69,12 +70,12 @@
             android:layout_alignParentRight="true"
             android:gravity="bottom"
             android:layout_below="@+id/choice_tv_title"
-            android:layout_marginTop="@dimen/dimen_5">
+            android:layout_marginTop="21dp">
             <TextView
                 android:id="@+id/choice_tv_price1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
+                android:textSize="@dimen/font_18"
                 android:textColor="@color/color_text_theme"
                 android:textStyle="bold"
                 android:gravity="bottom"/>
@@ -85,7 +86,7 @@
                 android:textSize="@dimen/font_14"
                 android:textColor="@color/color_text_theme"
                 android:gravity="bottom"
-                android:layout_marginLeft="@dimen/dimen_2"/>
+                android:layout_marginLeft="@dimen/dimen_1"/>
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

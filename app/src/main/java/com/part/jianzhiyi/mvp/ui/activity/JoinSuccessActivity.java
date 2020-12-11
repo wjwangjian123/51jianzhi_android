@@ -35,11 +35,12 @@ import com.part.jianzhiyi.corecommon.ui.ListViewInScrollView;
 import com.part.jianzhiyi.corecommon.utils.CopyTextLibrary;
 import com.part.jianzhiyi.corecommon.utils.UiUtils;
 import com.part.jianzhiyi.dialog.ContactBusinessDialog;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.JoinJobEntity;
 import com.part.jianzhiyi.model.entity.SearchEntity;
 import com.part.jianzhiyi.mvp.contract.JoinSuccessContract;
 import com.part.jianzhiyi.mvp.presenter.JoinSuccessPresenter;
-import com.part.jianzhiyi.preference.PreferenceUUID;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.utils.IntentUtils;
 import com.part.jianzhiyi.utils.OpenUtils;
 import com.umeng.analytics.MobclickAgent;
@@ -325,6 +326,7 @@ public class JoinSuccessActivity extends BaseActivity<JoinSuccessPresenter> impl
         mJoinTvCopy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mPresenter.getaddMd("49");
                 MobclickAgent.onEvent(JoinSuccessActivity.this, "joinsuccess_one_copy");
                 if (contact != null && contact != "") {
                     type = 2;
@@ -532,6 +534,7 @@ public class JoinSuccessActivity extends BaseActivity<JoinSuccessPresenter> impl
         copy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mPresenter.getaddMd("48");
                 MobclickAgent.onEvent(JoinSuccessActivity.this, "joinsuccess_one_dialog_copy");
                 alertDialog1.dismiss();
                 if (joinJobEntity.getData().get(0) == null) {
@@ -592,6 +595,7 @@ public class JoinSuccessActivity extends BaseActivity<JoinSuccessPresenter> impl
         Dialog dialog = new ContactBusinessDialog(JoinSuccessActivity.this, jobListBean, new ContactBusinessDialog.OnJoinedClickListener() {
             @Override
             public void onJoinedClick(String jobid, int position) {
+                mPresenter.getaddMd("48");
                 MobclickAgent.onEvent(JoinSuccessActivity.this, "joinsuccess_two_dialog_copy");
                 if (contact != null && contact != "") {
                     type = 2;
@@ -669,6 +673,11 @@ public class JoinSuccessActivity extends BaseActivity<JoinSuccessPresenter> impl
             mList.addAll(searchEntity.getData());
             mJoinSuccessListAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
+
     }
 
     @Override

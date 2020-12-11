@@ -44,4 +44,19 @@ public class RankPresenter extends BasePresenter<RankContract.IRankModel, RankCo
                 }));
     }
 
+    public void getaddMd(String type) {
+        mModel.getaddMd(type)
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<ResponseData>() {
+                    @Override
+                    public void onNext(ResponseData responseData) {
+                        if (TextUtils.equals(responseData.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetaddMd(responseData);
+                            }
+                        }
+                    }
+                }));
+    }
+
 }

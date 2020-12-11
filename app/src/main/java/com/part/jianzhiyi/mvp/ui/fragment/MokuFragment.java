@@ -4,7 +4,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fendasz.moku.planet.entity.ApiDataCallBack;
 import com.fendasz.moku.planet.helper.ApiDataHelper;
@@ -17,7 +16,7 @@ import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.moku.MokuTaskListEntity;
 import com.part.jianzhiyi.mvp.contract.moku.MokuContract;
 import com.part.jianzhiyi.mvp.presenter.moku.MokuPresenter;
-import com.part.jianzhiyi.preference.PreferenceUUID;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -201,7 +200,7 @@ public class MokuFragment extends BaseFragment<MokuPresenter> implements MokuCon
                     @Override
                     public void error(int code, String message) {
                         LogUtils.log(TAG, "code:" + code + " message:" + message);
-                        Toast.makeText(getActivity(), "获取任务列表失败" + message, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getActivity(), "获取任务列表失败" + message, Toast.LENGTH_SHORT).show();
                         if (action != null) {
                             try {
                                 action.run();
@@ -272,6 +271,11 @@ public class MokuFragment extends BaseFragment<MokuPresenter> implements MokuCon
 
     @Override
     public void updategetAddTask(ResponseData responseData, int statusid) {
+
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
 
     }
 }

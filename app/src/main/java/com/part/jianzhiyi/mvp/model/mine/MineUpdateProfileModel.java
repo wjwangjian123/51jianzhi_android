@@ -22,4 +22,9 @@ public class MineUpdateProfileModel extends UserModel implements MineUpdateProfi
 
         return HttpAPI.getInstence().getServiceApi().updateProfile(Constants.APPID, request.getUsername(), request.getUser_id(), request.getSignature(), request.getPhone(), request.getEmail(), Constants.OS, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()));
     }
+
+    @Override
+    public Observable<ResponseData> getaddMd(String type) {
+        return HttpAPI.getInstence().getServiceApi().getaddMd(type, Constants.OS);
+    }
 }

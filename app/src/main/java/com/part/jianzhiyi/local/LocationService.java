@@ -14,7 +14,7 @@ import com.amap.api.services.geocoder.RegeocodeAddress;
 import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
 import com.part.jianzhiyi.app.ODApplication;
-import com.part.jianzhiyi.preference.PreferenceCity;
+import com.part.jianzhiyi.corecommon.preference.PreferenceCity;
 
 import io.reactivex.Observable;
 import io.reactivex.functions.Action;

@@ -11,7 +11,7 @@ import com.part.jianzhiyi.model.entity.ConfigEntity;
 import com.part.jianzhiyi.model.entity.UMEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.mvp.contract.user.LoginContract;
-import com.part.jianzhiyi.preference.PreferenceUUID;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 
 import io.reactivex.Observable;
 
@@ -55,6 +55,11 @@ public class LoginModel extends UserModel implements LoginContract.ILoginModel {
     @Override
     public Observable<UserInfoEntity> userInfo(String userid) {
         return HttpAPI.getInstence().getServiceApi().userInfo(Constants.APPID, userid, Constants.OS, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()), PreferenceUUID.getInstence().getPush_id());
+    }
+
+    @Override
+    public Observable<ResponseData> getaddMd(String type) {
+        return HttpAPI.getInstence().getServiceApi().getaddMd(type, Constants.OS);
     }
 
 }

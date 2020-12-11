@@ -40,7 +40,7 @@ import com.part.jianzhiyi.mogu.utils.PhoneScreenUtils;
 import com.part.jianzhiyi.mogu.view.TaskDetailView;
 import com.part.jianzhiyi.mvp.contract.moku.MokuContract;
 import com.part.jianzhiyi.mvp.presenter.moku.MokuPresenter;
-import com.part.jianzhiyi.preference.PreferenceUUID;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.umeng.analytics.MobclickAgent;
 
 import java.io.File;
@@ -216,6 +216,8 @@ public class TaskDetailActivity extends BaseMoguActivity implements APIOperation
     }
 
     private void onReady() {
+        mPresenter.getaddMd("53");
+        mPresenter.getaddMd("54");
         LoadingDialog.Builder builder = new LoadingDialog.Builder(mContext);
         LoadingDialog loadingDialog = builder.create();
         loadingDialog.show();
@@ -335,7 +337,7 @@ public class TaskDetailActivity extends BaseMoguActivity implements APIOperation
                             if (data != null) {
                                 loadingDialog.dismiss();
                                 //获取已经存在的任务
-                                Toast.makeText(mContext, "其他任务(taskDataId:" + data.getTaskDataId() + ")正在进行中", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext, "其他任务正在进行中", Toast.LENGTH_SHORT).show();
                                 LogUtils.log(TAG, "another task is applying while the taskId is " + data.getTaskDataId() + " and applyId is " + data.getId());
                                 ClientDetailTaskData clientDetailTaskData = new ClientDetailTaskData();
                                 clientDetailTaskData.setTaskDataId(data.getTaskDataId());
@@ -343,14 +345,14 @@ public class TaskDetailActivity extends BaseMoguActivity implements APIOperation
                                 myHelper.cancelTask(clientDetailTaskData, new ApiDataCallBack<TaskDataApplyRecord>() {
                                     @Override
                                     public void success(int code, TaskDataApplyRecord data) throws Exception {
-                                        Toast.makeText(mContext, "任务(taskDataId:" + data.getTaskDataId() + ")取消成功", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(mContext, "任务取消成功", Toast.LENGTH_SHORT).show();
                                         mPresenter.getAddTask(String.valueOf(mClientDetailTaskData.getTaskDataId()), PreferenceUUID.getInstence().getUserId(), mClientDetailTaskData.getShowName(), mClientDetailTaskData.getIconUrl(), mClientDetailTaskData.getShowMoney() + "", mClientDetailTaskData.getDesc(), "3", 3);
                                     }
 
                                     @Override
                                     public void error(int code, String message) throws Exception {
                                         LogUtils.log(TAG, "code:" + code + " message:" + message);
-                                        Toast.makeText(mContext, "任务(taskDataId:" + data.getTaskDataId() + ")取消失败 " + message, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(mContext, "任务取消失败" + message, Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             } else {
@@ -391,6 +393,8 @@ public class TaskDetailActivity extends BaseMoguActivity implements APIOperation
                                             }
                                             mApiTaskOperationHelper.init();
                                             mApiTaskOperationHelper.startTask();
+                                            MobclickAgent.onEvent(TaskDetailActivity.this, "moku_task_receive");
+                                            mPresenter.getaddMd("55");
                                             mPresenter.getAddTask(String.valueOf(mClientDetailTaskData.getTaskDataId()), PreferenceUUID.getInstence().getUserId(), mClientDetailTaskData.getShowName(), mClientDetailTaskData.getIconUrl(), mClientDetailTaskData.getShowMoney() + "", mClientDetailTaskData.getDesc(), "1", 1);
                                         }
 
@@ -494,6 +498,7 @@ public class TaskDetailActivity extends BaseMoguActivity implements APIOperation
                 loadingDialog.dismiss();
                 LogUtils.log(TAG, JSON.toJSONString(data));
                 Toast.makeText(mContext, "提交成功", Toast.LENGTH_SHORT).show();
+                mPresenter.getaddMd("57");
                 mPresenter.getAddTask(String.valueOf(mClientDetailTaskData.getTaskDataId()), PreferenceUUID.getInstence().getUserId(), mClientDetailTaskData.getShowName(), mClientDetailTaskData.getIconUrl(), mClientDetailTaskData.getShowMoney() + "", mClientDetailTaskData.getDesc(), "0", 0);
             }
 
@@ -525,6 +530,7 @@ public class TaskDetailActivity extends BaseMoguActivity implements APIOperation
                 finish();
             }
         });
+        MobclickAgent.onEvent(TaskDetailActivity.this, "moku_taskinfo_in");
     }
 
     private void initDynamicViewListener() {
@@ -564,6 +570,8 @@ public class TaskDetailActivity extends BaseMoguActivity implements APIOperation
         fileUploadImageList.set(requestCode, new File(imagePath));
         ImageView ivUploadImage = ivUploadImageList.get(requestCode);
         ivUploadImage.setImageBitmap(BitmapFactory.decodeFile(imagePath));
+        MobclickAgent.onEvent(TaskDetailActivity.this, "moku_task_update");
+        mPresenter.getaddMd("56");
     }
 
     @Override
@@ -736,6 +744,11 @@ public class TaskDetailActivity extends BaseMoguActivity implements APIOperation
         if (statusid == 0) {
             ((Activity) mContext).finish();
         }
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
+
     }
 
     @Override

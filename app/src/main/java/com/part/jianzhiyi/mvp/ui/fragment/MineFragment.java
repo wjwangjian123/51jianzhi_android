@@ -2,7 +2,6 @@ package com.part.jianzhiyi.mvp.ui.fragment;
 
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -12,9 +11,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.base.BaseFragment;
-import com.part.jianzhiyi.constants.IntentConstant;
+import com.part.jianzhiyi.corecommon.constants.IntentConstant;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.customview.CircularProgressView;
 import com.part.jianzhiyi.dialog.SignDialog;
 import com.part.jianzhiyi.model.base.ResponseData;
@@ -22,8 +23,6 @@ import com.part.jianzhiyi.model.entity.AddSignEntity;
 import com.part.jianzhiyi.model.entity.DaySignEntity;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
-import com.part.jianzhiyi.model.entity.integral.MyExchangeEntity;
-import com.part.jianzhiyi.model.entity.integral.MyIntegralEntity;
 import com.part.jianzhiyi.mvp.contract.user.MineContract;
 import com.part.jianzhiyi.mvp.presenter.mine.MinePresenter;
 import com.part.jianzhiyi.mvp.ui.activity.BusinessActivity;
@@ -35,7 +34,7 @@ import com.part.jianzhiyi.mvp.ui.activity.MineSettingActivity;
 import com.part.jianzhiyi.mvp.ui.activity.MineUpdateProfileActivity;
 import com.part.jianzhiyi.mvp.ui.activity.MineUpdateResumeActivity;
 import com.part.jianzhiyi.mvp.ui.activity.MyWalletActivity;
-import com.part.jianzhiyi.preference.PreferenceUUID;
+import com.part.jianzhiyi.mvp.ui.activity.SearchActivity;
 import com.umeng.analytics.MobclickAgent;
 
 import androidx.annotation.Nullable;
@@ -70,7 +69,9 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
     private RelativeLayout mRlSet;
     private TextView mMineTvMoney;
     private TextView mMineTvTixian;
+    private RelativeLayout mRlSwitch;
     private DaySignEntity mDaySignEntity;
+
 
     @Override
     protected MinePresenter createPresenter() {
@@ -106,13 +107,14 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         mRlSet = view.findViewById(R.id.rl_set);
         mMineTvMoney = view.findViewById(R.id.mine_tv_money);
         mMineTvTixian = view.findViewById(R.id.mine_tv_tixian);
+        mRlSwitch = view.findViewById(R.id.rl_switch);
         setToolbarVisible(false);
-        mPresenter.userInfo(PreferenceUUID.getInstence().getUserId());
         if (mPresenter.isUserLogin()) {
             mMineTvPhone.setText(PreferenceUUID.getInstence().getUserPhone());
         } else {
             mMineTvPhone.setText("点击登录");
         }
+        mPresenter.userInfo(PreferenceUUID.getInstence().getUserId());
     }
 
     @Override
@@ -143,6 +145,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         mRlAbout.setOnClickListener(this);
         mRlSet.setOnClickListener(this);
         mMineTvTixian.setOnClickListener(this);
+        mRlSwitch.setOnClickListener(this);
         mMineTvPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,6 +158,8 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         mMineTvSign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MobclickAgent.onEvent(getActivity(), "mine_refresh_resume");
+                mPresenter.getaddMd("64");
                 //签到
                 mPresenter.addDaySign(PreferenceUUID.getInstence().getUserId(), String.valueOf(mDaySignEntity.getData().getDay() + 1));
             }
@@ -164,6 +169,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.rl_about) {
+            MobclickAgent.onEvent(getActivity(), "mine_about");
             Intent intent = new Intent(mActivity, MineAboutActivity.class);
             startActivityForResult(intent, IntentConstant.REQEUST_CODE);
             return;
@@ -173,45 +179,58 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
             return;
         }
         if (v.getId() == R.id.rl_set) {
+            MobclickAgent.onEvent(getActivity(), "mine_set");
             Intent intent = new Intent(mActivity, MineSettingActivity.class);
             startActivity(intent);
         }
         if (v.getId() == R.id.rl_feekback) {
+            MobclickAgent.onEvent(getActivity(), "mine_feekback");
             Intent intent = new Intent(mActivity, MineFeekbackActivity.class);
             startActivityForResult(intent, IntentConstant.REQEUST_CODE);
         }
         if (v.getId() == R.id.rl_business) {
+            MobclickAgent.onEvent(getActivity(), "mine_business");
             Intent intent = new Intent(getActivity(), BusinessActivity.class);
             startActivity(intent);
         }
         if (v.getId() == R.id.rl_favourite) {
+            MobclickAgent.onEvent(getActivity(), "mine_favourite");
             Intent intent = new Intent(getActivity(), MineFavouriteActivity.class);
             startActivityForResult(intent, IntentConstant.REQEUST_CODE);
         }
         if (v.getId() == R.id.rl_info) {
+            MobclickAgent.onEvent(getActivity(), "mine_resume");
+            mPresenter.getaddMd("67");
             Intent intent = new Intent(getActivity(), MineUpdateResumeActivity.class);
             startActivityForResult(intent, IntentConstant.REQEUST_CODE);
         }
         if (v.getId() == R.id.mine_iv_edit) {
+            MobclickAgent.onEvent(getActivity(), "mine_edit");
             Intent intent = new Intent(mActivity, MineUpdateProfileActivity.class);
             startActivityForResult(intent, IntentConstant.REQEUST_CODE);
         }
         if (v.getId() == R.id.mine_linear_see) {
+            MobclickAgent.onEvent(getActivity(), "mine_see");
+            mPresenter.getaddMd("65");
             Intent intent = new Intent(getActivity(), MineDeliveryActivity.class);
             intent.putExtra("positionType", 1);
             startActivity(intent);
         }
         if (v.getId() == R.id.tv_joined) {
+            MobclickAgent.onEvent(getActivity(), "mine_joined");
+            mPresenter.getaddMd("66");
             Intent intent = new Intent(getActivity(), MineDeliveryActivity.class);
             intent.putExtra("positionType", 2);
             startActivity(intent);
         }
         if (v.getId() == R.id.tv_approved) {
+            MobclickAgent.onEvent(getActivity(), "mine_approved");
             Intent intent = new Intent(getActivity(), MineDeliveryActivity.class);
             intent.putExtra("positionType", 3);
             startActivity(intent);
         }
         if (v.getId() == R.id.tv_doned) {
+            MobclickAgent.onEvent(getActivity(), "mine_doned");
             Intent intent = new Intent(getActivity(), MineDeliveryActivity.class);
             intent.putExtra("positionType", 4);
             startActivity(intent);
@@ -220,6 +239,11 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
             Intent intent = new Intent(getActivity(), MyWalletActivity.class);
             intent.putExtra("type", 0);
             startActivity(intent);
+        }
+        if (v.getId() == R.id.rl_switch) {
+            MobclickAgent.onEvent(getActivity(), "mine_switch");
+            mPresenter.getaddMd("68");
+            ARouter.getInstance().build("/merchants/activity/choose").withInt("type", 0).navigation();
         }
     }
 
@@ -275,17 +299,12 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
     }
 
     @Override
-    public void updategetMyGoods(MyExchangeEntity responseData) {
+    public void updategetDelUser(ResponseData responseData) {
 
     }
 
     @Override
-    public void updategetMyIntegInfo(MyIntegralEntity responseData) {
-
-    }
-
-    @Override
-    public void updategetAddInteg(ResponseData responseData) {
+    public void updategetaddMd(ResponseData responseData) {
 
     }
 

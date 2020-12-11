@@ -2,16 +2,14 @@ package com.part.jianzhiyi.mvp.model.user;
 
 import com.part.jianzhiyi.app.ODApplication;
 import com.part.jianzhiyi.constants.Constants;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.corecommon.utils.Tools;
 import com.part.jianzhiyi.http.HttpAPI;
 import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.AddSignEntity;
 import com.part.jianzhiyi.model.entity.DaySignEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
-import com.part.jianzhiyi.model.entity.integral.MyExchangeEntity;
-import com.part.jianzhiyi.model.entity.integral.MyIntegralEntity;
 import com.part.jianzhiyi.mvp.contract.user.MineContract;
-import com.part.jianzhiyi.preference.PreferenceUUID;
 
 import io.reactivex.Observable;
 
@@ -38,17 +36,12 @@ public class MineModel extends UserModel implements MineContract.IMineModel {
     }
 
     @Override
-    public Observable<MyExchangeEntity> getMyGoods(String user_id) {
-        return null;
+    public Observable<ResponseData> getDelUser(String user_id) {
+        return HttpAPI.getInstence().getServiceApi().getDelUser(user_id);
     }
 
     @Override
-    public Observable<MyIntegralEntity> getMyIntegInfo(String user_id, int page) {
-        return null;
-    }
-
-    @Override
-    public Observable<ResponseData> getAddInteg(String user_id, int type) {
-        return null;
+    public Observable<ResponseData> getaddMd(String type) {
+        return HttpAPI.getInstence().getServiceApi().getaddMd(type, Constants.OS);
     }
 }

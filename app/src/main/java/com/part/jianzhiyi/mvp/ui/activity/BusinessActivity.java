@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.base.BaseActivity;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.mvp.contract.BusinessContract;
 import com.part.jianzhiyi.mvp.presenter.BusinessPresenter;
 import com.umeng.analytics.MobclickAgent;
@@ -62,6 +63,11 @@ public class BusinessActivity extends BaseActivity<BusinessPresenter> implements
     @Override
     public void updateContract(String text) {
         ((TextView) findViewById(R.id.tv_contract)).setText("QQ客服：" + text);
+
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
 
     }
 

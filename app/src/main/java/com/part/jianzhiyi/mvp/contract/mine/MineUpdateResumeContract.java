@@ -22,17 +22,28 @@ import retrofit2.http.Body;
 public interface MineUpdateResumeContract {
     interface IMineUpdateResumeModel extends IModel, IUserModel {
         Observable<ResponseData<String>> updateResume(@Body UpdateResumeRequest request);
+
         Observable<ResumeEntity> updateResumeV2(@Body UResumeRequest request);
+
         Observable<UserInfoEntity> userInfo(String userid);
+
         Observable<MyitemEntity> getMyitem(String type);
+
+        Observable<ResponseData> getaddMd(String type);
     }
 
     interface IMineUpdateResumeView extends IView {
         void updateSuccess();
+
         void updateUserInfo(LoginResponseEntity entity);
+
         void updateupdateResumeV2(ResumeEntity resumeEntity);
+
         void updateUserInfoPer(UserInfoEntity userInfoEntity);
+
         void updategetMyitem(MyitemEntity myitemEntity);
+
+        void updategetaddMd(ResponseData responseData);
     }
 
 

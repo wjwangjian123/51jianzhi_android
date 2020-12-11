@@ -1,15 +1,12 @@
 package com.part.jianzhiyi.adapter;
 
 import android.content.Context;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.corecommon.base.adapter.CustomBaseAdapter;
 import com.part.jianzhiyi.corecommon.base.adapter.ViewHolder;
-import com.part.jianzhiyi.corecommon.utils.UiUtils;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity2;
-import com.part.jianzhiyi.preference.PreferenceUUID;
 
 import java.util.List;
 

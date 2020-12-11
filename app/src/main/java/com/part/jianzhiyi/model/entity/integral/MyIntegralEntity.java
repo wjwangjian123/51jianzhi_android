@@ -10,12 +10,6 @@ import java.util.List;
  */
 public class MyIntegralEntity {
 
-    /**
-     * code : 200
-     * msg : 请求成功
-     * data : {"data":[{"id":"2","user_id":"209","status":"1","type":"4","is_yx":"1","create_time":"2020-10-23 17:03:27","ymd":"2020-10-23","num":"0"},{"id":"3","user_id":"209","status":"1","type":"3","is_yx":"0","create_time":"2020-10-23 17:13:52","ymd":"2020-10-23","num":"0"},{"id":"4","user_id":"209","status":"1","type":"2","is_yx":"0","create_time":"2020-10-23 17:31:29","ymd":"2020-10-23","num":"0"},{"id":"5","user_id":"209","status":"1","type":"2","is_yx":"0","create_time":"2020-10-23 17:31:46","ymd":"2020-10-23","num":"0"},{"id":"6","user_id":"209","status":"1","type":"2","is_yx":"0","create_time":"2020-10-23 17:31:52","ymd":"2020-10-23","num":"0"},{"id":"7","user_id":"209","status":"1","type":"1","is_yx":"0","create_time":"2020-10-23 17:42:26","ymd":"2020-10-22","num":"0"},{"id":"9","user_id":"209","status":"1","type":"1","is_yx":"0","create_time":"2020-10-23 17:48:05","ymd":"2020-10-23","num":"0"}],"integral":"121"}
-     */
-
     private String code;
     private String msg;
     private DataBeanX data;
@@ -45,10 +39,6 @@ public class MyIntegralEntity {
     }
 
     public static class DataBeanX {
-        /**
-         * data : [{"id":"2","user_id":"209","status":"1","type":"4","is_yx":"1","create_time":"2020-10-23 17:03:27","ymd":"2020-10-23","num":"0"},{"id":"3","user_id":"209","status":"1","type":"3","is_yx":"0","create_time":"2020-10-23 17:13:52","ymd":"2020-10-23","num":"0"},{"id":"4","user_id":"209","status":"1","type":"2","is_yx":"0","create_time":"2020-10-23 17:31:29","ymd":"2020-10-23","num":"0"},{"id":"5","user_id":"209","status":"1","type":"2","is_yx":"0","create_time":"2020-10-23 17:31:46","ymd":"2020-10-23","num":"0"},{"id":"6","user_id":"209","status":"1","type":"2","is_yx":"0","create_time":"2020-10-23 17:31:52","ymd":"2020-10-23","num":"0"},{"id":"7","user_id":"209","status":"1","type":"1","is_yx":"0","create_time":"2020-10-23 17:42:26","ymd":"2020-10-22","num":"0"},{"id":"9","user_id":"209","status":"1","type":"1","is_yx":"0","create_time":"2020-10-23 17:48:05","ymd":"2020-10-23","num":"0"}]
-         * integral : 121
-         */
 
         private String integral;
         private List<DataBean> data;
@@ -70,16 +60,6 @@ public class MyIntegralEntity {
         }
 
         public static class DataBean {
-            /**
-             * id : 2
-             * user_id : 209
-             * status : 1
-             * type : 4
-             * is_yx : 1
-             * create_time : 2020-10-23 17:03:27
-             * ymd : 2020-10-23
-             * num : 0
-             */
 
             private String id;
             private String user_id;
@@ -89,6 +69,10 @@ public class MyIntegralEntity {
             private String create_time;
             private String ymd;
             private String num;
+            private String ugoods_id;
+            private String job_id;
+            private String jfname;
+            private String typename;
 
             public String getId() {
                 return id;
@@ -152,6 +136,38 @@ public class MyIntegralEntity {
 
             public void setNum(String num) {
                 this.num = num;
+            }
+
+            public String getUgoods_id() {
+                return ugoods_id;
+            }
+
+            public void setUgoods_id(String ugoods_id) {
+                this.ugoods_id = ugoods_id;
+            }
+
+            public String getJob_id() {
+                return job_id;
+            }
+
+            public void setJob_id(String job_id) {
+                this.job_id = job_id;
+            }
+
+            public String getJfname() {
+                return jfname;
+            }
+
+            public void setJfname(String jfname) {
+                this.jfname = jfname;
+            }
+
+            public String getTypename() {
+                return typename;
+            }
+
+            public void setTypename(String typename) {
+                this.typename = typename;
             }
         }
     }

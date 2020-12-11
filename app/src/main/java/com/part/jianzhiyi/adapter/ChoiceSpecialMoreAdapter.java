@@ -8,9 +8,8 @@ import android.widget.TextView;
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.corecommon.base.adapter.CustomBaseAdapter;
 import com.part.jianzhiyi.corecommon.base.adapter.ViewHolder;
-import com.part.jianzhiyi.model.entity.ChoiceEntity;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity2;
-import com.part.jianzhiyi.preference.PreferenceUUID;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 
 import java.util.List;
 

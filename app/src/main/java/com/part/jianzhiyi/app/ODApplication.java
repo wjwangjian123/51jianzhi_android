@@ -7,14 +7,17 @@ import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.sdk.android.push.CloudPushService;
 import com.alibaba.sdk.android.push.CommonCallback;
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
 import com.bun.miitmdid.core.JLibrary;
+import com.meiqia.core.callback.OnInitCallback;
+import com.meiqia.meiqiasdk.util.MQConfig;
 import com.part.jianzhiyi.ad.TTAdManagerHolder;
 import com.part.jianzhiyi.constants.Constants;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.corecommon.utils.FrescoUtil;
-import com.part.jianzhiyi.preference.PreferenceUUID;
 import com.part.jianzhiyi.utils.MiitHelper;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
@@ -45,6 +48,12 @@ public class ODApplication extends MultiDexApplication {
         MultiDex.install(this);
         Context applicationContext = getApplicationContext();
 
+        // 这两行必须写在init之前，否则这些配置在init过程中将无效
+//        if (true) {
+//            ARouter.openLog();//打印日志
+//            ARouter.openDebug();//开启调试模式（如果在instantrun模式下运行，必须开启调试模式，线上版本需要关闭，否则会有安全风险）
+//        }
+        ARouter.init(this);
         setRxJavaErrorHandler();
         //友盟统计 String appkey, String channel, int deviceType, String pushSecret
         UMConfigure.init(this, "5eb65a45978eea078b7e9ac8", Constants.UMENG_NAME, UMConfigure.DEVICE_TYPE_PHONE, "");
@@ -60,6 +69,7 @@ public class ODApplication extends MultiDexApplication {
         FrescoUtil.initialize(this);
         //穿山甲初始化
         initTTAdSdk();
+        initMeiqia();
         MiitHelper miitHelper = new MiitHelper(appIdsUpdater);
         miitHelper.getDeviceIds(this);
         initCloudChannel(this);
@@ -79,6 +89,21 @@ public class ODApplication extends MultiDexApplication {
         //穿山甲SDK初始化
         //强烈建议在应用对应的Application#onCreate()方法中调用，避免出现content为null的异常
         TTAdManagerHolder.init(this);
+    }
+
+    private void initMeiqia() {
+        //初始化
+        MQConfig.init(this, Constants.MEIQIA_KEY, new OnInitCallback() {
+            @Override
+            public void onSuccess(String clientId) {
+//                Toast.makeText(mContext, "init success", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(int code, String message) {
+//                Toast.makeText(mContext, "int failure", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

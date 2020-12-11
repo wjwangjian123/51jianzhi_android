@@ -6,6 +6,7 @@ import android.widget.ListView;
 
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.base.BaseFragment;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.moku.MokuBillListEntity;
 import com.part.jianzhiyi.model.entity.moku.TxLogEntity;
 import com.part.jianzhiyi.model.entity.moku.WalletEntity;
@@ -137,5 +138,10 @@ public class TxLogFragment extends BaseFragment<MineWalletPresenter> implements 
             mTxIvEmpty.setVisibility(View.VISIBLE);
         }
         txLogListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
+
     }
 }

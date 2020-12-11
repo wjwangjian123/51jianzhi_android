@@ -1,7 +1,6 @@
 package com.part.jianzhiyi.mvp.presenter;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.part.jianzhiyi.base.BasePresenter;
 import com.part.jianzhiyi.constants.Constants;
@@ -12,7 +11,7 @@ import com.part.jianzhiyi.model.entity.AddFavouriteResponseEntity;
 import com.part.jianzhiyi.model.entity.SearchEntity;
 import com.part.jianzhiyi.mvp.contract.JoinSuccessContract;
 import com.part.jianzhiyi.mvp.model.JoinSuccessModel;
-import com.part.jianzhiyi.preference.PreferenceUUID;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 
 
 /**
@@ -57,6 +56,21 @@ public class JoinSuccessPresenter extends BasePresenter<JoinSuccessContract.IJoi
                         if (stringResponseData.getCode().equals(HttpAPI.REQUEST_SUCCESS)) {
 //                            weakReferenceView.get().joinSuccess();
                         } else {
+                        }
+                    }
+                }));
+    }
+
+    public void getaddMd(String type) {
+        mModel.getaddMd(type)
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<ResponseData>() {
+                    @Override
+                    public void onNext(ResponseData responseData) {
+                        if (TextUtils.equals(responseData.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetaddMd(responseData);
+                            }
                         }
                     }
                 }));

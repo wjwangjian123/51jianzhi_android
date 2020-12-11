@@ -29,6 +29,7 @@ public class TaskListSubAdapter extends RecyclerView.Adapter<TaskListSubAdapter.
     protected List<MokuTaskListEntity.DataBean> mDatas;
     protected LayoutInflater mInflater;
     private static OnRecyclerItemClickListener mOnItemClickListener;
+    private static OnMonitorItemClickListener onMonitorItemClickListener;
 
     public TaskListSubAdapter(Context mContext) {
         this.mContext = mContext;
@@ -73,6 +74,14 @@ public class TaskListSubAdapter extends RecyclerView.Adapter<TaskListSubAdapter.
                 viewHolder.mItemTvSurplusNum.setBackgroundResource(R.drawable.shape_moku_bg_green);
                 viewHolder.mItemTvDesc.setText(mDatas.get(position).getDesc());
             }
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onMonitorItemClickListener != null) {
+                        onMonitorItemClickListener.onMonitorItemClick(position);
+                    }
+                }
+            });
         }
     }
 
@@ -103,10 +112,18 @@ public class TaskListSubAdapter extends RecyclerView.Adapter<TaskListSubAdapter.
         TaskListSubAdapter.mOnItemClickListener = mOnItemClickListener;
     }
 
+    public void setOnMonitorItemClickListener(OnMonitorItemClickListener onMonitorItemClickListener) {
+        TaskListSubAdapter.onMonitorItemClickListener = onMonitorItemClickListener;
+    }
+
     /**
      * 点击事件监听
      */
     public interface OnRecyclerItemClickListener {
         void onItemClick(int position, String reason);
+    }
+
+    public interface OnMonitorItemClickListener {
+        void onMonitorItemClick(int position);
     }
 }

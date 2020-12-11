@@ -21,9 +21,13 @@ public interface JoinSuccessContract {
         Observable<SearchEntity> search(String title, String lable);
 
         Observable<ResponseData<AddFavouriteResponseEntity>> joincopyContact(String appid, String user_id, String job_id, String sortId, String contact, int type);
+
+        Observable<ResponseData> getaddMd(String type);
     }
 
     interface IJoinSuccessView extends IView {
         void updatesearch(SearchEntity searchEntity);
+
+        void updategetaddMd(ResponseData responseData);
     }
 }

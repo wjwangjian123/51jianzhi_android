@@ -17,12 +17,15 @@ import io.reactivex.Observable;
 public interface HomeVocationListContract {
     interface IVocationListModel extends IModel {
         Observable<ResponseData<JobListResponseEntity2>> jobList1(String userid, String type, String position, int page, String category);
-        Observable<ResponseData<JobListResponseEntity2>> jobList(String userid, String type, String position, int page,String label);
 
+        Observable<ResponseData<JobListResponseEntity2>> jobList(String userid, String type, String position, int page, String label);
+
+        Observable<ResponseData> getaddMd(String type);
     }
 
     interface IVocationListView extends IView {
         void updateNewList(String position, List<JobListResponseEntity2.DataBean> dataBeanList);
 
+        void updategetaddMd(ResponseData responseData);
     }
 }

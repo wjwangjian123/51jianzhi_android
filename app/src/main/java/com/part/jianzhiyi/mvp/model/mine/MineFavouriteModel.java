@@ -38,5 +38,9 @@ public class MineFavouriteModel implements MineFavouriteContract.IMineFavouriteM
         return HttpAPI.getInstence().getServiceApi().favourite(Constants.APPID, userid, Constants.OS, HttpAPI.ip, "0", Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()));
     }
 
+    @Override
+    public Observable<ResponseData> getaddMd(String type) {
+        return HttpAPI.getInstence().getServiceApi().getaddMd(type, Constants.OS);
+    }
 
 }

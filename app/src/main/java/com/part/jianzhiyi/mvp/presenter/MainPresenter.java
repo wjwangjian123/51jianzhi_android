@@ -5,11 +5,11 @@ import android.text.TextUtils;
 import com.part.jianzhiyi.base.BasePresenter;
 import com.part.jianzhiyi.http.HttpAPI;
 import com.part.jianzhiyi.http.ResultObserver;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.ActJobListEntity;
 import com.part.jianzhiyi.model.entity.ActivityEntity;
 import com.part.jianzhiyi.model.entity.ConfigEntity;
 import com.part.jianzhiyi.model.entity.IpResponseEntity;
-import com.part.jianzhiyi.model.entity.SearchEntity;
 import com.part.jianzhiyi.mvp.contract.MainContract;
 import com.part.jianzhiyi.mvp.model.MainModel;
 
@@ -58,8 +58,8 @@ public class MainPresenter extends BasePresenter<MainContract.IMainModel, MainCo
                 }));
     }
 
-    public void getActJobList(String id) {
-        mModel.getActJobList(id)
+    public void getActJobList(String id, String type) {
+        mModel.getActJobList(id, type)
                 .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
                 .subscribe(getResult(new ResultObserver<ActJobListEntity>() {
                     @Override
@@ -82,6 +82,21 @@ public class MainPresenter extends BasePresenter<MainContract.IMainModel, MainCo
                         if (TextUtils.equals(responseData.getCode(), HttpAPI.REQUEST_SUCCESS)) {
                             if (isAttach()) {
                                 weakReferenceView.get().updategetConfig(responseData);
+                            }
+                        }
+                    }
+                }));
+    }
+
+    public void getaddMd(String type) {
+        mModel.getaddMd(type)
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<ResponseData>() {
+                    @Override
+                    public void onNext(ResponseData responseData) {
+                        if (TextUtils.equals(responseData.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetaddMd(responseData);
                             }
                         }
                     }

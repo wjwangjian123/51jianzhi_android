@@ -10,7 +10,7 @@ import com.part.jianzhiyi.model.entity.AddFavouriteResponseEntity;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity;
 import com.part.jianzhiyi.mvp.contract.mine.MineFavouriteContract;
 import com.part.jianzhiyi.mvp.model.mine.MineFavouriteModel;
-import com.part.jianzhiyi.preference.PreferenceUUID;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 
 import java.util.List;
 
@@ -68,6 +68,21 @@ public class MineFavouritePresenter extends BasePresenter<MineFavouriteContract.
                         } else {
                             if (isAttach()) {
                                 weakReferenceView.get().showToast(stringResponseData.getMsg());
+                            }
+                        }
+                    }
+                }));
+    }
+
+    public void getaddMd(String type) {
+        mModel.getaddMd(type)
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<ResponseData>() {
+                    @Override
+                    public void onNext(ResponseData responseData) {
+                        if (TextUtils.equals(responseData.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetaddMd(responseData);
                             }
                         }
                     }

@@ -2,27 +2,22 @@ package com.part.jianzhiyi.mvp.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.adapter.ExpectPositionAdapter;
 import com.part.jianzhiyi.base.BaseActivity;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.model.entity.MyitemEntity;
 import com.part.jianzhiyi.model.entity.ResumeEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.mvp.contract.mine.MineUpdateResumeContract;
 import com.part.jianzhiyi.mvp.presenter.mine.MineUpdateResumePresenter;
-import com.part.jianzhiyi.preference.PreferenceUUID;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.umeng.analytics.MobclickAgent;
-import com.zhy.view.flowlayout.FlowLayout;
-import com.zhy.view.flowlayout.TagAdapter;
-import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +25,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -99,7 +93,8 @@ public class ExpectPositionActivity extends BaseActivity<MineUpdateResumePresent
         mExpectTvSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MobclickAgent.onEvent(ExpectPositionActivity.this, "status_skip");
+                mPresenter.getaddMd("12");
+                MobclickAgent.onEvent(ExpectPositionActivity.this, "expect_skip");
                 if (!userLogin) {
                     Intent intent = new Intent(ExpectPositionActivity.this, LoginActivity.class);
                     Bundle bundle = new Bundle();
@@ -128,10 +123,12 @@ public class ExpectPositionActivity extends BaseActivity<MineUpdateResumePresent
         mExpectTvGoon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stringBuffer.delete(0,stringBuffer.length());
+                MobclickAgent.onEvent(ExpectPositionActivity.this, "expect_submit");
+                mPresenter.getaddMd("11");
+                stringBuffer.delete(0, stringBuffer.length());
                 stringBuffer.setLength(0);
                 for (int i = 0; i < mList.size(); i++) {
-                    for (int j = 0; j <mList.get(i).getChildren().size() ; j++) {
+                    for (int j = 0; j < mList.get(i).getChildren().size(); j++) {
                         if (mList.get(i).getChildren().get(j).getIvType() == 1) {
                             stringBuffer = stringBuffer.append(mList.get(i).getChildren().get(j).getId() + ",");
                         }
@@ -139,7 +136,7 @@ public class ExpectPositionActivity extends BaseActivity<MineUpdateResumePresent
                 }
                 //选择职位
                 expect = String.valueOf(stringBuffer);
-                if (expect == null || expect == ""||expect.equals("")) {
+                if (expect == null || expect == "" || expect.equals("")) {
                     showToast("请选择期望职位");
                     return;
                 }
@@ -210,14 +207,14 @@ public class ExpectPositionActivity extends BaseActivity<MineUpdateResumePresent
             profession = entity.getData().getProfession_type();
             job_status = entity.getData().getJob_status_type();
             job_type = entity.getData().getJob_position_type();
-            if (entity.getData().getMyitem() != null) {
+            if (entity.getData().getMyitem().size() > 0) {
                 StringBuffer stringBuffer = new StringBuffer();
                 for (int i = 0; i < entity.getData().getMyitem().size(); i++) {
                     stringBuffer = stringBuffer.append(entity.getData().getMyitem().get(i).getId() + ",");
                 }
                 myitem = String.valueOf(stringBuffer);
             }
-            if (entity.getData().getExpect() != null) {
+            if (entity.getData().getExpect().size() > 0) {
                 StringBuffer stringBuffer1 = new StringBuffer();
                 for (int i = 0; i < entity.getData().getExpect().size(); i++) {
                     stringBuffer1 = stringBuffer1.append(entity.getData().getExpect().get(i).getId() + ",");
@@ -237,6 +234,11 @@ public class ExpectPositionActivity extends BaseActivity<MineUpdateResumePresent
             mList.addAll(myitemEntity.getData());
             mExpectPositionAdapter.setList(mList);
         }
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
+
     }
 
     @Override

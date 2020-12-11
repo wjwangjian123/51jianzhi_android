@@ -101,6 +101,13 @@
                         android:background="@drawable/shape_resume_btn"
                         android:layout_marginTop="11dp"/>
                 </LinearLayout>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_20"
+                    android:src="@drawable/icon_wallet_bg_bottom"
+                    android:scaleType="fitXY"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="@dimen/dimen_30"/>
                 <TextView
                     android:id="@+id/join_tv_tip2"
                     android:layout_width="wrap_content"
@@ -117,43 +124,56 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"
-                android:background="@drawable/shape_bg_purple10"
-                android:layout_marginHorizontal="28dp"
-                android:paddingTop="21dp"
-                android:paddingLeft="@dimen/dimen_18"
-                android:paddingRight="@dimen/dimen_18"
-                android:paddingBottom="13dp"
                 android:visibility="gone">
-                <TextView
-                    android:id="@+id/join_tv_tip3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/font_16"
-                    android:textColor="@color/color_ffffff"
-                    android:gravity="center"
-                    android:layout_gravity="center_horizontal"/>
-                <TextView
-                    android:id="@+id/join_tv_tip4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="主动联系商家，更有机会被录用哦"
-                    android:textSize="13sp"
-                    android:textColor="#D9DBFF"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/dimen_10"
-                    android:gravity="center"
-                    android:lineSpacingExtra="@dimen/dimen_3"/>
-                <TextView
-                    android:id="@+id/join_tv_contact2"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="33dp"
-                    android:gravity="center"
-                    android:text="联系商家"
-                    android:textSize="@dimen/font_12"
-                    android:textColor="@color/color_ffffff"
-                    android:background="@drawable/shape_resume_btn"
-                    android:layout_marginTop="9dp"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/shape_bg_purple10"
+                    android:layout_marginHorizontal="28dp"
+                    android:paddingTop="21dp"
+                    android:paddingLeft="@dimen/dimen_18"
+                    android:paddingRight="@dimen/dimen_18"
+                    android:paddingBottom="13dp">
+                    <TextView
+                        android:id="@+id/join_tv_tip3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/font_16"
+                        android:textColor="@color/color_ffffff"
+                        android:gravity="center"
+                        android:layout_gravity="center_horizontal"/>
+                    <TextView
+                        android:id="@+id/join_tv_tip4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="主动联系商家，更有机会被录用哦"
+                        android:textSize="13sp"
+                        android:textColor="#D9DBFF"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:gravity="center"
+                        android:lineSpacingExtra="@dimen/dimen_3"/>
+                    <TextView
+                        android:id="@+id/join_tv_contact2"
+                        android:layout_width="match_parent"
+                        android:layout_height="33dp"
+                        android:gravity="center"
+                        android:text="联系商家"
+                        android:textSize="@dimen/font_12"
+                        android:textColor="@color/color_ffffff"
+                        android:background="@drawable/shape_resume_btn"
+                        android:layout_marginTop="9dp"/>
+                </LinearLayout>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_20"
+                    android:src="@drawable/icon_wallet_bg_bottom"
+                    android:scaleType="fitXY"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="@dimen/dimen_30"/>
             </LinearLayout>
             <RelativeLayout
                 android:id="@+id/express_rl_container"

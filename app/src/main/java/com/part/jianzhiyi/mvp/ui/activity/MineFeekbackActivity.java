@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.base.BaseActivity;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.mvp.contract.mine.MineFeekbackContract;
 import com.part.jianzhiyi.mvp.presenter.mine.MineFeekbackPresenter;
 import com.umeng.analytics.MobclickAgent;
@@ -64,6 +65,11 @@ public class MineFeekbackActivity extends BaseActivity<MineFeekbackPresenter> im
     @Override
     public void updateSuccess() {
         finish();
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
+
     }
 
     @Override

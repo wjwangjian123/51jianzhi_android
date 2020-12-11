@@ -27,4 +27,9 @@ public class JoinSuccessModel implements JoinSuccessContract.IJoinSuccessModel{
     public Observable<ResponseData<AddFavouriteResponseEntity>> joincopyContact(String appid, String user_id, String job_id, String sortId, String contact, int type) {
         return HttpAPI.getInstence().getServiceApi().joincopyContact(Constants.APPID, user_id, job_id, Constants.OS, HttpAPI.ip, sortId, contact, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()),type);
     }
+
+    @Override
+    public Observable<ResponseData> getaddMd(String type) {
+        return HttpAPI.getInstence().getServiceApi().getaddMd(type, Constants.OS);
+    }
 }

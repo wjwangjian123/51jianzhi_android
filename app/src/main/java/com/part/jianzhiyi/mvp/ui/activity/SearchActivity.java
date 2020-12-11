@@ -20,6 +20,7 @@ import com.part.jianzhiyi.adapter.SearchListAdapter;
 import com.part.jianzhiyi.base.BaseActivity;
 import com.part.jianzhiyi.constants.Constants;
 import com.part.jianzhiyi.corecommon.ui.InputFilteEditText;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity;
 import com.part.jianzhiyi.model.entity.LableEntity;
 import com.part.jianzhiyi.model.entity.SearchEntity;
@@ -110,6 +111,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
                 mTvSearchCom.setVisibility(View.GONE);
                 mIvNodata.setVisibility(View.GONE);
                 type=2;
+                mPresenter.getaddMd("16");
                 mPresenter.search("",list.get(position).getId());
                 return true;
             }
@@ -149,6 +151,8 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
                     mTvSearchCom.setVisibility(View.GONE);
                     mIvNodata.setVisibility(View.GONE);
                     type=2;
+                    MobclickAgent.onEvent(SearchActivity.this, "search_keyword");
+                    mPresenter.getaddMd("15");
                     mPresenter.search(mIfetSearch.getText().toString(),"");
                 }
                 return false;
@@ -163,6 +167,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
         mLvSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mPresenter.getaddMd("17");
                 MobclickAgent.onEvent(SearchActivity.this, "search_position");
                 Intent intent = new Intent(SearchActivity.this, VocationActivity.class);
                 intent.putExtra("id", jobList.get(position).getId());
@@ -226,6 +231,11 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
         adapter = new SearchListAdapter(SearchActivity.this, jobList);
         mLvSearch.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
+
     }
 
     @Override

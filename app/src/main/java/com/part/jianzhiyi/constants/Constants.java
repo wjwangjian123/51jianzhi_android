@@ -17,7 +17,6 @@ public class Constants {
     public static final String HTML_URL = URI+"api/index/userPolicy";
     public static final String HTML_USER_URL = URI+"api/index/agreements?appid=";
     public static final String HTML_PRIVACY_URL = URI+"api/index/privacys?appid=";
-    public static String SP_UUID_FILE_NAME = ".51jianzhi.txt";
     public static final String DB_NAME = "51jianzhi-db";
     public static final String APPID = "81";
     //友盟的渠道名称
@@ -27,6 +26,8 @@ public class Constants {
     public static final String OS = "1";
     //广告
     public static final String TTAD_APPID = "5117468";
+    //美洽
+    public static final String MEIQIA_KEY = "a3cc71037e800a8b68f2d70c58592520";
 
     public static int PAGE_INDEX = 0;
     public static int INFO_RESULT_CODE = 1220;//用于 修改信息返回的code
@@ -50,7 +51,6 @@ public class Constants {
     public static final String POSITION_RANK = "9";//排行列表
     public static final String POSITION_CHOICE_RECOMMEND = "8";//小编推荐
 
-
     public static final String TYPE_HOME_RECOMMEND = "1";//为你推荐
     public static final String TYPE_HIGH_PAY = "2";//高薪招聘
     public static final String TYPE_CHOICE_SPECIAL = "4";//精选
@@ -59,5 +59,4 @@ public class Constants {
     public static final String TYPE_CHOICE = "6";//小编
     public static final String TYPE_RANK = "7";//排行列表
     public static final String TYPE_LABLE = "8";//首页分类
-
 }

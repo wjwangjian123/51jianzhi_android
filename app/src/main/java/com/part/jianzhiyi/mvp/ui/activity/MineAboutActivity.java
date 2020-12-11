@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.base.BaseActivity;
 import com.part.jianzhiyi.base.BasePresenter;
@@ -13,6 +14,7 @@ import com.part.jianzhiyi.constants.Constants;
 import com.part.jianzhiyi.corecommon.utils.AppUtil;
 import com.umeng.analytics.MobclickAgent;
 
+@Route(path = "/app/activity/about")
 public class MineAboutActivity extends BaseActivity {
 
     private TextView mMineAboutVersion;

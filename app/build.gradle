@@ -3,18 +3,22 @@ apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'com.aliyun.ams.emas-services'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.part.jianzhiyi"
-        minSdkVersion 16
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        applicationId rootProject.ext.android.applicationId
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
         flavorDimensions "default"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
         multiDexEnabled true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
 //        ndk {
 //            abiFilters "armeabi-v7a", "x86"
 //        }
@@ -59,7 +63,7 @@ android {
 repositories {
     mavenCentral()
     flatDir {
-        dirs 'libs'
+        dirs 'libs', '../corecommon/libs'
     }
 }
 greendao {
@@ -70,41 +74,28 @@ greendao {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    annotationProcessor rootProject.ext.dependencies["arouterCompile"]
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-
+    implementation 'com.chenlittleping:recyclercoverflow:1.0.6'
     implementation 'org.greenrobot:greendao:3.2.2' // 添加库
-    // 友盟统计SDK
-    implementation "com.umeng.umsdk:analytics:8.1.3"
-    implementation files('libs/umeng-uverify-1.2.0.aar')
-    implementation files('libs/umeng-common-2.2.1.jar')
-    //
+    //版本升级
     implementation 'com.qianwen:update-app:3.5.2'
     implementation 'com.qianwen:okhttp-utils:3.8.0'
-    //
-    implementation 'com.aliyun.ams:alicloud-android-push:3.1.9.1'
-    implementation 'com.aliyun.ams:alicloud-android-third-push:3.1.0@aar'
-    implementation 'com.aliyun.ams:huawei-push:2.6.3.305'
-    implementation 'com.aliyun.ams:huawei-push-base:2.6.3.305'
-    implementation 'com.aliyun.ams:meizu-push:3.8.7.1'
-    implementation 'com.aliyun.ams:third_vivopush:2.9.0.1'
 
     implementation 'com.amap.api:location:4.9.0'
     implementation files('libs/du.jar')
     implementation(name: 'open_ad_sdk', ext: 'aar')
-    implementation files('libs/msa_mdid_1.0.13.aar')
+
     implementation project(':corecommon')
     implementation project(':netcommon')
+    implementation project(':modulemerchants')
 
     implementation files('libs/moku-planet-api-native-sdk-1.0.1.aar')
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
-    // 支付宝 SDK AAR 包所需的配置
-    implementation (name: 'alipaySdk-15.7.9-20200727142814-noUtdid', ext: 'aar')
 }

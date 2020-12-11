@@ -17,4 +17,9 @@ public class ChoiceModel implements ChoiceContract2.IChoiceModel {
     public Observable<ResponseData<ChoiceEntity>> getChoice() {
         return HttpAPI.getInstence().getServiceApi().getChoice(Constants.POSITION_CHOICE,Constants.APPID,"1", HttpAPI.ip,"1",Constants.OS);
     }
+
+    @Override
+    public Observable<ResponseData> getaddMd(String type) {
+        return HttpAPI.getInstence().getServiceApi().getaddMd(type, Constants.OS);
+    }
 }

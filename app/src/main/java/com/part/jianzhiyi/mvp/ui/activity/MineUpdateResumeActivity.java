@@ -12,20 +12,21 @@ import android.widget.TextView;
 
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.base.BaseActivity;
-import com.part.jianzhiyi.constants.IntentConstant;
+import com.part.jianzhiyi.corecommon.constants.IntentConstant;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.corecommon.selectdateview.dialog.ActionListener;
 import com.part.jianzhiyi.corecommon.selectdateview.dialog.BaseDialogFragment;
 import com.part.jianzhiyi.corecommon.selectdateview.dialog.TextPickerDialog;
 import com.part.jianzhiyi.corecommon.selectdateview.view.TextModel;
 import com.part.jianzhiyi.corecommon.ui.ObservableScrollView;
 import com.part.jianzhiyi.corecommon.utils.SoftKeyboardUtils;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.model.entity.MyitemEntity;
 import com.part.jianzhiyi.model.entity.ResumeEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.mvp.contract.mine.MineUpdateResumeContract;
 import com.part.jianzhiyi.mvp.presenter.mine.MineUpdateResumePresenter;
-import com.part.jianzhiyi.preference.PreferenceUUID;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -89,7 +90,7 @@ public class MineUpdateResumeActivity extends BaseActivity<MineUpdateResumePrese
         list_job_type = new ArrayList<>();
         list.add(new TextModel("男"));
         list.add(new TextModel("女"));
-        for (int i = 18; i < 61; i++) {
+        for (int i = 12; i < 61; i++) {
             list_age.add(new TextModel(i + ""));
         }
         list_profession.add(new TextModel("学生"));
@@ -304,14 +305,14 @@ public class MineUpdateResumeActivity extends BaseActivity<MineUpdateResumePrese
             profession = entity.getData().getProfession_type();
             job_status = entity.getData().getJob_status_type();
             job_type = entity.getData().getJob_position_type();
-            if (entity.getData().getMyitem() != null) {
+            if (entity.getData().getMyitem().size() > 0) {
                 StringBuffer stringBuffer = new StringBuffer();
                 for (int i = 0; i < entity.getData().getMyitem().size(); i++) {
                     stringBuffer = stringBuffer.append(entity.getData().getMyitem().get(i).getId() + ",");
                 }
                 myitem = String.valueOf(stringBuffer);
             }
-            if (entity.getData().getExpect() != null) {
+            if (entity.getData().getExpect().size() > 0) {
                 StringBuffer stringBuffer1 = new StringBuffer();
                 for (int i = 0; i < entity.getData().getExpect().size(); i++) {
                     stringBuffer1 = stringBuffer1.append(entity.getData().getExpect().get(i).getId() + ",");
@@ -323,6 +324,11 @@ public class MineUpdateResumeActivity extends BaseActivity<MineUpdateResumePrese
 
     @Override
     public void updategetMyitem(MyitemEntity myitemEntity) {
+
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
 
     }
 

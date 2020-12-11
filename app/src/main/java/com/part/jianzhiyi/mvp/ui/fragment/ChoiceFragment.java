@@ -20,9 +20,11 @@ import com.part.jianzhiyi.ad.PositionId;
 import com.part.jianzhiyi.ad.TTAdManagerHolder;
 import com.part.jianzhiyi.adapter.ChoiceAdapter;
 import com.part.jianzhiyi.adapter.ChoiceRankAdapter;
+import com.part.jianzhiyi.adapter.ChoiceRecommendAdapter;
 import com.part.jianzhiyi.base.BaseFragment;
 import com.part.jianzhiyi.constants.Constants;
 import com.part.jianzhiyi.corecommon.ui.ListViewInScrollView;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.ChoiceEntity;
 import com.part.jianzhiyi.mvp.contract.ChoiceContract2;
 import com.part.jianzhiyi.mvp.presenter.ChoicePresenter;
@@ -30,7 +32,6 @@ import com.part.jianzhiyi.mvp.ui.activity.ChoiceRecommendListActivity;
 import com.part.jianzhiyi.mvp.ui.activity.RankActivity;
 import com.part.jianzhiyi.mvp.ui.activity.VocationActivity;
 import com.part.jianzhiyi.mvp.ui.activity.VocationListActivity;
-import com.part.jianzhiyi.preference.PreferenceUUID;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -40,6 +41,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by jyx on 2020/7/14
@@ -53,39 +56,11 @@ public class ChoiceFragment extends BaseFragment<ChoicePresenter> implements Cho
     private SmartRefreshLayout mSmartRefresh;
     private TextView mTvRankMore;
     private ImageView mIvRankMore;
-    private ListViewInScrollView mLvRank;
+    private RecyclerView mLvRank;
 
     private TextView mTvEditionMore;
     private ImageView mIvEditionMore;
-    private RelativeLayout mChRlOne;
-    private TextView mOneTvTitle;
-    private TextView mOneTvPlace;
-    private View mOneViewPlace;
-    private TextView mOneTvMethod;
-    private View mOneViewMethod;
-    private TextView mOneTvTime;
-    private TextView mOneTvPrice1;
-    private TextView mOneTvPrice2;
-
-    private RelativeLayout mChRlTwo;
-    private TextView mTwoTvTitle;
-    private TextView mTwoTvPlace;
-    private View mTwoViewPlace;
-    private TextView mTwoTvMethod;
-    private View mTwoViewMethod;
-    private TextView mTwoTvTime;
-    private TextView mTwoTvPrice1;
-    private TextView mTwoTvPrice2;
-
-    private RelativeLayout mChRlThree;
-    private TextView mThreeTvTitle;
-    private TextView mThreeTvPlace;
-    private View mThreeViewPlace;
-    private TextView mThreeTvMethod;
-    private View mThreeViewMethod;
-    private TextView mThreeTvTime;
-    private TextView mThreeTvPrice1;
-    private TextView mThreeTvPrice2;
+    private RecyclerView mLvRecommend;
 
     private TextView mTvSelectedMore;
     private ImageView mIvSelectedMore;
@@ -97,6 +72,7 @@ public class ChoiceFragment extends BaseFragment<ChoicePresenter> implements Cho
 
     private ChoiceAdapter choiceAdapter;
     private ChoiceRankAdapter mRankAdapter;
+    private ChoiceRecommendAdapter mChoiceRecommendAdapter;
     private List<ChoiceEntity.ChoiceBean> choiceList;
     private List<ChoiceEntity.WeeklyBean> rankList;
     private List<ChoiceEntity.XiaobianBean> recommendList;
@@ -129,38 +105,9 @@ public class ChoiceFragment extends BaseFragment<ChoicePresenter> implements Cho
         mTvRankMore = view.findViewById(R.id.tv_rank_more);
         mIvRankMore = view.findViewById(R.id.iv_rank_more);
         mLvRank = view.findViewById(R.id.lv_rank);
+        mLvRecommend = view.findViewById(R.id.lv_recommend);
         mTvEditionMore = view.findViewById(R.id.tv_edition_more);
         mIvEditionMore = view.findViewById(R.id.iv_edition_more);
-
-        mChRlOne = view.findViewById(R.id.ch_rl_one);
-        mOneTvTitle = view.findViewById(R.id.one_tv_title);
-        mOneTvPlace = view.findViewById(R.id.one_tv_place);
-        mOneViewPlace = view.findViewById(R.id.one_view_time);
-        mOneTvMethod = view.findViewById(R.id.one_tv_method);
-        mOneViewMethod = view.findViewById(R.id.one_view_method);
-        mOneTvTime = view.findViewById(R.id.one_tv_time);
-        mOneTvPrice1 = view.findViewById(R.id.one_tv_price1);
-        mOneTvPrice2 = view.findViewById(R.id.one_tv_price2);
-
-        mChRlTwo = view.findViewById(R.id.ch_rl_two);
-        mTwoTvTitle = view.findViewById(R.id.two_tv_title);
-        mTwoTvPlace = view.findViewById(R.id.two_tv_place);
-        mTwoViewPlace = view.findViewById(R.id.two_view_place);
-        mTwoTvMethod = view.findViewById(R.id.two_tv_method);
-        mTwoViewMethod = view.findViewById(R.id.two_view_method);
-        mTwoTvTime = view.findViewById(R.id.two_tv_time);
-        mTwoTvPrice1 = view.findViewById(R.id.two_tv_price1);
-        mTwoTvPrice2 = view.findViewById(R.id.two_tv_price2);
-
-        mChRlThree = view.findViewById(R.id.ch_rl_three);
-        mThreeTvTitle = view.findViewById(R.id.three_tv_title);
-        mThreeTvPlace = view.findViewById(R.id.three_tv_place);
-        mThreeViewPlace = view.findViewById(R.id.three_view_place);
-        mThreeTvMethod = view.findViewById(R.id.three_tv_method);
-        mThreeViewMethod = view.findViewById(R.id.three_view_method);
-        mThreeTvTime = view.findViewById(R.id.three_tv_time);
-        mThreeTvPrice1 = view.findViewById(R.id.three_tv_price1);
-        mThreeTvPrice2 = view.findViewById(R.id.three_tv_price2);
 
         mTvSelectedMore = view.findViewById(R.id.tv_selected_more);
         mIvSelectedMore = view.findViewById(R.id.iv_selected_more);
@@ -174,8 +121,19 @@ public class ChoiceFragment extends BaseFragment<ChoicePresenter> implements Cho
         rankList = new ArrayList<>();
         recommendList = new ArrayList<>();
         choiceList = new ArrayList<>();
-        mRankAdapter = new ChoiceRankAdapter(getActivity(), rankList);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        mLvRank.setLayoutManager(linearLayoutManager);
+        mRankAdapter = new ChoiceRankAdapter(getActivity());
         mLvRank.setAdapter(mRankAdapter);
+
+        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity());
+        linearLayoutManager1.setOrientation(RecyclerView.HORIZONTAL);
+        mLvRecommend.setLayoutManager(linearLayoutManager1);
+        mChoiceRecommendAdapter = new ChoiceRecommendAdapter(getActivity());
+        mLvRecommend.setAdapter(mChoiceRecommendAdapter);
+
         choiceAdapter = new ChoiceAdapter(getActivity(), choiceList);
         mLvSelected.setAdapter(choiceAdapter);
         initTTad();
@@ -297,11 +255,20 @@ public class ChoiceFragment extends BaseFragment<ChoicePresenter> implements Cho
                 mPresenter.getChoice();
             }
         });
-        mLvRank.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mRankAdapter.setmOnItemClickListener(new ChoiceRankAdapter.OnRecyclerItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                MobclickAgent.onEvent(getActivity(), "choice_weekly_ranking");
-                goToDetail(rankList.get(position).getId(), position, Constants.POSITION_RANK);
+            public void onItemClick(int position, String id) {
+                mPresenter.getaddMd("50");
+                if (position == 0) {
+                    MobclickAgent.onEvent(getActivity(), "choice_weekly_ranking_one");
+                }
+                if (position == 1) {
+                    MobclickAgent.onEvent(getActivity(), "choice_weekly_ranking_two");
+                }
+                if (position == 2) {
+                    MobclickAgent.onEvent(getActivity(), "choice_weekly_ranking_three");
+                }
+                goToDetail(id, position, Constants.POSITION_RANK);
             }
         });
         mLvSelected.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -310,29 +277,33 @@ public class ChoiceFragment extends BaseFragment<ChoicePresenter> implements Cho
                 if (choiceList.get(position).getUiType() == 1) {
                     return;
                 }
-                MobclickAgent.onEvent(getActivity(), "choice_reecommend");
+                if (position == 0) {
+                    MobclickAgent.onEvent(getActivity(), "choice_recommend_one");
+                }
+                if (position == 1) {
+                    MobclickAgent.onEvent(getActivity(), "choice_recommend_two");
+                }
+                if (position == 2) {
+                    MobclickAgent.onEvent(getActivity(), "choice_recommend_three");
+                }
+                mPresenter.getaddMd("52");
                 goToDetail(choiceList.get(position).getId(), position, Constants.POSITION_CHOICE);
             }
         });
-        mChRlOne.setOnClickListener(new View.OnClickListener() {
+        mChoiceRecommendAdapter.setmOnItemClickListener(new ChoiceRecommendAdapter.OnRecyclerItemClickListener() {
             @Override
-            public void onClick(View v) {
-                MobclickAgent.onEvent(getActivity(), "choice_editors");
-                goToDetail(recommendList.get(0).getId(), 0, Constants.POSITION_CHOICE_RECOMMEND);
-            }
-        });
-        mChRlTwo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MobclickAgent.onEvent(getActivity(), "choice_editors");
-                goToDetail(recommendList.get(1).getId(), 1, Constants.POSITION_CHOICE_RECOMMEND);
-            }
-        });
-        mChRlThree.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MobclickAgent.onEvent(getActivity(), "choice_editors");
-                goToDetail(recommendList.get(2).getId(), 2, Constants.POSITION_CHOICE_RECOMMEND);
+            public void onItemClick(int position, String id) {
+                mPresenter.getaddMd("51");
+                if (position == 0) {
+                    MobclickAgent.onEvent(getActivity(), "choice_editors_one");
+                }
+                if (position == 1) {
+                    MobclickAgent.onEvent(getActivity(), "choice_editors_two");
+                }
+                if (position == 2) {
+                    MobclickAgent.onEvent(getActivity(), "choice_editors_three");
+                }
+                goToDetail(id, position, Constants.POSITION_CHOICE_RECOMMEND);
             }
         });
         mIvEditionMore.setOnClickListener(this);
@@ -378,18 +349,21 @@ public class ChoiceFragment extends BaseFragment<ChoicePresenter> implements Cho
 
     private void goToMore(Boolean isRecommend) {
         if (isRecommend) {
+            MobclickAgent.onEvent(getActivity(), "choice_editors_more");
             Intent intent = new Intent(getActivity(), ChoiceRecommendListActivity.class);
             intent.putExtra("type", Constants.TYPE_CHOICE);
             startActivity(intent);
         } else {
+            MobclickAgent.onEvent(getActivity(), "choice_recommend_more");
             Intent intent = new Intent(getActivity(), VocationListActivity.class);
             intent.putExtra("type", Constants.TYPE_CHOICE_SPECIAL);
-            intent.putExtra("title", "推荐精选");
+            intent.putExtra("title", "优质精选");
             startActivity(intent);
         }
     }
 
     private void goToRank() {
+        MobclickAgent.onEvent(getActivity(), "choice_weekly_ranking_more");
         Intent intent = new Intent(getActivity(), RankActivity.class);
         startActivity(intent);
     }
@@ -401,94 +375,12 @@ public class ChoiceFragment extends BaseFragment<ChoicePresenter> implements Cho
             recommendList.clear();
         }
         if (xiaobianBeanList.size() > 0) {
-            recommendList.addAll(xiaobianBeanList);
-            if (recommendList.size() > 0) {
-                mChRlOne.setVisibility(View.VISIBLE);
-                ChoiceEntity.XiaobianBean xiaobianBean = recommendList.get(0);
-                mOneTvTitle.setText(xiaobianBean.getTitle());
-                if (xiaobianBean.getPlace().equals(null) || xiaobianBean.getPlace().equals("")) {
-                    if (PreferenceUUID.getInstence().getCity() == "" || PreferenceUUID.getInstence().getCity() == null) {
-                        mOneTvPlace.setText("不限");
-                    } else {
-                        mOneTvPlace.setText(PreferenceUUID.getInstence().getCity());
-                    }
-                } else {
-                    mOneTvPlace.setText(xiaobianBean.getPlace());
+            for (int i = 0; i < xiaobianBeanList.size(); i++) {
+                if (i < 3) {
+                    this.recommendList.add(xiaobianBeanList.get(i));
                 }
-                if (xiaobianBean.getMethod().equals(null) || xiaobianBean.getMethod().equals("")){
-                    mOneViewMethod.setVisibility(View.GONE);
-                }else {
-                    mOneViewMethod.setVisibility(View.VISIBLE);
-                    mOneTvMethod.setText(xiaobianBean.getMethod());
-                }
-                if (xiaobianBean.getTime() == null || xiaobianBean.getTime() == "") {
-                    mOneTvTime.setText("不限");
-                } else {
-                    mOneTvTime.setText(xiaobianBean.getTime());
-                }
-                mOneTvPrice1.setText(xiaobianBean.getPrice1());
-                mOneTvPrice2.setText(xiaobianBean.getPrice2());
-            } else {
-                mChRlOne.setVisibility(View.GONE);
             }
-            if (xiaobianBeanList.size() > 1) {
-                mChRlTwo.setVisibility(View.VISIBLE);
-                ChoiceEntity.XiaobianBean xiaobianBean = recommendList.get(1);
-                mTwoTvTitle.setText(xiaobianBean.getTitle());
-                if (xiaobianBean.getPlace().equals(null) || xiaobianBean.getPlace().equals("")) {
-                    if (PreferenceUUID.getInstence().getCity() == "" || PreferenceUUID.getInstence().getCity() == null) {
-                        mTwoTvPlace.setText("不限");
-                    } else {
-                        mTwoTvPlace.setText(PreferenceUUID.getInstence().getCity());
-                    }
-                } else {
-                    mTwoTvPlace.setText(xiaobianBean.getPlace());
-                }
-                if (xiaobianBean.getMethod().equals(null) || xiaobianBean.getMethod().equals("")){
-                    mTwoViewMethod.setVisibility(View.GONE);
-                }else {
-                    mTwoViewMethod.setVisibility(View.VISIBLE);
-                    mTwoTvMethod.setText(xiaobianBean.getMethod());
-                }
-                if (xiaobianBean.getTime() == null || xiaobianBean.getTime() == "") {
-                    mTwoTvTime.setText("不限");
-                } else {
-                    mTwoTvTime.setText(xiaobianBean.getTime());
-                }
-                mTwoTvPrice1.setText(xiaobianBean.getPrice1());
-                mTwoTvPrice2.setText(xiaobianBean.getPrice2());
-            } else {
-                mChRlTwo.setVisibility(View.GONE);
-            }
-            if (xiaobianBeanList.size() > 2) {
-                mChRlThree.setVisibility(View.VISIBLE);
-                ChoiceEntity.XiaobianBean xiaobianBean = recommendList.get(2);
-                mThreeTvTitle.setText(xiaobianBean.getTitle());
-                if (xiaobianBean.getPlace().equals(null) || xiaobianBean.getPlace().equals("")) {
-                    if (PreferenceUUID.getInstence().getCity() == "" || PreferenceUUID.getInstence().getCity() == null) {
-                        mThreeTvPlace.setText("不限");
-                    } else {
-                        mThreeTvPlace.setText(PreferenceUUID.getInstence().getCity());
-                    }
-                } else {
-                    mThreeTvPlace.setText(xiaobianBean.getPlace());
-                }
-                if (xiaobianBean.getMethod().equals(null) || xiaobianBean.getMethod().equals("")){
-                    mThreeViewMethod.setVisibility(View.GONE);
-                }else {
-                    mThreeViewMethod.setVisibility(View.VISIBLE);
-                    mThreeTvMethod.setText(xiaobianBean.getMethod());
-                }
-                if (xiaobianBean.getTime() == null || xiaobianBean.getTime() == "") {
-                    mThreeTvTime.setText("不限");
-                } else {
-                    mThreeTvTime.setText(xiaobianBean.getTime());
-                }
-                mThreeTvPrice1.setText(xiaobianBean.getPrice1());
-                mThreeTvPrice2.setText(xiaobianBean.getPrice2());
-            } else {
-                mChRlThree.setVisibility(View.GONE);
-            }
+            mChoiceRecommendAdapter.setList(recommendList);
         }
     }
 
@@ -498,14 +390,14 @@ public class ChoiceFragment extends BaseFragment<ChoicePresenter> implements Cho
         if (rankList != null) {
             this.rankList.clear();
         }
-        if (weeklyList != null) {
+        if (weeklyList.size() > 0) {
             for (int i = 0; i < weeklyList.size(); i++) {
                 if (i < 3) {
                     this.rankList.add(weeklyList.get(i));
                 }
             }
+            mRankAdapter.setList(rankList);
         }
-        mRankAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -526,6 +418,11 @@ public class ChoiceFragment extends BaseFragment<ChoicePresenter> implements Cho
     }
 
     @Override
+    public void updategetaddMd(ResponseData responseData) {
+
+    }
+
+    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
@@ -534,6 +431,9 @@ public class ChoiceFragment extends BaseFragment<ChoicePresenter> implements Cho
             }
             if (mRankAdapter != null) {
                 mRankAdapter.notifyDataSetChanged();
+            }
+            if (mChoiceRecommendAdapter != null) {
+                mChoiceRecommendAdapter.notifyDataSetChanged();
             }
         }
     }
@@ -548,6 +448,9 @@ public class ChoiceFragment extends BaseFragment<ChoicePresenter> implements Cho
         }
         if (mRankAdapter != null) {
             mRankAdapter.notifyDataSetChanged();
+        }
+        if (mChoiceRecommendAdapter != null) {
+            mChoiceRecommendAdapter.notifyDataSetChanged();
         }
     }
 

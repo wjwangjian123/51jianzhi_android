@@ -24,5 +24,11 @@ import io.reactivex.Observable;
 public class SystemNotifyModel implements SystemNotifyContract.ISystemNotifyModel {
     @Override
     public Observable<ResponseData<List<MsgResponseEntity>>> msgList(String userid) {
-        return HttpAPI.getInstence().getServiceApi().msgList(Constants.APPID,userid,Constants.OS, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()));    }
+        return HttpAPI.getInstence().getServiceApi().msgList(Constants.APPID, userid, Constants.OS, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()));
+    }
+
+    @Override
+    public Observable<ResponseData> getaddMd(String type) {
+        return HttpAPI.getInstence().getServiceApi().getaddMd(type, Constants.OS);
+    }
 }

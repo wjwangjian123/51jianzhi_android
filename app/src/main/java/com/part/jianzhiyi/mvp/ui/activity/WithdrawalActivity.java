@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.alipay.sdk.app.AuthTask;
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.base.BaseActivity;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.moku.KuaibaoEntity;
 import com.part.jianzhiyi.model.entity.moku.TxBindingEntity;
 import com.part.jianzhiyi.model.entity.moku.TxInfoEntity;
@@ -326,6 +327,11 @@ public class WithdrawalActivity extends BaseActivity<TxPresenter> implements TxC
                 mHandlerKb.post(mRunnable);
             }
         }
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
+
     }
 
     @Override

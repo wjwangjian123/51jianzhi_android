@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.base.BaseActivity;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.moku.MokuBillListEntity;
 import com.part.jianzhiyi.model.entity.moku.TxLogEntity;
 import com.part.jianzhiyi.model.entity.moku.WalletEntity;
@@ -163,6 +164,11 @@ public class MyWalletActivity extends BaseActivity<MineWalletPresenter> implemen
 
     @Override
     public void updategetTxLog(TxLogEntity txLogEntity) {
+
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
 
     }
 

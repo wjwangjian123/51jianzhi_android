@@ -27,7 +27,7 @@ import com.alibaba.fastjson.JSON;
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.base.BaseActivity;
 import com.part.jianzhiyi.constants.Constants;
-import com.part.jianzhiyi.constants.IntentConstant;
+import com.part.jianzhiyi.corecommon.constants.IntentConstant;
 import com.part.jianzhiyi.corecommon.ui.SendCodeView;
 import com.part.jianzhiyi.corecommon.utils.RegularUtils;
 import com.part.jianzhiyi.customview.MyClickableSpan;
@@ -58,11 +58,13 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     private int a = 1;
     private String AppSecret;
     private String SMcode;
+    private int type = 0;
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
         mPresenter.androidInfo(LoginActivity.this);
         mPresenter.getConfig();
+        mPresenter.getaddMd("3");
     }
 
     @Override
@@ -98,16 +100,20 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         MyClickableSpan user = new MyClickableSpan() {
             @Override
             public void onClick(View widget) {
+                MobclickAgent.onEvent(LoginActivity.this, "login_agreement");
                 Intent intent = new Intent(LoginActivity.this, HtmlActivity.class);
                 intent.putExtra(IntentConstant.HTML_URL, Constants.HTML_USER_URL + Constants.APPID + "&status=" + Constants.STATUS);
+                intent.putExtra("title", "");
                 startActivity(intent);
             }
         };
         MyClickableSpan privacy = new MyClickableSpan() {
             @Override
             public void onClick(View widget) {
+                MobclickAgent.onEvent(LoginActivity.this, "login_agreement");
                 Intent intent = new Intent(LoginActivity.this, HtmlActivity.class);
                 intent.putExtra(IntentConstant.HTML_URL, Constants.HTML_PRIVACY_URL + Constants.APPID + "&status=" + Constants.STATUS);
+                intent.putExtra("title", "");
                 startActivity(intent);
             }
         };
@@ -142,6 +148,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                     showToast("请阅读并同意协议");
                     return;
                 }
+                type = 0;
                 mPresenter.login(mLoginSendCode.getPhone(), mLoginSendCode.getSmsCode());
             }
         });
@@ -182,6 +189,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+                        mPresenter.getaddMd("1");
                         if (tokenRet != null && "600001" != tokenRet.getCode()) {
                             token = tokenRet.getToken();
                             umVerifyHelper.quitLoginPage();
@@ -347,6 +355,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     public void updateverifys(UMEntity umEntity) {
         if (umEntity.getData() != null) {
             String phone = umEntity.getData().getPhone();
+            type = 1;
             mPresenter.login(phone, SMcode);
             MobclickAgent.onEvent(LoginActivity.this, "um_login_success");
         }
@@ -354,6 +363,12 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void updatelogin(LoginResponseEntity entity) {
+        if (type == 0) {
+            mPresenter.getaddMd("4");
+            MobclickAgent.onEvent(LoginActivity.this, "login_success");
+        } else if (type == 1) {
+            mPresenter.getaddMd("2");
+        }
         mPresenter.userInfo(String.valueOf(entity.getId()));
     }
 
@@ -376,10 +391,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                     userInfoEntity.getData().getJob_type() == null || userInfoEntity.getData().getJob_type() == "") {
                 Intent intent = new Intent(LoginActivity.this, MyStatusActivity.class);
                 startActivity(intent);
-            } else if (userInfoEntity.getData().getMyitem() == null) {
+            } else if (userInfoEntity.getData().getMyitem().size() == 0) {
                 Intent intent = new Intent(LoginActivity.this, AboutMineActivity.class);
                 startActivity(intent);
-            } else if (userInfoEntity.getData().getExpect() == null) {
+            } else if (userInfoEntity.getData().getExpect().size() == 0) {
                 Intent intent = new Intent(LoginActivity.this, ExpectPositionActivity.class);
                 startActivity(intent);
             } else {
@@ -389,6 +404,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             }
         }
         finish();
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
+
     }
 
     private void initDialog() {

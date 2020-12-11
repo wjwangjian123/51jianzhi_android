@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.part.jianzhiyi.base.BasePresenter;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.http.HttpAPI;
 import com.part.jianzhiyi.http.ResultObserver;
 import com.part.jianzhiyi.model.base.ResponseData;
@@ -13,7 +14,6 @@ import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.mvp.contract.user.MineContract;
 import com.part.jianzhiyi.mvp.model.user.MineModel;
-import com.part.jianzhiyi.preference.PreferenceUUID;
 
 /**
  * @author:shixinxin
@@ -82,7 +82,7 @@ public class MinePresenter extends BasePresenter<MineContract.IMineModel, MineCo
                 }));
     }
 
-    public void addDaySign(String user_id,String day) {
+    public void addDaySign(String user_id, String day) {
         mModel.addDaySign(user_id, day)
                 .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
                 .subscribe(getResult(new ResultObserver<AddSignEntity>() {
@@ -92,7 +92,7 @@ public class MinePresenter extends BasePresenter<MineContract.IMineModel, MineCo
                             if (isAttach()) {
                                 weakReferenceView.get().updateaddDaySign(responseData);
                             }
-                        }else {
+                        } else {
                             weakReferenceView.get().updateaddDaySign(responseData);
                         }
                     }
@@ -101,6 +101,44 @@ public class MinePresenter extends BasePresenter<MineContract.IMineModel, MineCo
                     public void onError(Throwable e) {
                         super.onError(e);
                         Log.i("tag", "解析异常");
+                    }
+                }));
+    }
+
+    public void getDelUser(String user_id) {
+        mModel.getDelUser(user_id)
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<ResponseData>() {
+                    @Override
+                    public void onNext(ResponseData responseData) {
+                        if (TextUtils.equals(responseData.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetDelUser(responseData);
+                            }
+                        } else {
+                            weakReferenceView.get().updategetDelUser(responseData);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        Log.i("tag", "解析异常");
+                    }
+                }));
+    }
+
+    public void getaddMd(String type) {
+        mModel.getaddMd(type)
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<ResponseData>() {
+                    @Override
+                    public void onNext(ResponseData responseData) {
+                        if (TextUtils.equals(responseData.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetaddMd(responseData);
+                            }
+                        }
                     }
                 }));
     }

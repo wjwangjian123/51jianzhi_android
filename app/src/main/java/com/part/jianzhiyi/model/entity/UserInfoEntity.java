@@ -10,11 +10,6 @@ import java.util.List;
  */
 public class UserInfoEntity {
 
-    /**
-     * code : 200
-     * data : {"id":"102","username":"","signature":"","create_time":"2020-07-15 16:25:35","update_time":"2020-07-15 17:02:45","phone":"17718437526","email":"","status":"0000","name":"","sex":"男","age":"18","school_year":"","school_name":"","experience":null,"introduce":null,"app_id":"3","chan_id":"37289","campagin_id":"","imei":null,"idfa":"C5A2D870-83AF-4789-B71A-85840752FE31","os":"1","androidid":null,"profession":"学生","job_status":"随便看看","job_type":"短期兼职工作","push_id":"75b232968b9c48d88a18a265ef961cb0","oaid":null,"myitem":[{"id":"3","item":"沟通能力强"},{"id":"4","item":"体力达人"},{"id":"5","item":"阳光开朗"}],"expect":[{"id":"4","item":"IOS开发"},{"id":"5","item":"跑步"}],"resume_active":"30","resume_complete":"28%","showResume":false,"profession_type":"1","job_status_type":"2","job_position_type":"2,3","bck":1,"join_num":0,"ylq":0,"ywc":0}
-     */
-
     private String code;
     private DataBean data;
 
@@ -35,47 +30,6 @@ public class UserInfoEntity {
     }
 
     public static class DataBean {
-        /**
-         * id : 102
-         * username :
-         * signature :
-         * create_time : 2020-07-15 16:25:35
-         * update_time : 2020-07-15 17:02:45
-         * phone : 17718437526
-         * email :
-         * status : 0000
-         * name :
-         * sex : 男
-         * age : 18
-         * school_year :
-         * school_name :
-         * experience : null
-         * introduce : null
-         * app_id : 3
-         * chan_id : 37289
-         * campagin_id :
-         * imei : null
-         * idfa : C5A2D870-83AF-4789-B71A-85840752FE31
-         * os : 1
-         * androidid : null
-         * profession : 学生
-         * job_status : 随便看看
-         * job_type : 短期兼职工作
-         * push_id : 75b232968b9c48d88a18a265ef961cb0
-         * oaid : null
-         * myitem : [{"id":"3","item":"沟通能力强"},{"id":"4","item":"体力达人"},{"id":"5","item":"阳光开朗"}]
-         * expect : [{"id":"4","item":"IOS开发"},{"id":"5","item":"跑步"}]
-         * resume_active : 30
-         * resume_complete : 28%
-         * showResume : false
-         * profession_type : 1
-         * job_status_type : 2
-         * job_position_type : 2,3
-         * bck : 1
-         * join_num : 0
-         * ylq : 0
-         * ywc : 0
-         */
 
         private String id;
         private String username;
@@ -96,7 +50,6 @@ public class UserInfoEntity {
         private String chan_id;
         private String campagin_id;
         private String imei;
-        private String idfa;
         private String os;
         private String androidid;
         private String profession;
@@ -314,14 +267,6 @@ public class UserInfoEntity {
             this.imei = imei;
         }
 
-        public String getIdfa() {
-            return idfa;
-        }
-
-        public void setIdfa(String idfa) {
-            this.idfa = idfa;
-        }
-
         public String getOs() {
             return os;
         }
@@ -475,10 +420,6 @@ public class UserInfoEntity {
         }
 
         public static class MyitemBean {
-            /**
-             * id : 3
-             * item : 沟通能力强
-             */
 
             private String id;
             private String item;
@@ -501,10 +442,6 @@ public class UserInfoEntity {
         }
 
         public static class ExpectBean {
-            /**
-             * id : 4
-             * item : IOS开发
-             */
 
             private String id;
             private String item;

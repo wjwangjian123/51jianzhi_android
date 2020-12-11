@@ -36,12 +36,13 @@ import com.part.jianzhiyi.corecommon.utils.DateUtils;
 import com.part.jianzhiyi.corecommon.utils.UiUtils;
 import com.part.jianzhiyi.dbmodel.GreenDaoManager;
 import com.part.jianzhiyi.dialog.SignUpJoinDialog;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.JobDetailEntity;
 import com.part.jianzhiyi.model.entity.JoinJobEntity;
 import com.part.jianzhiyi.model.entity.MessageResponseEntity;
 import com.part.jianzhiyi.mvp.contract.VocationContract;
 import com.part.jianzhiyi.mvp.presenter.VocationPresenter;
-import com.part.jianzhiyi.preference.PreferenceUUID;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.utils.IntentUtils;
 import com.part.jianzhiyi.utils.OpenUtils;
 import com.umeng.analytics.MobclickAgent;
@@ -257,6 +258,7 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
     @Override
     protected void initData() {
         mPresenter.jobDetailv(id, position, sortId);
+        mPresenter.getaddMd("44");
     }
 
     @Override
@@ -314,6 +316,7 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
                     return;
                 }
                 if (copy_type == 1) {
+                    mPresenter.getaddMd("46");
                     MobclickAgent.onEvent(VocationActivity.this, "vocation_copy");
                     if (contract != null && contract != "") {
                         CopyTextLibrary copyButtonLibrary = new CopyTextLibrary(getApplicationContext(), contract);
@@ -363,6 +366,7 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
                     }
                 } else if (copy_type == 2) {
                     //引导报名提示
+                    mPresenter.getaddMd("45");
                     MobclickAgent.onEvent(VocationActivity.this, "vocation_see_contact");
                     mImgTip.setVisibility(View.VISIBLE);
                     mHandler = new Handler();
@@ -382,6 +386,7 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
         tvJoined.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mPresenter.getaddMd("47");
                 MobclickAgent.onEvent(VocationActivity.this, "vocation_signUp");
                 if (!PreferenceUUID.getInstence().isUserLogin()) {
                     Intent intent = new Intent(VocationActivity.this, LoginActivity.class);
@@ -548,6 +553,9 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
             copy_type = 2;
             tvContract.setText(entity.getContactXing());
         }
+        if (!PreferenceUUID.getInstence().getUserId().equals(null) && !PreferenceUUID.getInstence().getUserId().equals("")) {
+            mPresenter.getAddIntegBrowse(PreferenceUUID.getInstence().getUserId(), 2, entity.getId());
+        }
     }
 
     @Override
@@ -686,6 +694,16 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
         bundle.putString("sortId", sortId);
         bundle.putSerializable("joinJobEntity", joinJobEntity);
         IntentUtils.getInstence().startActivityForResult(VocationActivity.this, JoinSuccessActivity.class, 1002, bundle);
+    }
+
+    @Override
+    public void updategetAddIntegBrowse(ResponseData responseData) {
+
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
+
     }
 
     public static boolean isInteger(String str) {

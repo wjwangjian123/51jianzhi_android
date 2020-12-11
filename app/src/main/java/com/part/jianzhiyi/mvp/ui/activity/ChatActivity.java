@@ -15,6 +15,7 @@ import com.part.jianzhiyi.constants.Constants;
 import com.part.jianzhiyi.corecommon.ui.ListViewInScrollView;
 import com.part.jianzhiyi.corecommon.utils.CopyTextLibrary;
 import com.part.jianzhiyi.dbmodel.GreenDaoManager;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.ChatEntity;
 import com.part.jianzhiyi.model.entity.ChatJobInfoEntity;
 import com.part.jianzhiyi.model.entity.MessageResponseEntity;
@@ -22,7 +23,7 @@ import com.part.jianzhiyi.model.entity.MsgResponseEntity;
 import com.part.jianzhiyi.model.entity.ViewedEntity;
 import com.part.jianzhiyi.mvp.contract.InformationContract;
 import com.part.jianzhiyi.mvp.presenter.InformationPresenter;
-import com.part.jianzhiyi.preference.PreferenceUUID;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.utils.OpenUtils;
 import com.umeng.analytics.MobclickAgent;
 
@@ -117,6 +118,7 @@ public class ChatActivity extends BaseActivity<InformationPresenter> implements 
         mChatAdapter.setOnItemClickListener(new ChatAdapter.OnItemClickListener() {
             @Override
             public void onItem(int position, String id) {
+                mPresenter.getaddMd("60");
                 MobclickAgent.onEvent(ChatActivity.this, "see_mine_position");
                 Intent intent = new Intent(ChatActivity.this, VocationActivity.class);
                 intent.putExtra("id", id);
@@ -128,6 +130,7 @@ public class ChatActivity extends BaseActivity<InformationPresenter> implements 
         mChatAdapter.setOnItemCopyClickListener(new ChatAdapter.OnItemCopyClickListener() {
             @Override
             public void onItemCopy(int position) {
+                mPresenter.getaddMd("62");
                 MobclickAgent.onEvent(ChatActivity.this, "chat_copy");
                 if (contact != null && contact != "") {
                     CopyTextLibrary copyButtonLibrary = new CopyTextLibrary(getApplicationContext(), contact);
@@ -185,24 +188,33 @@ public class ChatActivity extends BaseActivity<InformationPresenter> implements 
         mChatLinearPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MobclickAgent.onEvent(ChatActivity.this, "chat_phone");
+                if (type == 1) {
+                    MobclickAgent.onEvent(ChatActivity.this, "chat_message_phone");
+                } else if (type == 2) {
+                    MobclickAgent.onEvent(ChatActivity.this, "chat_see_phone");
+                }
                 showToast("已成功交换联系方式，快去联系他吧");
             }
         });
         mChatLinearWechat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MobclickAgent.onEvent(ChatActivity.this, "chat_wechat");
+                if (type == 1) {
+                    MobclickAgent.onEvent(ChatActivity.this, "chat_message_wechat");
+                } else if (type == 2) {
+                    MobclickAgent.onEvent(ChatActivity.this, "chat_see_wechat");
+                }
                 showToast("已成功交换联系方式，快去联系他吧");
             }
         });
         mChatLinearZhiwei.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mPresenter.getaddMd("63");
                 if (type == 1) {
-                    MobclickAgent.onEvent(ChatActivity.this, "chat_see_position");
+                    MobclickAgent.onEvent(ChatActivity.this, "chat_message_position");
                 } else if (type == 2) {
-                    MobclickAgent.onEvent(ChatActivity.this, "see_mine_position");
+                    MobclickAgent.onEvent(ChatActivity.this, "chat_see_position");
                 }
                 //查看职位
                 Intent intent = new Intent(ChatActivity.this, VocationActivity.class);
@@ -258,6 +270,11 @@ public class ChatActivity extends BaseActivity<InformationPresenter> implements 
 
     @Override
     public void updateviewedJob(ViewedEntity list) {
+
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
 
     }
 

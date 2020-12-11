@@ -27,13 +27,15 @@ import com.greendao.gen.MessageResponseEntityDao;
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.app.ODApplication;
 import com.part.jianzhiyi.base.BaseActivity;
-import com.part.jianzhiyi.constants.IntentConstant;
+import com.part.jianzhiyi.corecommon.constants.IntentConstant;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.corecommon.utils.AppUtil;
 import com.part.jianzhiyi.corecommon.utils.CrashHandler;
 import com.part.jianzhiyi.customview.NoScrollViewPager;
 import com.part.jianzhiyi.dbmodel.GreenDaoManager;
 import com.part.jianzhiyi.dialog.DialogVersionUpdate;
 import com.part.jianzhiyi.local.LocationService;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.ActJobListEntity;
 import com.part.jianzhiyi.model.entity.ActivityEntity;
 import com.part.jianzhiyi.model.entity.ConfigEntity;
@@ -45,7 +47,6 @@ import com.part.jianzhiyi.mvp.ui.fragment.HomeFragment;
 import com.part.jianzhiyi.mvp.ui.fragment.InformationFragment;
 import com.part.jianzhiyi.mvp.ui.fragment.MineFragment;
 import com.part.jianzhiyi.mvp.ui.fragment.MokuFragment;
-import com.part.jianzhiyi.preference.PreferenceUUID;
 import com.part.jianzhiyi.utils.HProgressDialogUtils;
 import com.part.jianzhiyi.utils.UpdateAppHttpUtil;
 import com.umeng.analytics.MobclickAgent;
@@ -395,6 +396,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         }
     }
 
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
+
+    }
+
     private void initPermission(ConfigEntity entity) {
         //需要存储权限，做6.0权限适配
         if (Build.VERSION.SDK_INT < 23) {
@@ -578,11 +584,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mPresenter.getaddMd("13");
                 MobclickAgent.onEvent(MainActivity.this, "home_action");
                 alertDialog1.dismiss();
                 if (activityEntity.getData().getType().equals("1")) {
                     Intent intent = new Intent(MainActivity.this, ActionListActivity.class);
                     intent.putExtra("id", activityEntity.getData().getId());
+                    intent.putExtra("type", "0");
                     startActivity(intent);
                 } else if (activityEntity.getData().getType().equals("2")) {
                     String urls = activityEntity.getData().getUrl();
@@ -596,6 +604,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                         } else if (activityEntity.getData().getUrl_redirect() == 0) {
                             Intent intent = new Intent(MainActivity.this, HtmlActivity.class);
                             intent.putExtra(IntentConstant.HTML_URL, urls);
+                            intent.putExtra("title", "");
                             startActivity(intent);
                         }
                     }

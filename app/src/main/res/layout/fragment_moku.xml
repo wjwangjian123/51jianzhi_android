@@ -1,99 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.scwang.smartrefresh.layout.SmartRefreshLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/moku_smartRefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/color_ffffff">
-    <com.scwang.smartrefresh.layout.header.ClassicsHeader
+    <ImageView
+        android:id="@+id/moku_iv_bg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <RelativeLayout
+        android:layout_height="166dp"
+        android:src="@drawable/moku_bg"
+        android:scaleType="fitXY"/>
+    <LinearLayout
+        android:id="@+id/moku_linear"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_60"
+        android:layout_below="@+id/moku_iv_bg"
+        android:layout_marginTop="-25dp"
+        android:orientation="horizontal"
+        android:background="@drawable/shape_moku_bg_blue">
+        <LinearLayout
+            android:id="@+id/moku_linear_tocompleted"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_60"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingTop="14dp">
+            <TextView
+                android:id="@+id/moku_tv_tocompleted"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="待完成"
+                android:textColor="@color/moku_text"
+                android:textSize="@dimen/font_15"
+                android:gravity="center"/>
+            <ImageView
+                android:id="@+id/moku_iv_tocompleted"
+                android:layout_width="23dp"
+                android:layout_height="2dp"
+                android:src="@drawable/shape_moku_text_white"
+                android:layout_marginTop="5dp"/>
+        </LinearLayout>
+        <View
+            android:layout_width="@dimen/dimen_1"
+            android:layout_height="@dimen/dimen_20"
+            android:background="#899FF3"
+            android:layout_marginTop="14dp"/>
+        <LinearLayout
+            android:id="@+id/moku_linear_submitted"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_60"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingTop="14dp">
+            <TextView
+                android:id="@+id/moku_tv_submitted"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已提交"
+                android:textColor="@color/moku_text"
+                android:textSize="@dimen/font_15"
+                android:gravity="center"/>
+            <ImageView
+                android:id="@+id/moku_iv_submitted"
+                android:layout_width="23dp"
+                android:layout_height="2dp"
+                android:src="@drawable/shape_moku_text_white"
+                android:layout_marginTop="5dp"
+                android:visibility="invisible"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/moku_linear_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_ffffff">
-        <ImageView
-            android:id="@+id/moku_iv_bg"
-            android:layout_width="match_parent"
-            android:layout_height="166dp"
-            android:src="@drawable/moku_bg"
-            android:scaleType="fitXY"/>
-        <LinearLayout
-            android:id="@+id/moku_linear"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_60"
-            android:layout_below="@+id/moku_iv_bg"
-            android:layout_marginTop="-25dp"
-            android:orientation="horizontal"
-            android:background="@drawable/shape_moku_bg_blue">
-            <LinearLayout
-                android:id="@+id/moku_linear_tocompleted"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dimen_60"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center_horizontal"
-                android:paddingTop="14dp">
-                <TextView
-                    android:id="@+id/moku_tv_tocompleted"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="待完成"
-                    android:textColor="@color/moku_text"
-                    android:textSize="@dimen/font_15"
-                    android:gravity="center"/>
-                <ImageView
-                    android:id="@+id/moku_iv_tocompleted"
-                    android:layout_width="23dp"
-                    android:layout_height="2dp"
-                    android:src="@drawable/shape_moku_text_white"
-                    android:layout_marginTop="6dp"/>
-            </LinearLayout>
-            <View
-                android:layout_width="@dimen/dimen_1"
-                android:layout_height="@dimen/dimen_20"
-                android:background="#899FF3"
-                android:layout_marginTop="14dp"/>
-            <LinearLayout
-                android:id="@+id/moku_linear_submitted"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dimen_60"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center_horizontal"
-                android:paddingTop="14dp">
-                <TextView
-                    android:id="@+id/moku_tv_submitted"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="已提交"
-                    android:textColor="@color/moku_text"
-                    android:textSize="@dimen/font_15"
-                    android:gravity="center"/>
-                <ImageView
-                    android:id="@+id/moku_iv_submitted"
-                    android:layout_width="23dp"
-                    android:layout_height="2dp"
-                    android:src="@drawable/shape_moku_text_white"
-                    android:layout_marginTop="6dp"
-                    android:visibility="gone"/>
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/moku_linear_list"
+        android:layout_below="@+id/moku_linear"
+        android:layout_marginTop="-10dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/shape_moku_bg_white">
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/moku_smartRefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/moku_linear"
-            android:layout_marginTop="-10dp"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="@drawable/shape_moku_bg_white">
+            android:orientation="vertical">
+            <com.scwang.smartrefresh.layout.header.ClassicsHeader
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
             <com.part.jianzhiyi.customview.NoScrollViewPager
                 android:id="@+id/moku_viewpager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </LinearLayout>
-    </RelativeLayout>
-</com.scwang.smartrefresh.layout.SmartRefreshLayout>
+                android:layout_height="match_parent" />
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </LinearLayout>
+</RelativeLayout>

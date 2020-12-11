@@ -11,7 +11,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:padding="@dimen/dimen_12"
-        android:src="@drawable/icon_pay_result_cancel"
+        android:src="@drawable/icon_mer_cancel"
         android:layout_gravity="right"/>
     <ImageView
         android:id="@+id/dialog_iv_bg"

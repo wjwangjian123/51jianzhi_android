@@ -12,6 +12,7 @@ import com.part.jianzhiyi.base.BaseActivity;
 import com.part.jianzhiyi.constants.Constants;
 import com.part.jianzhiyi.corecommon.customview.LoadDataTipView;
 import com.part.jianzhiyi.corecommon.ui.ListViewInScrollView;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity2;
 import com.part.jianzhiyi.mvp.contract.RankContract;
 import com.part.jianzhiyi.mvp.presenter.RankPresenter;
@@ -90,6 +91,11 @@ public class RankActivity extends BaseActivity<RankPresenter> implements RankCon
             rankList.addAll(list);
         }
         adpater.notifyDataSetChanged();
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
+
     }
 
     private void goToDetail(String id, int position) {

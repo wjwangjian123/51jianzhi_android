@@ -11,13 +11,14 @@ import android.widget.TextView;
 
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.base.BaseActivity;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.model.entity.MyitemEntity;
 import com.part.jianzhiyi.model.entity.ResumeEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.mvp.contract.mine.MineUpdateResumeContract;
 import com.part.jianzhiyi.mvp.presenter.mine.MineUpdateResumePresenter;
-import com.part.jianzhiyi.preference.PreferenceUUID;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -91,6 +92,7 @@ public class MyStatusActivity extends BaseActivity<MineUpdateResumePresenter> im
         mStatusTvSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mPresenter.getaddMd("8");
                 MobclickAgent.onEvent(MyStatusActivity.this, "status_skip");
                 if (!userLogin) {
                     Intent intent = new Intent(MyStatusActivity.this, LoginActivity.class);
@@ -109,6 +111,8 @@ public class MyStatusActivity extends BaseActivity<MineUpdateResumePresenter> im
         mStatusTvGoon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MobclickAgent.onEvent(MyStatusActivity.this, "status_submit");
+                mPresenter.getaddMd("7");
                 if (!mStatusRbPositive.isChecked() && !mStatusRbSee.isChecked()) {
                     showToast("请选择求职状态");
                     return;
@@ -181,10 +185,10 @@ public class MyStatusActivity extends BaseActivity<MineUpdateResumePresenter> im
             bundle.putInt("ToLogin", 1);
             intent.putExtras(bundle);
             startActivity(intent);
-        } else if (mUserInfoEntity.getData().getMyitem() == null) {
+        } else if (mUserInfoEntity.getData().getMyitem().size() == 0) {
             Intent intent = new Intent(MyStatusActivity.this, AboutMineActivity.class);
             startActivity(intent);
-        } else if (mUserInfoEntity.getData().getExpect() == null) {
+        } else if (mUserInfoEntity.getData().getExpect().size() == 0) {
             Intent intent = new Intent(MyStatusActivity.this, ExpectPositionActivity.class);
             startActivity(intent);
         } else {
@@ -253,6 +257,11 @@ public class MyStatusActivity extends BaseActivity<MineUpdateResumePresenter> im
 
     @Override
     public void updategetMyitem(MyitemEntity myitemEntity) {
+
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
 
     }
 

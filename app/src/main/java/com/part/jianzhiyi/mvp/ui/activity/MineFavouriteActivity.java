@@ -11,6 +11,7 @@ import com.part.jianzhiyi.adapter.FavouriteAdapter;
 import com.part.jianzhiyi.adapter.OnCancelClickListener;
 import com.part.jianzhiyi.base.BaseActivity;
 import com.part.jianzhiyi.corecommon.customview.LoadDataTipView;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity;
 import com.part.jianzhiyi.mvp.contract.mine.MineFavouriteContract;
 import com.part.jianzhiyi.mvp.presenter.mine.MineFavouritePresenter;
@@ -90,6 +91,11 @@ public class MineFavouriteActivity extends BaseActivity<MineFavouritePresenter> 
             this.list.addAll(list);
             adapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
+
     }
 
     @Override

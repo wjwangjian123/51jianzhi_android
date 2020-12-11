@@ -1,69 +1,133 @@
 package com.part.jianzhiyi.adapter;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.part.jianzhiyi.R;
-import com.part.jianzhiyi.corecommon.base.adapter.CustomBaseAdapter;
-import com.part.jianzhiyi.corecommon.base.adapter.ViewHolder;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.model.entity.ChoiceEntity;
-import com.part.jianzhiyi.preference.PreferenceUUID;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @author:shixinxin
  * @content：内容
  * @vision:V1.0.1
  **/
-public class ChoiceRankAdapter extends CustomBaseAdapter<ChoiceEntity.WeeklyBean> {
+public class ChoiceRankAdapter extends RecyclerView.Adapter<ChoiceRankAdapter.ViewHolder> {
 
-    private Context context;
+    protected Context mContext;
+    protected List<ChoiceEntity.WeeklyBean> mDatas;
+    protected LayoutInflater mInflater;
+    private static OnRecyclerItemClickListener mOnItemClickListener;
 
-    public ChoiceRankAdapter(Context context, List<ChoiceEntity.WeeklyBean> list) {
-        super(context, R.layout.item_choice_rank, list);
-        this.context = context;
+    public ChoiceRankAdapter(Context mContext) {
+        this.mContext = mContext;
+        mInflater = LayoutInflater.from(mContext);
+    }
+
+    public void setList(List<ChoiceEntity.WeeklyBean> datas) {
+        this.mDatas = datas;
+        notifyDataSetChanged();
     }
 
     @Override
-    protected void convert(ViewHolder viewHolder, ChoiceEntity.WeeklyBean item, int position) {
-        if (item != null) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View inflate = LayoutInflater.from(mContext).inflate(R.layout.item_choice_rank, parent, false);
+        ViewHolder viewHolder = new ViewHolder(inflate);
+        return viewHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        if (mDatas != null && mDatas.size() > 0) {
             if (position % 3 == 0) {
-                ((RelativeLayout) viewHolder.getView(R.id.item_rl)).setBackgroundResource(R.drawable.icon_choice_bg_one);
+                holder.mItemRl.setBackgroundResource(R.drawable.icon_choice_bg_one);
             }
             if (position % 3 == 1) {
-                ((RelativeLayout) viewHolder.getView(R.id.item_rl)).setBackgroundResource(R.drawable.icon_choice_bg_two);
+                holder.mItemRl.setBackgroundResource(R.drawable.icon_choice_bg_two);
             }
             if (position % 3 == 2) {
-                ((RelativeLayout) viewHolder.getView(R.id.item_rl)).setBackgroundResource(R.drawable.icon_choice_bg_three);
+                holder.mItemRl.setBackgroundResource(R.drawable.icon_choice_bg_three);
             }
-            int i = position + 1;
-            ((TextView) viewHolder.getView(R.id.item_rank_position)).setText("0" + i);
-            ((TextView) viewHolder.getView(R.id.item_rank_title)).setText(item.getTitle());
-            if (item.getPlace().equals(null) || item.getPlace().equals("")) {
+            holder.mItemRankTitle.setText(mDatas.get(position).getTitle());
+            if (mDatas.get(position).getPlace().equals(null) || mDatas.get(position).getPlace().equals("")) {
                 if (PreferenceUUID.getInstence().getCity() == "" || PreferenceUUID.getInstence().getCity() == null) {
-                    ((TextView) viewHolder.getView(R.id.item_tv_place)).setText("不限");
+                    holder.mItemTvPlace.setText("不限");
                 } else {
-                    ((TextView) viewHolder.getView(R.id.item_tv_place)).setText(PreferenceUUID.getInstence().getCity());
+                    holder.mItemTvPlace.setText(PreferenceUUID.getInstence().getCity());
                 }
             } else {
-                ((TextView) viewHolder.getView(R.id.item_tv_place)).setText(item.getPlace());
+                holder.mItemTvPlace.setText(mDatas.get(position).getPlace());
             }
-            if (item.getMethod().equals(null) || item.getMethod().equals("")){
-                ((View) viewHolder.getView(R.id.view_method)).setVisibility(View.GONE);
-            }else {
-                ((View) viewHolder.getView(R.id.view_method)).setVisibility(View.VISIBLE);
-                ((TextView) viewHolder.getView(R.id.item_tv_method)).setText(item.getMethod());
-            }
-            if (item.getTime() == null || item.getTime() == "") {
-                ((TextView) viewHolder.getView(R.id.item_tv_time)).setText("不限");
+            if (mDatas.get(position).getMethod().equals(null) || mDatas.get(position).getMethod().equals("")) {
+                holder.mViewMethod.setVisibility(View.GONE);
             } else {
-                ((TextView) viewHolder.getView(R.id.item_tv_time)).setText(item.getTime());
+                holder.mViewMethod.setVisibility(View.VISIBLE);
+                holder.mItemTvMethod.setText(mDatas.get(position).getMethod());
             }
-            ((TextView) viewHolder.getView(R.id.item_rank_price1)).setText(item.getPrice1());
-            ((TextView) viewHolder.getView(R.id.item_rank_price2)).setText(item.getPrice2());
+            if (mDatas.get(position).getTime() == null || mDatas.get(position).getTime() == "") {
+                holder.mItemTvTime.setText("不限");
+            } else {
+                holder.mItemTvTime.setText(mDatas.get(position).getTime());
+            }
+            holder.mItemRankPrice1.setText(mDatas.get(position).getPrice1());
+            holder.mItemRankPrice2.setText(mDatas.get(position).getPrice2());
+            holder.mItemRl.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mOnItemClickListener != null) {
+                        mOnItemClickListener.onItemClick(position, mDatas.get(position).getId());
+                    }
+                }
+            });
         }
+    }
+
+    @Override
+    public int getItemCount() {
+        return mDatas != null ? mDatas.size() : 0;
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+
+        private TextView mItemRankTitle;
+        private TextView mItemTvPlace;
+        private View mViewMethod;
+        private TextView mItemTvMethod;
+        private TextView mItemTvTime;
+        private TextView mItemRankPrice1;
+        private TextView mItemRankPrice2;
+        private RelativeLayout mItemRl;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            mItemRankTitle = (TextView) itemView.findViewById(R.id.item_rank_title);
+            mItemTvPlace = (TextView) itemView.findViewById(R.id.item_tv_place);
+            mViewMethod = (View) itemView.findViewById(R.id.view_method);
+            mItemTvMethod = (TextView) itemView.findViewById(R.id.item_tv_method);
+            mItemTvTime = (TextView) itemView.findViewById(R.id.item_tv_time);
+            mItemRankPrice1 = (TextView) itemView.findViewById(R.id.item_rank_price1);
+            mItemRankPrice2 = (TextView) itemView.findViewById(R.id.item_rank_price2);
+            mItemRl = (RelativeLayout) itemView.findViewById(R.id.item_rl);
+        }
+    }
+
+    public void setmOnItemClickListener(OnRecyclerItemClickListener mOnItemClickListener) {
+        ChoiceRankAdapter.mOnItemClickListener = mOnItemClickListener;
+    }
+
+    /**
+     * 点击事件监听
+     */
+    public interface OnRecyclerItemClickListener {
+        void onItemClick(int position, String id);
     }
 }

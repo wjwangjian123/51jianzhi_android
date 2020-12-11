@@ -16,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bytedance.sdk.openadsdk.AdSlot;
 import com.bytedance.sdk.openadsdk.TTAdConstant;
 import com.bytedance.sdk.openadsdk.TTAdNative;
@@ -28,15 +29,17 @@ import com.part.jianzhiyi.ad.TTAdManagerHolder;
 import com.part.jianzhiyi.ad.UIUtils;
 import com.part.jianzhiyi.app.ODApplication;
 import com.part.jianzhiyi.base.BaseActivity;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
+import com.part.jianzhiyi.corecommon.utils.AppUtil;
 import com.part.jianzhiyi.corecommon.utils.Tools;
 import com.part.jianzhiyi.dbmodel.GreenDaoManager;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.model.entity.MyitemEntity;
 import com.part.jianzhiyi.model.entity.ResumeEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.mvp.contract.mine.MineUpdateResumeContract;
 import com.part.jianzhiyi.mvp.presenter.mine.MineUpdateResumePresenter;
-import com.part.jianzhiyi.preference.PreferenceUUID;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -98,6 +101,8 @@ public class SplashActivity extends BaseActivity<MineUpdateResumePresenter> impl
         PreferenceUUID.getInstence().putImei(Tools.getIMEI(ODApplication.context()));//imei
         PreferenceUUID.getInstence().putUa(Tools.getUa());//ua
         PreferenceUUID.getInstence().putUa2(Tools.getUa2(ODApplication.context()));//ua2
+        String versionCode = String.valueOf(AppUtil.getVersionCode(SplashActivity.this));
+        PreferenceUUID.getInstence().putVersion(versionCode);
 //        }
 //        goToMainActivity();
     }
@@ -365,38 +370,45 @@ public class SplashActivity extends BaseActivity<MineUpdateResumePresenter> impl
                 intent.putExtras(bundle);
                 startActivity(intent);
             } else {
-                //判断是否是当天首次进入App
-                //如果是跳转到简历模板
-                if (currentTime < dayTime) {
-                    PreferenceUUID.getInstence().putCurrentTime(millis);
-                    if (userInfoEntity.getData().getAge() == null || userInfoEntity.getData().getAge() == "" ||
-                            userInfoEntity.getData().getSex() == null || userInfoEntity.getData().getSex() == "" ||
-                            userInfoEntity.getData().getProfession() == null || userInfoEntity.getData().getProfession() == "") {
-                        Intent intent = new Intent(SplashActivity.this, ResumeActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("ToResume", 1);
-                        bundle.putInt("errorType", 1);
-                        intent.putExtras(bundle);
-                        SplashActivity.this.startActivity(intent);
-                    } else if (userInfoEntity.getData().getJob_status() == null || userInfoEntity.getData().getJob_status() == "" ||
-                            userInfoEntity.getData().getJob_type() == null || userInfoEntity.getData().getJob_type() == "") {
-                        Intent intent = new Intent(SplashActivity.this, MyStatusActivity.class);
-                        startActivity(intent);
-                    } else if (userInfoEntity.getData().getMyitem() == null) {
-                        Intent intent = new Intent(SplashActivity.this, AboutMineActivity.class);
-                        startActivity(intent);
-                    } else if (userInfoEntity.getData().getExpect() == null) {
-                        Intent intent = new Intent(SplashActivity.this, ExpectPositionActivity.class);
-                        startActivity(intent);
+                //判断是商户端还是用户端
+                if (PreferenceUUID.getInstence().getStatus() == 0) {
+                    //用户端
+                    //判断是否是当天首次进入App
+                    //如果是跳转到简历模板
+                    if (currentTime < dayTime) {
+                        PreferenceUUID.getInstence().putCurrentTime(millis);
+                        if (userInfoEntity.getData().getAge() == null || userInfoEntity.getData().getAge() == "" ||
+                                userInfoEntity.getData().getSex() == null || userInfoEntity.getData().getSex() == "" ||
+                                userInfoEntity.getData().getProfession() == null || userInfoEntity.getData().getProfession() == "") {
+                            Intent intent = new Intent(SplashActivity.this, ResumeActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("ToResume", 1);
+                            bundle.putInt("errorType", 1);
+                            intent.putExtras(bundle);
+                            SplashActivity.this.startActivity(intent);
+                        } else if (userInfoEntity.getData().getJob_status() == null || userInfoEntity.getData().getJob_status() == "" ||
+                                userInfoEntity.getData().getJob_type() == null || userInfoEntity.getData().getJob_type() == "") {
+                            Intent intent = new Intent(SplashActivity.this, MyStatusActivity.class);
+                            startActivity(intent);
+                        } else if (userInfoEntity.getData().getMyitem().size() == 0) {
+                            Intent intent = new Intent(SplashActivity.this, AboutMineActivity.class);
+                            startActivity(intent);
+                        } else if (userInfoEntity.getData().getExpect().size() == 0) {
+                            Intent intent = new Intent(SplashActivity.this, ExpectPositionActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                            intent.putExtra("type", 1);
+                            startActivity(intent);
+                        }
                     } else {
                         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                         intent.putExtra("type", 1);
                         startActivity(intent);
                     }
-                } else {
-                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                    intent.putExtra("type", 1);
-                    startActivity(intent);
+                } else if (PreferenceUUID.getInstence().getStatus() == 1) {
+                    //跳转到商户端
+                    ARouter.getInstance().build("/merchants/activity/mermain").navigation();
                 }
             }
         }
@@ -496,6 +508,11 @@ public class SplashActivity extends BaseActivity<MineUpdateResumePresenter> impl
 
     @Override
     public void updategetMyitem(MyitemEntity myitemEntity) {
+
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
 
     }
 }

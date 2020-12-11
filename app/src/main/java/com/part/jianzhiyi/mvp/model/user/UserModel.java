@@ -3,7 +3,7 @@ package com.part.jianzhiyi.mvp.model.user;
 import com.greendao.gen.LoginResponseEntityDao;
 import com.part.jianzhiyi.dbmodel.GreenDaoManager;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
-import com.part.jianzhiyi.preference.PreferenceUUID;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 
 
 /**

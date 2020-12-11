@@ -16,7 +16,7 @@ import com.part.jianzhiyi.corecommon.utils.toast.CustomToast;
 import com.part.jianzhiyi.http.HttpAPI;
 import com.part.jianzhiyi.http.ResultObserver;
 import com.part.jianzhiyi.model.base.ResponseData;
-import com.part.jianzhiyi.preference.PreferenceUUID;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 
 import java.lang.ref.WeakReference;
 import java.net.UnknownHostException;

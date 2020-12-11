@@ -205,7 +205,7 @@
                 android:layout_height="79dp"
                 android:orientation="horizontal"
                 android:layout_marginTop="@dimen/dimen_20"
-                android:layout_marginHorizontal="17dp"
+                android:layout_marginHorizontal="@dimen/dimen_10"
                 android:paddingHorizontal="@dimen/dimen_10"
                 android:background="@drawable/icon_mine_toudi_bg"
                 android:gravity="center">
@@ -323,6 +323,44 @@
                         android:text="我的简历"
                         android:textColor="@color/color_333333"
                         android:textSize="@dimen/font_15"/>
+                    <ImageView
+                        android:layout_width="@dimen/dimen_5"
+                        android:layout_height="@dimen/dimen_10"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/iv_right_end"/>
+                </RelativeLayout>
+                <include layout="@layout/layout_base_line" />
+                <RelativeLayout
+                    android:id="@+id/rl_switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp">
+                    <ImageView
+                        android:id="@+id/iv_switch"
+                        android:layout_width="@dimen/dimen_18"
+                        android:layout_height="@dimen/dimen_18"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:src="@drawable/icon_mine_identity" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/iv_switch"
+                        android:layout_marginLeft="@dimen/dimen_15"
+                        android:text="切换身份"
+                        android:textColor="@color/color_333333"
+                        android:textSize="@dimen/font_15"/>
+                    <TextView
+                        android:id="@+id/tv_identity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="招聘企业"
+                        android:textColor="@color/color_333333"
+                        android:textSize="@dimen/font_15"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="14dp"/>
                     <ImageView
                         android:layout_width="@dimen/dimen_5"
                         android:layout_height="@dimen/dimen_10"

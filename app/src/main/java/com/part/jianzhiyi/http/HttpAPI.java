@@ -5,8 +5,8 @@ import android.util.Log;
 
 import com.part.jianzhiyi.app.ODApplication;
 import com.part.jianzhiyi.constants.Constants;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.corecommon.utils.Tools;
-import com.part.jianzhiyi.preference.PreferenceUUID;
 
 import java.io.File;
 import java.io.IOException;
@@ -98,7 +98,7 @@ public class HttpAPI {
         public Response intercept(Chain chain) throws IOException {
             Request originalRequest = chain.request();
             //添加公共参数
-            HttpUrl.Builder url=originalRequest.url()
+            HttpUrl.Builder url = originalRequest.url()
                     .newBuilder()
                     .addQueryParameter("pv", PreferenceUUID.getInstence().getPv())//手机系统
                     .addQueryParameter("pe", PreferenceUUID.getInstence().getPe())//手机厂商
@@ -109,7 +109,8 @@ public class HttpAPI {
                     .addQueryParameter("ua2", PreferenceUUID.getInstence().getUa2())//ip
                     .addQueryParameter("ip", ip)//ip
                     .addQueryParameter("oaid", PreferenceUUID.getInstence().getOaid())//oaid
-                    .addQueryParameter("os", Constants.OS)//ip
+                    .addQueryParameter("os", Constants.OS)
+                    .addQueryParameter("version", PreferenceUUID.getInstence().getVersion())
                     .addQueryParameter("appid", Constants.APPID);
             Request.Builder builder = originalRequest.newBuilder()
                     .url(url.build());

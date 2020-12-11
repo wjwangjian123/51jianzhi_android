@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.part.jianzhiyi.corecommon.ui.ObservableScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:overScrollMode="never"
+    android:scrollbars="none"
+    android:fillViewport="true"
+    android:background="#F4F4F7">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/dimen_20"
+        android:background="#F4F4F7">
+        <com.part.jianzhiyi.corecommon.ui.ListViewInScrollView
+            android:id="@+id/list_recharge"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/transparency"
+            android:dividerHeight="0dp"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            android:listSelector="@color/transparency"
+            android:layout_marginTop="@dimen/dimen_15"/>
+    </LinearLayout>
+</com.part.jianzhiyi.corecommon.ui.ObservableScrollView>

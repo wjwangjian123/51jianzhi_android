@@ -7,8 +7,6 @@ import com.part.jianzhiyi.model.entity.AddSignEntity;
 import com.part.jianzhiyi.model.entity.DaySignEntity;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
-import com.part.jianzhiyi.model.entity.integral.MyExchangeEntity;
-import com.part.jianzhiyi.model.entity.integral.MyIntegralEntity;
 import com.part.jianzhiyi.mvp.model.user.IUserModel;
 
 import io.reactivex.Observable;
@@ -26,11 +24,9 @@ public interface MineContract {
 
         Observable<AddSignEntity> addDaySign(String user_id, String day);
 
-        Observable<MyExchangeEntity> getMyGoods(String user_id);
+        Observable<ResponseData> getDelUser(String user_id);
 
-        Observable<MyIntegralEntity> getMyIntegInfo(String user_id, int page);
-
-        Observable<ResponseData> getAddInteg(String user_id, int type);
+        Observable<ResponseData> getaddMd(String type);
     }
 
     interface IMineView extends IView {
@@ -42,10 +38,8 @@ public interface MineContract {
 
         void updateaddDaySign(AddSignEntity responseData);
 
-        void updategetMyGoods(MyExchangeEntity responseData);
+        void updategetDelUser(ResponseData responseData);
 
-        void updategetMyIntegInfo(MyIntegralEntity responseData);
-
-        void updategetAddInteg(ResponseData responseData);
+        void updategetaddMd(ResponseData responseData);
     }
 }

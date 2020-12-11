@@ -33,4 +33,9 @@ public class SearchModel implements SearchContract.ISearchModel{
     public Observable<SearchEntity> search(String title, String lable) {
         return HttpAPI.getInstence().getServiceApi().search(Constants.APPID,title, lable, HttpAPI.ip);
     }
+
+    @Override
+    public Observable<ResponseData> getaddMd(String type) {
+        return HttpAPI.getInstence().getServiceApi().getaddMd(type, Constants.OS);
+    }
 }

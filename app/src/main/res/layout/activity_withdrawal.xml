@@ -152,11 +152,10 @@
                 android:layout_below="@+id/tixian_rl_method"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/dimen_20"/>
-            <ImageView
-                android:id="@+id/tixian_iv_yin"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_15"
-                android:src="@drawable/icon_tixian_yin"
+                android:layout_height="0.5dp"
+                android:background="#E7ECF5"
                 android:layout_below="@id/tixian_tv_kb"
                 android:layout_marginTop="@dimen/dimen_18"/>
             <LinearLayout
@@ -171,10 +170,9 @@
                     android:id="@+id/tixian_recycle_kb"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingTop="@dimen/dimen_10"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/dimen_20"
-                    android:layout_marginBottom="@dimen/dimen_20"/>
+                    android:paddingTop="@dimen/dimen_5"
+                    android:paddingBottom="@dimen/dimen_5"
+                    android:layout_marginTop="@dimen/dimen_10"/>
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>

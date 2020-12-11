@@ -18,11 +18,16 @@ import retrofit2.http.Body;
 public interface MineUpdateProfileContract {
     interface IMineUpdateProfileModel extends IModel, IUserModel {
         Observable<ResponseData<String>> updateProfile(@Body UpdateProfileRequest request);
+
+        Observable<ResponseData> getaddMd(String type);
     }
 
     interface IMineUpdateProfileView extends IView {
         void updateSuccess();
+
         void updateUserInfo(LoginResponseEntity entity);
+
+        void updategetaddMd(ResponseData responseData);
     }
 
 

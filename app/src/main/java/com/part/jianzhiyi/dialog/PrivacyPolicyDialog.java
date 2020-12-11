@@ -8,9 +8,9 @@ import android.widget.TextView;
 
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.constants.Constants;
-import com.part.jianzhiyi.constants.IntentConstant;
+import com.part.jianzhiyi.corecommon.constants.IntentConstant;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.mvp.ui.activity.HtmlActivity;
-import com.part.jianzhiyi.preference.PreferenceUUID;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -83,6 +83,7 @@ public class PrivacyPolicyDialog extends AlertDialog {
             public void onClick(View v) {
                 Intent intent = new Intent(context, HtmlActivity.class);
                 intent.putExtra(IntentConstant.HTML_URL, Constants.HTML_PRIVACY_URL + Constants.APPID + "&status=" + Constants.STATUS);
+                intent.putExtra("title", "");
                 context.startActivity(intent);
             }
         });
@@ -91,6 +92,7 @@ public class PrivacyPolicyDialog extends AlertDialog {
             public void onClick(View v) {
                 Intent intent = new Intent(context, HtmlActivity.class);
                 intent.putExtra(IntentConstant.HTML_URL, Constants.HTML_USER_URL + Constants.APPID + "&status=" + Constants.STATUS);
+                intent.putExtra("title", "");
                 context.startActivity(intent);
             }
         });

@@ -14,7 +14,7 @@ import com.part.jianzhiyi.corecommon.base.adapter.CustomBaseAdapter;
 import com.part.jianzhiyi.corecommon.base.adapter.ViewHolder;
 import com.part.jianzhiyi.corecommon.utils.FrescoUtil;
 import com.part.jianzhiyi.model.entity.ChatEntity;
-import com.part.jianzhiyi.preference.PreferenceUUID;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;

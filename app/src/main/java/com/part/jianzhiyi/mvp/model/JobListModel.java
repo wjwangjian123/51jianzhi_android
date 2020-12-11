@@ -9,7 +9,7 @@ import com.part.jianzhiyi.model.entity.JobListResponseEntity;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity2;
 import com.part.jianzhiyi.model.entity.ViewedEntity;
 import com.part.jianzhiyi.mvp.contract.ChoiceContract;
-import com.part.jianzhiyi.preference.PreferenceUUID;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 
 import java.util.List;
 
@@ -58,5 +58,10 @@ public class JobListModel implements ChoiceContract.IChoiceModel {
     @Override
     public Observable<ResponseData<List<JobListResponseEntity>>> donedJob(String userid) {
         return HttpAPI.getInstence().getServiceApi().donedJob(Constants.APPID, userid, Constants.OS, HttpAPI.ip, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()));
+    }
+
+    @Override
+    public Observable<ResponseData> getaddMd(String type) {
+        return HttpAPI.getInstence().getServiceApi().getaddMd(type, Constants.OS);
     }
 }

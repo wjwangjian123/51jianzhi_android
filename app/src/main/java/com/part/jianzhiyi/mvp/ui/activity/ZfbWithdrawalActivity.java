@@ -19,6 +19,7 @@ import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.base.BaseActivity;
 import com.part.jianzhiyi.corecommon.ui.InputFilteEditText;
 import com.part.jianzhiyi.corecommon.utils.Tools;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.moku.KuaibaoEntity;
 import com.part.jianzhiyi.model.entity.moku.TxBindingEntity;
 import com.part.jianzhiyi.model.entity.moku.TxInfoEntity;
@@ -26,8 +27,8 @@ import com.part.jianzhiyi.model.entity.moku.TxTypeEntity;
 import com.part.jianzhiyi.model.entity.pay.AuthInfoEntity;
 import com.part.jianzhiyi.mvp.contract.moku.TxContract;
 import com.part.jianzhiyi.mvp.presenter.moku.TxPresenter;
-import com.part.jianzhiyi.preference.PreferenceUUID;
-import com.part.jianzhiyi.utils.soft.KeyBoardHelperUtil;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
+import com.part.jianzhiyi.corecommon.utils.KeyBoardHelperUtil;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -273,6 +274,11 @@ public class ZfbWithdrawalActivity extends BaseActivity<TxPresenter> implements 
 
     @Override
     public void updategetTxkb(KuaibaoEntity responseData) {
+
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
 
     }
 

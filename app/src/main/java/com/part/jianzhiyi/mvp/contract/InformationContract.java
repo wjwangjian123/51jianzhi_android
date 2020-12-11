@@ -20,14 +20,23 @@ import io.reactivex.Observable;
 public interface InformationContract {
     interface IInformationModel extends IModel {
         Observable<ResponseData<List<MsgResponseEntity>>> msgList(String userid);
+
         Observable<ChatJobInfoEntity> getChatJobinfo(String id);
+
         Observable<ViewedEntity> viewedJob(String userid);
+
         Observable<ResponseData<AddFavouriteResponseEntity>> joincopyContact(String appid, String user_id, String job_id, String sortId, String contact, int type);
+
+        Observable<ResponseData> getaddMd(String type);
     }
 
     interface IInformationView extends IView {
         void updateList(List<MsgResponseEntity> list);
+
         void updategetChatJobinfo(ChatJobInfoEntity chatJobInfoEntity);
+
         void updateviewedJob(ViewedEntity list);
+
+        void updategetaddMd(ResponseData responseData);
     }
 }

@@ -5,7 +5,6 @@ import com.part.jianzhiyi.constants.Constants;
 import com.part.jianzhiyi.corecommon.utils.Tools;
 import com.part.jianzhiyi.http.HttpAPI;
 import com.part.jianzhiyi.model.base.ResponseData;
-import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.model.entity.MyitemEntity;
 import com.part.jianzhiyi.model.entity.ResumeEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
@@ -13,7 +12,7 @@ import com.part.jianzhiyi.model.request.UResumeRequest;
 import com.part.jianzhiyi.model.request.UpdateResumeRequest;
 import com.part.jianzhiyi.mvp.contract.mine.MineUpdateResumeContract;
 import com.part.jianzhiyi.mvp.model.user.UserModel;
-import com.part.jianzhiyi.preference.PreferenceUUID;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 
 import io.reactivex.Observable;
 
@@ -41,5 +40,10 @@ public class MineUpdateResumeModel extends UserModel implements MineUpdateResume
     @Override
     public Observable<MyitemEntity> getMyitem(String type) {
         return HttpAPI.getInstence().getServiceApi().getMyitem(type);
+    }
+
+    @Override
+    public Observable<ResponseData> getaddMd(String type) {
+        return HttpAPI.getInstence().getServiceApi().getaddMd(type, Constants.OS);
     }
 }

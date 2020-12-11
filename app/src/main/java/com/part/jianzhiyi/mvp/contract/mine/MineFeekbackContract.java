@@ -16,10 +16,14 @@ import io.reactivex.Observable;
 public interface MineFeekbackContract {
     interface IMineFeekbackModel extends IModel, IUserModel {
         Observable<ResponseData<AddFavouriteResponseEntity>> jobfeedback(String userid, String content, String contact);
+
+        Observable<ResponseData> getaddMd(String type);
     }
 
     interface IMineFeekbackView extends IView {
         void updateSuccess();
+
+        void updategetaddMd(ResponseData responseData);
     }
 
 

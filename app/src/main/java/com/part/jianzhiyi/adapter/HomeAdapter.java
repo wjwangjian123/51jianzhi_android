@@ -14,7 +14,6 @@ import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.ad.PositionId;
 import com.part.jianzhiyi.customview.CSJAdView;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity2;
-import com.part.jianzhiyi.preference.PreferenceUUID;
 
 import java.util.List;
 

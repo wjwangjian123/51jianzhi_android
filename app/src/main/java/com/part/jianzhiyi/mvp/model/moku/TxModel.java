@@ -1,13 +1,15 @@
 package com.part.jianzhiyi.mvp.model.moku;
 
+import com.part.jianzhiyi.constants.Constants;
 import com.part.jianzhiyi.http.HttpAPI;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.moku.KuaibaoEntity;
 import com.part.jianzhiyi.model.entity.moku.TxBindingEntity;
 import com.part.jianzhiyi.model.entity.moku.TxInfoEntity;
 import com.part.jianzhiyi.model.entity.moku.TxTypeEntity;
 import com.part.jianzhiyi.model.entity.pay.AuthInfoEntity;
 import com.part.jianzhiyi.mvp.contract.moku.TxContract;
-import com.part.jianzhiyi.preference.PreferenceUUID;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 
 import io.reactivex.Observable;
 
@@ -51,6 +53,11 @@ public class TxModel implements TxContract.ITxModel {
     @Override
     public Observable<KuaibaoEntity> getTxkb() {
         return HttpAPI.getInstence().getServiceApi().getTxkb();
+    }
+
+    @Override
+    public Observable<ResponseData> getaddMd(String type) {
+        return HttpAPI.getInstence().getServiceApi().getaddMd(type, Constants.OS);
     }
 
 }

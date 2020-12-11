@@ -14,6 +14,7 @@ import com.part.jianzhiyi.adapter.VocationListAdapter;
 import com.part.jianzhiyi.base.BaseActivity;
 import com.part.jianzhiyi.constants.Constants;
 import com.part.jianzhiyi.corecommon.customview.LoadDataTipView;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity2;
 import com.part.jianzhiyi.model.entity.ViewedEntity;
@@ -203,6 +204,11 @@ public class VocationListActivity extends BaseActivity<JobListPresenter> impleme
         if (this.list.isEmpty()) {
             setLoadMode(LoadDataTipView.MODE.NODATA);
         }
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
+
     }
 
     @Override

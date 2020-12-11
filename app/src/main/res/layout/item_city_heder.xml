@@ -20,5 +20,6 @@
         android:horizontalSpacing="@dimen/dimen_10"
         android:numColumns="3"
         android:scrollbars="none"
-        android:verticalSpacing="@dimen/dimen_10" />
+        android:verticalSpacing="@dimen/dimen_10"
+        android:layout_marginBottom="@dimen/dimen_10"/>
 </LinearLayout>

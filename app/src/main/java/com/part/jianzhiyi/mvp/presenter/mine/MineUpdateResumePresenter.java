@@ -14,7 +14,7 @@ import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.model.request.UResumeRequest;
 import com.part.jianzhiyi.mvp.contract.mine.MineUpdateResumeContract;
 import com.part.jianzhiyi.mvp.model.mine.MineUpdateResumeModel;
-import com.part.jianzhiyi.preference.PreferenceUUID;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 
 /**
  * @author:
@@ -106,6 +106,21 @@ public class MineUpdateResumePresenter extends BasePresenter<MineUpdateResumeCon
                     public void onError(Throwable e) {
                         super.onError(e);
                         Log.e("tag", "解析异常");
+                    }
+                }));
+    }
+
+    public void getaddMd(String type) {
+        mModel.getaddMd(type)
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<ResponseData>() {
+                    @Override
+                    public void onNext(ResponseData responseData) {
+                        if (TextUtils.equals(responseData.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetaddMd(responseData);
+                            }
+                        }
                     }
                 }));
     }

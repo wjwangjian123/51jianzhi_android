@@ -19,14 +19,16 @@ import io.reactivex.Observable;
  **/
 public interface RankContract {
     interface IRankModel extends IModel {
-        Observable<ResponseData<JobListResponseEntity2>> jobList(String type, String position, int page,String label);
+        Observable<ResponseData<JobListResponseEntity2>> jobList(String type, String position, int page, String label);
 
+        Observable<ResponseData> getaddMd(String type);
     }
 
     interface IRankView extends IView {
 
         void updateRank(List<JobListResponseEntity2.DataBean> list);
 
+        void updategetaddMd(ResponseData responseData);
 
     }
 }

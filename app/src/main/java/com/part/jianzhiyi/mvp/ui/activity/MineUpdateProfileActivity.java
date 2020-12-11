@@ -9,7 +9,8 @@ import android.widget.Toast;
 
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.base.BaseActivity;
-import com.part.jianzhiyi.constants.IntentConstant;
+import com.part.jianzhiyi.corecommon.constants.IntentConstant;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.mvp.contract.mine.MineUpdateProfileContract;
 import com.part.jianzhiyi.mvp.presenter.mine.MineUpdateProfilePresenter;
@@ -89,7 +90,7 @@ public class MineUpdateProfileActivity extends BaseActivity<MineUpdateProfilePre
             Toast.makeText(this, "email不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
-        mPresenter.updateProfile(mEtNickname.getText().toString().trim(),mEtSignature.getText().toString().trim(),mEtPhone.getText().toString().trim(),mEtEmail.getText().toString().trim());
+        mPresenter.updateProfile(mEtNickname.getText().toString().trim(), mEtSignature.getText().toString().trim(), mEtPhone.getText().toString().trim(), mEtEmail.getText().toString().trim());
     }
 
     @Override
@@ -105,6 +106,11 @@ public class MineUpdateProfileActivity extends BaseActivity<MineUpdateProfilePre
         mEtSignature.setText(entity.getSignature());
         mEtPhone.setText(entity.getPhone());
         mEtEmail.setText(entity.getEmail());
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
+
     }
 
     @Override

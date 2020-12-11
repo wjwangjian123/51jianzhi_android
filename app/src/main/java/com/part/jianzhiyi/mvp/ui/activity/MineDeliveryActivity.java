@@ -12,6 +12,7 @@ import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.adapter.MineDeliveryAdapter;
 import com.part.jianzhiyi.adapter.MineDeliveryViewedAdapter;
 import com.part.jianzhiyi.base.BaseActivity;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity;
 import com.part.jianzhiyi.model.entity.ViewedEntity;
 import com.part.jianzhiyi.mvp.contract.ChoiceContract;
@@ -231,6 +232,11 @@ public class MineDeliveryActivity extends BaseActivity<JobListPresenter> impleme
             mDeliverySmartRefresh.setVisibility(View.GONE);
             mDeliveryNodata.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
+
     }
 
     @Override

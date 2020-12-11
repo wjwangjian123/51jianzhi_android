@@ -13,6 +13,7 @@ import com.part.jianzhiyi.base.BaseActivity;
 import com.part.jianzhiyi.constants.Constants;
 import com.part.jianzhiyi.corecommon.ui.ListViewInScrollView;
 import com.part.jianzhiyi.corecommon.utils.SharedPrefUtils;
+import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity2;
 import com.part.jianzhiyi.mvp.contract.HomeVocationListContract;
 import com.part.jianzhiyi.mvp.presenter.HomeVocationListPresenter;
@@ -100,6 +101,11 @@ public class HomeVocationListActivity extends BaseActivity<HomeVocationListPrese
     public void updateNewList(String position, List<JobListResponseEntity2.DataBean> dataBeanList) {
         this.list.addAll(dataBeanList);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
+
     }
 
     @Override

@@ -10,7 +10,7 @@ import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.adapter.DialogJoinUpAdapter;
 import com.part.jianzhiyi.model.entity.JobDetailEntity;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
-import com.part.jianzhiyi.preference.PreferenceUUID;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.List;

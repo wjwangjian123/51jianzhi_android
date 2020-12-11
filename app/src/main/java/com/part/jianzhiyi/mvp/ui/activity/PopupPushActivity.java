@@ -53,6 +53,7 @@ public class PopupPushActivity extends AndroidPopupActivity {
             }else if (type.equals("3")){
                 Intent intent2 = new Intent(PopupPushActivity.this, ActionListActivity.class);
                 intent2.putExtra("id", job_id);
+                intent2.putExtra("type", "0");
                 intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 PopupPushActivity.this.startActivity(intent2);
             }else {

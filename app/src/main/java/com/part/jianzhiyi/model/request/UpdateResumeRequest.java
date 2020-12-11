@@ -9,6 +9,7 @@ package com.part.jianzhiyi.model.request;
  * @modified by:shixinxin
  **/
 public class UpdateResumeRequest {
+
     private String user_id;
     private String name;
     private String sex;

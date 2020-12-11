@@ -10,12 +10,6 @@ import java.util.List;
  */
 public class ActJobListEntity {
 
-    /**
-     * code : 200
-     * msg : 请求成功
-     * data : {"data":[{"id":"594","title":"做任务赚佣金秒到账","price":"1元/单","time":"","method":"日结","price1":"1","price2":"元/单"},{"id":"885","title":"简单任务，宅家赚钱","price":"100元/天","time":"长期","method":"日结","price1":"100","price2":"元/天"}],"info":{"backimg":"http://jxw-img.oss-cn-beijing.aliyuncs.com/LJZ/20200412/1586682495.png"}}
-     */
-
     private String code;
     private String msg;
     private DataBeanX data;
@@ -45,10 +39,6 @@ public class ActJobListEntity {
     }
 
     public static class DataBeanX {
-        /**
-         * data : [{"id":"594","title":"做任务赚佣金秒到账","price":"1元/单","time":"","method":"日结","price1":"1","price2":"元/单"},{"id":"885","title":"简单任务，宅家赚钱","price":"100元/天","time":"长期","method":"日结","price1":"100","price2":"元/天"}]
-         * info : {"backimg":"http://jxw-img.oss-cn-beijing.aliyuncs.com/LJZ/20200412/1586682495.png"}
-         */
 
         private InfoBean info;
         private List<DataBean> data;
@@ -70,9 +60,6 @@ public class ActJobListEntity {
         }
 
         public static class InfoBean {
-            /**
-             * backimg : http://jxw-img.oss-cn-beijing.aliyuncs.com/LJZ/20200412/1586682495.png
-             */
 
             private String backimg;
 
@@ -86,15 +73,6 @@ public class ActJobListEntity {
         }
 
         public static class DataBean {
-            /**
-             * id : 594
-             * title : 做任务赚佣金秒到账
-             * price : 1元/单
-             * time :
-             * method : 日结
-             * price1 : 1
-             * price2 : 元/单
-             */
 
             private String id;
             private String title;

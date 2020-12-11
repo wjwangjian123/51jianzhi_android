@@ -10,13 +10,6 @@ import java.util.List;
  */
 public class TxInfoEntity {
 
-    /**
-     * code : 200
-     * msg : ok
-     * data : {"ali_user_id":"","wechat_openid":null,"money":"100","ali_nick":"","phone":"4904"}
-     * money : [{"money":"10","money_s":"10元"},{"money":"20","money_s":"20元"},{"money":"30","money_s":"30元"},{"money":"40","money_s":"40元"},{"money":"50","money_s":"50元"},{"money":"60","money_s":"60元"}]
-     */
-
     private String code;
     private String msg;
     private DataBean data;
@@ -55,13 +48,6 @@ public class TxInfoEntity {
     }
 
     public static class DataBean {
-        /**
-         * ali_user_id :
-         * wechat_openid : null
-         * money : 100
-         * ali_nick :
-         * phone : 4904
-         */
 
         private String ali_user_id;
         private String wechat_openid;
@@ -111,10 +97,6 @@ public class TxInfoEntity {
     }
 
     public static class MoneyBean {
-        /**
-         * money : 10
-         * money_s : 10元
-         */
 
         private String money;
         private String money_s;

@@ -8,10 +8,6 @@ package com.part.jianzhiyi.model.entity.pay;
  */
 public class AuthInfoEntity {
 
-    /**
-     * code : 200
-     */
-
     private String code;
     private String infostr;
 

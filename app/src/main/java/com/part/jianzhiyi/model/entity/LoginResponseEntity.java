@@ -12,24 +12,6 @@ import org.greenrobot.greendao.annotation.Id;
 @Entity
 public class LoginResponseEntity {
 
-    /**
-     * id : 5312
-     * username :
-     * signature :
-     * create_time :
-     * update_time : 2019-09-12 18:06:28
-     * phone : 15712883024
-     * email :
-     * status : 0000
-     * name : 鲤鱼
-     * sex : 女
-     * age : 37
-     * school_year : 1970
-     * school_name : 借记卡
-     * experience : 今生今世时间和计算机技术看看看看
-     * introduce : 今生今世计算机睡觉就睡觉
-     * appid : 3
-     */
     @Id(autoincrement = true)
     public Long id;
     //    private String id;

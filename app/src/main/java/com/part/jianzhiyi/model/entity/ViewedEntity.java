@@ -10,12 +10,6 @@ import java.util.List;
  */
 public class ViewedEntity {
 
-    /**
-     * code : 200
-     * msg : 请求成功
-     * data : [{"id":"544","title":"礼仪、迎宾","price":"320元/天","time":"长期","method":"日结","cateid":"544","place":"不限","uid":"8","name":"令俊个人工作室","img":"http://www.ejianzhi.net/Public/images/tx.png","price1":"320","price2":"元/天"},{"id":"572","title":"急聘！高薪在家兼职 一单一结","price":"200元/天","time":"长期","method":"日结","cateid":"572","place":"不限","uid":"15","name":"牛逗个人工作室","img":"","price1":"200","price2":"元/天"}]
-     */
-
     private String code;
     private String msg;
     private List<DataBean> data;
@@ -45,20 +39,6 @@ public class ViewedEntity {
     }
 
     public static class DataBean{
-        /**
-         * id : 544
-         * title : 礼仪、迎宾
-         * price : 320元/天
-         * time : 长期
-         * method : 日结
-         * cateid : 544
-         * place : 不限
-         * uid : 8
-         * name : 令俊个人工作室
-         * img : http://www.ejianzhi.net/Public/images/tx.png
-         * price1 : 320
-         * price2 : 元/天
-         */
 
         private String id;
         private String title;

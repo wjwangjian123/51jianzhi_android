@@ -2,17 +2,6 @@ package com.part.jianzhiyi.model.entity;
 
 public class CategoryEntity {
 
-    /**
-     * id : 1
-     * image : http://jxw-img.oss-cn-beijing.aliyuncs.com/LJZ/20200401/1585707120.jpg
-     * back : http://jxw-img.oss-cn-beijing.aliyuncs.com/LJZ/20200401/1585707253.jpg
-     * create_time : 2020-04-01 10:21:09
-     * update_time : 2020-04-01 10:21:09
-     * status : 1
-     * name : 高额任务
-     * introduction : 高额任务简介
-     */
-
     private String id;
     private String image;
     private String back;

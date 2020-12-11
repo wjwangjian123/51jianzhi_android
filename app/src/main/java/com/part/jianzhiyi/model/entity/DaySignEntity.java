@@ -8,11 +8,6 @@ package com.part.jianzhiyi.model.entity;
  */
 public class DaySignEntity {
 
-    /**
-     * code : 200
-     * data : {"day":0,"is_sign":0}
-     */
-
     private String code;
     private DataBean data;
 
@@ -33,10 +28,6 @@ public class DaySignEntity {
     }
 
     public static class DataBean {
-        /**
-         * day : 0
-         * is_sign : 0
-         */
 
         private int day;
         private int is_sign;

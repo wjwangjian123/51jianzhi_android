@@ -10,13 +10,6 @@ import java.util.List;
  */
 public class TxLogEntity {
 
-    /**
-     * code : 200
-     * msg : ok
-     * data : [{"id":"2","user_id":"173","money":" 10.00","status":"2","create_time":"2020-09-17 14:26:22","update_time":"2020-09-17 15:54:52","ali_user_id":"2088102176858141","sub_msg":"账户状态异常","title":"提现失败（账户状态异常）","time":"2020-09-17 15:54:52"},{"id":"1","user_id":"173","money":"-10.00","status":"1","create_time":"2020-09-16 16:34:18","update_time":"2020-09-17 16:41:29","ali_user_id":"2088102176858141","sub_msg":"账户状态异常","title":"提现成功","time":"2020-09-17 16:41:29"}]
-     * map : {"page":1,"pagetotal":1,"count":"2"}
-     */
-
     private String code;
     private String msg;
     private MapBean map;
@@ -55,11 +48,6 @@ public class TxLogEntity {
     }
 
     public static class MapBean {
-        /**
-         * page : 1
-         * pagetotal : 1
-         * count : 2
-         */
 
         private int page;
         private int pagetotal;
@@ -91,18 +79,6 @@ public class TxLogEntity {
     }
 
     public static class DataBean {
-        /**
-         * id : 2
-         * user_id : 173
-         * money :  10.00
-         * status : 2
-         * create_time : 2020-09-17 14:26:22
-         * update_time : 2020-09-17 15:54:52
-         * ali_user_id : 2088102176858141
-         * sub_msg : 账户状态异常
-         * title : 提现失败（账户状态异常）
-         * time : 2020-09-17 15:54:52
-         */
 
         private String id;
         private String user_id;

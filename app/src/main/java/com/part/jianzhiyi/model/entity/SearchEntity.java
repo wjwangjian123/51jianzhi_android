@@ -10,12 +10,6 @@ import java.util.List;
  */
 public class SearchEntity {
 
-    /**
-     * code : 200
-     * msg : 请求成功
-     * data : [{"id":"570","title":"高薪兼职\u2014在家可做简单上手","price":"280元/天","time":"不限","method":"日结","cateid":"570","price1":"280","price2":"元/天"},{"id":"594","title":"做任务赚佣金秒到账","price":"1元/单","time":"","method":"日结","cateid":"594","price1":"1","price2":"元/单"},{"id":"3431","title":"在家可做，厂商代发，简单无压力","price":"380元/天","time":"长期","method":"当天结算","cateid":"3431","price1":"380","price2":"元/天"}]
-     */
-
     private String code;
     private String msg;
     private List<DataBean> data;
@@ -45,16 +39,6 @@ public class SearchEntity {
     }
 
     public static class DataBean {
-        /**
-         * id : 570
-         * title : 高薪兼职—在家可做简单上手
-         * price : 280元/天
-         * time : 不限
-         * method : 日结
-         * cateid : 570
-         * price1 : 280
-         * price2 : 元/天
-         */
 
         private String id;
         private String title;

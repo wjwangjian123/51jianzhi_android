@@ -8,13 +8,6 @@ package com.part.jianzhiyi.model.entity;
  */
 public class AddSignEntity {
 
-
-    /**
-     * code : 200
-     * msg : 签到成功
-     * data : {"resume":"65","day":1,"is_sign":1}
-     */
-
     private String code;
     private String msg;
     private DataBean data;
@@ -44,11 +37,6 @@ public class AddSignEntity {
     }
 
     public static class DataBean {
-        /**
-         * resume : 65
-         * day : 1
-         * is_sign : 1
-         */
 
         private String resume;
         private int day;

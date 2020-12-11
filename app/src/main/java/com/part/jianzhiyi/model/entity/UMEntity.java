@@ -8,13 +8,6 @@ package com.part.jianzhiyi.model.entity;
  */
 public class UMEntity {
 
-
-    /**
-     * code : 200
-     * msg :
-     * data : {"phone":"15650729068"}
-     */
-
     private String code;
     private String msg;
     private DataBean data;
@@ -44,9 +37,6 @@ public class UMEntity {
     }
 
     public static class DataBean {
-        /**
-         * phone : 15650729068
-         */
 
         private String phone;
 

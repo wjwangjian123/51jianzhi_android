@@ -10,12 +10,6 @@ import java.util.List;
  */
 public class MyitemEntity {
 
-    /**
-     * code : 200
-     * msg : 请求成功
-     * data : [{"id":"1","item":"线上职位","pid":"0","create_time":"2020-06-28 10:57:05","is_del":"1","children":[{"id":"2","item":"PHP开发","pid":"1","create_time":"2020-06-28 10:57:58","is_del":"1"}]}]
-     */
-
     private String code;
     private String msg;
     private List<DataBean> data;
@@ -45,14 +39,6 @@ public class MyitemEntity {
     }
 
     public static class DataBean {
-        /**
-         * id : 1
-         * item : 线上职位
-         * pid : 0
-         * create_time : 2020-06-28 10:57:05
-         * is_del : 1
-         * children : [{"id":"2","item":"PHP开发","pid":"1","create_time":"2020-06-28 10:57:58","is_del":"1"}]
-         */
 
         private String id;
         private String item;
@@ -110,13 +96,6 @@ public class MyitemEntity {
         }
 
         public static class ChildrenBean {
-            /**
-             * id : 2
-             * item : PHP开发
-             * pid : 1
-             * create_time : 2020-06-28 10:57:58
-             * is_del : 1
-             */
 
             private String id;
             private String item;

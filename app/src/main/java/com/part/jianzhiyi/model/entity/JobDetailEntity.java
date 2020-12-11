@@ -10,12 +10,6 @@ import java.util.List;
  */
 public class JobDetailEntity {
 
-    /**
-     * code : 200
-     * msg : 请求成功
-     * data : {"job_list":[{"id":"885","title":"简单任务，宅家赚钱","price":"100元/天","is_join":false,"browse_num":805},{"id":"4040","title":"招聘！短视频代理加盟","price":"320元/天","is_join":true,"browse_num":763}],"info":{"id":"3438","avatar":"","title":"在家可做，厂商代发，简单无压力","time":"长期","city":"","price":"380元/天","sex":"男女不限","content":"<p>工作内容：<\/p>\n<p>每天宣传当季热销产品，推广本店产品，公司会帮你建立属于你的专属渠道，实时更新淘宝全网秒杀优惠信息！自己买省钱，推荐好友用可以赚钱，无需货源，一件代发，全程托管。<\/p>\n<p>职位描述：<\/p>\n<p>任职后公司给予店铺经营权限；需负责自己店铺的订单情况，推广店铺商品即可！<\/p>\n<p>任职要求：<\/p>\n<p>1.居家宝妈：在照顾宝宝的同时不想与社会脱节，多一份收入<\/p>\n<p>2.工作白领：想创业增加收入，实现财富自由<\/p>\n<p>3.在校大学生，想勤工俭学，额外赚一份兼职的钱<\/p>","company":"杭州万蚁网络科技有限公司","tag":"","method":"当天结算","status":"1","type":"1","create_time":"2020-05-07 15:02:51","update_time":"2020-05-25 10:58:01","contact":"xty20200103","contact_type":"1","isfavourite":"0","order_number":"34","number":"不限","duration":"不限","place":"不限","app_id":"22","desc":"杭州万蚁","age":"20","uid":"1045","cateid":"3431","blocked":"0","is_customer":"0","is_del":"1","admin_puid":"0","check_admin":"2","price_time":"1","weekly":"0","is_copy":0,"is_join":"0","category":"0","love":"","city_ids":null,"reason":"","label":null,"isJoin":"0","price1":"380","price2":"元/天","check_join":true,"join_msg":"","error_type":200,"is_show":false},"love":[{"id":"3437","avatar":"","title":"操作简单，货源代发，直招微信店铺代理","time":"长期","city":null,"price":"350元/天","sex":"男女不限","company":"杭州万蚁网络科技有限公司","tag":"","content":"<p>工作内容：<\/p><p>每天宣传当季热销产品，推广本店产品，公司会帮你建立属于你的专属渠道店铺，实时更新淘宝全网秒杀优惠信息！自己买省钱，推荐好友用可以赚钱，无需货源，一件代发，全程托管。<\/p><p>职位描述：<\/p><p>任职后公司给予店铺经营权限；需负责自己店铺的订单情况，推广店铺商品即可！<\/p><p>任职要求：<\/p><p>1.居家宝妈：在照顾宝宝的同时不想与社会脱节，多一份收入<\/p><p>2.工作白领：想创业增加收入，实现财富自由<\/p><p>3.在校大学生，想勤工俭学，额外赚一份兼职的钱<\/p>","method":"当天结算","type":"1,4,5,6","contact":"WYKJ186,xty20200103,xiaowu980419","contact_type":"1","isfavourite":"0000","order_number":"158","desc":"杭州万蚁","price1":"350","price2":"元/天"},{"id":"1496","avatar":"","title":"新零售代理\u2014转发视频带货","time":"长期","city":null,"price":"100元/天","sex":"男女不限","company":"黑龙江省辉亿网络科技有限公司","tag":"","content":"<p><strong>适合对象:<\/strong><\/p>\n<p>1，居家宝妈：在家照顾宝宝的同时不想与社会脱节，多一份收入！<\/p>\n<p>2，工作白领：想创业增加收入，实现财富自由!<\/p>\n<p>3，在校大学生：勤工俭学，额外赚一份兼职的钱！<\/p>\n<p><strong>工作内容：<\/strong><\/p>\n<p>1，手机一件转发小视频分享各大品牌官方商品；<\/p>\n<p>2，分享京东、淘宝、天猫品牌大优惠产品；<\/p>\n<p>3，工作轻松、没有业绩要求、空闲随时做；<\/p>\n<p><strong>项目优势：<\/strong><\/p>\n<p>1，低成本，高回报！,只要你有空闲的时间和精力，每天10分钟即可！公司提供线上培训，提供原创小视频<\/p>\n<p>2，全程公司专业导师指导扶持<\/p>\n<p>3，时间灵活，随时随地可做<\/p>","method":"当天结算","type":"1","contact":"gongyuan19940520","contact_type":"1","isfavourite":"0000","order_number":"1544","desc":"辉亿抖音带货","price1":"100","price2":"元/天"},{"id":"1513","avatar":"","title":"招聘！app测试人员","time":"长期","city":null,"price":"288元/天","sex":"男女不限","company":"东莞市迅浪网络科技有限公司","tag":"","content":"<p>适合对象:<br />1，居家宝妈：在家照顾宝宝的同时不想与社会脱节，多一份收入！<br />2，工作白领：想创业增加收入，实现财富自由!<br />3，在校大学生：勤工俭学，额外赚一份兼职的钱！<\/p>\n<p>4、21周岁以上人员<\/p>\n<p>工作内容：<\/p>\n<p>1、在应用商店中下载公司产品<\/p>\n<p>2、试玩测评手机app<\/p>\n<p>3、正规上市公司常年合作伙伴。合作伙伴全部为全国知名平台知名品牌。安装激活，注册下载。<\/p>\n<p>工作时间和地点：9:00-23:00基本上全天候即可工作<\/p>","method":"当天结算","type":"1","contact":"112060972","contact_type":"2","isfavourite":"0000","order_number":"1707","desc":"讯浪","price1":"288","price2":"元/天"}]}
-     */
-
     private String code;
     private String msg;
     private DataBean data;
@@ -45,11 +39,6 @@ public class JobDetailEntity {
     }
 
     public static class DataBean {
-        /**
-         * job_list : [{"id":"885","title":"简单任务，宅家赚钱","price":"100元/天","is_join":false,"browse_num":805},{"id":"4040","title":"招聘！短视频代理加盟","price":"320元/天","is_join":true,"browse_num":763}]
-         * info : {"id":"3438","avatar":"","title":"在家可做，厂商代发，简单无压力","time":"长期","city":"","price":"380元/天","sex":"男女不限","content":"<p>工作内容：<\/p>\n<p>每天宣传当季热销产品，推广本店产品，公司会帮你建立属于你的专属渠道，实时更新淘宝全网秒杀优惠信息！自己买省钱，推荐好友用可以赚钱，无需货源，一件代发，全程托管。<\/p>\n<p>职位描述：<\/p>\n<p>任职后公司给予店铺经营权限；需负责自己店铺的订单情况，推广店铺商品即可！<\/p>\n<p>任职要求：<\/p>\n<p>1.居家宝妈：在照顾宝宝的同时不想与社会脱节，多一份收入<\/p>\n<p>2.工作白领：想创业增加收入，实现财富自由<\/p>\n<p>3.在校大学生，想勤工俭学，额外赚一份兼职的钱<\/p>","company":"杭州万蚁网络科技有限公司","tag":"","method":"当天结算","status":"1","type":"1","create_time":"2020-05-07 15:02:51","update_time":"2020-05-25 10:58:01","contact":"xty20200103","contact_type":"1","isfavourite":"0","order_number":"34","number":"不限","duration":"不限","place":"不限","app_id":"22","desc":"杭州万蚁","age":"20","uid":"1045","cateid":"3431","blocked":"0","is_customer":"0","is_del":"1","admin_puid":"0","check_admin":"2","price_time":"1","weekly":"0","is_copy":0,"is_join":"0","category":"0","love":"","city_ids":null,"reason":"","label":null,"isJoin":"0","price1":"380","price2":"元/天","check_join":true,"join_msg":"","error_type":200,"is_show":false}
-         * love : [{"id":"3437","avatar":"","title":"操作简单，货源代发，直招微信店铺代理","time":"长期","city":null,"price":"350元/天","sex":"男女不限","company":"杭州万蚁网络科技有限公司","tag":"","content":"<p>工作内容：<\/p><p>每天宣传当季热销产品，推广本店产品，公司会帮你建立属于你的专属渠道店铺，实时更新淘宝全网秒杀优惠信息！自己买省钱，推荐好友用可以赚钱，无需货源，一件代发，全程托管。<\/p><p>职位描述：<\/p><p>任职后公司给予店铺经营权限；需负责自己店铺的订单情况，推广店铺商品即可！<\/p><p>任职要求：<\/p><p>1.居家宝妈：在照顾宝宝的同时不想与社会脱节，多一份收入<\/p><p>2.工作白领：想创业增加收入，实现财富自由<\/p><p>3.在校大学生，想勤工俭学，额外赚一份兼职的钱<\/p>","method":"当天结算","type":"1,4,5,6","contact":"WYKJ186,xty20200103,xiaowu980419","contact_type":"1","isfavourite":"0000","order_number":"158","desc":"杭州万蚁","price1":"350","price2":"元/天"},{"id":"1496","avatar":"","title":"新零售代理\u2014转发视频带货","time":"长期","city":null,"price":"100元/天","sex":"男女不限","company":"黑龙江省辉亿网络科技有限公司","tag":"","content":"<p><strong>适合对象:<\/strong><\/p>\n<p>1，居家宝妈：在家照顾宝宝的同时不想与社会脱节，多一份收入！<\/p>\n<p>2，工作白领：想创业增加收入，实现财富自由!<\/p>\n<p>3，在校大学生：勤工俭学，额外赚一份兼职的钱！<\/p>\n<p><strong>工作内容：<\/strong><\/p>\n<p>1，手机一件转发小视频分享各大品牌官方商品；<\/p>\n<p>2，分享京东、淘宝、天猫品牌大优惠产品；<\/p>\n<p>3，工作轻松、没有业绩要求、空闲随时做；<\/p>\n<p><strong>项目优势：<\/strong><\/p>\n<p>1，低成本，高回报！,只要你有空闲的时间和精力，每天10分钟即可！公司提供线上培训，提供原创小视频<\/p>\n<p>2，全程公司专业导师指导扶持<\/p>\n<p>3，时间灵活，随时随地可做<\/p>","method":"当天结算","type":"1","contact":"gongyuan19940520","contact_type":"1","isfavourite":"0000","order_number":"1544","desc":"辉亿抖音带货","price1":"100","price2":"元/天"},{"id":"1513","avatar":"","title":"招聘！app测试人员","time":"长期","city":null,"price":"288元/天","sex":"男女不限","company":"东莞市迅浪网络科技有限公司","tag":"","content":"<p>适合对象:<br />1，居家宝妈：在家照顾宝宝的同时不想与社会脱节，多一份收入！<br />2，工作白领：想创业增加收入，实现财富自由!<br />3，在校大学生：勤工俭学，额外赚一份兼职的钱！<\/p>\n<p>4、21周岁以上人员<\/p>\n<p>工作内容：<\/p>\n<p>1、在应用商店中下载公司产品<\/p>\n<p>2、试玩测评手机app<\/p>\n<p>3、正规上市公司常年合作伙伴。合作伙伴全部为全国知名平台知名品牌。安装激活，注册下载。<\/p>\n<p>工作时间和地点：9:00-23:00基本上全天候即可工作<\/p>","method":"当天结算","type":"1","contact":"112060972","contact_type":"2","isfavourite":"0000","order_number":"1707","desc":"讯浪","price1":"288","price2":"元/天"}]
-         */
 
         private InfoBean info;
         private List<JobListBean> job_list;
@@ -80,63 +69,6 @@ public class JobDetailEntity {
         }
 
         public static class InfoBean {
-            /**
-             * id : 3438
-             * avatar :
-             * title : 在家可做，厂商代发，简单无压力
-             * time : 长期
-             * city :
-             * price : 380元/天
-             * sex : 男女不限
-             * content : <p>工作内容：</p>
-             <p>每天宣传当季热销产品，推广本店产品，公司会帮你建立属于你的专属渠道，实时更新淘宝全网秒杀优惠信息！自己买省钱，推荐好友用可以赚钱，无需货源，一件代发，全程托管。</p>
-             <p>职位描述：</p>
-             <p>任职后公司给予店铺经营权限；需负责自己店铺的订单情况，推广店铺商品即可！</p>
-             <p>任职要求：</p>
-             <p>1.居家宝妈：在照顾宝宝的同时不想与社会脱节，多一份收入</p>
-             <p>2.工作白领：想创业增加收入，实现财富自由</p>
-             <p>3.在校大学生，想勤工俭学，额外赚一份兼职的钱</p>
-             * company : 杭州万蚁网络科技有限公司
-             * tag :
-             * method : 当天结算
-             * status : 1
-             * type : 1
-             * create_time : 2020-05-07 15:02:51
-             * update_time : 2020-05-25 10:58:01
-             * contact : xty20200103
-             * contact_type : 1
-             * isfavourite : 0
-             * order_number : 34
-             * number : 不限
-             * duration : 不限
-             * place : 不限
-             * app_id : 22
-             * desc : 杭州万蚁
-             * age : 20
-             * uid : 1045
-             * cateid : 3431
-             * blocked : 0
-             * is_customer : 0
-             * is_del : 1
-             * admin_puid : 0
-             * check_admin : 2
-             * price_time : 1
-             * weekly : 0
-             * is_copy : 0
-             * is_join : 0
-             * category : 0
-             * love :
-             * city_ids : null
-             * reason :
-             * label : null
-             * isJoin : 0
-             * price1 : 380
-             * price2 : 元/天
-             * check_join : true
-             * join_msg :
-             * error_type : 200
-             * is_show : false
-             */
 
             private String id;
             private String avatar;
@@ -177,7 +109,7 @@ public class JobDetailEntity {
             private String is_join;
             private String category;
             private String love;
-            private Object city_ids;
+            private String city_ids;
             private String reason;
             private String label;
             private String isJoin;
@@ -509,11 +441,11 @@ public class JobDetailEntity {
                 this.love = love;
             }
 
-            public Object getCity_ids() {
+            public String getCity_ids() {
                 return city_ids;
             }
 
-            public void setCity_ids(Object city_ids) {
+            public void setCity_ids(String city_ids) {
                 this.city_ids = city_ids;
             }
 
@@ -591,13 +523,6 @@ public class JobDetailEntity {
         }
 
         public static class JobListBean {
-            /**
-             * id : 885
-             * title : 简单任务，宅家赚钱
-             * price : 100元/天
-             * is_join : false
-             * browse_num : 805
-             */
 
             private String id;
             private String title;
@@ -687,33 +612,12 @@ public class JobDetailEntity {
         }
 
         public static class LoveBean {
-            /**
-             * id : 3437
-             * avatar :
-             * title : 操作简单，货源代发，直招微信店铺代理
-             * time : 长期
-             * city : null
-             * price : 350元/天
-             * sex : 男女不限
-             * company : 杭州万蚁网络科技有限公司
-             * tag :
-             * content : <p>工作内容：</p><p>每天宣传当季热销产品，推广本店产品，公司会帮你建立属于你的专属渠道店铺，实时更新淘宝全网秒杀优惠信息！自己买省钱，推荐好友用可以赚钱，无需货源，一件代发，全程托管。</p><p>职位描述：</p><p>任职后公司给予店铺经营权限；需负责自己店铺的订单情况，推广店铺商品即可！</p><p>任职要求：</p><p>1.居家宝妈：在照顾宝宝的同时不想与社会脱节，多一份收入</p><p>2.工作白领：想创业增加收入，实现财富自由</p><p>3.在校大学生，想勤工俭学，额外赚一份兼职的钱</p>
-             * method : 当天结算
-             * type : 1,4,5,6
-             * contact : WYKJ186,xty20200103,xiaowu980419
-             * contact_type : 1
-             * isfavourite : 0000
-             * order_number : 158
-             * desc : 杭州万蚁
-             * price1 : 350
-             * price2 : 元/天
-             */
 
             private String id;
             private String avatar;
             private String title;
             private String time;
-            private Object city;
+            private String city;
             private String price;
             private String sex;
             private String company;
@@ -770,11 +674,11 @@ public class JobDetailEntity {
                 this.time = time;
             }
 
-            public Object getCity() {
+            public String getCity() {
                 return city;
             }
 
-            public void setCity(Object city) {
+            public void setCity(String city) {
                 this.city = city;
             }
 

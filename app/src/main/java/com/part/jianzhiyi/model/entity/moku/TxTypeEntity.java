@@ -8,12 +8,6 @@ package com.part.jianzhiyi.model.entity.moku;
  */
 public class TxTypeEntity {
 
-    /**
-     * code : 200
-     * msg : ok
-     * data : {"ali_user_id":"","wechat_openid":null,"money":"100.00","tx_check":0,"tx_msg":"","ali":0,"wechat":0,"ali_switch":1,"wechat_switch":0,"ali_msg":"","wechat_msg":"微信提现暂未开启，尽情期待"}
-     */
-
     private String code;
     private String msg;
     private DataBean data;
@@ -43,19 +37,6 @@ public class TxTypeEntity {
     }
 
     public static class DataBean {
-        /**
-         * ali_user_id :
-         * wechat_openid : null
-         * money : 100.00
-         * tx_check : 0
-         * tx_msg :
-         * ali : 0
-         * wechat : 0
-         * ali_switch : 1
-         * wechat_switch : 0
-         * ali_msg :
-         * wechat_msg : 微信提现暂未开启，尽情期待
-         */
 
         private String ali_user_id;
         private String wechat_openid;

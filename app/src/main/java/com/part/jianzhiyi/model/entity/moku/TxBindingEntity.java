@@ -8,11 +8,6 @@ package com.part.jianzhiyi.model.entity.moku;
  */
 public class TxBindingEntity {
 
-    /**
-     * code : 202
-     * msg : token失效请重新授权
-     */
-
     private String code;
     private String msg;
 

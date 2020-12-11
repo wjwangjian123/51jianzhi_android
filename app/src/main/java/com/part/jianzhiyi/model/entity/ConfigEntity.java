@@ -10,12 +10,6 @@ import java.util.List;
  */
 public class ConfigEntity {
 
-    /**
-     * code : 200
-     * msg :
-     * data : {"id":"1","ymappkey":"5e8fe6c8570df31e39000106","code":"888888","appsecret":"a2P87zASKjGjjCbjJPm0DtcElQQOZq3tGDCcijGvfvgXFuuMl7g0Pjwq5gP9bX1AbS1 WSpehUCsga7AoNNbtAaVm0fko qIPqhnE3GFhWJdXaLjetYe4hcJEUiT/OrKlWhVfeCw20V4eoDCBJFYhQYqmh9RFC3CwZQtxr4oGZuXtgGzjeLc5gdaepzQyiTHIE2vmVUxWnykVwFQzqoWgABCdycTaxCE5tga/L05B6FgoOPStvEuuFpn6h3 bN4HL3UIMXx5Ez0 0k p3VGgTw==","start_content":"您好，因为报名的人点多，请添加我的联系方式~未及时回复请稍做等待","start_comm":"您好，我这可能有你感兴趣的职位。","content":[{"problem":"问题1","answer":"问题1答案"},{"problem":"问题2","answer":"问题2答案"},{"problem":"问题3","answer":"问题3答案"}]}
-     */
-
     private String code;
     private String msg;
     private DataBean data;
@@ -45,15 +39,6 @@ public class ConfigEntity {
     }
 
     public static class DataBean {
-        /**
-         * id : 1
-         * ymappkey : 5e8fe6c8570df31e39000106
-         * code : 888888
-         * appsecret : a2P87zASKjGjjCbjJPm0DtcElQQOZq3tGDCcijGvfvgXFuuMl7g0Pjwq5gP9bX1AbS1 WSpehUCsga7AoNNbtAaVm0fko qIPqhnE3GFhWJdXaLjetYe4hcJEUiT/OrKlWhVfeCw20V4eoDCBJFYhQYqmh9RFC3CwZQtxr4oGZuXtgGzjeLc5gdaepzQyiTHIE2vmVUxWnykVwFQzqoWgABCdycTaxCE5tga/L05B6FgoOPStvEuuFpn6h3 bN4HL3UIMXx5Ez0 0k p3VGgTw==
-         * start_content : 您好，因为报名的人点多，请添加我的联系方式~未及时回复请稍做等待
-         * start_comm : 您好，我这可能有你感兴趣的职位。
-         * content : [{"problem":"问题1","answer":"问题1答案"},{"problem":"问题2","answer":"问题2答案"},{"problem":"问题3","answer":"问题3答案"}]
-         */
 
         private String id;
         private String ymappkey;
@@ -174,10 +159,6 @@ public class ConfigEntity {
         }
 
         public static class ContentBean {
-            /**
-             * problem : 问题1
-             * answer : 问题1答案
-             */
 
             private String problem;
             private String answer;

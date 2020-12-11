@@ -8,12 +8,6 @@ package com.part.jianzhiyi.model.entity;
  */
 public class ActivityEntity {
 
-    /**
-     * code : 200
-     * msg :
-     * data : {"id":"1","image":"http://jxw-img.oss-cn-beijing.aliyuncs.com/LJZ/20200415/1586922190.png","title":"测试","create_time":"2020-06-09 16:16:47","update_time":null,"status":"1","backimg":"http://jxw-img.oss-cn-beijing.aliyuncs.com/LJZ/20200412/1586682495.png","type":"1"}
-     */
-
     private String code;
     private String msg;
     private DataBean data;
@@ -43,16 +37,6 @@ public class ActivityEntity {
     }
 
     public static class DataBean {
-        /**
-         * id : 1
-         * image : http://jxw-img.oss-cn-beijing.aliyuncs.com/LJZ/20200415/1586922190.png
-         * title : 测试
-         * create_time : 2020-06-09 16:16:47
-         * update_time : null
-         * status : 1
-         * backimg : http://jxw-img.oss-cn-beijing.aliyuncs.com/LJZ/20200412/1586682495.png
-         * type : 1
-         */
 
         private String id;
         private String image;

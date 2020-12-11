@@ -26,6 +26,7 @@ import com.part.jianzhiyi.corecommon.ui.ListViewInScrollView;
 import com.part.jianzhiyi.corecommon.utils.FrescoUtil;
 import com.part.jianzhiyi.corecommon.utils.SharedPrefUtils;
 import com.part.jianzhiyi.corecommon.utils.Tools;
+import com.part.jianzhiyi.customview.CenterLayoutManager;
 import com.part.jianzhiyi.loader.GlideImageLoader;
 import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.BannerEntity;
@@ -180,15 +181,62 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         mListToday.setAdapter(mTodayListAdapter);
         recommendAdapter = new HomeAdapter(getActivity(), recommendList);
         mListRecommend.setAdapter(recommendAdapter);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        mRecycleLabel.setLayoutManager(linearLayoutManager);
+
+        CenterLayoutManager centerLayoutManager = new CenterLayoutManager(getActivity());
+        centerLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        mRecycleLabel.setLayoutManager(centerLayoutManager);
         mHomeLableAdapter = new HomeLableAdapter(getActivity());
         mRecycleLabel.setAdapter(mHomeLableAdapter);
 
         mSmartRefresh.setEnableNestedScroll(true);//是否启用嵌套滚动
         mSmartRefresh.setEnableOverScrollBounce(true);//是否启用越界回弹
         PreferenceUUID.getInstence().putCity(mTvCity.getText().toString());
+        mHomeLableAdapter.setmOnItemClickListener(new HomeLableAdapter.OnRecyclerItemClickListener() {
+            @Override
+            public void onItemClick(int position, String id) {
+                if (position == 0) {
+                    MobclickAgent.onEvent(getActivity(), "home_lable_recommend");
+                    mPresenter.getaddMd("29");
+                }
+                if (position == 1) {
+                    MobclickAgent.onEvent(getActivity(), "home_lable_one");
+                    mPresenter.getaddMd("40");
+                }
+                if (position == 2) {
+                    MobclickAgent.onEvent(getActivity(), "home_lable_two");
+                    mPresenter.getaddMd("41");
+                }
+                if (position == 3) {
+                    MobclickAgent.onEvent(getActivity(), "home_lable_three");
+                    mPresenter.getaddMd("42");
+                }
+                if (position == 4) {
+                    MobclickAgent.onEvent(getActivity(), "home_lable_four");
+                    mPresenter.getaddMd("43");
+                }
+                int count = lableList.size();
+                for (int i = 0; i < count; i++) {
+                    if (position == i) {
+                        lableList.get(i).setSelect(1);
+                    } else {
+                        lableList.get(i).setSelect(0);
+                    }
+                }
+                centerLayoutManager.smoothScrollToPosition(mRecycleLabel, new RecyclerView.State(), position);
+                mHomeLableAdapter.setList(lableList);
+                if (position == 0) {
+                    recommendPage = Constants.PAGE_INDEX;
+                    lable = "0";
+                    position_recommend = Constants.POSITION_HOME_RECOMMEND;
+                    mPresenter.jobList(type_recommend, position_recommend, recommendPage, lable);
+                } else {
+                    recommendPage = Constants.PAGE_INDEX;
+                    lable = id;
+                    position_recommend = Constants.POSITION_HOME_LABLE;
+                    mPresenter.jobList("8", position_recommend, recommendPage, lable);
+                }
+            }
+        });
     }
 
     @Override
@@ -280,51 +328,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                 intent.putExtra("position", position_recommend);
                 intent.putExtra("sortId", "" + position);
                 startActivity(intent);
-            }
-        });
-        mHomeLableAdapter.setmOnItemClickListener(new HomeLableAdapter.OnRecyclerItemClickListener() {
-            @Override
-            public void onItemClick(int position, String id) {
-                if (position == 0) {
-                    MobclickAgent.onEvent(getActivity(), "home_lable_recommend");
-                    mPresenter.getaddMd("29");
-                }
-                if (position == 1) {
-                    MobclickAgent.onEvent(getActivity(), "home_lable_one");
-                    mPresenter.getaddMd("40");
-                }
-                if (position == 2) {
-                    MobclickAgent.onEvent(getActivity(), "home_lable_two");
-                    mPresenter.getaddMd("41");
-                }
-                if (position == 3) {
-                    MobclickAgent.onEvent(getActivity(), "home_lable_three");
-                    mPresenter.getaddMd("42");
-                }
-                if (position == 4) {
-                    MobclickAgent.onEvent(getActivity(), "home_lable_four");
-                    mPresenter.getaddMd("43");
-                }
-                int count = lableList.size();
-                for (int i = 0; i < count; i++) {
-                    if (position == i) {
-                        lableList.get(i).setSelect(1);
-                    } else {
-                        lableList.get(i).setSelect(0);
-                    }
-                }
-                mHomeLableAdapter.setList(lableList);
-                if (position == 0) {
-                    recommendPage = Constants.PAGE_INDEX;
-                    lable = "0";
-                    position_recommend = Constants.POSITION_HOME_RECOMMEND;
-                    mPresenter.jobList(type_recommend, position_recommend, recommendPage, lable);
-                } else {
-                    recommendPage = Constants.PAGE_INDEX;
-                    lable = id;
-                    position_recommend = Constants.POSITION_HOME_LABLE;
-                    mPresenter.jobList("8", position_recommend, recommendPage, lable);
-                }
             }
         });
         mSmartRefresh.setOnLoadMoreListener(new OnLoadMoreListener() {

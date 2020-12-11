@@ -10,13 +10,6 @@ import java.util.List;
  */
 public class MokuTaskListEntity {
 
-
-    /**
-     * code : 200
-     * msg :
-     * data : [{"id":"1","task_data_id":"123","user_id":"123","show_name":"ad","icon":"adsdsa","show_money":"0.10","desc":"das","reason":null,"status":"0","create_time":"2020-09-03 11:52:35","update_time":"2020-09-03 11:53:22","statusName":"审核中"}]
-     */
-
     private String code;
     private String msg;
     private List<DataBean> data;
@@ -46,20 +39,6 @@ public class MokuTaskListEntity {
     }
 
     public static class DataBean {
-        /**
-         * id : 1
-         * task_data_id : 123
-         * user_id : 123
-         * show_name : ad
-         * icon : adsdsa
-         * show_money : 0.10
-         * desc : das
-         * reason : null
-         * status : 0
-         * create_time : 2020-09-03 11:52:35
-         * update_time : 2020-09-03 11:53:22
-         * statusName : 审核中
-         */
 
         private String id;
         private String task_data_id;

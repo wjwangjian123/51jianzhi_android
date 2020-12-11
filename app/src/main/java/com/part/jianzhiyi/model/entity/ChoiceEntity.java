@@ -8,13 +8,6 @@ import java.util.List;
  **/
 public class ChoiceEntity {
 
-    /**
-     * weekly : [{"id":"594","avatar":"","title":"做任务赚佣金秒到账","time":"","city":"","price":"1元/单","sex":"不限","company":"杭州麦子汇网络技术有限公司","tag":"","content":"&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;下载app试玩，玩游戏赚钱，微信小程序等各种玩法&lt;br/&gt;发射卫星也有收益，三级卫星每月可领取30元&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;M币来源多多，可兑换超多超值好物&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;闲暇时刻轻松赚取零花钱，收益高、提现快，赶快邀请好友一起赚钱，赢取白富美，走上人生巅峰吧！&lt;/span&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;","method":"日结","type":"1","contact":"http://1t.click/b6Fm","contact_type":"4","isfavourite":null,"order_number":"242","desc":"麦子赚","price1":"1","price2":"元/单"}]
-     * xiaobian : [{"id":"604","avatar":"","title":"高薪日结！空闲时间兼职","time":"不限","city":"","price":"100元/日","sex":"男女不限","company":"增欲华兴（北京）科技有限公司","tag":"","content":"&lt;p style=&quot;margin-top: 0px; margin-bottom: 0px; caret-color: rgb(0, 0, 0); white-space: normal; text-size-adjust: auto; font-stretch: normal; font-size: 13px; line-height: normal; font-family: &amp;quot;Helvetica Neue&amp;quot;;&quot;&gt;&lt;span style=&quot;font-family: 宋体, SimSun; font-size: 16px;&quot;&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;;text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;white-space: normal; text-align: justify; font-family: Calibri; font-size: 14px;&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;报名成功后，请主动添加客服，了解工作内容，添加客服才算成功！&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;white-space: normal; text-align: justify; font-family: Calibri; font-size: 14px;&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;【工作待遇】&lt;/span&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;white-space: normal; text-align: justify; font-family: Calibri; font-size: 14px;&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;每天300--500不等。&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;white-space: normal; text-align: justify; font-family: Calibri; font-size: 14px;&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;有劳有得，多做多得！正规，安全，放心！&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;white-space: normal; text-align: justify; font-family: Calibri; font-size: 14px;&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;【工作内容】&lt;/span&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;white-space: normal; text-align: justify; font-family: Calibri; font-size: 14px;&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;在家手机可做，轻松赚钱，当时操作，及时收款；&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;white-space: normal; text-align: justify; font-family: Calibri; font-size: 14px;&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;无经验者可学，操作简单易学，专业导师带队，让你快速学会并开始获得收益；&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;white-space: normal; text-align: justify; font-family: Calibri; font-size: 14px;&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;想利用空闲时间兼职赚钱让生活变的更美好，就选择我们正规团队，带你轻松赚钱！&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;white-space: normal; text-align: justify; font-family: Calibri; font-size: 14px;&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;长期招聘，坚持长期做，月薪过万不是梦。&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;white-space: normal; text-align: justify; font-family: Calibri; font-size: 14px;&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;【适合人群】&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;white-space: normal; text-align: justify; font-family: Calibri; font-size: 14px;&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;本职位适合上班族，失业人员，宝妈，也欢迎有上进心、想赚钱的小伙伴&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;white-space: normal; text-align: justify; font-family: Calibri; font-size: 14px;&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;注：不招学生，学生勿扰，招聘22岁以上人员&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: justify; font-family: Calibri; font-size: 14px; white-space: normal;&quot;&gt;&lt;br/&gt;&lt;/p&gt;","method":"日结","type":"6","contact":"18048325313\r,13069814194\r,18147384002\r,18680379448\r,17747175401\r,18148265202\r,13069658243\r,13067534030\r,18131242613\r,18947968025","contact_type":"1","isfavourite":null,"order_number":"3","desc":"ass","price1":"100","price2":"元/日"}]
-     * choice : [{"id":"571","avatar":"","title":"在家躺赚！高薪日结小任务","time":"不限","city":"","price":"280元/天","sex":"不限","company":"深圳世纪宏源科技有限公司","tag":"","content":"&lt;p style=&quot;;text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;本招聘不接受未成年，低于20岁请误报名，否则不通过&lt;/span&gt;&lt;/p&gt;&lt;p&gt;成功添加客服为好友才算报名成功！&lt;br/&gt;&lt;/p&gt;&lt;p&gt;项目须知:&lt;/p&gt;&lt;p&gt;1：只需要一部手机，听一首歌的时间，即可操作。学习到团队的成功秘诀，即刻让你轻松赚到钱&lt;/p&gt;&lt;p&gt;2：有专业的团队带您学会操作流程，30分钟分钟轻松获得收益！&lt;/p&gt;&lt;p&gt;3:专业的团队研究精准的大数据所运算得出的可靠可行的规律，高明的导师一对一带你赚钱，买车买房！&lt;/p&gt;&lt;p&gt;4:跟着团队走，捷足先登，稳步前行!&lt;/p&gt;&lt;p&gt;特别通知： 不限工作地址，工作时间，只要你有业余时间。&lt;/p&gt;&lt;p style=&quot;margin-top: 0px; margin-bottom: 0px; font-stretch: normal; font-size: 13px; line-height: normal; font-family: &amp;quot;Helvetica Neue&amp;quot;;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 0px; margin-bottom: 0px; font-stretch: normal; font-size: 13px; line-height: normal; font-family: &amp;quot;Helvetica Neue&amp;quot;;&quot;&gt;&lt;br/&gt;&lt;/p&gt;","method":"日结","type":"4","contact":"84815356474,84816012039,84398097091,84398095306,84795990035,84398216894","contact_type":"1","isfavourite":null,"order_number":"49","desc":"lbx","price1":"280","price2":"元/天"}]
-     * advertising : {"id":"10","banner":"2","job_id":"696","image":"http://jxw-img.oss-cn-beijing.aliyuncs.com/LJZ/20200326/1585220484.png","type":"1","urls":"","app_id":"8","update_time":"2020-03-26 19:01:58","create_time":"0000-00-00 00:00:00","types":"2","advert_order":"2"}
-     */
-
     private AdvertisingBean advertising;
     private List<WeeklyBean> weekly;
     private List<XiaobianBean> xiaobian;
@@ -53,19 +46,6 @@ public class ChoiceEntity {
     }
 
     public static class AdvertisingBean {
-        /**
-         * id : 10
-         * banner : 2
-         * job_id : 696
-         * image : http://jxw-img.oss-cn-beijing.aliyuncs.com/LJZ/20200326/1585220484.png
-         * type : 1
-         * urls :
-         * app_id : 8
-         * update_time : 2020-03-26 19:01:58
-         * create_time : 0000-00-00 00:00:00
-         * types : 2
-         * advert_order : 2
-         */
 
         private String id;
         private String banner;
@@ -169,27 +149,6 @@ public class ChoiceEntity {
     }
 
     public static class WeeklyBean {
-        /**
-         * id : 594
-         * avatar :
-         * title : 做任务赚佣金秒到账
-         * time :
-         * city :
-         * price : 1元/单
-         * sex : 不限
-         * company : 杭州麦子汇网络技术有限公司
-         * tag :
-         * content : &lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;下载app试玩，玩游戏赚钱，微信小程序等各种玩法&lt;br/&gt;发射卫星也有收益，三级卫星每月可领取30元&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;M币来源多多，可兑换超多超值好物&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;闲暇时刻轻松赚取零花钱，收益高、提现快，赶快邀请好友一起赚钱，赢取白富美，走上人生巅峰吧！&lt;/span&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;
-         * method : 日结
-         * type : 1
-         * contact : http://1t.click/b6Fm
-         * contact_type : 4
-         * isfavourite : null
-         * order_number : 242
-         * desc : 麦子赚
-         * price1 : 1
-         * price2 : 元/单
-         */
 
         private String id;
         private String avatar;
@@ -205,7 +164,7 @@ public class ChoiceEntity {
         private String type;
         private String contact;
         private String contact_type;
-        private Object isfavourite;
+        private String isfavourite;
         private String order_number;
         private String desc;
         private String price1;
@@ -332,11 +291,11 @@ public class ChoiceEntity {
             this.contact_type = contact_type;
         }
 
-        public Object getIsfavourite() {
+        public String getIsfavourite() {
             return isfavourite;
         }
 
-        public void setIsfavourite(Object isfavourite) {
+        public void setIsfavourite(String isfavourite) {
             this.isfavourite = isfavourite;
         }
 
@@ -374,27 +333,6 @@ public class ChoiceEntity {
     }
 
     public static class XiaobianBean {
-        /**
-         * id : 604
-         * avatar :
-         * title : 高薪日结！空闲时间兼职
-         * time : 不限
-         * city :
-         * price : 100元/日
-         * sex : 男女不限
-         * company : 增欲华兴（北京）科技有限公司
-         * tag :
-         * content : &lt;p style=&quot;margin-top: 0px; margin-bottom: 0px; caret-color: rgb(0, 0, 0); white-space: normal; text-size-adjust: auto; font-stretch: normal; font-size: 13px; line-height: normal; font-family: &amp;quot;Helvetica Neue&amp;quot;;&quot;&gt;&lt;span style=&quot;font-family: 宋体, SimSun; font-size: 16px;&quot;&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;;text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;white-space: normal; text-align: justify; font-family: Calibri; font-size: 14px;&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;报名成功后，请主动添加客服，了解工作内容，添加客服才算成功！&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;white-space: normal; text-align: justify; font-family: Calibri; font-size: 14px;&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;【工作待遇】&lt;/span&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;white-space: normal; text-align: justify; font-family: Calibri; font-size: 14px;&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;每天300--500不等。&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;white-space: normal; text-align: justify; font-family: Calibri; font-size: 14px;&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;有劳有得，多做多得！正规，安全，放心！&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;white-space: normal; text-align: justify; font-family: Calibri; font-size: 14px;&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;【工作内容】&lt;/span&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;white-space: normal; text-align: justify; font-family: Calibri; font-size: 14px;&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;在家手机可做，轻松赚钱，当时操作，及时收款；&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;white-space: normal; text-align: justify; font-family: Calibri; font-size: 14px;&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;无经验者可学，操作简单易学，专业导师带队，让你快速学会并开始获得收益；&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;white-space: normal; text-align: justify; font-family: Calibri; font-size: 14px;&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;想利用空闲时间兼职赚钱让生活变的更美好，就选择我们正规团队，带你轻松赚钱！&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;white-space: normal; text-align: justify; font-family: Calibri; font-size: 14px;&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;长期招聘，坚持长期做，月薪过万不是梦。&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;white-space: normal; text-align: justify; font-family: Calibri; font-size: 14px;&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;【适合人群】&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;white-space: normal; text-align: justify; font-family: Calibri; font-size: 14px;&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;本职位适合上班族，失业人员，宝妈，也欢迎有上进心、想赚钱的小伙伴&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;white-space: normal; text-align: justify; font-family: Calibri; font-size: 14px;&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;注：不招学生，学生勿扰，招聘22岁以上人员&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: justify; font-family: Calibri; font-size: 14px; white-space: normal;&quot;&gt;&lt;br/&gt;&lt;/p&gt;
-         * method : 日结
-         * type : 6
-         * contact : 18048325313,13069814194,18147384002,18680379448,17747175401,18148265202,13069658243,13067534030,18131242613,18947968025
-         * contact_type : 1
-         * isfavourite : null
-         * order_number : 3
-         * desc : ass
-         * price1 : 100
-         * price2 : 元/日
-         */
 
         private String id;
         private String avatar;
@@ -410,7 +348,7 @@ public class ChoiceEntity {
         private String type;
         private String contact;
         private String contact_type;
-        private Object isfavourite;
+        private String isfavourite;
         private String order_number;
         private String desc;
         private String price1;
@@ -537,11 +475,11 @@ public class ChoiceEntity {
             this.contact_type = contact_type;
         }
 
-        public Object getIsfavourite() {
+        public String getIsfavourite() {
             return isfavourite;
         }
 
-        public void setIsfavourite(Object isfavourite) {
+        public void setIsfavourite(String isfavourite) {
             this.isfavourite = isfavourite;
         }
 
@@ -579,27 +517,6 @@ public class ChoiceEntity {
     }
 
     public static class ChoiceBean {
-        /**
-         * id : 571
-         * avatar :
-         * title : 在家躺赚！高薪日结小任务
-         * time : 不限
-         * city :
-         * price : 280元/天
-         * sex : 不限
-         * company : 深圳世纪宏源科技有限公司
-         * tag :
-         * content : &lt;p style=&quot;;text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal&quot;&gt;&lt;span style=&quot;font-family: 宋体; font-size: 16px;&quot;&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;本招聘不接受未成年，低于20岁请误报名，否则不通过&lt;/span&gt;&lt;/p&gt;&lt;p&gt;成功添加客服为好友才算报名成功！&lt;br/&gt;&lt;/p&gt;&lt;p&gt;项目须知:&lt;/p&gt;&lt;p&gt;1：只需要一部手机，听一首歌的时间，即可操作。学习到团队的成功秘诀，即刻让你轻松赚到钱&lt;/p&gt;&lt;p&gt;2：有专业的团队带您学会操作流程，30分钟分钟轻松获得收益！&lt;/p&gt;&lt;p&gt;3:专业的团队研究精准的大数据所运算得出的可靠可行的规律，高明的导师一对一带你赚钱，买车买房！&lt;/p&gt;&lt;p&gt;4:跟着团队走，捷足先登，稳步前行!&lt;/p&gt;&lt;p&gt;特别通知： 不限工作地址，工作时间，只要你有业余时间。&lt;/p&gt;&lt;p style=&quot;margin-top: 0px; margin-bottom: 0px; font-stretch: normal; font-size: 13px; line-height: normal; font-family: &amp;quot;Helvetica Neue&amp;quot;;&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 0px; margin-bottom: 0px; font-stretch: normal; font-size: 13px; line-height: normal; font-family: &amp;quot;Helvetica Neue&amp;quot;;&quot;&gt;&lt;br/&gt;&lt;/p&gt;
-         * method : 日结
-         * type : 4
-         * contact : 84815356474,84816012039,84398097091,84398095306,84795990035,84398216894
-         * contact_type : 1
-         * isfavourite : null
-         * order_number : 49
-         * desc : lbx
-         * price1 : 280
-         * price2 : 元/天
-         */
 
         private String id;
         private String avatar;
@@ -615,7 +532,7 @@ public class ChoiceEntity {
         private String type;
         private String contact;
         private String contact_type;
-        private Object isfavourite;
+        private String isfavourite;
         private String order_number;
         private String desc;
         private String price1;
@@ -758,11 +675,11 @@ public class ChoiceEntity {
             this.contact_type = contact_type;
         }
 
-        public Object getIsfavourite() {
+        public String getIsfavourite() {
             return isfavourite;
         }
 
-        public void setIsfavourite(Object isfavourite) {
+        public void setIsfavourite(String isfavourite) {
             this.isfavourite = isfavourite;
         }
 

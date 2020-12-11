@@ -10,12 +10,6 @@ import java.util.List;
  */
 public class MokuBillListEntity {
 
-    /**
-     * code : 200
-     * msg :
-     * data : [{"id":"2","user_id":"172","money":"1.5","type":"0","create_time":"2020-09-10 16:41:15","task_id":"0","icon":"","show_name":""},{"id":"1","user_id":"172","money":"1.5","type":"1","create_time":"2020-09-04 16:52:46","task_id":"2955","icon":"http://sdk-m-prod.oss-cn-shenzhen.aliyuncs.com/icon/961591666782810.png","show_name":"8.13新建测试任务-简单注册_1597290219614"}]
-     */
-
     private String code;
     private String msg;
     private List<DataBean> data;
@@ -45,16 +39,6 @@ public class MokuBillListEntity {
     }
 
     public static class DataBean {
-        /**
-         * id : 2
-         * user_id : 172
-         * money : 1.5
-         * type : 0
-         * create_time : 2020-09-10 16:41:15
-         * task_id : 0
-         * icon :
-         * show_name :
-         */
 
         private String id;
         private String user_id;

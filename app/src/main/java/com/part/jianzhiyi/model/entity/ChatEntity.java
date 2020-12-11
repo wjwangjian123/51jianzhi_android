@@ -57,6 +57,7 @@ public class ChatEntity {
     }
 
     public static class DataList implements Serializable {
+
         private int img;
         private String img1;
         private String msg1;
@@ -86,12 +87,6 @@ public class ChatEntity {
         }
     }
     public static class DataBean implements Serializable {
-        /**
-         * id : 594
-         * title : 做任务赚佣金秒到账
-         * contact_type : 4
-         * contact : http://1t.click/b6Fm
-         */
 
         private String id;
         private String title;

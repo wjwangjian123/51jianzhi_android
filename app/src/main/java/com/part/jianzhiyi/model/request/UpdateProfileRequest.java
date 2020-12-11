@@ -6,6 +6,7 @@ package com.part.jianzhiyi.model.request;
  * @vision:V1.0.1
  **/
 public class UpdateProfileRequest {
+
     private String username;
     private String user_id;
     private String signature;

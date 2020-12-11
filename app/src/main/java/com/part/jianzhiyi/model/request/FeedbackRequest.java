@@ -9,6 +9,7 @@ package com.part.jianzhiyi.model.request;
  * @modified by:shixinxin
  **/
 public class FeedbackRequest {
+
     private String userid;
     private String content;
     private String contact;

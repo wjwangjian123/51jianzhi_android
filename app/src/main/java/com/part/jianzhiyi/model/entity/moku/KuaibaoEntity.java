@@ -10,12 +10,6 @@ import java.util.List;
  */
 public class KuaibaoEntity {
 
-    /**
-     * code : 200
-     * msg :
-     * data : [{"user_id":"172","money":"1.5","phone":"158****4904"}]
-     */
-
     private String code;
     private String msg;
     private List<DataBean> data;
@@ -45,11 +39,6 @@ public class KuaibaoEntity {
     }
 
     public static class DataBean {
-        /**
-         * user_id : 172
-         * money : 1.5
-         * phone : 158****4904
-         */
 
         private String user_id;
         private String money;

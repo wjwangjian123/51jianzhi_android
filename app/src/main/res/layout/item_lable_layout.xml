@@ -3,20 +3,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginRight="@dimen/dimen_30"
+    android:layout_marginRight="2dp"
     android:orientation="vertical">
     <TextView
         android:id="@+id/tv_lable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingHorizontal="14dp"
+        android:paddingVertical="3dp"
         android:text="推荐"
         android:textSize="@dimen/font_15"
-        android:textColor="@color/color_292E3B"
-        android:textStyle="bold"/>
-    <ImageView
-        android:id="@+id/iv_lable_bg"
-        android:layout_width="@dimen/dimen_20"
-        android:layout_height="3dp"
-        android:src="@drawable/icon_home_lable_bg"
-        android:layout_marginTop="@dimen/dimen_1"/>
+        android:textColor="@color/lable_text"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="@drawable/selector_lable_bg"/>
 </LinearLayout>

@@ -7,6 +7,7 @@ package com.part.jianzhiyi.model.base;
  * @param <T>
  */
 public class ResponseData<T> {
+
     private String code;
     private String timestamp;
     private String toast;

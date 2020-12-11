@@ -6,21 +6,6 @@ package com.part.jianzhiyi.model.entity;
  **/
 public class BannerEntity {
 
-
-    /**
-     * id : 5
-     * banner : 1
-     * job_id : 635
-     * image : http://jxw-img.oss-cn-beijing.aliyuncs.com/LJZ/20200326/1585220600.jpg
-     * type : 1
-     * urls :
-     * app_id : 2
-     * update_time : 2020-03-26 19:03:23
-     * create_time : 0000-00-00 00:00:00
-     * types : 1
-     * advert_order : 1
-     */
-
     private String id;
     private String banner;
     private String job_id;

@@ -10,29 +10,6 @@ package com.part.jianzhiyi.model.entity;
  **/
 public class JobListResponseEntity {
 
-
-    /**
-     * id : 534
-     * avatar :
-     * title : 线上兼职，轻松赚钱，随时可做，及时收款
-     * time : 长期
-     * city :
-     * price : 300元/天
-     * sex : 男女不限
-     * company : 北京泰柏兴展营销策划有限公司
-     * tag :
-     * content : &lt;p style=&quot;margin-top: 0px; margin-bottom: 0px; white-space: normal; font-stretch: normal; font-size: 13px; line-height: normal; font-family: &amp;quot;Helvetica Neue&amp;quot;;&quot;&gt;&lt;span style=&quot;font-size: 16px; font-family: arial, helvetica, sans-serif;&quot;&gt;学生请勿报名（22岁以下勿扰），不加客服微信的，不要报名，添加完微信才算报名成功。&lt;/span&gt;&lt;br/&gt;&lt;/p&gt;&lt;p style=&quot;white-space: normal;&quot;&gt;一单一结，多劳多得，领取兼职任务，请添加客服&lt;/p&gt;&lt;p style=&quot;white-space: normal;&quot;&gt;1、一部手机即可操作&lt;/p&gt;&lt;p style=&quot;white-space: normal;&quot;&gt;2、不会包教，只要你操作即可，耐心操作每天轻松500+&lt;/p&gt;&lt;p style=&quot;white-space: normal;&quot;&gt;3、适合办公室白领、宝妈、上班族、待业人群等，都可加入，无需面试&lt;/p&gt;&lt;p style=&quot;white-space: normal;&quot;&gt;4、任务一单一结，每单300-500元不等，操作完成任务即可发放佣金&lt;/p&gt;&lt;p style=&quot;white-space: normal;&quot;&gt;5、不限地点，手机、电脑、平板皆可完成操作，时间自由，利用自己业余时间赚钱&lt;/p&gt;&lt;p style=&quot;margin-top: 0.2rem; margin-bottom: 0px; white-space: normal; padding: 0px; list-style: none; font-family: PingFangSC-Regular, sans-serif; line-height: 0.6rem; caret-color: rgb(102, 102, 102); color: rgb(102, 102, 102); font-size: 13.7513px; text-align: justify;&quot;&gt;&lt;strong style=&quot;margin: 0px; padding: 0px; list-style: none;&quot;&gt;&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-     * method : 日结
-     * type : 1
-     * contact : cheb19974146202
-     * contact_type : 1
-     * isfavourite : null
-     * order_number : 1
-     * desc : zym
-     * price1 : 300
-     * price2 : 元/天
-     */
-
     private String id;
     private String avatar;
     private String title;

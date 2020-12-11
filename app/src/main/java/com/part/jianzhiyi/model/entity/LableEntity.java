@@ -10,12 +10,6 @@ import java.util.List;
  */
 public class LableEntity {
 
-    /**
-     * code : 200
-     * msg : 请求成功
-     * data : [{"id":"1","title":"IT","pid":"0","create_time":"2020-06-05 15:12:25","update_time":null,"status":"1"},{"id":"2","title":"家政","pid":"0","create_time":"2020-06-05 15:12:51","update_time":null,"status":"0"}]
-     */
-
     private String code;
     private String msg;
     private List<DataBean> data;
@@ -45,14 +39,6 @@ public class LableEntity {
     }
 
     public static class DataBean {
-        /**
-         * id : 1
-         * title : IT
-         * pid : 0
-         * create_time : 2020-06-05 15:12:25
-         * update_time : null
-         * status : 1
-         */
 
         private String id;
         private String title;

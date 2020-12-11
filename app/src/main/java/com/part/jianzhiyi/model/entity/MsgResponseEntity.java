@@ -10,19 +10,11 @@ package com.part.jianzhiyi.model.entity;
  **/
 public class MsgResponseEntity {
 
-    /**
-     * id : 52
-     * user_id : 0
-     * create_time : 1541752187
-     * msg : 测试效果反馈
-     * app_id : null
-     */
-
     private String id;
     private String user_id;
     private String create_time;
     private String msg;
-    private Object app_id;
+    private String app_id;
     private String details;
 
     public String getId() {
@@ -57,11 +49,11 @@ public class MsgResponseEntity {
         this.msg = msg;
     }
 
-    public Object getApp_id() {
+    public String getApp_id() {
         return app_id;
     }
 
-    public void setApp_id(Object app_id) {
+    public void setApp_id(String app_id) {
         this.app_id = app_id;
     }
 

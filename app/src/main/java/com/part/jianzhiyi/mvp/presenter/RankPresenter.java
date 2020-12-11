@@ -29,7 +29,7 @@ public class RankPresenter extends BasePresenter<RankContract.IRankModel, RankCo
 
 
     public void getRankList(String type, String position,String label) {
-        mModel.jobList(type, position, 0,label)
+        mModel.jobList(type, position, 1,label)
                 .compose(schedulersTransformer(HttpAPI.LOADING_CUSTOM_TIME))
                 .subscribe(getResult(new ResultObserver<ResponseData<JobListResponseEntity2>>() {
                     @Override

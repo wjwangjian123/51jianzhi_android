@@ -9,6 +9,7 @@ package com.part.jianzhiyi.model.entity;
  * @modified by:shixinxin
  **/
 public class AddFavouriteResponseEntity {
+
     private String mes;
     private String contact;
 

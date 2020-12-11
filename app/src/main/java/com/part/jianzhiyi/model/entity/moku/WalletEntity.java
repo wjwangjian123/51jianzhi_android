@@ -8,12 +8,6 @@ package com.part.jianzhiyi.model.entity.moku;
  */
 public class WalletEntity {
 
-    /**
-     * code : 200
-     * msg :
-     * data : {"money":"0","allmoney":1.5}
-     */
-
     private String code;
     private String msg;
     private DataBean data;
@@ -43,10 +37,6 @@ public class WalletEntity {
     }
 
     public static class DataBean {
-        /**
-         * money : 0
-         * allmoney : 1.5
-         */
 
         private String money;
         private String allmoney;

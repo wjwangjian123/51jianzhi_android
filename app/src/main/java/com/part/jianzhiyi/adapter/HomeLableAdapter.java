@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.part.jianzhiyi.R;
@@ -51,9 +50,9 @@ public class HomeLableAdapter extends RecyclerView.Adapter<HomeLableAdapter.View
         if (mDatas != null && mDatas.size() > 0) {
             viewHolder.mTvLable.setText(mDatas.get(position).getTitle());
             if (mDatas.get(position).getSelect() == 0) {
-                viewHolder.mIvLableBg.setImageResource(R.color.color_ffffff);
-            }else if (mDatas.get(position).getSelect() == 1){
-                viewHolder.mIvLableBg.setImageResource(R.drawable.icon_home_lable_bg);
+                viewHolder.mTvLable.setSelected(false);
+            } else if (mDatas.get(position).getSelect() == 1) {
+                viewHolder.mTvLable.setSelected(true);
             }
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -63,6 +62,8 @@ public class HomeLableAdapter extends RecyclerView.Adapter<HomeLableAdapter.View
                     }
                 }
             });
+        }else {
+            onBindViewHolder(viewHolder, position);
         }
     }
 
@@ -74,12 +75,10 @@ public class HomeLableAdapter extends RecyclerView.Adapter<HomeLableAdapter.View
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTvLable;
-        private ImageView mIvLableBg;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mTvLable = (TextView) itemView.findViewById(R.id.tv_lable);
-            mIvLableBg = (ImageView) itemView.findViewById(R.id.iv_lable_bg);
         }
     }
 

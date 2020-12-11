@@ -2,23 +2,6 @@ package com.part.jianzhiyi.model.entity;
 
 public class IpResponseEntity {
 
-    /**
-     * status : success
-     * country : Hong Kong
-     * countryCode : HK
-     * region : KKC
-     * regionName : Kowloon City
-     * city : Tsimshatsui
-     * zip :
-     * lat : 22.2989
-     * lon : 114.174
-     * timezone : Asia/Hong_Kong
-     * isp : Cloud Valley Technology Limited
-     * org : Cvtl2
-     * as : AS136993 CLOUD VALLEY TECHNOLOGY LIMITED
-     * query : 103.69.155.91
-     */
-
     private String status;
     private String country;
     private String countryCode;
@@ -26,8 +9,8 @@ public class IpResponseEntity {
     private String regionName;
     private String city;
     private String zip;
-    private double lat;
-    private double lon;
+    private String lat;
+    private String lon;
     private String timezone;
     private String isp;
     private String org;
@@ -90,19 +73,19 @@ public class IpResponseEntity {
         this.zip = zip;
     }
 
-    public double getLat() {
+    public String getLat() {
         return lat;
     }
 
-    public void setLat(double lat) {
+    public void setLat(String lat) {
         this.lat = lat;
     }
 
-    public double getLon() {
+    public String getLon() {
         return lon;
     }
 
-    public void setLon(double lon) {
+    public void setLon(String lon) {
         this.lon = lon;
     }
 

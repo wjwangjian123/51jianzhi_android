@@ -8,12 +8,6 @@ package com.part.jianzhiyi.model.entity;
  */
 public class ChatJobInfoEntity {
 
-    /**
-     * code : 200
-     * msg : 请求成功
-     * data : {"id":"544","title":"礼仪、迎宾","price":"320元/天","time":"长期","method":"日结","place":"不限","sex":"不限","number":"20","content":"","price2":"元/天"}
-     */
-
     private String code;
     private String msg;
     private DataBean data;
@@ -43,18 +37,6 @@ public class ChatJobInfoEntity {
     }
 
     public static class DataBean {
-        /**
-         * id : 544
-         * title : 礼仪、迎宾
-         * price : 320元/天
-         * time : 长期
-         * method : 日结
-         * place : 不限
-         * sex : 不限
-         * number : 20
-         * content :
-         * price2 : 元/天
-         */
 
         private String id;
         private String title;

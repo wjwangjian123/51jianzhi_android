@@ -8,12 +8,6 @@ package com.part.jianzhiyi.model.entity;
  */
 public class NotificationEntity {
 
-    /**
-     * _ALIYUN_NOTIFICATION_ID_ : 885003
-     * job_id : 4586
-     * api_name : PushNoticeToAndroidRequest
-     */
-
     private String _ALIYUN_NOTIFICATION_ID_;
     private String job_id;
     private String api_name;

@@ -348,7 +348,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/iv_switch"
                         android:layout_marginLeft="@dimen/dimen_15"
-                        android:text="切换身份"
+                        android:text="切换到"
                         android:textColor="@color/color_333333"
                         android:textSize="@dimen/font_15"/>
                     <TextView

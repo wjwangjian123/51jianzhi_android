@@ -8,11 +8,6 @@ package com.part.jianzhiyi.model.entity;
  */
 public class ResumeEntity {
 
-    /**
-     * code : 200
-     * data : {"sex":"男","age":"19","profession":"2","job_status":"2","job_type":"3","showResume":false}
-     */
-
     private String msg;
     private String code;
     private DataBean data;
@@ -42,14 +37,6 @@ public class ResumeEntity {
     }
 
     public static class DataBean {
-        /**
-         * sex : 男
-         * age : 19
-         * profession : 2
-         * job_status : 2
-         * job_type : 3
-         * showResume : false
-         */
 
         private String sex;
         private String age;

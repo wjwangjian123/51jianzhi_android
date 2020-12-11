@@ -11,12 +11,6 @@ import java.util.List;
  */
 public class JoinJobEntity implements Serializable{
 
-    /**
-     * code : 200
-     * msg : 报名成功
-     * data : [{"id":"594","title":"做任务赚佣金秒到账","contact_type":"4","contact":"http://1t.click/b6Fm"},{"id":"885","title":"简单任务，宅家赚钱","contact_type":"1","contact":"RCdty34"}]
-     */
-
     private String code;
     private String msg;
     private List<DataBean> data;
@@ -46,12 +40,6 @@ public class JoinJobEntity implements Serializable{
     }
 
     public static class DataBean implements Serializable{
-        /**
-         * id : 594
-         * title : 做任务赚佣金秒到账
-         * contact_type : 4
-         * contact : http://1t.click/b6Fm
-         */
 
         private String id;
         private String title;

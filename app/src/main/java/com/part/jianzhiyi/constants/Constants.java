@@ -29,7 +29,7 @@ public class Constants {
     //美洽
     public static final String MEIQIA_KEY = "a3cc71037e800a8b68f2d70c58592520";
 
-    public static int PAGE_INDEX = 0;
+    public static int PAGE_INDEX = 1;
     public static int INFO_RESULT_CODE = 1220;//用于 修改信息返回的code
     public static String _INFO_EDIT_CONTENT = "infoEditContent";//用于表示 修改信息的二级页面 回传回来的 内容
 

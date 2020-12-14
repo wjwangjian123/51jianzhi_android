@@ -17,21 +17,22 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="商店理货员"
             android:textSize="@dimen/font_16"
             android:textColor="#33363C"
             android:textStyle="bold"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:layout_toLeftOf="@+id/tv_id"
             android:layout_alignParentLeft="true"/>
         <TextView
             android:id="@+id/tv_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ID：4761"
             android:textSize="@dimen/font_12"
             android:textColor="#FE954A"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/dimen_3"/>
+            android:layout_marginTop="@dimen/dimen_3"
+            android:layout_marginLeft="@dimen/dimen_10"/>
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"
@@ -49,7 +50,6 @@
             android:layout_marginTop="13dp"
             android:paddingHorizontal="11dp"
             android:paddingVertical="@dimen/dimen_5"
-            android:text="平台审核中：预计30分钟-2个工作日反馈结果"
             android:textSize="@dimen/font_12"
             android:textColor="#666B78"
             android:lineSpacingExtra="@dimen/dimen_3"

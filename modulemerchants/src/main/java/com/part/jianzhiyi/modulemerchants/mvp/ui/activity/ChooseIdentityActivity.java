@@ -60,17 +60,16 @@ public class ChooseIdentityActivity extends BaseActivity<ChoosePresenter> implem
         initToolbar("");
         type = getIntent().getIntExtra("type", 0);
         if (type == 0) {
-            selectType = 0;
-            mRlCandidates.setSelected(true);
-            mTvCandidates.setSelected(true);
-            mIvCandidatesBg.setVisibility(View.VISIBLE);
-        } else if (type == 1) {
             selectType = 1;
             mRlEnterprises.setSelected(true);
             mTvEnterprises.setSelected(true);
             mIvEnterprisesBg.setVisibility(View.VISIBLE);
+        } else if (type == 1) {
+            selectType = 0;
+            mRlCandidates.setSelected(true);
+            mTvCandidates.setSelected(true);
+            mIvCandidatesBg.setVisibility(View.VISIBLE);
         }
-
     }
 
     @Override
@@ -113,6 +112,7 @@ public class ChooseIdentityActivity extends BaseActivity<ChoosePresenter> implem
     }
 
     private long clickTime = 0;
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_swich) {
@@ -121,14 +121,17 @@ public class ChooseIdentityActivity extends BaseActivity<ChoosePresenter> implem
                 //切换身份
                 if (type == 0 && selectType == 0) {
                     //客户端切客户端
+                    mPresenter.getmdAdd("84");
                     ChooseIdentityActivity.this.finish();
                 }
                 if (type == 1 && selectType == 1) {
                     //商户端切商户端
+                    mPresenter.getmdAdd("86");
                     ChooseIdentityActivity.this.finish();
                 }
                 if (type == 0 && selectType == 1) {
                     //客户端切换商户端
+                    mPresenter.getmdAdd("85");
                     if (PreferenceUUID.getInstence().getUserPhone().equals("") || PreferenceUUID.getInstence().getUserPhone().equals(null)) {
                         showToast("手机号为空，请重新登录");
                         return;
@@ -137,12 +140,13 @@ public class ChooseIdentityActivity extends BaseActivity<ChoosePresenter> implem
                 }
                 if (type == 1 && selectType == 0) {
                     //商户端切换客户端
+                    mPresenter.getmdAdd("87");
                     ActivityUtils.removeAllActivity();
                     PreferenceUUID.getInstence().putStatus(0);
                     ARouter.getInstance().build("/app/activity/main").withInt("type", 1).navigation();
                     ChooseIdentityActivity.this.finish();
                 }
-            }else {
+            } else {
                 showToast("点击过于频繁请稍后再试");
             }
         }

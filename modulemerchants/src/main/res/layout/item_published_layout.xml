@@ -17,21 +17,22 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="商店理货员"
             android:textSize="@dimen/font_16"
             android:textColor="#33363C"
             android:textStyle="bold"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:layout_toLeftOf="@+id/tv_id"
             android:layout_alignParentLeft="true"/>
         <TextView
             android:id="@+id/tv_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ID：4761"
             android:textSize="@dimen/font_12"
             android:textColor="#FE954A"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/dimen_3"/>
+            android:layout_marginTop="@dimen/dimen_3"
+            android:layout_marginLeft="@dimen/dimen_10"/>
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"
@@ -57,7 +58,6 @@
                     android:id="@+id/tv_visitor_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="36"
                     android:textSize="@dimen/font_24"
                     android:textColor="#33363C"
                     android:lines="1"/>
@@ -82,7 +82,6 @@
                     android:id="@+id/tv_signup_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="9"
                     android:textSize="@dimen/font_24"
                     android:textColor="#33363C"
                     android:lines="1"/>
@@ -107,7 +106,6 @@
                     android:id="@+id/tv_copy_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="22"
                     android:textSize="@dimen/font_24"
                     android:textColor="#33363C"
                     android:lines="1"/>
@@ -160,13 +158,11 @@
             android:id="@+id/tv_status"
             android:layout_width="wrap_content"
             android:layout_height="27dp"
-            android:text="招聘中"
             android:textSize="@dimen/font_12"
             android:textColor="#FE954A"
             android:gravity="center"
             android:paddingHorizontal="13dp"
             android:layout_marginTop="@dimen/dimen_10"
-            android:drawableRight="@drawable/icon_mer_up"
             android:drawablePadding="@dimen/dimen_5"
             android:layout_below="@+id/view1"
             android:layout_alignParentLeft="true"

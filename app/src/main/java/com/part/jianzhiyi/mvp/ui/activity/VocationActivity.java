@@ -553,9 +553,15 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
             copy_type = 2;
             tvContract.setText(entity.getContactXing());
         }
-        if (!PreferenceUUID.getInstence().getUserId().equals(null) && !PreferenceUUID.getInstence().getUserId().equals("")) {
-            mPresenter.getAddIntegBrowse(PreferenceUUID.getInstence().getUserId(), 2, entity.getId());
-        }
+        mHandler = new Handler();
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (!PreferenceUUID.getInstence().getUserId().equals(null) && !PreferenceUUID.getInstence().getUserId().equals("")) {
+                    mPresenter.getAddIntegBrowse(PreferenceUUID.getInstence().getUserId(), 2, entity.getId());
+                }
+            }
+        }, 10000);
     }
 
     @Override

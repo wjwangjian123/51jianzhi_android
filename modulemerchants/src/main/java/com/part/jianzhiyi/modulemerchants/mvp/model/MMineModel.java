@@ -53,7 +53,7 @@ public class MMineModel implements MMineContract.IMMineModel {
         map.put("token", PreferenceUUID.getInstence().getToken());
         map.put("reason", reason);
         map.put("con", con);
-        if (phone != null && phone != "") {
+        if (!phone.isEmpty()) {
             map.put("phone", phone);
         }
         String paramsSerializeString = ParamsUtil.getParamsSerializeString(map);

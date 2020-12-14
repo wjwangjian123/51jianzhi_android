@@ -31,9 +31,9 @@
         android:orientation="vertical"
         android:gravity="center"
         android:layout_toLeftOf="@+id/main_ll_publish"
+        android:layout_alignParentLeft="true"
         android:layout_alignBottom="@+id/main_ll_publish"
-        android:paddingBottom="6dp"
-        android:layout_marginRight="78dp">
+        android:paddingBottom="6dp">
         <ImageView
             android:id="@+id/iv_home"
             android:layout_width="@dimen/dimen_20"
@@ -81,8 +81,8 @@
         android:gravity="center"
         android:layout_toRightOf="@+id/main_ll_publish"
         android:layout_alignBottom="@+id/main_ll_publish"
-        android:paddingBottom="6dp"
-        android:layout_marginLeft="78dp">
+        android:layout_alignParentRight="true"
+        android:paddingBottom="6dp">
         <ImageView
             android:id="@+id/iv_mine"
             android:layout_width="@dimen/dimen_20"

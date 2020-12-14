@@ -53,9 +53,7 @@ public class AuthModel implements AuthContract.IAuthModel {
         map.put("name", name);
         map.put("number", number);
         map.put("img_f", img_f);
-        if (company != null && company != "") {
-            map.put("company", company);
-        }
+        map.put("company", company);
         String paramsSerializeString = ParamsUtil.getParamsSerializeString(map);
         String sing = "baseApi!@#-";
         String string = sing + paramsSerializeString;

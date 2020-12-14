@@ -10,8 +10,8 @@ package com.part.jianzhiyi.constants;
  **/
 public class Constants {
 
-//    public static final String URI = "http://api.sw193.com/";
-    public static final String URI = "http://51testapi.sw193.com/";
+    public static final String URI = "http://api.sw193.com/";
+//    public static final String URI = "http://51testapi.sw193.com/";
 
     public static final String IP_URI = "http://ip-api.com/json/";
     public static final String HTML_URL = URI+"api/index/userPolicy";

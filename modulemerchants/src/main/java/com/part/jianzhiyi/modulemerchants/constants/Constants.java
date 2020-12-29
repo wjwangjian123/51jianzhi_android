@@ -11,9 +11,9 @@ package com.part.jianzhiyi.modulemerchants.constants;
 public class Constants {
 
     //正式
-//    public static final String URI = "http://bus.sw193.com/";
+    public static final String URI = "http://bus.sw193.com/";
     //测试
-    public static final String URI = "http://testbus.sw193.com/";
+//    public static final String URI = "http://testbus.sw193.com/";
 
     //协议
     public static final String HTML_AGREEMENT_URL = URI + "api/Agreement/index";

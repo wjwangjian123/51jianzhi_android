@@ -91,6 +91,7 @@ public class MerAuthHtmlActivity extends BaseActivity<MPublishPresenter> impleme
 
     private long clickTime = 0;
     private long clickTime1 = 0;
+
     @Override
     protected void setListener() {
         super.setListener();
@@ -104,7 +105,7 @@ public class MerAuthHtmlActivity extends BaseActivity<MPublishPresenter> impleme
                     intent.putExtra("type", 1);
                     startActivity(intent);
                     finish();
-                }else {
+                } else {
                     showToast("点击过于频繁请稍后再试");
                 }
             }
@@ -117,7 +118,7 @@ public class MerAuthHtmlActivity extends BaseActivity<MPublishPresenter> impleme
                     MobclickAgent.onEvent(MerAuthHtmlActivity.this, "mer_authhtml_agree");
                     //前去个人认证
                     mPresenter.getIsSing();
-                }else {
+                } else {
                     showToast("点击过于频繁请稍后再试");
                 }
             }
@@ -170,8 +171,7 @@ public class MerAuthHtmlActivity extends BaseActivity<MPublishPresenter> impleme
     @Override
     public void updategetIsSing(ResponseData responseData) {
         if (responseData.getCode().equals("200")) {
-            Intent intent = new Intent(MerAuthHtmlActivity.this, MerAuthActivity.class);
-            intent.putExtra("urlType", 0);
+            Intent intent = new Intent(MerAuthHtmlActivity.this, MerGuideAuthActivity.class);
             startActivity(intent);
             finish();
         }

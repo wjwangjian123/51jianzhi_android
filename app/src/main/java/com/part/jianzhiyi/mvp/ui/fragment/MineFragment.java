@@ -1,6 +1,11 @@
 package com.part.jianzhiyi.mvp.ui.fragment;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -12,20 +17,23 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.meiqia.core.MQManager;
+import com.meiqia.meiqiasdk.util.MQIntentBuilder;
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.base.BaseFragment;
 import com.part.jianzhiyi.corecommon.constants.IntentConstant;
 import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
-import com.part.jianzhiyi.customview.CircularProgressView;
 import com.part.jianzhiyi.dialog.SignDialog;
 import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.AddSignEntity;
 import com.part.jianzhiyi.model.entity.DaySignEntity;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
+import com.part.jianzhiyi.model.entity.integral.SignInfoEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
 import com.part.jianzhiyi.mvp.contract.user.MineContract;
 import com.part.jianzhiyi.mvp.presenter.mine.MinePresenter;
-import com.part.jianzhiyi.mvp.ui.activity.BusinessActivity;
+import com.part.jianzhiyi.mvp.ui.activity.IntegralActivity;
 import com.part.jianzhiyi.mvp.ui.activity.MineAboutActivity;
 import com.part.jianzhiyi.mvp.ui.activity.MineDeliveryActivity;
 import com.part.jianzhiyi.mvp.ui.activity.MineFavouriteActivity;
@@ -34,10 +42,15 @@ import com.part.jianzhiyi.mvp.ui.activity.MineSettingActivity;
 import com.part.jianzhiyi.mvp.ui.activity.MineUpdateProfileActivity;
 import com.part.jianzhiyi.mvp.ui.activity.MineUpdateResumeActivity;
 import com.part.jianzhiyi.mvp.ui.activity.MyWalletActivity;
-import com.part.jianzhiyi.mvp.ui.activity.SearchActivity;
+import com.part.jianzhiyi.utils.IntentUtils;
 import com.umeng.analytics.MobclickAgent;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 /**
  * Created by jyx on 2020/7/14
@@ -48,30 +61,29 @@ import androidx.annotation.Nullable;
 @Route(path = "/app/fragment/mine")
 public class MineFragment extends BaseFragment<MinePresenter> implements MineContract.IMineView, View.OnClickListener {
 
-    private LinearLayout mLlContent;
     private TextView mMineTvPhone;
     private ImageView mMineIvEdit;
     private TextView mMineTvAdvantage1;
     private TextView mMineTvAdvantage2;
     private TextView mMineTvAdvantage3;
-    private CircularProgressView mMineProgressCircular;
-    private TextView mMineTvActive;
+    private LinearLayout mMineLinearYue;
+    private TextView mMineTvMoney;
+    private LinearLayout mMineLinearIntegral;
+    private TextView mMineTvIntegral;
     private TextView mMineTvSign;
-    private LinearLayout mMineLinearSee;
-    private LinearLayout mTvJoined;
-    private LinearLayout mTvApproved;
-    private LinearLayout mTvDoned;
+    private LinearLayout mMineLlSee;
+    private LinearLayout mMineLlJoined;
+    private LinearLayout mMineLlApproved;
+    private LinearLayout mMineLlDoned;
     private RelativeLayout mRlInfo;
+    private RelativeLayout mRlSwitch;
     private RelativeLayout mRlFavourite;
-    private RelativeLayout mRlBusiness;
+    private RelativeLayout mRlService;
     private RelativeLayout mRlFeekback;
     private RelativeLayout mRlAbout;
     private RelativeLayout mRlSet;
-    private TextView mMineTvMoney;
-    private TextView mMineTvTixian;
-    private RelativeLayout mRlSwitch;
     private DaySignEntity mDaySignEntity;
-
+    private String username;
 
     @Override
     protected MinePresenter createPresenter() {
@@ -86,28 +98,27 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
     @Override
     protected void initView(View view) {
         super.initView(view);
-        mLlContent = view.findViewById(R.id.ll_content);
         mMineTvPhone = view.findViewById(R.id.mine_tv_phone);
         mMineIvEdit = view.findViewById(R.id.mine_iv_edit);
         mMineTvAdvantage1 = view.findViewById(R.id.mine_tv_advantage1);
         mMineTvAdvantage2 = view.findViewById(R.id.mine_tv_advantage2);
         mMineTvAdvantage3 = view.findViewById(R.id.mine_tv_advantage3);
-        mMineProgressCircular = view.findViewById(R.id.mine_progress_circular);
-        mMineTvActive = view.findViewById(R.id.mine_tv_active);
+        mMineLinearYue = view.findViewById(R.id.mine_linear_yue);
+        mMineTvMoney = view.findViewById(R.id.mine_tv_money);
+        mMineLinearIntegral = view.findViewById(R.id.mine_linear_integral);
+        mMineTvIntegral = view.findViewById(R.id.mine_tv_integral);
         mMineTvSign = view.findViewById(R.id.mine_tv_sign);
-        mMineLinearSee = view.findViewById(R.id.mine_linear_see);
-        mTvJoined = view.findViewById(R.id.tv_joined);
-        mTvApproved = view.findViewById(R.id.tv_approved);
-        mTvDoned = view.findViewById(R.id.tv_doned);
+        mMineLlSee = view.findViewById(R.id.mine_ll_see);
+        mMineLlJoined = view.findViewById(R.id.mine_ll_joined);
+        mMineLlApproved = view.findViewById(R.id.mine_ll_approved);
+        mMineLlDoned = view.findViewById(R.id.mine_ll_doned);
         mRlInfo = view.findViewById(R.id.rl_info);
+        mRlSwitch = view.findViewById(R.id.rl_switch);
         mRlFavourite = view.findViewById(R.id.rl_favourite);
-        mRlBusiness = view.findViewById(R.id.rl_business);
+        mRlService = view.findViewById(R.id.rl_service);
         mRlFeekback = view.findViewById(R.id.rl_feekback);
         mRlAbout = view.findViewById(R.id.rl_about);
         mRlSet = view.findViewById(R.id.rl_set);
-        mMineTvMoney = view.findViewById(R.id.mine_tv_money);
-        mMineTvTixian = view.findViewById(R.id.mine_tv_tixian);
-        mRlSwitch = view.findViewById(R.id.rl_switch);
         setToolbarVisible(false);
         if (mPresenter.isUserLogin()) {
             mMineTvPhone.setText(PreferenceUUID.getInstence().getUserPhone());
@@ -133,19 +144,20 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
     protected void setListener() {
         super.setListener();
         mMineIvEdit.setOnClickListener(this);
-        mMineLinearSee.setOnClickListener(this);
-        mTvJoined.setOnClickListener(this);
-        mTvApproved.setOnClickListener(this);
-        mTvDoned.setOnClickListener(this);
-
+        mMineLinearYue.setOnClickListener(this);
+        mMineLinearIntegral.setOnClickListener(this);
+        mMineLlSee.setOnClickListener(this);
+        mMineLlJoined.setOnClickListener(this);
+        mMineLlApproved.setOnClickListener(this);
+        mMineLlDoned.setOnClickListener(this);
         mRlInfo.setOnClickListener(this);
+        mRlSwitch.setOnClickListener(this);
         mRlFavourite.setOnClickListener(this);
-        mRlBusiness.setOnClickListener(this);
+
+        mRlService.setOnClickListener(this);
         mRlFeekback.setOnClickListener(this);
         mRlAbout.setOnClickListener(this);
         mRlSet.setOnClickListener(this);
-        mMineTvTixian.setOnClickListener(this);
-        mRlSwitch.setOnClickListener(this);
         mMineTvPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,6 +177,8 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
             }
         });
     }
+
+    private long clickTime = 0;
 
     @Override
     public void onClick(View v) {
@@ -188,11 +202,6 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
             Intent intent = new Intent(mActivity, MineFeekbackActivity.class);
             startActivityForResult(intent, IntentConstant.REQEUST_CODE);
         }
-        if (v.getId() == R.id.rl_business) {
-            MobclickAgent.onEvent(getActivity(), "mine_business");
-            Intent intent = new Intent(getActivity(), BusinessActivity.class);
-            startActivity(intent);
-        }
         if (v.getId() == R.id.rl_favourite) {
             MobclickAgent.onEvent(getActivity(), "mine_favourite");
             Intent intent = new Intent(getActivity(), MineFavouriteActivity.class);
@@ -209,41 +218,126 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
             Intent intent = new Intent(mActivity, MineUpdateProfileActivity.class);
             startActivityForResult(intent, IntentConstant.REQEUST_CODE);
         }
-        if (v.getId() == R.id.mine_linear_see) {
+        if (v.getId() == R.id.mine_ll_see) {
             MobclickAgent.onEvent(getActivity(), "mine_see");
             mPresenter.getaddMd("65");
             Intent intent = new Intent(getActivity(), MineDeliveryActivity.class);
             intent.putExtra("positionType", 1);
             startActivity(intent);
         }
-        if (v.getId() == R.id.tv_joined) {
+        if (v.getId() == R.id.mine_ll_joined) {
             MobclickAgent.onEvent(getActivity(), "mine_joined");
             mPresenter.getaddMd("66");
             Intent intent = new Intent(getActivity(), MineDeliveryActivity.class);
             intent.putExtra("positionType", 2);
             startActivity(intent);
         }
-        if (v.getId() == R.id.tv_approved) {
+        if (v.getId() == R.id.mine_ll_approved) {
             MobclickAgent.onEvent(getActivity(), "mine_approved");
             Intent intent = new Intent(getActivity(), MineDeliveryActivity.class);
             intent.putExtra("positionType", 3);
             startActivity(intent);
         }
-        if (v.getId() == R.id.tv_doned) {
+        if (v.getId() == R.id.mine_ll_doned) {
             MobclickAgent.onEvent(getActivity(), "mine_doned");
             Intent intent = new Intent(getActivity(), MineDeliveryActivity.class);
             intent.putExtra("positionType", 4);
             startActivity(intent);
         }
-        if (v.getId() == R.id.mine_tv_tixian) {
+        if (v.getId() == R.id.mine_linear_yue) {
             Intent intent = new Intent(getActivity(), MyWalletActivity.class);
             intent.putExtra("type", 0);
             startActivity(intent);
+        }
+        if (v.getId() == R.id.mine_linear_integral) {
+            if (!PreferenceUUID.getInstence().getUserId().equals(null) && !PreferenceUUID.getInstence().getUserId().equals("")) {
+                mPresenter.getAddInteg(PreferenceUUID.getInstence().getUserId(), 1, "0");
+            }
         }
         if (v.getId() == R.id.rl_switch) {
             MobclickAgent.onEvent(getActivity(), "mine_switch");
             mPresenter.getaddMd("68");
             ARouter.getInstance().build("/merchants/activity/choose").withInt("type", 0).navigation();
+        }
+        if (v.getId() == R.id.rl_service) {
+            if (System.currentTimeMillis() - clickTime > 3000) {
+                clickTime = System.currentTimeMillis();
+                //跳转到美洽客服
+                //联系客服
+                checkPermission();
+            } else {
+                showToast("点击过于频繁请稍后再试");
+            }
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    private void checkPermission() {
+        List<String> lackedPermission = new ArrayList<String>();
+        // 快手SDK所需相关权限，存储权限，此处配置作用于流量分配功能，关于流量分配，详情请咨询商务;如果您的APP不需要快手SDK的流量分配功能，则无需申请SD卡权限
+        if (!(getActivity().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
+            lackedPermission.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+        if (!(getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
+            lackedPermission.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        // 如果需要的权限都已经有了，那么直接调用SDK
+        if (lackedPermission.size() == 0) {
+            HashMap<String, String> clientInfo = new HashMap<>();
+            clientInfo.put("name", username);
+            clientInfo.put("tel", PreferenceUUID.getInstence().getUserPhone());
+            clientInfo.put("userId", PreferenceUUID.getInstence().getUserId());
+            clientInfo.put("身份", "用户");
+            HashMap<String, String> updateInfo = new HashMap<>();
+            updateInfo.put("name", username);
+            updateInfo.put("tel", PreferenceUUID.getInstence().getUserPhone());
+            updateInfo.put("userId", PreferenceUUID.getInstence().getUserId());
+            updateInfo.put("身份", "用户");
+            Intent intent = new MQIntentBuilder(getActivity())
+                    .setClientInfo(clientInfo)
+                    .updateClientInfo(updateInfo)
+                    .setCustomizedId(PreferenceUUID.getInstence().getUserId())
+                    .build();
+            startActivity(intent);
+        } else {
+            // 否则，建议请求所缺少的权限，在onRequestPermissionsResult中再看是否获得权限
+            String[] requestPermissions = new String[lackedPermission.size()];
+            lackedPermission.toArray(requestPermissions);
+            requestPermissions(requestPermissions, 1024);
+        }
+    }
+
+    private boolean hasAllPermissionsGranted(int[] grantResults) {
+        for (int grantResult : grantResults) {
+            if (grantResult == PackageManager.PERMISSION_DENIED) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        //以下代码为处理Android6.0、7.0动态权限所需
+        if (requestCode == 1024 && hasAllPermissionsGranted(grantResults)) {
+            HashMap<String, String> clientInfo = new HashMap<>();
+            clientInfo.put("name", username);
+            clientInfo.put("tel", PreferenceUUID.getInstence().getUserPhone());
+            clientInfo.put("userId", PreferenceUUID.getInstence().getUserId());
+            clientInfo.put("身份", "用户");
+            HashMap<String, String> updateInfo = new HashMap<>();
+            updateInfo.put("name", username);
+            updateInfo.put("tel", PreferenceUUID.getInstence().getUserPhone());
+            updateInfo.put("userId", PreferenceUUID.getInstence().getUserId());
+            updateInfo.put("身份", "用户");
+            Intent intent = new MQIntentBuilder(getActivity())
+                    .setClientInfo(clientInfo)
+                    .updateClientInfo(updateInfo)
+                    .setCustomizedId(PreferenceUUID.getInstence().getUserId())
+                    .build();
+            startActivity(intent);
         }
     }
 
@@ -260,9 +354,8 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
     public void updateUserInfoPer(UserInfoEntity userInfoEntity) {
         mPresenter.loadUserInfo();
         mMineTvMoney.setText(userInfoEntity.getData().getMoney() + "元");
-        int active = Integer.parseInt(userInfoEntity.getData().getResume_active());
-        mMineTvActive.setText(userInfoEntity.getData().getResume_active());
-        mMineProgressCircular.setProgress(active);
+        mMineTvIntegral.setText(userInfoEntity.getData().getIntegral());
+        username = userInfoEntity.getData().getUsername();
         if (userInfoEntity.getData().getMyitem().size() > 0) {
             mMineTvAdvantage1.setVisibility(View.VISIBLE);
             mMineTvAdvantage1.setText(userInfoEntity.getData().getMyitem().get(0).getItem());
@@ -285,9 +378,6 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
     @Override
     public void updateaddDaySign(AddSignEntity responseData) {
         if (responseData.getCode().equals("200")) {
-            int active = Integer.parseInt(responseData.getData().getResume());
-            mMineTvActive.setText(responseData.getData().getResume() + "");
-            mMineProgressCircular.setProgress(active);
             showToast(responseData.getMsg());
             SignDialog signDialog = new SignDialog(getActivity(), responseData.getData());
             signDialog.show();
@@ -305,6 +395,24 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
 
     @Override
     public void updategetaddMd(ResponseData responseData) {
+
+    }
+
+    @Override
+    public void updategetAddInteg(SignInfoEntity responseData) {
+        if (responseData != null) {
+            if (responseData.getCode().equals("200")) {
+                mPresenter.getaddMd("18");
+            }
+            Bundle bundle = new Bundle();
+            bundle.putString("code", responseData.getCode());
+            bundle.putSerializable("SignInfoEntity", responseData.getData());
+            IntentUtils.getInstence().intent(getActivity(), IntegralActivity.class, bundle);
+        }
+    }
+
+    @Override
+    public void updategetCheck(MCheckVersionEntity mCheckVersionEntity) {
 
     }
 
@@ -331,5 +439,11 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         super.onPause();
         MobclickAgent.onPageEnd("我的页面");
         MobclickAgent.onPause(getActivity());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MQManager.getInstance(getActivity()).closeMeiqiaService();
     }
 }

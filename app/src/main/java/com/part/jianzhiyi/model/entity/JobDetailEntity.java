@@ -120,6 +120,24 @@ public class JobDetailEntity {
             private int error_type;
             private boolean is_show;
             private int default_checknum;
+            private String join_meet;
+            private int is_company;
+
+            public int getIs_company() {
+                return is_company;
+            }
+
+            public void setIs_company(int is_company) {
+                this.is_company = is_company;
+            }
+
+            public String getJoin_meet() {
+                return join_meet;
+            }
+
+            public void setJoin_meet(String join_meet) {
+                this.join_meet = join_meet;
+            }
 
             public int getDefault_checknum() {
                 return default_checknum;

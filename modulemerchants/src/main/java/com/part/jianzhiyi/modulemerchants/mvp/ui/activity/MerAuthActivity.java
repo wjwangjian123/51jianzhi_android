@@ -16,6 +16,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -37,6 +38,7 @@ import com.part.jianzhiyi.modulemerchants.base.BaseActivity;
 import com.part.jianzhiyi.modulemerchants.loader.GlideRoundTransformUtil;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
 import com.part.jianzhiyi.modulemerchants.model.entity.MAuthInfoEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.MAuthSuccessEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MEnterpriseInfoEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MFileEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MGetEnterpriseInfoEntity;
@@ -62,21 +64,33 @@ import okhttp3.RequestBody;
 
 public class MerAuthActivity extends BaseActivity<AuthPresenter> implements AuthContract.IAuthView, TakePhoto.TakeResultListener, InvokeListener {
 
+    private ImageView mIvReturn;
+    private TextView mTvReason;
+    private View mViewReason;
+    private RelativeLayout mRlOne;
     private ImageView mIvPhotoOne;
+    private ImageView mIvCameraOne;
+    private TextView mTvUploadOne;
     private ImageView mIvSeeOne;
-    private TextView mTvPhotoOne;
+    private ImageView mIvCancelOne;
+    private RelativeLayout mRlTwo;
     private ImageView mIvPhotoTwo;
+    private ImageView mIvCameraTwo;
+    private TextView mTvUploadTwo;
     private ImageView mIvSeeTwo;
-    private TextView mTvPhotoTwo;
+    private ImageView mIvCancelTwo;
     private InputFilteEditText mTvAdminName;
     private InputFilteEditText mTvAdminId;
     private InputFilteEditText mTvAdminCompany;
     private TextView mTvNext;
-    private ImageView mIvReturn;
-    private TextView mTvReason;
-    private View mViewReason;
+
+    //type:1相册 2相机
     private int type = 1;
+    //photoType:1国徽面 2人像面
     private int photoType = 1;
+    //jumpType:1选择上传图片 2查看大图
+    private int jumpTypeOne = 1;
+    private int jumpTypeTwo = 1;
     private String imagePath;
     private String img_z;
     private String img_f;
@@ -95,19 +109,25 @@ public class MerAuthActivity extends BaseActivity<AuthPresenter> implements Auth
 
     @Override
     protected void initView() {
+        mIvReturn = (ImageView) findViewById(R.id.iv_return);
+        mTvReason = (TextView) findViewById(R.id.tv_reason);
+        mViewReason = (View) findViewById(R.id.view_reason);
+        mRlOne = (RelativeLayout) findViewById(R.id.rl_one);
         mIvPhotoOne = (ImageView) findViewById(R.id.iv_photo_one);
+        mIvCameraOne = (ImageView) findViewById(R.id.iv_camera_one);
+        mTvUploadOne = (TextView) findViewById(R.id.tv_upload_one);
         mIvSeeOne = (ImageView) findViewById(R.id.iv_see_one);
-        mTvPhotoOne = (TextView) findViewById(R.id.tv_photo_one);
+        mIvCancelOne = (ImageView) findViewById(R.id.iv_cancel_one);
+        mRlTwo = (RelativeLayout) findViewById(R.id.rl_two);
         mIvPhotoTwo = (ImageView) findViewById(R.id.iv_photo_two);
+        mIvCameraTwo = (ImageView) findViewById(R.id.iv_camera_two);
+        mTvUploadTwo = (TextView) findViewById(R.id.tv_upload_two);
         mIvSeeTwo = (ImageView) findViewById(R.id.iv_see_two);
-        mTvPhotoTwo = (TextView) findViewById(R.id.tv_photo_two);
+        mIvCancelTwo = (ImageView) findViewById(R.id.iv_cancel_two);
         mTvAdminName = (InputFilteEditText) findViewById(R.id.tv_admin_name);
         mTvAdminId = (InputFilteEditText) findViewById(R.id.tv_admin_id);
         mTvAdminCompany = (InputFilteEditText) findViewById(R.id.tv_admin_company);
         mTvNext = (TextView) findViewById(R.id.tv_next);
-        mIvReturn = (ImageView) findViewById(R.id.iv_return);
-        mTvReason = (TextView) findViewById(R.id.tv_reason);
-        mViewReason = (View) findViewById(R.id.view_reason);
         setToolBarVisible(false);
         setImmerseLayout(findViewById(R.id.rl_title));
     }
@@ -131,38 +151,58 @@ public class MerAuthActivity extends BaseActivity<AuthPresenter> implements Auth
                 initDialogTip();
             }
         });
-        mTvPhotoOne.setOnClickListener(new View.OnClickListener() {
+        mRlOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 photoType = 1;
-                //弹框选择
-                initDialogTakePhoto();
+                if (jumpTypeOne == 1) {
+                    //弹框选择上传图片
+                    initDialogTakePhoto();
+                } else if (jumpTypeOne == 2) {
+                    //点击查看大图
+                    Intent intent = new Intent(MerAuthActivity.this, MerPhotoViewActivity.class);
+                    intent.putExtra("imageUrl", img_f);
+                    startActivity(intent);
+                }
             }
         });
-        mTvPhotoTwo.setOnClickListener(new View.OnClickListener() {
+        mRlTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 photoType = 2;
-                //弹框选择
-                initDialogTakePhoto();
+                if (jumpTypeTwo == 1) {
+                    //弹框选择上传图片
+                    initDialogTakePhoto();
+                } else if (jumpTypeTwo == 2) {
+                    //点击查看大图
+                    Intent intent = new Intent(MerAuthActivity.this, MerPhotoViewActivity.class);
+                    intent.putExtra("imageUrl", img_z);
+                    startActivity(intent);
+                }
             }
         });
-        mIvSeeOne.setOnClickListener(new View.OnClickListener() {
+        mIvCancelOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //查看大图
-                Intent intent = new Intent(MerAuthActivity.this, MerPhotoViewActivity.class);
-                intent.putExtra("imageUrl", img_f);
-                startActivity(intent);
+                jumpTypeOne = 1;
+                img_f = "";
+                mIvCameraOne.setVisibility(View.VISIBLE);
+                mTvUploadOne.setVisibility(View.VISIBLE);
+                mIvSeeOne.setVisibility(View.GONE);
+                mIvCancelOne.setVisibility(View.GONE);
+                mIvPhotoOne.setImageResource(R.color.transparency);
             }
         });
-        mIvSeeTwo.setOnClickListener(new View.OnClickListener() {
+        mIvCancelTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //查看大图
-                Intent intent = new Intent(MerAuthActivity.this, MerPhotoViewActivity.class);
-                intent.putExtra("imageUrl", img_z);
-                startActivity(intent);
+                jumpTypeTwo = 1;
+                img_z = "";
+                mIvCameraTwo.setVisibility(View.VISIBLE);
+                mTvUploadTwo.setVisibility(View.VISIBLE);
+                mIvSeeTwo.setVisibility(View.GONE);
+                mIvCancelTwo.setVisibility(View.GONE);
+                mIvPhotoTwo.setImageResource(R.color.transparency);
             }
         });
         mTvNext.setOnClickListener(new View.OnClickListener() {
@@ -477,6 +517,39 @@ public class MerAuthActivity extends BaseActivity<AuthPresenter> implements Auth
         });
     }
 
+    private void initDialogDistinguish(String name, String id) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MerAuthActivity.this);
+        AlertDialog alertDialog = builder.create();
+        View inflate = LayoutInflater.from(MerAuthActivity.this).inflate(R.layout.dialog_tip_auth_distinguish, null, false);
+        alertDialog.setView(inflate);
+        TextView mTvName = (TextView) inflate.findViewById(R.id.tv_name);
+        TextView mTvId = (TextView) inflate.findViewById(R.id.tv_id);
+        TextView mTvFou = (TextView) inflate.findViewById(R.id.tv_fou);
+        TextView mTvFill = (TextView) inflate.findViewById(R.id.tv_fill);
+        alertDialog.getWindow().setBackgroundDrawableResource(R.color.transparency);
+        alertDialog.getWindow().setGravity(Gravity.CENTER);
+        alertDialog.setCancelable(false);
+        alertDialog.setCanceledOnTouchOutside(false);
+        //显示
+        alertDialog.show();
+        mTvName.setText(name);
+        mTvId.setText(id);
+        mTvFou.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        mTvFill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                mTvAdminName.setText(name);
+                mTvAdminId.setText(id);
+            }
+        });
+    }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
@@ -492,32 +565,47 @@ public class MerAuthActivity extends BaseActivity<AuthPresenter> implements Auth
             showToast(midPositiveEntity.getMsg());
             if (midPositiveEntity.getData() != null && midPositiveEntity.getData().getImg_z() != null && midPositiveEntity.getData().getImg_z() != "") {
                 img_z = midPositiveEntity.getData().getImg_z();
+                mIvCameraTwo.setVisibility(View.GONE);
+                mTvUploadTwo.setVisibility(View.GONE);
                 mIvSeeTwo.setVisibility(View.VISIBLE);
-                mTvPhotoTwo.setText("重新上传");
-                Glide.with(MerAuthActivity.this).load(midPositiveEntity.getData().getImg_z()).transform(new GlideRoundTransformUtil(MerAuthActivity.this, 5)).into(mIvPhotoTwo);
+                mIvCancelTwo.setVisibility(View.VISIBLE);
+                jumpTypeTwo = 2;
+                Glide.with(MerAuthActivity.this).load(midPositiveEntity.getData().getImg_z()).transform(new GlideRoundTransformUtil(MerAuthActivity.this, 2)).into(mIvPhotoTwo);
             }
             if (midPositiveEntity.getCode().equals("200")) {
-                mTvAdminName.setText(midPositiveEntity.getData().getName());
-                mTvAdminId.setText(midPositiveEntity.getData().getNumber());
+                if (midPositiveEntity.getData() != null && midPositiveEntity.getData().getName() != null && midPositiveEntity.getData().getName() != "" && midPositiveEntity.getData().getNumber() != null && midPositiveEntity.getData().getNumber() != "") {
+                    initDialogDistinguish(midPositiveEntity.getData().getName(), midPositiveEntity.getData().getNumber());
+                }
             }
         }
     }
 
     @Override
-    public void updategetCheckEnterprise(ResponseData responseData) {
+    public void updategetCheckEnterprise(MAuthSuccessEntity mAuthSuccessEntity) {
 
     }
 
     @Override
-    public void updategetNumidSuccess(ResponseData responseData) {
-        if (responseData != null) {
-            showToast(responseData.getMsg());
-            if (responseData.getCode().equals("200")) {
+    public void updategetNumidSuccess(MAuthSuccessEntity mAuthSuccessEntity) {
+        if (mAuthSuccessEntity != null) {
+            if (mAuthSuccessEntity.getCode().equals("200")) {
                 mPresenter.getmdAdd("75");
                 MobclickAgent.onEvent(MerAuthActivity.this, "mer_auth_success");
-                Intent intent = new Intent(MerAuthActivity.this, MerAuthSuccessActivity.class);
-                startActivity(intent);
-                finish();
+                if (mAuthSuccessEntity.getAudit_status() == 0) {
+                    //人工审核
+                    Intent intent = new Intent(MerAuthActivity.this, MerAuthSuccessActivity.class);
+                    intent.putExtra("type", 0);
+                    startActivity(intent);
+                    finish();
+                } else if (mAuthSuccessEntity.getAudit_status() == 1) {
+                    //审核通过
+                    Intent intent = new Intent(MerAuthActivity.this, MerAuthSuccessActivity.class);
+                    intent.putExtra("type", 1);
+                    startActivity(intent);
+                    finish();
+                }
+            }else {
+                showToast(mAuthSuccessEntity.getMsg());
             }
         }
     }
@@ -541,15 +629,23 @@ public class MerAuthActivity extends BaseActivity<AuthPresenter> implements Auth
                 mTvAdminName.setText(mAuthInfoEntity.getData().getName());
                 mTvAdminId.setText(mAuthInfoEntity.getData().getNumber());
                 mTvAdminCompany.setText(mAuthInfoEntity.getData().getCompany());
-                Glide.with(MerAuthActivity.this).load(mAuthInfoEntity.getData().getImg_f()).transform(new GlideRoundTransformUtil(MerAuthActivity.this, 5)).into(mIvPhotoOne);
-                Glide.with(MerAuthActivity.this).load(mAuthInfoEntity.getData().getImg_z()).transform(new GlideRoundTransformUtil(MerAuthActivity.this, 5)).into(mIvPhotoTwo);
-                if (!mAuthInfoEntity.getData().getImg_f().equals(null) && !mAuthInfoEntity.getData().getImg_f().equals("")) {
+                if (mAuthInfoEntity.getData() != null && !mAuthInfoEntity.getData().getImg_f().equals(null) && !mAuthInfoEntity.getData().getImg_f().equals("")) {
+                    Glide.with(MerAuthActivity.this).load(mAuthInfoEntity.getData().getImg_f()).transform(new GlideRoundTransformUtil(MerAuthActivity.this, 2)).into(mIvPhotoOne);
+                    mIvCameraOne.setVisibility(View.GONE);
+                    mTvUploadOne.setVisibility(View.GONE);
                     mIvSeeOne.setVisibility(View.VISIBLE);
+                    mIvCancelOne.setVisibility(View.VISIBLE);
+                    jumpTypeOne = 2;
                 }
-                if (!mAuthInfoEntity.getData().getImg_z().equals(null) && !mAuthInfoEntity.getData().getImg_z().equals("")) {
+                if (mAuthInfoEntity.getData() != null && !mAuthInfoEntity.getData().getImg_z().equals(null) && !mAuthInfoEntity.getData().getImg_z().equals("")) {
+                    Glide.with(MerAuthActivity.this).load(mAuthInfoEntity.getData().getImg_z()).transform(new GlideRoundTransformUtil(MerAuthActivity.this, 2)).into(mIvPhotoTwo);
+                    mIvCameraTwo.setVisibility(View.GONE);
+                    mTvUploadTwo.setVisibility(View.GONE);
                     mIvSeeTwo.setVisibility(View.VISIBLE);
+                    mIvCancelTwo.setVisibility(View.VISIBLE);
+                    jumpTypeTwo = 2;
                 }
-                if (mAuthInfoEntity.getData().getNumid_status() == 3) {
+                if (mAuthInfoEntity.getData() != null && mAuthInfoEntity.getData().getNumid_status() == 3) {
                     //审核失败
                     mTvReason.setVisibility(View.VISIBLE);
                     mViewReason.setVisibility(View.VISIBLE);
@@ -568,9 +664,12 @@ public class MerAuthActivity extends BaseActivity<AuthPresenter> implements Auth
             showToast(mFileEntity.getMsg());
             if (mFileEntity.getPath() != null && mFileEntity.getPath() != "") {
                 img_f = mFileEntity.getPath();
+                mIvCameraOne.setVisibility(View.GONE);
+                mTvUploadOne.setVisibility(View.GONE);
                 mIvSeeOne.setVisibility(View.VISIBLE);
-                mTvPhotoOne.setText("重新上传");
-                Glide.with(MerAuthActivity.this).load(mFileEntity.getPath()).transform(new GlideRoundTransformUtil(MerAuthActivity.this, 5)).into(mIvPhotoOne);
+                mIvCancelOne.setVisibility(View.VISIBLE);
+                jumpTypeOne = 2;
+                Glide.with(MerAuthActivity.this).load(mFileEntity.getPath()).transform(new GlideRoundTransformUtil(MerAuthActivity.this, 2)).into(mIvPhotoOne);
             }
         }
     }

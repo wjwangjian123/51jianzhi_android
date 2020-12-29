@@ -8,8 +8,8 @@ ext {
             applicationId    : "com.part.jianzhiyi",
             minSdkVersion    : 16,
             targetSdkVersion : 28,
-            versionCode      : 2,
-            versionName      : "2.0"
+            versionCode      : 4,
+            versionName      : "2.0.2"
     ]
 
     appId = ["app"            : "com.part.jianzhiyi",

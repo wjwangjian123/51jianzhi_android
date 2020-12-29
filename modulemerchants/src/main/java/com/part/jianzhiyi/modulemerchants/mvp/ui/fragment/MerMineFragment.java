@@ -27,12 +27,14 @@ import com.jph.takephoto.model.TResult;
 import com.jph.takephoto.permission.InvokeListener;
 import com.jph.takephoto.permission.PermissionManager;
 import com.jph.takephoto.permission.TakePhotoInvocationHandler;
+import com.meiqia.core.MQManager;
 import com.meiqia.meiqiasdk.util.MQIntentBuilder;
 import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.corecommon.utils.FrescoUtil;
 import com.part.jianzhiyi.modulemerchants.R;
 import com.part.jianzhiyi.modulemerchants.base.BaseFragment;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
+import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MUserInfoEntity;
 import com.part.jianzhiyi.modulemerchants.mvp.contract.MMineContract;
 import com.part.jianzhiyi.modulemerchants.mvp.presenter.MMinePresenter;
@@ -51,6 +53,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -85,6 +88,8 @@ public class MerMineFragment extends BaseFragment<MMinePresenter> implements MMi
     private String url;
     private String company;
     private int isSing;
+    private String avatar;
+    private String username;
 
     @Override
     protected void initView(View view) {
@@ -150,9 +155,6 @@ public class MerMineFragment extends BaseFragment<MMinePresenter> implements MMi
                             startActivity(intent);
                         }
                     }
-                    if (mcertStatus == 1) {
-                        //个人认证审核中不做任何操作
-                    }
                     if (mcertStatus == 2) {
                         //前去企业认证
                         mPresenter.getmdAdd("77");
@@ -176,9 +178,6 @@ public class MerMineFragment extends BaseFragment<MMinePresenter> implements MMi
                         intent.putExtra("url", url);
                         intent.putExtra("company", company);
                         startActivity(intent);
-                    }
-                    if (mcertStatus == 5) {
-                        //企业认证中不做任何操作
                     }
                     if (mcertStatus == 6) {
                         //跳转到我的企业
@@ -354,7 +353,23 @@ public class MerMineFragment extends BaseFragment<MMinePresenter> implements MMi
         }
         // 如果需要的权限都已经有了，那么直接调用SDK
         if (lackedPermission.size() == 0) {
-            Intent intent = new MQIntentBuilder(getActivity()).build();
+            HashMap<String, String> clientInfo = new HashMap<>();
+            clientInfo.put("name", username);
+            clientInfo.put("avatar", avatar);
+            clientInfo.put("tel", PreferenceUUID.getInstence().getUserPhone());
+            clientInfo.put("userId", PreferenceUUID.getInstence().getUserId());
+            clientInfo.put("身份", "商户");
+            HashMap<String, String> updateInfo = new HashMap<>();
+            updateInfo.put("name", username);
+            updateInfo.put("avatar", avatar);
+            updateInfo.put("tel", PreferenceUUID.getInstence().getUserPhone());
+            updateInfo.put("userId", PreferenceUUID.getInstence().getUserId());
+            updateInfo.put("身份", "商户");
+            Intent intent = new MQIntentBuilder(getActivity())
+                    .setClientInfo(clientInfo)
+                    .updateClientInfo(updateInfo)
+                    .setCustomizedId(PreferenceUUID.getInstence().getUserId())
+                    .build();
             startActivity(intent);
         } else {
             // 否则，建议请求所缺少的权限，在onRequestPermissionsResult中再看是否获得权限
@@ -408,7 +423,23 @@ public class MerMineFragment extends BaseFragment<MMinePresenter> implements MMi
                 showToast("请开启必要权限");
             }
         } else if (requestCode == 1024 && hasAllPermissionsGranted(grantResults)) {
-            Intent intent = new MQIntentBuilder(getActivity()).build();
+            HashMap<String, String> clientInfo = new HashMap<>();
+            clientInfo.put("name", username);
+            clientInfo.put("avatar", avatar);
+            clientInfo.put("tel", PreferenceUUID.getInstence().getUserPhone());
+            clientInfo.put("userId", PreferenceUUID.getInstence().getUserId());
+            clientInfo.put("身份", "商户");
+            HashMap<String, String> updateInfo = new HashMap<>();
+            updateInfo.put("name", username);
+            updateInfo.put("avatar", avatar);
+            updateInfo.put("tel", PreferenceUUID.getInstence().getUserPhone());
+            updateInfo.put("userId", PreferenceUUID.getInstence().getUserId());
+            updateInfo.put("身份", "商户");
+            Intent intent = new MQIntentBuilder(getActivity())
+                    .setClientInfo(clientInfo)
+                    .updateClientInfo(updateInfo)
+                    .setCustomizedId(PreferenceUUID.getInstence().getUserId())
+                    .build();
             startActivity(intent);
         } else {
             PermissionManager.TPermissionType type = PermissionManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -542,6 +573,8 @@ public class MerMineFragment extends BaseFragment<MMinePresenter> implements MMi
             company = mUserInfoEntity.getUserinfo().getCompany();
             mcertStatus = mUserInfoEntity.getUserinfo().getCert_status();
             mMineTvId.setText("ID：" + mUserInfoEntity.getUserinfo().getId());
+            avatar = mUserInfoEntity.getUserinfo().getImg();
+            username = mUserInfoEntity.getUserinfo().getName();
             if (!mUserInfoEntity.getUserinfo().getName().equals(null) && !mUserInfoEntity.getUserinfo().getName().equals("")) {
                 mMineTvPhone.setText(mUserInfoEntity.getUserinfo().getName());
             } else {
@@ -579,9 +612,20 @@ public class MerMineFragment extends BaseFragment<MMinePresenter> implements MMi
     }
 
     @Override
+    public void updategetCheck(MCheckVersionEntity mCheckVersionEntity) {
+
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
         MobclickAgent.onPageEnd("商户端我的页面");
         MobclickAgent.onPause(getActivity());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MQManager.getInstance(getActivity()).closeMeiqiaService();
     }
 }

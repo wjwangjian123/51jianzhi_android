@@ -69,7 +69,9 @@ public class SplashActivity extends BaseActivity<MineUpdateResumePresenter> impl
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
-        mPresenter.userInfo(PreferenceUUID.getInstence().getUserId());
+        if (PreferenceUUID.getInstence().getUserId() != null && PreferenceUUID.getInstence().getUserId() != "") {
+            mPresenter.userInfo(PreferenceUUID.getInstence().getUserId());
+        }
     }
 
     @Override
@@ -377,25 +379,31 @@ public class SplashActivity extends BaseActivity<MineUpdateResumePresenter> impl
                     //如果是跳转到简历模板
                     if (currentTime < dayTime) {
                         PreferenceUUID.getInstence().putCurrentTime(millis);
-                        if (userInfoEntity.getData().getAge() == null || userInfoEntity.getData().getAge() == "" ||
-                                userInfoEntity.getData().getSex() == null || userInfoEntity.getData().getSex() == "" ||
-                                userInfoEntity.getData().getProfession() == null || userInfoEntity.getData().getProfession() == "") {
-                            Intent intent = new Intent(SplashActivity.this, ResumeActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("ToResume", 1);
-                            bundle.putInt("errorType", 1);
-                            intent.putExtras(bundle);
-                            SplashActivity.this.startActivity(intent);
-                        } else if (userInfoEntity.getData().getJob_status() == null || userInfoEntity.getData().getJob_status() == "" ||
-                                userInfoEntity.getData().getJob_type() == null || userInfoEntity.getData().getJob_type() == "") {
-                            Intent intent = new Intent(SplashActivity.this, MyStatusActivity.class);
-                            startActivity(intent);
-                        } else if (userInfoEntity.getData().getMyitem().size() == 0) {
-                            Intent intent = new Intent(SplashActivity.this, AboutMineActivity.class);
-                            startActivity(intent);
-                        } else if (userInfoEntity.getData().getExpect().size() == 0) {
-                            Intent intent = new Intent(SplashActivity.this, ExpectPositionActivity.class);
-                            startActivity(intent);
+                        if (userInfoEntity != null && userInfoEntity.getData() != null) {
+                            if (userInfoEntity.getData().getAge() == null || userInfoEntity.getData().getAge() == "" ||
+                                    userInfoEntity.getData().getSex() == null || userInfoEntity.getData().getSex() == "" ||
+                                    userInfoEntity.getData().getProfession() == null || userInfoEntity.getData().getProfession() == "") {
+                                Intent intent = new Intent(SplashActivity.this, ResumeActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putInt("ToResume", 1);
+                                bundle.putInt("errorType", 1);
+                                intent.putExtras(bundle);
+                                SplashActivity.this.startActivity(intent);
+                            } else if (userInfoEntity.getData().getJob_status() == null || userInfoEntity.getData().getJob_status() == "" ||
+                                    userInfoEntity.getData().getJob_type() == null || userInfoEntity.getData().getJob_type() == "") {
+                                Intent intent = new Intent(SplashActivity.this, MyStatusActivity.class);
+                                startActivity(intent);
+                            } else if (userInfoEntity.getData().getMyitem().size() == 0) {
+                                Intent intent = new Intent(SplashActivity.this, AboutMineActivity.class);
+                                startActivity(intent);
+                            } else if (userInfoEntity.getData().getExpect().size() == 0) {
+                                Intent intent = new Intent(SplashActivity.this, ExpectPositionActivity.class);
+                                startActivity(intent);
+                            } else {
+                                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                                intent.putExtra("type", 1);
+                                startActivity(intent);
+                            }
                         } else {
                             Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                             intent.putExtra("type", 1);

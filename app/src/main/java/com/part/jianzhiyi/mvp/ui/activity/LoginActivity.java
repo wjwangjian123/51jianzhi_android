@@ -90,7 +90,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             Bundle extras = getIntent().getExtras();
             a = extras.getInt("ToLogin");
         }
-        mLoginCk.setChecked(true);
+        mLoginCk.setChecked(false);
     }
 
     @Override

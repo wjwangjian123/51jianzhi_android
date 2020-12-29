@@ -7,36 +7,37 @@
     <ImageView
         android:id="@+id/dialog_version_img"
         android:layout_width="match_parent"
-        android:layout_height="118dp"
+        android:layout_height="122dp"
         android:src="@drawable/icon_main_version"
-        android:scaleType="centerCrop"/>
+        android:scaleType="fitXY"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@drawable/shape_version_bg_white"
-        android:paddingTop="13dp"
+        android:paddingTop="16dp"
         android:layout_below="@+id/dialog_version_img">
         <TextView
             android:id="@+id/dialog_version_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/color_333333"
-            android:textSize="@dimen/font_16"
+            android:textColor="#343129"
+            android:textSize="@dimen/font_20"
             android:layout_marginHorizontal="22dp"/>
         <TextView
             android:id="@+id/dialog_version_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/color_999999"
+            android:textColor="#343129"
             android:textSize="@dimen/font_12"
-            android:layout_marginTop="@dimen/dimen_10"
+            android:lineSpacingExtra="9dp"
+            android:layout_marginTop="@dimen/dimen_15"
             android:layout_marginHorizontal="22dp"/>
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_1"
-            android:background="@color/color_EEEEEE"
-            android:layout_marginTop="@dimen/dimen_20"/>
+            android:layout_height="0.5dp"
+            android:background="#E7ECF5"
+            android:layout_marginTop="34dp"/>
         <LinearLayout
             android:id="@+id/dialog_version_bottom"
             android:layout_width="match_parent"
@@ -51,11 +52,12 @@
                 android:gravity="center"
                 android:text="残忍拒绝"
                 android:textColor="#D1D1D1"
-                android:textSize="13sp"/>
+                android:textSize="16sp"/>
             <View
-                android:layout_width="@dimen/dimen_1"
+                android:id="@+id/view"
+                android:layout_width="0.5dp"
                 android:layout_height="47dp"
-                android:background="@color/color_EEEEEE"/>
+                android:background="#E7ECF5"/>
             <TextView
                 android:id="@+id/dialog_tv_update"
                 android:layout_width="0dp"
@@ -64,8 +66,7 @@
                 android:gravity="center"
                 android:text="立即升级"
                 android:textColor="#FD9133"
-                android:textSize="@dimen/font_14"
-                android:layout_marginLeft="13dp"/>
+                android:textSize="16sp"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

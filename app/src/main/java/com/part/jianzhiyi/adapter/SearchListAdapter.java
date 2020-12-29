@@ -3,10 +3,10 @@ package com.part.jianzhiyi.adapter;
 import android.content.Context;
 import android.widget.TextView;
 
-import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.corecommon.base.adapter.CustomBaseAdapter;
 import com.part.jianzhiyi.corecommon.base.adapter.ViewHolder;
-import com.part.jianzhiyi.model.entity.SearchEntity;
+import com.part.jianzhiyi.modulemerchants.R;
+import com.part.jianzhiyi.modulemerchants.model.entity.SearchEntity;
 
 import java.util.List;
 

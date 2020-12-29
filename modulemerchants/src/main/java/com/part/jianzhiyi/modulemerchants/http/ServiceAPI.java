@@ -3,7 +3,10 @@ package com.part.jianzhiyi.modulemerchants.http;
 
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
 import com.part.jianzhiyi.modulemerchants.model.entity.MAuthInfoEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.MAuthSuccessEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MBannerEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.MCompanyInfoEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MEnterpriseInfoEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MFileEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MGetEnterpriseInfoEntity;
@@ -230,7 +233,7 @@ public interface ServiceAPI {
      * @return
      */
     @POST("api/check/check_enterprise")
-    Observable<ResponseData> getCheckEnterprise(@Body RequestBody requestBody);
+    Observable<MAuthSuccessEntity> getCheckEnterprise(@Body RequestBody requestBody);
 
     /**
      * 个人认证提交
@@ -239,7 +242,7 @@ public interface ServiceAPI {
      */
     @FormUrlEncoded
     @POST("api/check/numid_success")
-    Observable<ResponseData> getNumidSuccess(@HeaderMap Map<String, String> headers, @Field("token") String token, @Field("img_z") String img_z, @Field("name") String name, @Field("number") String number, @Field("img_f") String img_f, @Field("company") String company);
+    Observable<MAuthSuccessEntity> getNumidSuccess(@HeaderMap Map<String, String> headers, @Field("token") String token, @Field("img_z") String img_z, @Field("name") String name, @Field("number") String number, @Field("img_f") String img_f, @Field("company") String company);
 
     /**
      * 企业图片上传
@@ -283,5 +286,31 @@ public interface ServiceAPI {
     @POST("Api/Login/mdAdd")
     Observable<ResponseData> getmdAdd(@HeaderMap Map<String, String> headers, @Field("type") String type, @Field("token") String token);
 
+    /**
+     * 用户端埋点
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("http://51testapi.sw193.com/Api/Md/addMd")
+    Observable<ResponseData> getaddMd(@Field("type") String type, @Field("os") String os);
+
+    /**
+     * 获取版本号
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("http://51testapi.sw193.com/api/version/check")
+    Observable<MCheckVersionEntity> getCheck(@Field("os") String os, @Field("app_id") String app_id);
+
+    /**
+     * 公司详情页
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("user/business/get_company_info")
+    Observable<MCompanyInfoEntity> getCompanyInfo(@HeaderMap Map<String, String> headers, @Field("uid") String uid, @Field("job_id") String job_id, @Field("user_id") String user_id, @Field("appid") String appid);
 
 }

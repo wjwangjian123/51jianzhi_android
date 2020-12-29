@@ -21,6 +21,7 @@ public class HtmlIntegralActivity extends BaseActivity {
 
     private ProgressWebView mWebView;
     private String murl;
+    private String title;
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
@@ -36,7 +37,8 @@ public class HtmlIntegralActivity extends BaseActivity {
     protected void initView() {
         mWebView = (ProgressWebView) findViewById(R.id.webView);
         murl = getIntent().getStringExtra("url");
-        initToolbar("积分商城");
+        title = getIntent().getStringExtra("title");
+        initToolbar(title);
     }
 
     @Override

@@ -13,6 +13,10 @@ import android.widget.ListView;
  */
 public class ListViewInScrollView extends ListView {
 
+    public ListViewInScrollView(Context context) {
+        super(context);
+    }
+
     public ListViewInScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }

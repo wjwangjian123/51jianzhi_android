@@ -83,9 +83,6 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.chenlittleping:recyclercoverflow:1.0.6'
     implementation 'org.greenrobot:greendao:3.2.2' // 添加库
-    //版本升级
-    implementation 'com.qianwen:update-app:3.5.2'
-    implementation 'com.qianwen:okhttp-utils:3.8.0'
 
     implementation 'com.amap.api:location:4.9.0'
     implementation files('libs/du.jar')

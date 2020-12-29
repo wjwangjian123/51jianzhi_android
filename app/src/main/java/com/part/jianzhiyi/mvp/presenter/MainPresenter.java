@@ -9,7 +9,10 @@ import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.ActJobListEntity;
 import com.part.jianzhiyi.model.entity.ActivityEntity;
 import com.part.jianzhiyi.model.entity.ConfigEntity;
+import com.part.jianzhiyi.model.entity.DelUserEntity;
 import com.part.jianzhiyi.model.entity.IpResponseEntity;
+import com.part.jianzhiyi.model.entity.integral.SignInfoEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
 import com.part.jianzhiyi.mvp.contract.MainContract;
 import com.part.jianzhiyi.mvp.model.MainModel;
 
@@ -97,6 +100,55 @@ public class MainPresenter extends BasePresenter<MainContract.IMainModel, MainCo
                         if (TextUtils.equals(responseData.getCode(), HttpAPI.REQUEST_SUCCESS)) {
                             if (isAttach()) {
                                 weakReferenceView.get().updategetaddMd(responseData);
+                            }
+                        }
+                    }
+                }));
+    }
+
+    public void getAddInteg(String user_id, int type, String job_id) {
+        mModel.getAddInteg(user_id, type, job_id)
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<SignInfoEntity>() {
+                    @Override
+                    public void onNext(SignInfoEntity entity) {
+                        if (TextUtils.equals(entity.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetAddInteg(entity);
+                            }
+                        }else {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetAddInteg(entity);
+                            }
+                        }
+                    }
+                }));
+    }
+
+    public void getCheck() {
+        mModel.getCheck()
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<MCheckVersionEntity>() {
+                    @Override
+                    public void onNext(MCheckVersionEntity mCheckVersionEntity) {
+                        if (TextUtils.equals(mCheckVersionEntity.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetCheck(mCheckVersionEntity);
+                            }
+                        }
+                    }
+                }));
+    }
+
+    public void getIsDel() {
+        mModel.getIsDel()
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<DelUserEntity>() {
+                    @Override
+                    public void onNext(DelUserEntity delUserEntity) {
+                        if (TextUtils.equals(delUserEntity.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetIsDel(delUserEntity);
                             }
                         }
                     }

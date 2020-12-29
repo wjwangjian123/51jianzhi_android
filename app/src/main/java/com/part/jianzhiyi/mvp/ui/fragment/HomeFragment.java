@@ -1,19 +1,25 @@
 package com.part.jianzhiyi.mvp.ui.fragment;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.android.material.appbar.AppBarLayout;
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.adapter.HomeAdapter;
 import com.part.jianzhiyi.adapter.HomeLableAdapter;
@@ -27,23 +33,31 @@ import com.part.jianzhiyi.corecommon.utils.FrescoUtil;
 import com.part.jianzhiyi.corecommon.utils.SharedPrefUtils;
 import com.part.jianzhiyi.corecommon.utils.Tools;
 import com.part.jianzhiyi.customview.CenterLayoutManager;
+import com.part.jianzhiyi.customview.SpeedScroller;
 import com.part.jianzhiyi.loader.GlideImageLoader;
 import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.BannerEntity;
 import com.part.jianzhiyi.model.entity.CategoryEntity;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity2;
 import com.part.jianzhiyi.model.entity.LableEntity;
-import com.part.jianzhiyi.model.entity.SearchEntity;
 import com.part.jianzhiyi.model.entity.integral.SignEntity;
 import com.part.jianzhiyi.model.entity.integral.SignInfoEntity;
+import com.part.jianzhiyi.modulemerchants.adapter.MerHomeListAdapter;
+import com.part.jianzhiyi.modulemerchants.customview.MyViewpager;
+import com.part.jianzhiyi.modulemerchants.model.entity.SearchEntity;
 import com.part.jianzhiyi.mvp.contract.HomeContract;
 import com.part.jianzhiyi.mvp.presenter.HomePresenter;
+import com.part.jianzhiyi.mvp.ui.activity.ActionListActivity;
 import com.part.jianzhiyi.mvp.ui.activity.CityActivity;
 import com.part.jianzhiyi.mvp.ui.activity.HomeVocationListActivity;
 import com.part.jianzhiyi.mvp.ui.activity.HtmlActivity;
+import com.part.jianzhiyi.mvp.ui.activity.HtmlIntegralActivity;
 import com.part.jianzhiyi.mvp.ui.activity.IntegralActivity;
 import com.part.jianzhiyi.mvp.ui.activity.LoginActivity;
+import com.part.jianzhiyi.mvp.ui.activity.MineDeliveryActivity;
+import com.part.jianzhiyi.mvp.ui.activity.MineUpdateResumeActivity;
 import com.part.jianzhiyi.mvp.ui.activity.SearchActivity;
+import com.part.jianzhiyi.mvp.ui.activity.SeeMineActivity;
 import com.part.jianzhiyi.mvp.ui.activity.VocationActivity;
 import com.part.jianzhiyi.utils.IntentUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -54,13 +68,17 @@ import com.umeng.analytics.MobclickAgent;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.annotation.RequiresApi;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * Created by jyx on 2020/7/14
@@ -81,7 +99,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     private LinearLayout mLlGold;
     private LinearLayout mLlReliable;
     private ListViewInScrollView mListToday;
-    private ListViewInScrollView mListRecommend;
+    //    private ListViewInScrollView mListRecommend;
     private SmartRefreshLayout mSmartRefresh;
     private ImageView mIvSalary;
     private TextView mTvSalary;
@@ -100,13 +118,21 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     private List<CategoryEntity> categoryEntityList;
     private List<SearchEntity.DataBean> searchList;
     private List<LableEntity.DataBean> lableList;
-    private List<JobListResponseEntity2.DataBean> recommendList;
+//    private List<JobListResponseEntity2.DataBean> recommendList;
 
     private TodayListAdapter mTodayListAdapter;
     private HomeLableAdapter mHomeLableAdapter;
-    private HomeAdapter recommendAdapter;
+    //    private HomeAdapter recommendAdapter;
     private int recommendPage = Constants.PAGE_INDEX;
     private String lable = "0";
+    private MyViewpager mViewpager;
+    private List<LinearLayout> mListView;
+    private MerHomeListAdapter mMerHomeListAdapter;
+    private List<HomeAdapter> mHomeAdapters;
+    private List<List<JobListResponseEntity2.DataBean>> mLists;
+    private int mposition = 0;
+    private int mType = 0;
+    private AppBarLayout mAppbar;
 
     @Override
     protected HomePresenter createPresenter() {
@@ -118,6 +144,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         return R.layout.fragment_home;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void initView(View view) {
         super.initView(view);
@@ -132,7 +159,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         mLlReliable = view.findViewById(R.id.ll_reliable);
         mListToday = view.findViewById(R.id.list_today);
         mRecycleLabel = view.findViewById(R.id.recycle_label);
-        mListRecommend = view.findViewById(R.id.list_recommend);
+//        mListRecommend = view.findViewById(R.id.list_recommend);
         mIvSalary = view.findViewById(R.id.iv_salary);
         mTvSalary = view.findViewById(R.id.tv_salary);
         mIvSpeed = view.findViewById(R.id.iv_speed);
@@ -143,6 +170,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         mTvReliable = view.findViewById(R.id.tv_reliable);
         mHomeIvYin = view.findViewById(R.id.home_iv_yin);
         mHomeIvSign = view.findViewById(R.id.home_iv_sign);
+        mViewpager = view.findViewById(R.id.viewpager);
+        mAppbar = view.findViewById(R.id.appbar);
 
         setToolbarVisible(false);
         mActivity.setImmerseLayout(view.findViewById(R.id.home_rl_title));
@@ -157,7 +186,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     }
 
     public interface BtnClickListener {
-        void onTabClick();
+        void onTabClick(int type);
     }
 
     @Override
@@ -166,7 +195,10 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         categoryEntityList = new ArrayList<>();
         searchList = new ArrayList<>();
         lableList = new ArrayList<>();
-        recommendList = new ArrayList<>();
+//        recommendList = new ArrayList<>();
+        mListView = new ArrayList<>();
+        mHomeAdapters = new ArrayList<>();
+        mLists = new ArrayList<>();
 
         mPresenter.getBanner();
         mPresenter.getCategory();
@@ -174,13 +206,10 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         mPresenter.getHomeLabel();
         //兼职推荐
         mSmartRefresh.setEnableAutoLoadMore(false);
-        position_recommend = Constants.POSITION_HOME_RECOMMEND;
-        mPresenter.jobList(type_recommend, position_recommend, recommendPage, lable);
 
         mTodayListAdapter = new TodayListAdapter(getActivity(), searchList);
         mListToday.setAdapter(mTodayListAdapter);
-        recommendAdapter = new HomeAdapter(getActivity(), recommendList);
-        mListRecommend.setAdapter(recommendAdapter);
+//        recommendAdapter = new HomeAdapter(getActivity(), recommendList);
 
         CenterLayoutManager centerLayoutManager = new CenterLayoutManager(getActivity());
         centerLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
@@ -214,6 +243,43 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                     MobclickAgent.onEvent(getActivity(), "home_lable_four");
                     mPresenter.getaddMd("43");
                 }
+                mViewpager.setCurrentItem(position);
+                CoordinatorLayout.Behavior behavior =
+                        ((CoordinatorLayout.LayoutParams) mAppbar
+                                .getLayoutParams())
+                                .getBehavior();
+                if (behavior instanceof AppBarLayout.Behavior) {
+                    AppBarLayout.Behavior appBarLayoutBehavior = (AppBarLayout
+                            .Behavior) behavior;
+                    int hight = mAppbar.getHeight();
+                    // 滑动 计算的高度
+                    appBarLayoutBehavior.setTopAndBottomOffset(-hight);
+                }
+
+            }
+        });
+        mMerHomeListAdapter = new MerHomeListAdapter();
+        mViewpager.setAdapter(mMerHomeListAdapter);
+        mViewpager.setCurrentItem(0);
+        try {
+            Field field = ViewPager.class.getDeclaredField("mScroller");
+            field.setAccessible(true);
+            SpeedScroller scroller = new SpeedScroller(mViewpager.getContext(),
+                    new AccelerateInterpolator());
+            field.set(mViewpager, scroller);
+            scroller.setmDuration(300);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        mViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mposition = position;
                 int count = lableList.size();
                 for (int i = 0; i < count; i++) {
                     if (position == i) {
@@ -231,10 +297,15 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                     mPresenter.jobList(type_recommend, position_recommend, recommendPage, lable);
                 } else {
                     recommendPage = Constants.PAGE_INDEX;
-                    lable = id;
+                    lable = lableList.get(position).getId();
                     position_recommend = Constants.POSITION_HOME_LABLE;
                     mPresenter.jobList("8", position_recommend, recommendPage, lable);
                 }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
             }
         });
     }
@@ -273,63 +344,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                 startActivity(intent);
             }
         });
-        //适配器 接口回调
-        //兼职推荐
-        mListRecommend.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (recommendList.get(position).getUiType() == 1) {
-                    return;
-                }
-                if (lable.equals("0")){
-                    if (position == 0) {
-                        MobclickAgent.onEvent(getActivity(), "home_recommend_one");
-                        mPresenter.getaddMd("30");
-                    }
-                    if (position == 1) {
-                        MobclickAgent.onEvent(getActivity(), "home_recommend_two");
-                        mPresenter.getaddMd("31");
-                    }
-                    if (position == 2) {
-                        MobclickAgent.onEvent(getActivity(), "home_recommend_three");
-                        mPresenter.getaddMd("32");
-                    }
-                    if (position == 4) {
-                        MobclickAgent.onEvent(getActivity(), "home_recommend_four");
-                        mPresenter.getaddMd("33");
-                    }
-                    if (position == 5) {
-                        MobclickAgent.onEvent(getActivity(), "home_recommend_five");
-                        mPresenter.getaddMd("34");
-                    }
-                    if (position == 6) {
-                        MobclickAgent.onEvent(getActivity(), "home_recommend_six");
-                        mPresenter.getaddMd("35");
-                    }
-                    if (position == 7) {
-                        MobclickAgent.onEvent(getActivity(), "home_recommend_seven");
-                        mPresenter.getaddMd("36");
-                    }
-                    if (position == 8) {
-                        MobclickAgent.onEvent(getActivity(), "home_recommend_eight");
-                        mPresenter.getaddMd("37");
-                    }
-                    if (position == 9) {
-                        MobclickAgent.onEvent(getActivity(), "home_recommend_nine");
-                        mPresenter.getaddMd("38");
-                    }
-                    if (position == 10) {
-                        MobclickAgent.onEvent(getActivity(), "home_recommend_ten");
-                        mPresenter.getaddMd("39");
-                    }
-                }
-                Intent intent = new Intent(getActivity(), VocationActivity.class);
-                intent.putExtra("id", recommendList.get(position).getId());
-                intent.putExtra("position", position_recommend);
-                intent.putExtra("sortId", "" + position);
-                startActivity(intent);
-            }
-        });
         mSmartRefresh.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
@@ -347,13 +361,17 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 recommendPage = Constants.PAGE_INDEX;
-                lable = "0";
-                position_recommend = Constants.POSITION_HOME_RECOMMEND;
-                mPresenter.jobList(type_recommend, position_recommend, recommendPage, lable);
+                if (lable.equals("0")) {
+                    position_recommend = Constants.POSITION_HOME_RECOMMEND;
+                    mPresenter.jobList(type_recommend, position_recommend, recommendPage, lable);
+                } else {
+                    position_recommend = Constants.POSITION_HOME_LABLE;
+                    mPresenter.jobList("8", position_recommend, recommendPage, lable);
+                }
                 mPresenter.getBanner();
                 mPresenter.getCategory();
                 mPresenter.search("", "");
-                mPresenter.getHomeLabel();
+//                mPresenter.getHomeLabel();
                 Log.i(TAG, "首页刷新了数据，推荐页码：" + recommendPage);
             }
         });
@@ -374,17 +392,19 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                     return;
                 } else {
                     String type = bannerList.get(position).getType();
-                    if (type != null) {
+                    if (type != null && type != "") {
                         if (type.equals("1")) {
+                            //职位详情
                             Intent intent = new Intent(getActivity(), VocationActivity.class);
                             intent.putExtra("id", bannerList.get(position).getJob_id());
                             intent.putExtra("position", Constants.POSITION_BANNER);
                             intent.putExtra("sortId", "" + position);
                             startActivity(intent);
                         } else if (type.equals("2")) {
+                            //跳转链接
                             int url_redirect = bannerList.get(position).getUrl_redirect();
                             String urls = bannerList.get(position).getUrls();
-                            if (!TextUtils.isEmpty(urls)) {
+                            if (urls != null && urls != "") {
                                 if (url_redirect == 1) {
                                     Intent intent = new Intent();
                                     intent.setAction("android.intent.action.VIEW");
@@ -399,6 +419,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                                 }
                             }
                         } else if (type.equals("3")) {
+                            //爱变现
                             String imei;
                             if (Tools.getIMEI(getActivity()) != null) {
                                 imei = Tools.getIMEI(getActivity());
@@ -406,6 +427,65 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                             } else if (PreferenceUUID.getInstence().getOaid() != null) {
                                 imei = PreferenceUUID.getInstence().getOaid();
                                 mPresenter.getBannerUrl(imei);
+                            }
+                        } else if (type.equals("4")) {
+                            //职位列表
+                            Intent intent = new Intent(getActivity(), ActionListActivity.class);
+                            intent.putExtra("id", "");
+                            intent.putExtra("type", "0");
+                            startActivity(intent);
+                        } else if (type.equals("5")) {
+                            //橙券活动
+                            String urls = bannerList.get(position).getUrls();
+                            if (urls != null && urls != "") {
+                                Intent intent = new Intent(getActivity(), HtmlIntegralActivity.class);
+                                intent.putExtra("url", urls);
+                                intent.putExtra("title", "");
+                                startActivity(intent);
+                            }
+                        } else if (type.equals("6")) {
+                            //活动页面
+                            String urls = bannerList.get(position).getUrls();
+                            if (urls != null && urls != "") {
+                                Intent intent = new Intent(getActivity(), HtmlActivity.class);
+                                intent.putExtra(IntentConstant.HTML_URL, urls);
+                                intent.putExtra("title", "");
+                                startActivity(intent);
+                            }
+                        } else if (type.equals("7")) {
+                            //积分页面
+                            if (PreferenceUUID.getInstence().getUserId() != null && PreferenceUUID.getInstence().getUserId() != "") {
+                                mPresenter.getAddInteg(PreferenceUUID.getInstence().getUserId(), 1, "0");
+                            }
+                        } else if (type.equals("8")) {
+                            //我的简历页面
+                            Intent intent = new Intent(getActivity(), MineUpdateResumeActivity.class);
+                            startActivity(intent);
+                        } else if (type.equals("9")) {
+                            //切换身份页面
+                            ARouter.getInstance().build("/merchants/activity/choose").withInt("type", 0).navigation();
+                        } else if (type.equals("10")) {
+                            //被查看列表
+                            Intent intent = new Intent(getActivity(), MineDeliveryActivity.class);
+                            intent.putExtra("positionType", 1);
+                            startActivity(intent);
+                        } else if (type.equals("11")) {
+                            //消息列表
+                            if (mBtnClickListener != null) {
+                                mBtnClickListener.onTabClick(2);
+                            }
+                        } else if (type.equals("12")) {
+                            //看过我列表
+                            Intent intent = new Intent(getActivity(), SeeMineActivity.class);
+                            startActivity(intent);
+                        } else if (type.equals("13")) {
+                            //城市选择页面
+                            Intent intent = new Intent(getActivity(), CityActivity.class);
+                            startActivityForResult(intent, 1001);
+                        } else if (type.equals("14")) {
+                            //精选页面
+                            if (mBtnClickListener != null) {
+                                mBtnClickListener.onTabClick(3);
                             }
                         }
                     }
@@ -432,7 +512,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             }
             if (categoryEntityList.get(0).getRdtype().equals("0")) {
                 if (mBtnClickListener != null) {
-                    mBtnClickListener.onTabClick();
+                    mBtnClickListener.onTabClick(1);
                 }
             } else {
                 Intent intent = new Intent(getActivity(), HomeVocationListActivity.class);
@@ -451,7 +531,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             }
             if (categoryEntityList.get(1).getRdtype().equals("0")) {
                 if (mBtnClickListener != null) {
-                    mBtnClickListener.onTabClick();
+                    mBtnClickListener.onTabClick(1);
                 }
             } else {
                 Intent intent = new Intent(getActivity(), HomeVocationListActivity.class);
@@ -470,7 +550,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             }
             if (categoryEntityList.get(2).getRdtype().equals("0")) {
                 if (mBtnClickListener != null) {
-                    mBtnClickListener.onTabClick();
+                    mBtnClickListener.onTabClick(1);
                 }
             } else {
                 Intent intent = new Intent(getActivity(), HomeVocationListActivity.class);
@@ -489,7 +569,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             }
             if (categoryEntityList.get(3).getRdtype().equals("0")) {
                 if (mBtnClickListener != null) {
-                    mBtnClickListener.onTabClick();
+                    mBtnClickListener.onTabClick(1);
                 }
             } else {
                 Intent intent = new Intent(getActivity(), HomeVocationListActivity.class);
@@ -535,16 +615,27 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         } else if (dataBeanList.size() > 0) {
             dataBeanList.add(bean);
         }
-        if (recommendList.size() > 0) {
+        if (mLists.get(mposition).size() > 0) {
             mSmartRefresh.setEnableAutoLoadMore(true);
         }
         if (recommendPage == Constants.PAGE_INDEX) {
-            this.recommendList.clear();
+            this.mLists.get(mposition).clear();
         }
         if (dataBeanList.size() > 0) {
-            this.recommendList.addAll(dataBeanList);
+            this.mLists.get(mposition).addAll(dataBeanList);
         }
-        recommendAdapter.notifyDataSetChanged();
+        mHomeAdapters.get(mposition).notifyDataSetChanged();
+        if (mType == 0) {
+            if (mposition < lableList.size() - 1) {
+                ++mposition;
+                recommendPage = Constants.PAGE_INDEX;
+                lable = lableList.get(mposition).getId();
+                position_recommend = Constants.POSITION_HOME_LABLE;
+                mPresenter.jobList("8", position_recommend, recommendPage, lable);
+            } else {
+                mType = 1;
+            }
+        }
     }
 
     @Override
@@ -648,15 +739,93 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         if (lableList != null) {
             lableList.clear();
         }
+        mListView.clear();
+        mHomeAdapters.clear();
         LableEntity.DataBean dataBean = new LableEntity.DataBean();
         dataBean.setId("1");
         dataBean.setSelect(1);
         dataBean.setTitle("推荐");
         lableList.add(dataBean);
-        if (searchEntity.getData() != null) {
+        if (searchEntity.getData().size() > 0) {
             lableList.addAll(searchEntity.getData());
+            mHomeLableAdapter.setList(lableList);
         }
-        mHomeLableAdapter.setList(lableList);
+        for (int i = 0; i < lableList.size(); i++) {
+            LinearLayout linearLayout = new LinearLayout(getActivity());
+            linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+            ListViewInScrollView listViewInScrollView = new ListViewInScrollView(getActivity());
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+            Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.shape_list_line_bg);
+            listViewInScrollView.setDivider(drawable);
+            listViewInScrollView.setDividerHeight(1);
+            listViewInScrollView.setOverScrollMode(ListViewInScrollView.OVER_SCROLL_NEVER);
+            listViewInScrollView.setVerticalScrollBarEnabled(false);
+            listViewInScrollView.setLayoutParams(layoutParams);
+            List<JobListResponseEntity2.DataBean> recommendList = new ArrayList<>();
+            HomeAdapter homeAdapter = new HomeAdapter(getActivity(), recommendList);
+            listViewInScrollView.setAdapter(homeAdapter);
+            mHomeAdapters.add(homeAdapter);
+            mLists.add(recommendList);
+            //兼职推荐
+            listViewInScrollView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    if (recommendList.get(position).getUiType() == 1) {
+                        return;
+                    }
+                    if (lable.equals("0")) {
+                        if (position == 0) {
+                            MobclickAgent.onEvent(getActivity(), "home_recommend_one");
+                            mPresenter.getaddMd("30");
+                        }
+                        if (position == 1) {
+                            MobclickAgent.onEvent(getActivity(), "home_recommend_two");
+                            mPresenter.getaddMd("31");
+                        }
+                        if (position == 2) {
+                            MobclickAgent.onEvent(getActivity(), "home_recommend_three");
+                            mPresenter.getaddMd("32");
+                        }
+                        if (position == 4) {
+                            MobclickAgent.onEvent(getActivity(), "home_recommend_four");
+                            mPresenter.getaddMd("33");
+                        }
+                        if (position == 5) {
+                            MobclickAgent.onEvent(getActivity(), "home_recommend_five");
+                            mPresenter.getaddMd("34");
+                        }
+                        if (position == 6) {
+                            MobclickAgent.onEvent(getActivity(), "home_recommend_six");
+                            mPresenter.getaddMd("35");
+                        }
+                        if (position == 7) {
+                            MobclickAgent.onEvent(getActivity(), "home_recommend_seven");
+                            mPresenter.getaddMd("36");
+                        }
+                        if (position == 8) {
+                            MobclickAgent.onEvent(getActivity(), "home_recommend_eight");
+                            mPresenter.getaddMd("37");
+                        }
+                        if (position == 9) {
+                            MobclickAgent.onEvent(getActivity(), "home_recommend_nine");
+                            mPresenter.getaddMd("38");
+                        }
+                        if (position == 10) {
+                            MobclickAgent.onEvent(getActivity(), "home_recommend_ten");
+                            mPresenter.getaddMd("39");
+                        }
+                    }
+                    Intent intent = new Intent(getActivity(), VocationActivity.class);
+                    intent.putExtra("id", recommendList.get(position).getId());
+                    intent.putExtra("position", position_recommend);
+                    intent.putExtra("sortId", "" + position);
+                    startActivity(intent);
+                }
+            });
+            linearLayout.addView(listViewInScrollView);
+            mListView.add(linearLayout);
+        }
+        mMerHomeListAdapter.setData(mListView);
     }
 
     @Override
@@ -705,7 +874,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         MobclickAgent.onPageStart("首页");
         MobclickAgent.onResume(getActivity());
         if (mPresenter != null) {
-            if (lableList.equals("0")) {
+            if (lable.equals("0")) {
                 position_recommend = Constants.POSITION_HOME_RECOMMEND;
                 mPresenter.jobList(type_recommend, position_recommend, recommendPage, lable);
             } else {

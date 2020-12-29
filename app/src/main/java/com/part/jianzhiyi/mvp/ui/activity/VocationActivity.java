@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bytedance.sdk.openadsdk.AdSlot;
 import com.bytedance.sdk.openadsdk.TTAdConstant;
 import com.bytedance.sdk.openadsdk.TTAdNative;
@@ -30,6 +31,7 @@ import com.part.jianzhiyi.ad.TTAdManagerHolder;
 import com.part.jianzhiyi.adapter.HomeLoveAdapter;
 import com.part.jianzhiyi.base.BaseActivity;
 import com.part.jianzhiyi.corecommon.constants.ConstantsDimens;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.corecommon.ui.ListViewInScrollView;
 import com.part.jianzhiyi.corecommon.utils.CopyTextLibrary;
 import com.part.jianzhiyi.corecommon.utils.DateUtils;
@@ -42,7 +44,6 @@ import com.part.jianzhiyi.model.entity.JoinJobEntity;
 import com.part.jianzhiyi.model.entity.MessageResponseEntity;
 import com.part.jianzhiyi.mvp.contract.VocationContract;
 import com.part.jianzhiyi.mvp.presenter.VocationPresenter;
-import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.utils.IntentUtils;
 import com.part.jianzhiyi.utils.OpenUtils;
 import com.umeng.analytics.MobclickAgent;
@@ -80,6 +81,7 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
     private String id;
     private String position;
     private String sortId;
+    private String uid;
     private JobDetailEntity.DataBean.InfoBean entity;
     private List<JobDetailEntity.DataBean.JobListBean> mJobListBeanList;
     private HomeLoveAdapter adapter;
@@ -96,6 +98,7 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
     private TTNativeExpressAd mTTAd;
     private long startTime = 0;
     private boolean mHasShowDownloadActive = false;
+    private int is_company = 0;
 
     @Override
     protected void init() {
@@ -292,6 +295,10 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
             @Override
             public void onClick(View v) {
                 MobclickAgent.onEvent(VocationActivity.this, "vocation_company");
+                //判断是否是企业岗位，如果是企业岗位跳转到详情
+                if (is_company == 1) {
+                    ARouter.getInstance().build("/merchants/activity/mercompanyinfo").withString("uid", uid).withString("job_id", id).navigation();
+                }
             }
         });
         lvLove.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -396,7 +403,7 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
                     startActivity(intent);
                     return;
                 }
-                if (entity == null || TextUtils.equals("1", entity.getIsJoin())) {
+                if (entity == null || TextUtils.equals("1", entity.getIsJoin()) || TextUtils.equals("1", entity.getJoin_meet())) {
                     return;
                 }
                 if (entity.isCheck_join()) {
@@ -464,7 +471,6 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
                 }
             }
         });
-
         tvFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -493,19 +499,21 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
     public void updateEntity(JobDetailEntity.DataBean.InfoBean entity) {
         this.entity = entity;
         this.id = entity.getId();
+        this.uid = entity.getUid();
+        is_company = entity.getIs_company();
         tvJobTitle.setText(entity.getTitle());
         tvPrice.setText(entity.getPrice1());
         tvPrice2.setText(entity.getPrice2());
         tvCompany.setText(entity.getCompany());
-        if (entity.getMethod().equals("")||entity.getMethod().equals(null)){
+        if (entity.getMethod().equals("") || entity.getMethod().equals(null)) {
             mViewMethod.setVisibility(View.GONE);
-        }else {
+        } else {
             mTvMethod.setText(entity.getMethod());
             mViewMethod.setVisibility(View.VISIBLE);
         }
-        if (entity.getTime().equals("")||entity.getTime().equals(null)){
+        if (entity.getTime().equals("") || entity.getTime().equals(null)) {
             mViewTime.setVisibility(View.GONE);
-        }else {
+        } else {
             mTvTime.setText(entity.getTime());
             mViewTime.setVisibility(View.VISIBLE);
         }
@@ -524,25 +532,30 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
         boolean isCollect = PreferenceUUID.getInstence().isUserLogin() && TextUtils.equals("1", entity.getIsfavourite());
         tvFavourite.setSelected(isCollect);
         tvFavourite.setText(isCollect ? "已收藏" : "收藏");
-        boolean isJoined = PreferenceUUID.getInstence().isUserLogin() && TextUtils.equals("1", entity.getIsJoin());
-        tvJoined.setSelected(isJoined);
-        tvJoined.setText(isJoined ? "已报名" : "立即报名");
-        if (!isJoined) {
-            mHandler = new Handler();
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mImgTip.setVisibility(View.VISIBLE);
-                    if (mImgTip.getVisibility() == View.VISIBLE) {
-                        mHandler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                mImgTip.setVisibility(View.GONE);
-                            }
-                        }, 2000);
+        if (entity.getJoin_meet().equals("1")) {
+            tvJoined.setSelected(true);
+            tvJoined.setText("报名已满");
+        } else if (entity.getJoin_meet().equals("0")) {
+            boolean isJoined = PreferenceUUID.getInstence().isUserLogin() && TextUtils.equals("1", entity.getIsJoin());
+            tvJoined.setSelected(isJoined);
+            tvJoined.setText(isJoined ? "已报名" : "立即报名");
+            if (!isJoined) {
+                mHandler = new Handler();
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mImgTip.setVisibility(View.VISIBLE);
+                        if (mImgTip.getVisibility() == View.VISIBLE) {
+                            mHandler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mImgTip.setVisibility(View.GONE);
+                                }
+                            }, 2000);
+                        }
                     }
-                }
-            }, 3000);
+                }, 3000);
+            }
         }
         if (entity.getIs_copy().equals("1")) {
             ivCopy.setText("复制");

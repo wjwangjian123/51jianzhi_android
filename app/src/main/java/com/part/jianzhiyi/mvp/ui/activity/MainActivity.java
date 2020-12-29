@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.fendasz.moku.planet.exception.MokuException;
 import com.fendasz.moku.planet.helper.MokuHelper;
@@ -27,19 +28,26 @@ import com.greendao.gen.MessageResponseEntityDao;
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.app.ODApplication;
 import com.part.jianzhiyi.base.BaseActivity;
+import com.part.jianzhiyi.constants.Constants;
 import com.part.jianzhiyi.corecommon.constants.IntentConstant;
 import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
+import com.part.jianzhiyi.corecommon.utils.ActivityUtils;
 import com.part.jianzhiyi.corecommon.utils.AppUtil;
 import com.part.jianzhiyi.corecommon.utils.CrashHandler;
+import com.part.jianzhiyi.corecommon.utils.HProgressDialogUtils;
+import com.part.jianzhiyi.corecommon.utils.UpdateAppHttpUtil;
 import com.part.jianzhiyi.customview.NoScrollViewPager;
 import com.part.jianzhiyi.dbmodel.GreenDaoManager;
-import com.part.jianzhiyi.dialog.DialogVersionUpdate;
 import com.part.jianzhiyi.local.LocationService;
 import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.ActJobListEntity;
 import com.part.jianzhiyi.model.entity.ActivityEntity;
 import com.part.jianzhiyi.model.entity.ConfigEntity;
+import com.part.jianzhiyi.model.entity.DelUserEntity;
 import com.part.jianzhiyi.model.entity.MessageResponseEntity;
+import com.part.jianzhiyi.model.entity.integral.SignInfoEntity;
+import com.part.jianzhiyi.modulemerchants.dialog.DialogVersionUpdate;
+import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
 import com.part.jianzhiyi.mvp.contract.MainContract;
 import com.part.jianzhiyi.mvp.presenter.MainPresenter;
 import com.part.jianzhiyi.mvp.ui.fragment.ChoiceFragment;
@@ -47,8 +55,7 @@ import com.part.jianzhiyi.mvp.ui.fragment.HomeFragment;
 import com.part.jianzhiyi.mvp.ui.fragment.InformationFragment;
 import com.part.jianzhiyi.mvp.ui.fragment.MineFragment;
 import com.part.jianzhiyi.mvp.ui.fragment.MokuFragment;
-import com.part.jianzhiyi.utils.HProgressDialogUtils;
-import com.part.jianzhiyi.utils.UpdateAppHttpUtil;
+import com.part.jianzhiyi.utils.IntentUtils;
 import com.umeng.analytics.MobclickAgent;
 import com.vector.update_app.UpdateAppBean;
 import com.vector.update_app.UpdateAppManager;
@@ -321,9 +328,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     protected void initData() {
         mPresenter.getIp();
         mPresenter.getConfig();
+        mPresenter.getCheck();
 //        boolean privacyState = PreferenceUUID.getInstence().getPrivacyState();
 //        if (privacyState) {
-//            mPresenter.getConfig();
+//            mPresenter.getCheck();
 //        }
     }
 
@@ -350,9 +358,19 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         super.setListener();
         HomeFragment.setmBtnClickListener(new HomeFragment.BtnClickListener() {
             @Override
-            public void onTabClick() {
-                mMainViewpager.setCurrentItem(2);
-                setTabSelected(2);
+            public void onTabClick(int type) {
+                if (type == 1) {
+                    mMainViewpager.setCurrentItem(2);
+                    setTabSelected(2);
+                }
+                if (type == 2) {
+                    mMainViewpager.setCurrentItem(3);
+                    setTabSelected(3);
+                }
+                if (type == 3) {
+                    mMainViewpager.setCurrentItem(1);
+                    setTabSelected(1);
+                }
             }
         });
     }
@@ -363,25 +381,65 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public void updategetConfig(ConfigEntity configEntity) {
-        int versionCode = AppUtil.getVersionCode(MainActivity.this);
-        if (configEntity.getData() != null) {
+        if (configEntity != null && configEntity.getData() != null) {
             PreferenceUUID.getInstence().putShowWx(configEntity.getData().getShow_wx());
             if (configEntity.getData().getIs_sw() == 0) {
                 mMainLinearMoku.setVisibility(View.GONE);
             } else if (configEntity.getData().getIs_sw() == 1) {
                 mMainLinearMoku.setVisibility(View.VISIBLE);
             }
-            int androidVersion = configEntity.getData().getAndroid_version();
-            String androidTitle = configEntity.getData().getAndroid_title();
-            String androidDesc = configEntity.getData().getAndroid_desc();
+        }
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
+
+    }
+
+    @Override
+    public void updategetAddInteg(SignInfoEntity responseData) {
+        if (responseData != null) {
+            if (responseData.getCode().equals("200")) {
+                mPresenter.getaddMd("18");
+            }
+            Bundle bundle = new Bundle();
+            bundle.putString("code", responseData.getCode());
+            bundle.putSerializable("SignInfoEntity", responseData.getData());
+            IntentUtils.getInstence().intent(MainActivity.this, IntegralActivity.class, bundle);
+        }
+    }
+
+    @Override
+    public void updategetCheck(MCheckVersionEntity mCheckVersionEntity) {
+        if (mCheckVersionEntity != null && mCheckVersionEntity.getData() != null) {
+            int versionCode = AppUtil.getVersionCode(MainActivity.this);
+            int androidVersion = mCheckVersionEntity.getData().getAndroid_version();
+            String androidTitle = mCheckVersionEntity.getData().getTitle();
+            List<String> content = mCheckVersionEntity.getData().getContent();
+            int is_forced = mCheckVersionEntity.getData().getIs_forced();
+            String app_url = mCheckVersionEntity.getData().getApp_url();
             if (androidVersion > versionCode) {
-                DialogVersionUpdate versionUpdate = new DialogVersionUpdate(MainActivity.this, androidTitle, androidDesc, new DialogVersionUpdate.OnJoinedClickListener() {
-                    @Override
-                    public void onJoinedClick() {
-                        initPermission(configEntity);
+                if (mCheckVersionEntity.getData().getIs_show() == 1 && app_url != null && app_url != "") {
+                    DialogVersionUpdate versionUpdate = new DialogVersionUpdate(MainActivity.this, androidTitle, content, is_forced, new DialogVersionUpdate.OnJoinedClickListener() {
+                        @Override
+                        public void onJoinedClick() {
+                            initPermission(app_url);
+                        }
+                    });
+                    versionUpdate.show();
+                    versionUpdate.setCanceledOnTouchOutside(false);
+                    versionUpdate.setCancelable(false);
+                } else {
+                    long currentTime = PreferenceUUID.getInstence().getActionTime();
+                    long millis = System.currentTimeMillis();
+                    //获取当天0点的时间
+                    Long dayTime = getDayTime();
+                    //如果是展示活动
+                    if (currentTime < dayTime) {
+                        PreferenceUUID.getInstence().putActionTime(millis);
+                        mPresenter.getAction();
                     }
-                });
-                versionUpdate.show();
+                }
             } else {
                 long currentTime = PreferenceUUID.getInstence().getActionTime();
                 long millis = System.currentTimeMillis();
@@ -393,18 +451,34 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     mPresenter.getAction();
                 }
             }
+        } else {
+            long currentTime = PreferenceUUID.getInstence().getActionTime();
+            long millis = System.currentTimeMillis();
+            //获取当天0点的时间
+            Long dayTime = getDayTime();
+            //如果是展示活动
+            if (currentTime < dayTime) {
+                PreferenceUUID.getInstence().putActionTime(millis);
+                mPresenter.getAction();
+            }
         }
     }
 
     @Override
-    public void updategetaddMd(ResponseData responseData) {
-
+    public void updategetIsDel(DelUserEntity delUserEntity) {
+        if (delUserEntity != null) {
+            if (delUserEntity.getCode().equals("200")) {
+                if (delUserEntity.getData().getIs_del() == 0) {
+                    initDialogCancel();
+                }
+            }
+        }
     }
 
-    private void initPermission(ConfigEntity entity) {
+    private void initPermission(String app_url) {
         //需要存储权限，做6.0权限适配
         if (Build.VERSION.SDK_INT < 23) {
-            initDown(entity);
+            initDown(app_url);
         } else {
             //判断是否有权限
             if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission_group.STORAGE)
@@ -421,12 +495,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                         .onGranted(new Action<List<String>>() {
                             @Override
                             public void onAction(List<String> data) {
-                                initDown(entity);
+                                initDown(app_url);
                             }
                         })
                         .start();
             } else {
-                initDown(entity);
+                initDown(app_url);
             }
         }
     }
@@ -434,10 +508,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private String path;
     private File mFile;
 
-    private void initDown(ConfigEntity entity) {
+    private void initDown(String app_url) {
         UpdateAppBean updateAppBean = new UpdateAppBean();
         //设置 apk 的下载地址
-        updateAppBean.setApkFileUrl(entity.getData().getAndroid_url());
+        updateAppBean.setApkFileUrl(app_url);
         if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED || !Environment.isExternalStorageRemovable()) {
             try {
                 path = getExternalCacheDir().getAbsolutePath();
@@ -450,7 +524,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         } else {
             path = getCacheDir().getAbsolutePath();
         }
-        File dir = new File(path, "jianzhi.apk");
+        File dir = new File(path, "51jianzhi.apk");
         if (!dir.exists()) {
             dir.mkdir();
         }
@@ -505,7 +579,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
      * 安装Apk
      */
     private void installAPK(File file) {
-        if (file.exists()) {
+        if (!file.exists()) {
             return;
         }
         Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -558,59 +632,121 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public void updategetAction(ActivityEntity activityEntity) {
-        //活动弹框
-        if (activityEntity.getData().getId() == null || activityEntity.getData().getId() == "") {
-            return;
-        }
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
-        AlertDialog alertDialog1 = alertDialog.create();
-        View view = View.inflate(MainActivity.this, R.layout.dialog_main_action, null);
-        ImageView cancel = view.findViewById(R.id.dialog_iv_cancel);
-        ImageView img = view.findViewById(R.id.dialog_iv_bg);
-        Glide.with(MainActivity.this).load(activityEntity.getData().getImage()).into(img);
-        alertDialog1.getWindow().setBackgroundDrawableResource(R.color.transparency);
-        alertDialog1.setCanceledOnTouchOutside(false);
-        alertDialog1.setCancelable(false);
-        alertDialog1.setView(view);
-        //显示
-        alertDialog1.show();
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MobclickAgent.onEvent(MainActivity.this, "home_action_close");
-                alertDialog1.dismiss();
+        if (activityEntity != null && activityEntity.getData() != null) {
+            //活动弹框
+            if (activityEntity.getData().getId() == null || activityEntity.getData().getId() == "") {
+                return;
             }
-        });
-        img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.getaddMd("13");
-                MobclickAgent.onEvent(MainActivity.this, "home_action");
-                alertDialog1.dismiss();
-                if (activityEntity.getData().getType().equals("1")) {
-                    Intent intent = new Intent(MainActivity.this, ActionListActivity.class);
-                    intent.putExtra("id", activityEntity.getData().getId());
-                    intent.putExtra("type", "0");
-                    startActivity(intent);
-                } else if (activityEntity.getData().getType().equals("2")) {
-                    String urls = activityEntity.getData().getUrl();
-                    if (!TextUtils.isEmpty(urls)) {
-                        if (activityEntity.getData().getUrl_redirect() == 1) {
-                            Intent intent = new Intent();
-                            intent.setAction("android.intent.action.VIEW");
-                            Uri content_url = Uri.parse(urls);
-                            intent.setData(content_url);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+            AlertDialog alertDialog1 = alertDialog.create();
+            View view = View.inflate(MainActivity.this, R.layout.dialog_main_action, null);
+            ImageView cancel = view.findViewById(R.id.dialog_iv_cancel);
+            ImageView img = view.findViewById(R.id.dialog_iv_bg);
+            Glide.with(MainActivity.this).load(activityEntity.getData().getImage()).into(img);
+            alertDialog1.getWindow().setBackgroundDrawableResource(R.color.transparency);
+            alertDialog1.setCanceledOnTouchOutside(false);
+            alertDialog1.setCancelable(false);
+            alertDialog1.setView(view);
+            //显示
+            alertDialog1.show();
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MobclickAgent.onEvent(MainActivity.this, "home_action_close");
+                    alertDialog1.dismiss();
+                }
+            });
+            img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mPresenter.getaddMd("13");
+                    MobclickAgent.onEvent(MainActivity.this, "home_action");
+                    alertDialog1.dismiss();
+                    if (activityEntity.getData().getType().equals("1")) {
+                        //兼职列表
+                        Intent intent = new Intent(MainActivity.this, ActionListActivity.class);
+                        intent.putExtra("id", activityEntity.getData().getId());
+                        intent.putExtra("type", "0");
+                        startActivity(intent);
+                    } else if (activityEntity.getData().getType().equals("2")) {
+                        //跳转链接
+                        String urls = activityEntity.getData().getUrl();
+                        if (urls != null && urls != "") {
+                            if (activityEntity.getData().getUrl_redirect() == 1) {
+                                Intent intent = new Intent();
+                                intent.setAction("android.intent.action.VIEW");
+                                Uri content_url = Uri.parse(urls);
+                                intent.setData(content_url);
+                                startActivity(intent);
+                            } else if (activityEntity.getData().getUrl_redirect() == 0) {
+                                Intent intent = new Intent(MainActivity.this, HtmlActivity.class);
+                                intent.putExtra(IntentConstant.HTML_URL, urls);
+                                intent.putExtra("title", "");
+                                startActivity(intent);
+                            }
+                        }
+                    } else if (activityEntity.getData().getType().equals("3")) {
+                        //职位详情
+                        Intent intent = new Intent(MainActivity.this, VocationActivity.class);
+                        intent.putExtra("id", activityEntity.getData().getJob_id());
+                        intent.putExtra("position", Constants.POSITION_HOME_ACTION);
+                        intent.putExtra("sortId", "0");
+                        startActivity(intent);
+                    } else if (activityEntity.getData().getType().equals("4")) {
+                        //橙券活动
+                        String urls = activityEntity.getData().getUrl();
+                        if (urls != null && urls != "") {
+                            Intent intent = new Intent(MainActivity.this, HtmlIntegralActivity.class);
+                            intent.putExtra("url", urls);
+                            intent.putExtra("title", "");
                             startActivity(intent);
-                        } else if (activityEntity.getData().getUrl_redirect() == 0) {
+                        }
+                    } else if (activityEntity.getData().getType().equals("5")) {
+                        //活动页面
+                        String urls = activityEntity.getData().getUrl();
+                        if (urls != null && urls != "") {
                             Intent intent = new Intent(MainActivity.this, HtmlActivity.class);
                             intent.putExtra(IntentConstant.HTML_URL, urls);
                             intent.putExtra("title", "");
                             startActivity(intent);
                         }
+                    } else if (activityEntity.getData().getType().equals("6")) {
+                        //积分页面
+                        if (PreferenceUUID.getInstence().getUserId() != null && PreferenceUUID.getInstence().getUserId() != "") {
+                            mPresenter.getAddInteg(PreferenceUUID.getInstence().getUserId(), 1, "0");
+                        }
+                    } else if (activityEntity.getData().getType().equals("7")) {
+                        //我的简历页面
+                        Intent intent = new Intent(MainActivity.this, MineUpdateResumeActivity.class);
+                        startActivity(intent);
+                    } else if (activityEntity.getData().getType().equals("8")) {
+                        //切换身份页面
+                        ARouter.getInstance().build("/merchants/activity/choose").withInt("type", 0).navigation();
+                    } else if (activityEntity.getData().getType().equals("9")) {
+                        //被查看列表
+                        Intent intent = new Intent(MainActivity.this, MineDeliveryActivity.class);
+                        intent.putExtra("positionType", 1);
+                        startActivity(intent);
+                    } else if (activityEntity.getData().getType().equals("10")) {
+                        //消息列表
+                        mMainViewpager.setCurrentItem(3);
+                        setTabSelected(3);
+                    } else if (activityEntity.getData().getType().equals("11")) {
+                        //看过我列表
+                        Intent intent = new Intent(MainActivity.this, SeeMineActivity.class);
+                        startActivity(intent);
+                    } else if (activityEntity.getData().getType().equals("12")) {
+                        //城市选择页面
+                        Intent intent = new Intent(MainActivity.this, CityActivity.class);
+                        startActivityForResult(intent, 1001);
+                    } else if (activityEntity.getData().getType().equals("13")) {
+                        //精选页面
+                        mMainViewpager.setCurrentItem(1);
+                        setTabSelected(1);
                     }
                 }
-            }
-        });
+            });
+        }
     }
 
     @Override
@@ -687,6 +823,33 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         });
     }
 
+    private void initDialogCancel() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        AlertDialog alertDialog = builder.create();
+        View inflate = LayoutInflater.from(MainActivity.this).inflate(R.layout.dialog_user_logout_tip, null, false);
+        TextView ok = inflate.findViewById(R.id.tv_ok);
+        alertDialog.getWindow().setBackgroundDrawableResource(R.color.transparency);
+        alertDialog.setCancelable(false);
+        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.setView(inflate);
+        //显示
+        alertDialog.show();
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //强制退出登录
+                PreferenceUUID.getInstence().loginOut();
+                ActivityUtils.removeAllActivity();
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("ToLogin", 1);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -710,6 +873,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             } else if (isShowType == 2) {
                 mViewIvRed.setVisibility(View.VISIBLE);
             }
+        }
+        if (mPresenter != null) {
+            mPresenter.getIsDel();
         }
     }
 

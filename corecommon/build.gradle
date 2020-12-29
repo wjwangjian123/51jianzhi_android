@@ -75,6 +75,9 @@ dependencies {
     // 支付宝 SDK AAR 包所需的配置
     api(name: 'alipaySdk-15.7.9-20200727142814-noUtdid', ext: 'aar')
     api 'com.contrarywind:Android-PickerView:4.1.9'
+    //版本升级
+    api 'com.qianwen:update-app:3.5.2'
+    api 'com.qianwen:okhttp-utils:3.8.0'
     implementation project(':netcommon')
 }
 configurations.all {

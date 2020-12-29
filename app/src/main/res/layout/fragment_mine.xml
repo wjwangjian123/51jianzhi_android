@@ -17,13 +17,16 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="@dimen/dimen_20">
+            android:layout_marginTop="@dimen/dimen_15"
+            android:layout_marginHorizontal="17dp"
+            android:paddingTop="22dp"
+            android:background="@drawable/shape_bg_white8">
             <ImageView
                 android:id="@+id/mine_iv_img"
                 android:layout_width="57dp"
                 android:layout_height="58dp"
-                android:src="@drawable/icon_default_headpic"
-                android:layout_marginTop="23dp"/>
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:src="@drawable/icon_default_headpic"/>
             <TextView
                 android:id="@+id/mine_tv_phone"
                 android:layout_width="wrap_content"
@@ -33,7 +36,7 @@
                 android:layout_alignTop="@+id/mine_iv_img"
                 android:layout_marginTop="@dimen/dimen_10"
                 android:layout_toRightOf="@+id/mine_iv_img"
-                android:layout_marginLeft="@dimen/dimen_10"/>
+                android:layout_marginLeft="14dp"/>
             <ImageView
                 android:id="@+id/mine_iv_edit"
                 android:layout_width="17dp"
@@ -52,7 +55,7 @@
                 android:paddingHorizontal="@dimen/dimen_8"
                 android:paddingVertical="@dimen/dimen_3"
                 android:layout_toRightOf="@+id/mine_iv_img"
-                android:layout_marginLeft="@dimen/dimen_10"
+                android:layout_marginLeft="14dp"
                 android:layout_below="@+id/mine_tv_phone"
                 android:background="@drawable/shape_ad_one"
                 android:layout_marginTop="6dp"
@@ -83,117 +86,126 @@
                 android:layout_alignTop="@+id/mine_tv_advantage1"
                 android:background="@drawable/shape_ad_three"
                 android:visibility="gone"/>
-            <com.part.jianzhiyi.customview.CircularProgressView
-                android:id="@+id/mine_progress_circular"
-                android:layout_width="@dimen/dimen_70"
-                android:layout_height="@dimen/dimen_70"
-                app:backWidth="@dimen/dimen_5"
-                app:backColor="@color/color_dddddd"
-                app:progWidth="@dimen/dimen_5"
-                app:progColor="#FDA633"
-                android:layout_alignParentRight="true"
-                android:layout_alignTop="@+id/mine_iv_img"
-                android:layout_marginTop="-6dp"/>
-            <LinearLayout
-                android:id="@+id/mine_linear"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:orientation="vertical"
-                android:background="@drawable/shape_mine_active_bg"
-                android:layout_alignParentRight="true"
-                android:gravity="center"
-                android:layout_alignTop="@+id/mine_progress_circular"
+            <View
+                android:id="@+id/mine_view"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#E7ECF5"
+                android:layout_below="@+id/mine_iv_img"
+                android:layout_marginTop="23dp"/>
+            <View
+                android:id="@+id/mine_view1"
+                android:layout_width="0.5dp"
+                android:layout_height="23dp"
+                android:background="#E7ECF5"
+                android:layout_below="@+id/mine_view"
                 android:layout_marginTop="@dimen/dimen_10"
-                android:layout_marginRight="@dimen/dimen_10"
-                android:visibility="visible">
-                <TextView
-                    android:id="@+id/mine_tv_active"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/color_ffffff"
-                    android:textSize="@dimen/font_14"
-                    android:textStyle="bold" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="简历活跃度"
-                    android:textColor="@color/color_ffffff"
-                    android:textSize="6sp"/>
-            </LinearLayout>
+                android:layout_centerHorizontal="true"/>
             <LinearLayout
                 android:id="@+id/mine_linear_yue"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="43dp"
                 android:orientation="horizontal"
-                android:layout_below="@+id/mine_iv_img"
-                android:layout_marginTop="33dp"
-                android:paddingLeft="@dimen/dimen_10"
-                android:paddingRight="@dimen/dimen_10">
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@+id/mine_view1"
+                android:layout_below="@+id/mine_view"
+                android:paddingLeft="@dimen/dimen_20"
+                android:paddingRight="@dimen/dimen_1">
                 <TextView
-                    android:id="@+id/mine_tv_yue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="我的余额"
-                    android:textSize="@dimen/font_15"
-                    android:textColor="#272B4A"
+                    android:textSize="13sp"
+                    android:textColor="#272834"
                     android:gravity="center_vertical"
                     android:layout_gravity="center_vertical"/>
                 <TextView
                     android:id="@+id/mine_tv_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginHorizontal="@dimen/dimen_20"
-                    android:textSize="@dimen/font_15"
-                    android:textColor="#272B4A"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:textSize="13sp"
+                    android:textColor="#272834"
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:layout_gravity="center_vertical"/>
-                <TextView
-                    android:id="@+id/mine_tv_tixian"
-                    android:layout_width="63dp"
-                    android:layout_height="27dp"
-                    android:text="提现"
-                    android:textSize="@dimen/font_12"
-                    android:textColor="#272B4A"
-                    android:gravity="center"
+                <ImageView
+                    android:layout_width="5dp"
+                    android:layout_height="@dimen/dimen_10"
+                    android:src="@drawable/icon_mer_grey_right"
                     android:layout_gravity="center_vertical"
-                    android:background="@drawable/shape_border_bg_black"/>
+                    android:layout_marginLeft="6dp"/>
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/mine_linear_sign"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:id="@+id/mine_linear_integral"
+                android:layout_width="wrap_content"
+                android:layout_height="43dp"
                 android:orientation="horizontal"
-                android:background="@drawable/shape_mine_sign_bg"
-                android:layout_below="@+id/mine_linear_yue"
-                android:layout_marginTop="17dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="13dp"
-                android:paddingRight="13dp">
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/mine_view1"
+                android:layout_below="@+id/mine_view"
+                android:paddingLeft="28dp"
+                android:paddingRight="@dimen/dimen_10">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="提高简历活跃度，获得更多offer"
-                    android:textSize="@dimen/font_12"
-                    android:textColor="@color/color_272B4A"
-                    android:drawableLeft="@drawable/icon_mine_tip"
-                    android:drawablePadding="7dp"
-                    android:gravity="center_vertical"/>
+                    android:text="我的职豆"
+                    android:textSize="13sp"
+                    android:textColor="#272834"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"/>
                 <TextView
-                    android:id="@+id/mine_tv_sign"
+                    android:id="@+id/mine_tv_integral"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/dimen_10"
-                    android:paddingVertical="@dimen/dimen_5"
-                    android:text="刷新简历"
-                    android:textSize="@dimen/font_10"
-                    android:textColor="@color/color_ffffff"
-                    android:background="@drawable/shape_mine_sign"/>
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:textSize="13sp"
+                    android:textColor="#272834"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"/>
+                <ImageView
+                    android:layout_width="5dp"
+                    android:layout_height="@dimen/dimen_10"
+                    android:src="@drawable/icon_mer_grey_right"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="6dp"/>
             </LinearLayout>
         </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/mine_linear_sign"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:orientation="horizontal"
+            android:background="@drawable/shape_mine_sign_bg"
+            android:layout_marginTop="25dp"
+            android:layout_marginHorizontal="17dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="17dp"
+            android:paddingRight="17dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="提高简历活跃度，获得更多offer"
+                android:textSize="@dimen/font_12"
+                android:textColor="#2E2F36"
+                android:drawableLeft="@drawable/icon_mine_tip"
+                android:drawablePadding="7dp"
+                android:gravity="center_vertical"/>
+            <TextView
+                android:id="@+id/mine_tv_sign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/dimen_12"
+                android:paddingVertical="@dimen/dimen_5"
+                android:text="刷新简历"
+                android:textSize="@dimen/font_10"
+                android:textColor="#EFC282"
+                android:background="@drawable/shape_mine_sign"/>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -210,7 +222,7 @@
                 android:background="@drawable/icon_mine_toudi_bg"
                 android:gravity="center">
                 <LinearLayout
-                    android:id="@+id/mine_linear_see"
+                    android:id="@+id/mine_ll_see"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -231,7 +243,7 @@
                         android:layout_marginTop="@dimen/dimen_5"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/tv_joined"
+                    android:id="@+id/mine_ll_joined"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -252,7 +264,7 @@
                         android:layout_marginTop="@dimen/dimen_5"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/tv_approved"
+                    android:id="@+id/mine_ll_approved"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -273,7 +285,7 @@
                         android:layout_marginTop="@dimen/dimen_5"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/tv_doned"
+                    android:id="@+id/mine_ll_doned"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -319,7 +331,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/iv_info"
-                        android:layout_marginLeft="@dimen/dimen_15"
+                        android:layout_marginLeft="@dimen/dimen_12"
                         android:text="我的简历"
                         android:textColor="@color/color_333333"
                         android:textSize="@dimen/font_15"/>
@@ -347,7 +359,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/iv_switch"
-                        android:layout_marginLeft="@dimen/dimen_15"
+                        android:layout_marginLeft="@dimen/dimen_12"
                         android:text="切换到"
                         android:textColor="@color/color_333333"
                         android:textSize="@dimen/font_15"/>
@@ -385,7 +397,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/iv_collect"
-                        android:layout_marginLeft="@dimen/dimen_15"
+                        android:layout_marginLeft="@dimen/dimen_12"
                         android:text="我的收藏"
                         android:textColor="@color/color_333333"
                         android:textSize="@dimen/font_15"/>
@@ -398,23 +410,23 @@
                 </RelativeLayout>
                 <include layout="@layout/layout_base_line" />
                 <RelativeLayout
-                    android:id="@+id/rl_business"
+                    android:id="@+id/rl_service"
                     android:layout_width="match_parent"
                     android:layout_height="56dp">
                     <ImageView
-                        android:id="@+id/iv_business"
+                        android:id="@+id/iv_service"
                         android:layout_width="@dimen/dimen_18"
                         android:layout_height="@dimen/dimen_18"
                         android:layout_centerVertical="true"
                         android:layout_alignParentLeft="true"
-                        android:src="@drawable/icon_mine_business"/>
+                        android:src="@drawable/icon_mine_service"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/iv_business"
-                        android:layout_marginLeft="@dimen/dimen_15"
-                        android:text="商务合作"
+                        android:layout_toRightOf="@+id/iv_service"
+                        android:layout_marginLeft="@dimen/dimen_12"
+                        android:text="联系客服"
                         android:textColor="@color/color_333333"
                         android:textSize="@dimen/font_15"/>
                     <ImageView
@@ -441,7 +453,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/iv_feedback"
-                        android:layout_marginLeft="@dimen/dimen_15"
+                        android:layout_marginLeft="@dimen/dimen_12"
                         android:text="意见反馈"
                         android:textColor="@color/color_333333"
                         android:textSize="@dimen/font_15"/>
@@ -469,7 +481,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/iv_about"
-                        android:layout_marginLeft="@dimen/dimen_15"
+                        android:layout_marginLeft="@dimen/dimen_12"
                         android:text="关于我们"
                         android:textColor="@color/color_333333"
                         android:textSize="@dimen/font_15"/>
@@ -497,7 +509,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/iv_set"
-                        android:layout_marginLeft="@dimen/dimen_15"
+                        android:layout_marginLeft="@dimen/dimen_12"
                         android:text="设置"
                         android:textColor="@color/color_333333"
                         android:textSize="@dimen/font_15"/>

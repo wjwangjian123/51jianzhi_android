@@ -2,6 +2,7 @@ package com.part.jianzhiyi.mvp.model;
 
 import com.part.jianzhiyi.app.ODApplication;
 import com.part.jianzhiyi.constants.Constants;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.corecommon.utils.Tools;
 import com.part.jianzhiyi.http.HttpAPI;
 import com.part.jianzhiyi.model.base.ResponseData;
@@ -9,12 +10,11 @@ import com.part.jianzhiyi.model.entity.BannerEntity;
 import com.part.jianzhiyi.model.entity.CategoryEntity;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity2;
 import com.part.jianzhiyi.model.entity.LableEntity;
-import com.part.jianzhiyi.model.entity.SearchEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.SearchEntity;
 import com.part.jianzhiyi.model.entity.integral.SignEntity;
 import com.part.jianzhiyi.model.entity.integral.SignInfoEntity;
 import com.part.jianzhiyi.mvp.contract.HomeContract;
 import com.part.jianzhiyi.mvp.model.user.UserModel;
-import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class HomeModel extends UserModel implements HomeContract.IHomeModel {
 
     @Override
     public Observable<ResponseData<List<BannerEntity>>> getBanner() {
-        return HttpAPI.getInstence().getServiceApi().getBanner(Constants.APPID);
+        return HttpAPI.getInstence().getServiceApi().getBanner(Constants.APPID, Constants.OS, Constants.OURVERSION);
     }
 
     @Override

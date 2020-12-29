@@ -12,6 +12,7 @@ import com.part.jianzhiyi.model.entity.ChatJobInfoEntity;
 import com.part.jianzhiyi.model.entity.ChoiceEntity;
 import com.part.jianzhiyi.model.entity.ConfigEntity;
 import com.part.jianzhiyi.model.entity.DaySignEntity;
+import com.part.jianzhiyi.model.entity.DelUserEntity;
 import com.part.jianzhiyi.model.entity.IpResponseEntity;
 import com.part.jianzhiyi.model.entity.JobDetailEntity;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity;
@@ -21,7 +22,7 @@ import com.part.jianzhiyi.model.entity.LableEntity;
 import com.part.jianzhiyi.model.entity.MsgResponseEntity;
 import com.part.jianzhiyi.model.entity.MyitemEntity;
 import com.part.jianzhiyi.model.entity.ResumeEntity;
-import com.part.jianzhiyi.model.entity.SearchEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.SearchEntity;
 import com.part.jianzhiyi.model.entity.UMEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.model.entity.ViewedEntity;
@@ -39,6 +40,7 @@ import com.part.jianzhiyi.model.entity.moku.TxLogEntity;
 import com.part.jianzhiyi.model.entity.moku.TxTypeEntity;
 import com.part.jianzhiyi.model.entity.moku.WalletEntity;
 import com.part.jianzhiyi.model.entity.pay.AuthInfoEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
 
 import java.util.List;
 
@@ -253,7 +255,7 @@ public interface ServiceAPI {
 
     @FormUrlEncoded
     @POST("api/Apiv2/bannerV2")
-    Observable<ResponseData<List<BannerEntity>>> getBanner(@Field("appid") String appId);
+    Observable<ResponseData<List<BannerEntity>>> getBanner(@Field("appid") String appId, @Field("os") String os, @Field("ourversion") String ourversion);
 
     @FormUrlEncoded
     @POST("Api/Abx/getH5")
@@ -324,8 +326,9 @@ public interface ServiceAPI {
      *
      * @return
      */
-    @GET("Api/Activity/getActivity")
-    Observable<ActivityEntity> getAction();
+    @POST("Api/Activity/getActivity")
+    @FormUrlEncoded
+    Observable<ActivityEntity> getAction(@Field("os") String os, @Field("ourversion") String ourversion, @Field("appid") String appid);
 
     /**
      * 获取活动任务列表
@@ -586,4 +589,23 @@ public interface ServiceAPI {
     @FormUrlEncoded
     @POST("api/Users/delUser")
     Observable<ResponseData> getDelUser(@Field("user_id") String user_id);
+
+    /**
+     * 获取版本号
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/version/check")
+    Observable<MCheckVersionEntity> getCheck(@Field("os") String os, @Field("app_id") String app_id);
+
+    /**
+     * 是否注销账户
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("http://testbus.sw193.com/user/check/is_del")
+    Observable<DelUserEntity> getIsDel(@Field("user_id") String user_id);
+
 }

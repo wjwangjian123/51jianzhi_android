@@ -6,6 +6,7 @@ import com.part.jianzhiyi.modulemerchants.base.BasePresenter;
 import com.part.jianzhiyi.modulemerchants.http.HttpAPI;
 import com.part.jianzhiyi.modulemerchants.http.ResultObserver;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
+import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MUserInfoEntity;
 import com.part.jianzhiyi.modulemerchants.mvp.contract.MMineContract;
 import com.part.jianzhiyi.modulemerchants.mvp.model.MMineModel;
@@ -85,6 +86,21 @@ public class MMinePresenter extends BasePresenter<MMineContract.IMMineModel, MMi
                         if (TextUtils.equals(responseData.getCode(), HttpAPI.REQUEST_SUCCESS)) {
                             if (isAttach()) {
                                 weakReferenceView.get().updategetmdAdd(responseData);
+                            }
+                        }
+                    }
+                }));
+    }
+
+    public void getCheck() {
+        mModel.getCheck()
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<MCheckVersionEntity>() {
+                    @Override
+                    public void onNext(MCheckVersionEntity mCheckVersionEntity) {
+                        if (TextUtils.equals(mCheckVersionEntity.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetCheck(mCheckVersionEntity);
                             }
                         }
                     }

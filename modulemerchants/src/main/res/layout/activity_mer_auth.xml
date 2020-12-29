@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/color_ffffff"
     tools:context=".mvp.ui.activity.MerAuthActivity">
     <RelativeLayout
         android:id="@+id/rl_title"
@@ -29,6 +30,10 @@
             android:layout_centerHorizontal="true"
             android:layout_centerInParent="true"/>
     </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#E7ECF5"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -38,16 +43,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#E7ECF5"/>
+            android:orientation="vertical"
+            android:background="@color/color_ffffff">
             <TextView
                 android:id="@+id/tv_reason"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="失败原因：证件模糊不清晰"
                 android:textSize="@dimen/font_12"
                 android:textColor="#FD5E3A"
                 android:layout_marginVertical="13dp"
@@ -72,99 +73,136 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/dimen_20"
-                android:layout_marginTop="@dimen/dimen_20"
+                android:layout_marginTop="23dp"
                 android:orientation="horizontal">
                 <RelativeLayout
+                    android:id="@+id/rl_one"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="104dp"
                     android:layout_weight="1"
-                    android:paddingTop="19dp"
-                    android:background="@drawable/shape_bg_auth">
+                    android:layout_marginRight="6dp"
+                    android:background="@drawable/shape_bg_auth2">
                     <ImageView
-                        android:id="@+id/iv_img1"
-                        android:layout_width="109dp"
-                        android:layout_height="73dp"
+                        android:layout_width="120dp"
+                        android:layout_height="74dp"
                         android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
                         android:src="@drawable/icon_mer_guohui"/>
                     <ImageView
                         android:id="@+id/iv_photo_one"
-                        android:layout_width="83dp"
-                        android:layout_height="52dp"
+                        android:layout_width="120dp"
+                        android:layout_height="74dp"
                         android:layout_centerHorizontal="true"
-                        android:layout_alignTop="@+id/iv_img1"
-                        android:layout_marginTop="10.5dp"
+                        android:layout_centerVertical="true"
                         android:scaleType="fitXY"/>
                     <ImageView
-                        android:id="@+id/iv_see_one"
-                        android:layout_width="83dp"
-                        android:layout_height="52dp"
-                        android:src="@drawable/icon_mer_see_bg"
-                        android:layout_centerHorizontal="true"
-                        android:layout_alignTop="@+id/iv_img1"
-                        android:layout_marginTop="10.5dp"
-                        android:scaleType="fitXY"
-                        android:visibility="gone"/>
-                    <TextView
-                        android:id="@+id/tv_photo_one"
                         android:layout_width="match_parent"
-                        android:layout_height="28dp"
-                        android:text="上传国徽面"
+                        android:layout_height="104dp"
+                        android:src="@drawable/icon_mer_auth_bg"
+                        android:scaleType="fitXY"/>
+                    <ImageView
+                        android:id="@+id/iv_camera_one"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_mer_camera"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="25dp"/>
+                    <TextView
+                        android:id="@+id/tv_upload_one"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="点击上传国徽面"
                         android:textSize="13sp"
                         android:textColor="@color/color_ffffff"
-                        android:layout_below="@+id/iv_img1"
-                        android:layout_marginTop="13dp"
-                        android:gravity="center"
-                        android:background="@drawable/shape_bg_authtext"/>
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/iv_camera_one"
+                        android:layout_marginTop="9dp"/>
+                    <ImageView
+                        android:id="@+id/iv_see_one"
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+                        android:src="@drawable/icon_mer_see_bg"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:visibility="gone"/>
+                    <ImageView
+                        android:id="@+id/iv_cancel_one"
+                        android:layout_width="22dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/icon_mer_close"
+                        android:layout_alignParentRight="true"
+                        android:paddingHorizontal="7dp"
+                        android:paddingVertical="6dp"
+                        android:layout_marginRight="3dp"
+                        android:visibility="gone"/>
                 </RelativeLayout>
                 <RelativeLayout
+                    android:id="@+id/rl_two"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="104dp"
                     android:layout_weight="1"
-                    android:paddingTop="19dp"
-                    android:background="@drawable/shape_bg_auth"
-                    android:layout_marginLeft="13dp">
+                    android:layout_marginLeft="6dp"
+                    android:background="@drawable/shape_bg_auth2">
                     <ImageView
-                        android:id="@+id/iv_img2"
-                        android:layout_width="109dp"
-                        android:layout_height="73dp"
+                        android:layout_width="120dp"
+                        android:layout_height="74dp"
                         android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
                         android:src="@drawable/icon_mer_renxiang"/>
                     <ImageView
                         android:id="@+id/iv_photo_two"
-                        android:layout_width="83dp"
-                        android:layout_height="52dp"
+                        android:layout_width="120dp"
+                        android:layout_height="74dp"
                         android:layout_centerHorizontal="true"
-                        android:layout_alignTop="@+id/iv_img2"
-                        android:layout_marginTop="10.5dp"
+                        android:layout_centerVertical="true"
                         android:scaleType="fitXY"/>
                     <ImageView
-                        android:id="@+id/iv_see_two"
-                        android:layout_width="83dp"
-                        android:layout_height="52dp"
-                        android:src="@drawable/icon_mer_see_bg"
-                        android:layout_centerHorizontal="true"
-                        android:layout_alignTop="@+id/iv_img2"
-                        android:layout_marginTop="10.5dp"
-                        android:scaleType="fitXY"
-                        android:visibility="gone"/>
-                    <TextView
-                        android:id="@+id/tv_photo_two"
                         android:layout_width="match_parent"
-                        android:layout_height="28dp"
-                        android:text="上传人像面"
+                        android:layout_height="104dp"
+                        android:src="@drawable/icon_mer_auth_bg"
+                        android:scaleType="fitXY"/>
+                    <ImageView
+                        android:id="@+id/iv_camera_two"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_mer_camera"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="25dp"/>
+                    <TextView
+                        android:id="@+id/tv_upload_two"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="点击上传人像面"
                         android:textSize="13sp"
                         android:textColor="@color/color_ffffff"
-                        android:layout_below="@+id/iv_img2"
-                        android:layout_marginTop="13dp"
-                        android:gravity="center"
-                        android:background="@drawable/shape_bg_authtext"/>
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/iv_camera_two"
+                        android:layout_marginTop="9dp"/>
+                    <ImageView
+                        android:id="@+id/iv_see_two"
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+                        android:src="@drawable/icon_mer_see_bg"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:visibility="gone"/>
+                    <ImageView
+                        android:id="@+id/iv_cancel_two"
+                        android:layout_width="22dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/icon_mer_close"
+                        android:layout_alignParentRight="true"
+                        android:paddingHorizontal="7dp"
+                        android:paddingVertical="6dp"
+                        android:layout_marginRight="3dp"
+                        android:visibility="gone"/>
                 </RelativeLayout>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="11dp"
                 android:background="@color/color_F7F8FA"
-                android:layout_marginTop="17dp"/>
+                android:layout_marginTop="23dp"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"

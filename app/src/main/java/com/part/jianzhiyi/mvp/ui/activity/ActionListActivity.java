@@ -17,6 +17,9 @@ import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.ActJobListEntity;
 import com.part.jianzhiyi.model.entity.ActivityEntity;
 import com.part.jianzhiyi.model.entity.ConfigEntity;
+import com.part.jianzhiyi.model.entity.DelUserEntity;
+import com.part.jianzhiyi.model.entity.integral.SignInfoEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
 import com.part.jianzhiyi.mvp.contract.MainContract;
 import com.part.jianzhiyi.mvp.presenter.MainPresenter;
 import com.umeng.analytics.MobclickAgent;
@@ -124,6 +127,21 @@ public class ActionListActivity extends BaseActivity<MainPresenter> implements M
 
     @Override
     public void updategetaddMd(ResponseData responseData) {
+
+    }
+
+    @Override
+    public void updategetAddInteg(SignInfoEntity responseData) {
+
+    }
+
+    @Override
+    public void updategetCheck(MCheckVersionEntity mCheckVersionEntity) {
+
+    }
+
+    @Override
+    public void updategetIsDel(DelUserEntity delUserEntity) {
 
     }
 

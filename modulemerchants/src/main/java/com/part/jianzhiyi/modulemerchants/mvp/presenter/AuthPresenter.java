@@ -7,6 +7,7 @@ import com.part.jianzhiyi.modulemerchants.http.HttpAPI;
 import com.part.jianzhiyi.modulemerchants.http.ResultObserver;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
 import com.part.jianzhiyi.modulemerchants.model.entity.MAuthInfoEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.MAuthSuccessEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MEnterpriseInfoEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MFileEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MGetEnterpriseInfoEntity;
@@ -52,16 +53,16 @@ public class AuthPresenter extends BasePresenter<AuthContract.IAuthModel, AuthCo
     public void getCheckEnterprise(Map<String, Object> obj) {
         mModel.getCheckEnterprise(obj)
                 .compose(schedulersTransformer(HttpAPI.LOADING_CUSTOM_TIME))
-                .subscribe(getResult(new ResultObserver<ResponseData>() {
+                .subscribe(getResult(new ResultObserver<MAuthSuccessEntity>() {
                     @Override
-                    public void onNext(ResponseData responseData) {
-                        if (TextUtils.equals(responseData.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                    public void onNext(MAuthSuccessEntity mAuthSuccessEntity) {
+                        if (TextUtils.equals(mAuthSuccessEntity.getCode(), HttpAPI.REQUEST_SUCCESS)) {
                             if (isAttach()) {
-                                weakReferenceView.get().updategetCheckEnterprise(responseData);
+                                weakReferenceView.get().updategetCheckEnterprise(mAuthSuccessEntity);
                             }
                         } else {
                             if (isAttach()) {
-                                weakReferenceView.get().updategetCheckEnterprise(responseData);
+                                weakReferenceView.get().updategetCheckEnterprise(mAuthSuccessEntity);
                             }
                         }
                     }
@@ -71,16 +72,16 @@ public class AuthPresenter extends BasePresenter<AuthContract.IAuthModel, AuthCo
     public void getNumidSuccess(String img_z, String name, String number, String img_f, String company) {
         mModel.getNumidSuccess(img_z, name, number, img_f, company)
                 .compose(schedulersTransformer(HttpAPI.LOADING_CUSTOM_TIME))
-                .subscribe(getResult(new ResultObserver<ResponseData>() {
+                .subscribe(getResult(new ResultObserver<MAuthSuccessEntity>() {
                     @Override
-                    public void onNext(ResponseData responseData) {
-                        if (TextUtils.equals(responseData.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                    public void onNext(MAuthSuccessEntity mAuthSuccessEntity) {
+                        if (TextUtils.equals(mAuthSuccessEntity.getCode(), HttpAPI.REQUEST_SUCCESS)) {
                             if (isAttach()) {
-                                weakReferenceView.get().updategetNumidSuccess(responseData);
+                                weakReferenceView.get().updategetNumidSuccess(mAuthSuccessEntity);
                             }
                         } else {
                             if (isAttach()) {
-                                weakReferenceView.get().updategetNumidSuccess(responseData);
+                                weakReferenceView.get().updategetNumidSuccess(mAuthSuccessEntity);
                             }
                         }
                     }

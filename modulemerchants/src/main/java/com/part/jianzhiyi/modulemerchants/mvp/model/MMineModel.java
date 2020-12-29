@@ -2,8 +2,10 @@ package com.part.jianzhiyi.modulemerchants.mvp.model;
 
 import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.corecommon.utils.Tools;
+import com.part.jianzhiyi.modulemerchants.constants.Constants;
 import com.part.jianzhiyi.modulemerchants.http.HttpAPI;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
+import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MUserInfoEntity;
 import com.part.jianzhiyi.modulemerchants.mvp.contract.MMineContract;
 import com.part.jianzhiyi.modulemerchants.utils.ParamsUtil;
@@ -86,5 +88,10 @@ public class MMineModel implements MMineContract.IMMineModel {
         headers.put("timestamp", timestamp);
         headers.put("signature", s);
         return HttpAPI.getInstence().getServiceApi().getmdAdd(headers, type, PreferenceUUID.getInstence().getToken());
+    }
+
+    @Override
+    public Observable<MCheckVersionEntity> getCheck() {
+        return HttpAPI.getInstence().getServiceApi().getCheck(Constants.OS, Constants.APPID);
     }
 }

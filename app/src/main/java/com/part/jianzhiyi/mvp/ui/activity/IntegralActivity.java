@@ -156,6 +156,7 @@ public class IntegralActivity extends BaseActivity<IntegralPresenter> implements
                 mPresenter.getaddMd("22");
                 Intent intent = new Intent(IntegralActivity.this, HtmlIntegralActivity.class);
                 intent.putExtra("url", url);
+                intent.putExtra("title", "积分商城");
                 startActivity(intent);
             }
         });
@@ -166,6 +167,7 @@ public class IntegralActivity extends BaseActivity<IntegralPresenter> implements
                 mPresenter.getaddMd("22");
                 Intent intent = new Intent(IntegralActivity.this, HtmlIntegralActivity.class);
                 intent.putExtra("url", url);
+                intent.putExtra("title", "积分商城");
                 startActivity(intent);
             }
         });
@@ -176,6 +178,7 @@ public class IntegralActivity extends BaseActivity<IntegralPresenter> implements
                 mPresenter.getaddMd("22");
                 Intent intent = new Intent(IntegralActivity.this, HtmlIntegralActivity.class);
                 intent.putExtra("url", url);
+                intent.putExtra("title", "积分商城");
                 startActivity(intent);
             }
         });

@@ -111,7 +111,8 @@ public class HttpAPI {
                     .addQueryParameter("oaid", PreferenceUUID.getInstence().getOaid())//oaid
                     .addQueryParameter("os", Constants.OS)
                     .addQueryParameter("version", PreferenceUUID.getInstence().getVersion())
-                    .addQueryParameter("appid", Constants.APPID);
+                    .addQueryParameter("appid", Constants.APPID)
+                    .addQueryParameter("ourversion", Constants.OURVERSION);
             Request.Builder builder = originalRequest.newBuilder()
                     .url(url.build());
 //            Iterator<Map.Entry<String, String>> iterator = defaultHeadMap.entrySet().iterator();

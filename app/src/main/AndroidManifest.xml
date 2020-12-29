@@ -78,7 +78,19 @@
         <activity android:name=".mvp.ui.activity.HtmlActivity" />
         <activity
             android:name=".mvp.ui.activity.LoginActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="lp"
+                    android:path="/login"
+                    android:scheme="com.part.jianzhiyi" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".mvp.ui.activity.MainActivity"
             android:launchMode="singleTask">
@@ -94,7 +106,6 @@
                     android:scheme="com.part.jianzhiyi" />
             </intent-filter>
         </activity>
-
         <meta-data
             android:name="MOKU_APP_ID"
             android:value="3z5QpUTF" />

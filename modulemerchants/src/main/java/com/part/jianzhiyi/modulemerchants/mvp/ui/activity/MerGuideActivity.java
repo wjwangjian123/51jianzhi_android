@@ -2,6 +2,7 @@ package com.part.jianzhiyi.modulemerchants.mvp.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.widget.ImageView;
 
 import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
@@ -38,6 +39,7 @@ public class MerGuideActivity extends BaseActivity {
     }
 
     private long clickTime = 0;
+
     @Override
     protected void initData() {
         is_sing = getIntent().getIntExtra("is_sing", 0);
@@ -74,7 +76,7 @@ public class MerGuideActivity extends BaseActivity {
                             intent.putExtra("type", 0);
                             startActivity(intent);
                         }
-                    }else {
+                    } else {
                         showToast("点击过于频繁请稍后再试");
                     }
                     //销毁当前activity
@@ -92,6 +94,19 @@ public class MerGuideActivity extends BaseActivity {
     @Override
     public void startIntent() {
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            //跳转到商户主页，我的
+            Intent intent = new Intent(MerGuideActivity.this, MerMainActivity.class);
+            intent.putExtra("type", 1);
+            startActivity(intent);
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override

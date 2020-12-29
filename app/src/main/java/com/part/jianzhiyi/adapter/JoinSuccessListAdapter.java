@@ -6,7 +6,7 @@ import android.widget.TextView;
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.corecommon.base.adapter.CustomBaseAdapter;
 import com.part.jianzhiyi.corecommon.base.adapter.ViewHolder;
-import com.part.jianzhiyi.model.entity.SearchEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.SearchEntity;
 import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 
 import java.util.List;

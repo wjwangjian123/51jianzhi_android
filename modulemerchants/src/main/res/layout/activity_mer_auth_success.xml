@@ -52,27 +52,27 @@
                 android:layout_marginHorizontal="@dimen/dimen_20"
                 android:background="@drawable/shape_white_bg7">
                 <ImageView
+                    android:id="@+id/iv_status"
                     android:layout_width="105dp"
-                    android:layout_height="105dp"
-                    android:src="@drawable/icon_mer_auth_success"/>
+                    android:layout_height="105dp"/>
                 <TextView
+                    android:id="@+id/tv_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="认证审核中"
                     android:textSize="17sp"
                     android:textColor="#494C53"
                     android:textStyle="bold"
                     android:layout_marginTop="6dp"/>
                 <TextView
+                    android:id="@+id/tv_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="审核将在30分钟-1个工作日内完成审核届时将通过短信通知您审核情况；审核通过后即可发布兼职，请耐心等待"
                     android:textSize="@dimen/font_12"
                     android:textColor="#9A9FB7"
                     android:gravity="center"
                     android:lineSpacingExtra="@dimen/dimen_5"
                     android:layout_marginTop="@dimen/dimen_20"
-                    android:layout_marginHorizontal="50dp"/>
+                    android:layout_marginHorizontal="@dimen/dimen_30"/>
             </LinearLayout>
             <TextView
                 android:id="@+id/tv_next"
@@ -80,11 +80,9 @@
                 android:layout_height="100dp"
                 android:layout_marginTop="@dimen/dimen_40"
                 android:layout_marginHorizontal="@dimen/dimen_20"
-                android:text="好的"
                 android:textSize="17sp"
                 android:textColor="@color/color_ffffff"
-                android:gravity="center"
-                android:background="@drawable/icon_mer_btn_bg"/>
+                android:gravity="center"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

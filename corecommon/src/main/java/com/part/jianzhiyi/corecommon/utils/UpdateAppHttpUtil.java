@@ -1,4 +1,4 @@
-package com.part.jianzhiyi.utils;
+package com.part.jianzhiyi.corecommon.utils;
 
 import com.vector.update_app.HttpManager;
 import com.zhy.http.okhttp.OkHttpUtils;

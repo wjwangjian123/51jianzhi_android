@@ -2,6 +2,7 @@ package com.part.jianzhiyi.modulemerchants.mvp.model;
 
 import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.corecommon.utils.Tools;
+import com.part.jianzhiyi.modulemerchants.constants.Constants;
 import com.part.jianzhiyi.modulemerchants.http.HttpAPI;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
 import com.part.jianzhiyi.modulemerchants.model.entity.MSwitchMerchantsEntity;
@@ -56,5 +57,10 @@ public class ChooseModel implements ChooseContract.IChooseModel {
         headers.put("timestamp", timestamp);
         headers.put("signature", s);
         return HttpAPI.getInstence().getServiceApi().getmdAdd(headers, type, PreferenceUUID.getInstence().getToken());
+    }
+
+    @Override
+    public Observable<ResponseData> getaddMd(String type) {
+        return HttpAPI.getInstence().getServiceApi().getaddMd(type, Constants.OS);
     }
 }

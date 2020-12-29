@@ -8,7 +8,7 @@ import com.part.jianzhiyi.http.ResultObserver;
 import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity;
 import com.part.jianzhiyi.model.entity.LableEntity;
-import com.part.jianzhiyi.model.entity.SearchEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.SearchEntity;
 import com.part.jianzhiyi.mvp.contract.SearchContract;
 import com.part.jianzhiyi.mvp.model.SearchModel;
 import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;

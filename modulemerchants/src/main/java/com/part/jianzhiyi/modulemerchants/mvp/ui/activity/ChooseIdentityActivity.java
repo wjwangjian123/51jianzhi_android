@@ -121,17 +121,20 @@ public class ChooseIdentityActivity extends BaseActivity<ChoosePresenter> implem
                 //切换身份
                 if (type == 0 && selectType == 0) {
                     //客户端切客户端
-                    mPresenter.getmdAdd("84");
+                    MobclickAgent.onEvent(ChooseIdentityActivity.this, "mer_choose_user_user");
+                    mPresenter.getaddMd("84");
                     ChooseIdentityActivity.this.finish();
                 }
                 if (type == 1 && selectType == 1) {
                     //商户端切商户端
+                    MobclickAgent.onEvent(ChooseIdentityActivity.this, "mer_choose_merchants_merchants");
                     mPresenter.getmdAdd("86");
                     ChooseIdentityActivity.this.finish();
                 }
                 if (type == 0 && selectType == 1) {
                     //客户端切换商户端
-                    mPresenter.getmdAdd("85");
+                    MobclickAgent.onEvent(ChooseIdentityActivity.this, "mer_choose_user_merchants");
+                    mPresenter.getaddMd("85");
                     if (PreferenceUUID.getInstence().getUserPhone().equals("") || PreferenceUUID.getInstence().getUserPhone().equals(null)) {
                         showToast("手机号为空，请重新登录");
                         return;
@@ -140,6 +143,7 @@ public class ChooseIdentityActivity extends BaseActivity<ChoosePresenter> implem
                 }
                 if (type == 1 && selectType == 0) {
                     //商户端切换客户端
+                    MobclickAgent.onEvent(ChooseIdentityActivity.this, "mer_choose_merchants_user");
                     mPresenter.getmdAdd("87");
                     ActivityUtils.removeAllActivity();
                     PreferenceUUID.getInstence().putStatus(0);
@@ -196,6 +200,11 @@ public class ChooseIdentityActivity extends BaseActivity<ChoosePresenter> implem
 
     @Override
     public void updategetmdAdd(ResponseData responseData) {
+
+    }
+
+    @Override
+    public void updategetaddMd(ResponseData responseData) {
 
     }
 

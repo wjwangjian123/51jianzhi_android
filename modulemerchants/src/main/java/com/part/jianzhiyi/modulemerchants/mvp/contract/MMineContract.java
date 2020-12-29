@@ -3,6 +3,7 @@ package com.part.jianzhiyi.modulemerchants.mvp.contract;
 import com.part.jianzhiyi.corecommon.base.view.IModel;
 import com.part.jianzhiyi.corecommon.base.view.IView;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
+import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MUserInfoEntity;
 
 import io.reactivex.Observable;
@@ -18,6 +19,8 @@ public interface MMineContract {
         Observable<ResponseData> getOpinion(String reason, String con, String phone);
 
         Observable<ResponseData> getmdAdd(String type);
+
+        Observable<MCheckVersionEntity> getCheck();
     }
 
     interface IMMineView extends IView {
@@ -28,5 +31,7 @@ public interface MMineContract {
         void updategetOpinion(ResponseData responseData);
 
         void updategetmdAdd(ResponseData responseData);
+
+        void updategetCheck(MCheckVersionEntity mCheckVersionEntity);
     }
 }

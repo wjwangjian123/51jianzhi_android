@@ -13,6 +13,7 @@ import com.part.jianzhiyi.corecommon.utils.RegularUtils;
 import com.part.jianzhiyi.modulemerchants.R;
 import com.part.jianzhiyi.modulemerchants.base.BaseActivity;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
+import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MUserInfoEntity;
 import com.part.jianzhiyi.modulemerchants.mvp.contract.MMineContract;
 import com.part.jianzhiyi.modulemerchants.mvp.presenter.MMinePresenter;
@@ -196,6 +197,11 @@ public class MerFeedbackActivity extends BaseActivity<MMinePresenter> implements
 
     @Override
     public void updategetmdAdd(ResponseData responseData) {
+
+    }
+
+    @Override
+    public void updategetCheck(MCheckVersionEntity mCheckVersionEntity) {
 
     }
 

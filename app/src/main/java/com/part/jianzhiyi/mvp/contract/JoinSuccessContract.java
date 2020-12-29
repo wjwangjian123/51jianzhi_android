@@ -4,7 +4,7 @@ import com.part.jianzhiyi.corecommon.base.view.IModel;
 import com.part.jianzhiyi.corecommon.base.view.IView;
 import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.AddFavouriteResponseEntity;
-import com.part.jianzhiyi.model.entity.SearchEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.SearchEntity;
 
 import io.reactivex.Observable;
 

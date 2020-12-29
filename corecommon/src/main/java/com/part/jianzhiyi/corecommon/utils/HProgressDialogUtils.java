@@ -1,4 +1,4 @@
-package com.part.jianzhiyi.utils;
+package com.part.jianzhiyi.corecommon.utils;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

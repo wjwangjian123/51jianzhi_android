@@ -4,6 +4,7 @@ import com.part.jianzhiyi.corecommon.base.view.IModel;
 import com.part.jianzhiyi.corecommon.base.view.IView;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
 import com.part.jianzhiyi.modulemerchants.model.entity.MAuthInfoEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.MAuthSuccessEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MEnterpriseInfoEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MFileEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MGetEnterpriseInfoEntity;
@@ -20,9 +21,9 @@ public interface AuthContract {
     interface IAuthModel extends IModel {
         Observable<MIDPositiveEntity> getBaidNumber(RequestBody requestBody);
 
-        Observable<ResponseData> getCheckEnterprise(Map<String, Object> obj);
+        Observable<MAuthSuccessEntity> getCheckEnterprise(Map<String, Object> obj);
 
-        Observable<ResponseData> getNumidSuccess(String img_z, String name, String number, String img_f, String company);
+        Observable<MAuthSuccessEntity> getNumidSuccess(String img_z, String name, String number, String img_f, String company);
 
         Observable<MEnterpriseInfoEntity> getEnterprise(RequestBody requestBody);
 
@@ -40,9 +41,9 @@ public interface AuthContract {
     interface IAuthView extends IView {
         void updategetBaidNumber(MIDPositiveEntity midPositiveEntity);
 
-        void updategetCheckEnterprise(ResponseData responseData);
+        void updategetCheckEnterprise(MAuthSuccessEntity mAuthSuccessEntity);
 
-        void updategetNumidSuccess(ResponseData responseData);
+        void updategetNumidSuccess(MAuthSuccessEntity mAuthSuccessEntity);
 
         void updategetEnterprise(MEnterpriseInfoEntity mEnterpriseInfoEntity);
 

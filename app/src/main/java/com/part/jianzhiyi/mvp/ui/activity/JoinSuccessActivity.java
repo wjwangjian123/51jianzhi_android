@@ -37,7 +37,7 @@ import com.part.jianzhiyi.corecommon.utils.UiUtils;
 import com.part.jianzhiyi.dialog.ContactBusinessDialog;
 import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.JoinJobEntity;
-import com.part.jianzhiyi.model.entity.SearchEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.SearchEntity;
 import com.part.jianzhiyi.mvp.contract.JoinSuccessContract;
 import com.part.jianzhiyi.mvp.presenter.JoinSuccessPresenter;
 import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;

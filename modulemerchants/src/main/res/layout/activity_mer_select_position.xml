@@ -1,76 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:fillViewport="true"
-    android:scrollbars="none"
     android:background="@color/color_ffffff"
     tools:context=".mvp.ui.activity.MerSelectPositionActivity">
     <RelativeLayout
+        android:id="@+id/rl_title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/tv_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="选择职位类型"
-            android:textSize="23sp"
-            android:textColor="#494C53"
-            android:textStyle="bold"
-            android:layout_marginTop="@dimen/dimen_20"
-            android:layout_marginLeft="@dimen/dimen_20"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1/4"
-            android:textSize="@dimen/font_20"
-            android:textColor="#A2A8B5"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/dimen_20"
-            android:layout_marginTop="21dp"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycle_position"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_content"
-            android:layout_marginTop="34dp"
-            android:layout_centerHorizontal="true"/>
-        <View
-            android:id="@+id/view_select"
-            android:layout_width="match_parent"
-            android:layout_height="11dp"
-            android:background="@color/color_F7F8FA"
-            android:layout_below="@+id/recycle_position"
-            android:layout_marginTop="27dp"/>
-        <com.zhy.view.flowlayout.TagFlowLayout
-            android:id="@+id/tfl_select"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/view_select"
-            android:layout_marginTop="27dp"
-            android:layout_marginHorizontal="@dimen/dimen_20"
-            app:max_select="1" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="bottom"
-            android:paddingBottom="@dimen/dimen_40"
-            android:layout_below="@+id/tfl_select"
-            android:layout_marginTop="@dimen/dimen_10">
-            <TextView
-                android:id="@+id/tv_next"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="下一步"
-                android:textSize="17sp"
-                android:textColor="@color/color_ffffff"
-                android:gravity="center"
-                android:layout_marginHorizontal="@dimen/dimen_20"
-                android:background="@drawable/icon_mer_btn_bg"/>
-        </LinearLayout>
+        android:layout_height="@dimen/dimen_44">
+        <ImageView
+            android:id="@+id/iv_return"
+            android:layout_width="@dimen/dimen_44"
+            android:layout_height="@dimen/dimen_44"
+            android:layout_centerVertical="true"
+            android:paddingHorizontal="19dp"
+            android:paddingVertical="16dp"
+            android:src="@drawable/ic_arrow_return"/>
     </RelativeLayout>
-</ScrollView>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_ffffff"
+        android:orientation="vertical"
+        android:fillViewport="true"
+        android:scrollbars="none">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="选择职位类型"
+                android:textSize="23sp"
+                android:textColor="#494C53"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:layout_marginLeft="@dimen/dimen_20"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1/4"
+                android:textSize="@dimen/font_20"
+                android:textColor="#A2A8B5"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dimen_20"
+                android:layout_marginTop="21dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycle_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_content"
+                android:layout_marginTop="34dp"
+                android:layout_centerHorizontal="true"/>
+            <View
+                android:id="@+id/view_select"
+                android:layout_width="match_parent"
+                android:layout_height="11dp"
+                android:background="@color/color_F7F8FA"
+                android:layout_below="@+id/recycle_position"
+                android:layout_marginTop="27dp"/>
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/tfl_select"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view_select"
+                android:layout_marginTop="27dp"
+                android:layout_marginHorizontal="@dimen/dimen_20"
+                app:max_select="1" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="bottom"
+                android:paddingBottom="@dimen/dimen_40"
+                android:layout_below="@+id/tfl_select"
+                android:layout_marginTop="@dimen/dimen_10">
+                <TextView
+                    android:id="@+id/tv_next"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:text="下一步"
+                    android:textSize="17sp"
+                    android:textColor="@color/color_ffffff"
+                    android:gravity="center"
+                    android:layout_marginHorizontal="@dimen/dimen_20"
+                    android:background="@drawable/icon_mer_btn_bg"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

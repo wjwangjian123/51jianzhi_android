@@ -264,6 +264,7 @@ public class MerToPublishFragment extends BaseFragment<MHomePresenter> implement
             Intent intent = new Intent(getActivity(), MerSelectPositionActivity.class);
             intent.putExtra("type", 1);
             intent.putExtra("mJobInfoEntity", mJobInfoEntity);
+            intent.putExtra("mType", 0);
             startActivity(intent);
         }
     }

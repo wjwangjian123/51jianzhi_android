@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.part.jianzhiyi.R;
@@ -23,7 +22,7 @@ import com.part.jianzhiyi.corecommon.ui.InputFilteEditText;
 import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity;
 import com.part.jianzhiyi.model.entity.LableEntity;
-import com.part.jianzhiyi.model.entity.SearchEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.SearchEntity;
 import com.part.jianzhiyi.mvp.contract.SearchContract;
 import com.part.jianzhiyi.mvp.presenter.SearchPresenter;
 import com.umeng.analytics.MobclickAgent;
@@ -34,7 +33,6 @@ import com.zhy.view.flowlayout.TagFlowLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 @Route(path = "/app/activity/search")

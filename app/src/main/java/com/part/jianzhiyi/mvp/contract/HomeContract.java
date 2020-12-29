@@ -7,7 +7,7 @@ import com.part.jianzhiyi.model.entity.BannerEntity;
 import com.part.jianzhiyi.model.entity.CategoryEntity;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity2;
 import com.part.jianzhiyi.model.entity.LableEntity;
-import com.part.jianzhiyi.model.entity.SearchEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.SearchEntity;
 import com.part.jianzhiyi.model.entity.integral.SignEntity;
 import com.part.jianzhiyi.model.entity.integral.SignInfoEntity;
 import com.part.jianzhiyi.mvp.model.user.IUserModel;

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -33,6 +34,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MerSelectPositionActivity extends BaseActivity<MPublishPresenter> implements MPublishContract.IMPublishView {
 
+    private ImageView mIvReturn;
     private RecyclerView mRecyclePosition;
     private TagFlowLayout mTflSelect;
     private TextView mTvNext;
@@ -44,6 +46,7 @@ public class MerSelectPositionActivity extends BaseActivity<MPublishPresenter> i
     private String job_id;
     private MJobInfoEntity mJobInfoEntity;
     private int type = 0;
+    private int mType = 0;
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
@@ -57,15 +60,18 @@ public class MerSelectPositionActivity extends BaseActivity<MPublishPresenter> i
 
     @Override
     protected void initView() {
+        mIvReturn = (ImageView) findViewById(R.id.iv_return);
         mRecyclePosition = (RecyclerView) findViewById(R.id.recycle_position);
         mTflSelect = (TagFlowLayout) findViewById(R.id.tfl_select);
         mTvNext = (TextView) findViewById(R.id.tv_next);
-        initToolbar("");
+        setToolBarVisible(false);
+        setImmerseLayout(findViewById(R.id.rl_title));
     }
 
     @Override
     protected void initData() {
         type = getIntent().getIntExtra("type", 0);
+        mType = getIntent().getIntExtra("mType", 0);
         if (type == 1) {
             mJobInfoEntity = (MJobInfoEntity) getIntent().getSerializableExtra("mJobInfoEntity");
         }
@@ -102,9 +108,30 @@ public class MerSelectPositionActivity extends BaseActivity<MPublishPresenter> i
     }
 
     private long clickTime = 0;
+    private long clickTime2 = 0;
+
     @Override
     protected void setListener() {
         super.setListener();
+        mIvReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (System.currentTimeMillis() - clickTime2 > 3000) {
+                    clickTime2 = System.currentTimeMillis();
+                    if (mType == 0) {
+                        finish();
+                    } else {
+                        //跳转到商户主页，我的
+                        Intent intent = new Intent(MerSelectPositionActivity.this, MerMainActivity.class);
+                        intent.putExtra("type", 1);
+                        startActivity(intent);
+                        MerSelectPositionActivity.this.finish();
+                    }
+                } else {
+                    showToast("点击过于频繁请稍后再试");
+                }
+            }
+        });
         mTvNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,7 +150,7 @@ public class MerSelectPositionActivity extends BaseActivity<MPublishPresenter> i
                 if (System.currentTimeMillis() - clickTime > 3000) {
                     clickTime = System.currentTimeMillis();
                     mPresenter.getCheckJob(label_id, job_id);
-                }else {
+                } else {
                     showToast("点击过于频繁请稍后再试");
                 }
             }
@@ -229,6 +256,7 @@ public class MerSelectPositionActivity extends BaseActivity<MPublishPresenter> i
     }
 
     private long clickTime1 = 0;
+
     private void initDialogAuthTip(String mtip) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MerSelectPositionActivity.this);
         AlertDialog alertDialog = builder.create();
@@ -258,7 +286,7 @@ public class MerSelectPositionActivity extends BaseActivity<MPublishPresenter> i
                     intent.putExtra("urlType", 1);
                     startActivity(intent);
                     MerSelectPositionActivity.this.finish();
-                }else {
+                } else {
                     showToast("点击过于频繁请稍后再试");
                 }
             }
@@ -294,6 +322,24 @@ public class MerSelectPositionActivity extends BaseActivity<MPublishPresenter> i
     }
 
     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            //跳转到商户主页，我的
+            if (mType == 0) {
+                finish();
+            } else {
+                //跳转到商户主页，我的
+                Intent intent = new Intent(MerSelectPositionActivity.this, MerMainActivity.class);
+                intent.putExtra("type", 1);
+                startActivity(intent);
+                MerSelectPositionActivity.this.finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         MobclickAgent.onPageStart("商户端选择职位类型页面");
@@ -306,4 +352,6 @@ public class MerSelectPositionActivity extends BaseActivity<MPublishPresenter> i
         MobclickAgent.onPageEnd("商户端选择职位类型页面");
         MobclickAgent.onPause(this);
     }
+
+
 }

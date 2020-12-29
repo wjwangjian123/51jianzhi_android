@@ -71,6 +71,7 @@
                 android:layout_below="@+id/mine_tv_phone"
                 android:layout_alignLeft="@+id/mine_tv_phone"
                 android:layout_marginTop="9dp"
+                android:layout_marginRight="@dimen/dimen_20"
                 android:gravity="center_vertical"
                 android:drawablePadding="@dimen/dimen_4"/>
             <LinearLayout

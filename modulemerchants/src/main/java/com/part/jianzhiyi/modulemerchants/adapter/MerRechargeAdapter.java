@@ -30,7 +30,7 @@ public class MerRechargeAdapter extends CustomBaseAdapter<MMyWalletEntity.DataBe
     protected void convert(ViewHolder viewHolder, MMyWalletEntity.DataBean.SubListBean item, int position) {
         if (item != null) {
             ((TextView) viewHolder.getView(R.id.tv_time)).setText(item.getDate());
-            ((TextView) viewHolder.getView(R.id.tv_method)).setText("支付方式" + item.getType());
+            ((TextView) viewHolder.getView(R.id.tv_method)).setText("支付方式:" + item.getType());
             ((TextView) viewHolder.getView(R.id.tv_id)).setText(item.getId());
             ((TextView) viewHolder.getView(R.id.tv_seller)).setText(item.getSeller_id());
             ((TextView) viewHolder.getView(R.id.tv_pay_money)).setText(item.getMoney());

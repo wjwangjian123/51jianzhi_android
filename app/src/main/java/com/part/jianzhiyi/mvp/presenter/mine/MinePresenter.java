@@ -12,6 +12,8 @@ import com.part.jianzhiyi.model.entity.AddSignEntity;
 import com.part.jianzhiyi.model.entity.DaySignEntity;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
+import com.part.jianzhiyi.model.entity.integral.SignInfoEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
 import com.part.jianzhiyi.mvp.contract.user.MineContract;
 import com.part.jianzhiyi.mvp.model.user.MineModel;
 
@@ -137,6 +139,40 @@ public class MinePresenter extends BasePresenter<MineContract.IMineModel, MineCo
                         if (TextUtils.equals(responseData.getCode(), HttpAPI.REQUEST_SUCCESS)) {
                             if (isAttach()) {
                                 weakReferenceView.get().updategetaddMd(responseData);
+                            }
+                        }
+                    }
+                }));
+    }
+
+    public void getAddInteg(String user_id, int type, String job_id) {
+        mModel.getAddInteg(user_id, type, job_id)
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<SignInfoEntity>() {
+                    @Override
+                    public void onNext(SignInfoEntity entity) {
+                        if (TextUtils.equals(entity.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetAddInteg(entity);
+                            }
+                        } else {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetAddInteg(entity);
+                            }
+                        }
+                    }
+                }));
+    }
+
+    public void getCheck() {
+        mModel.getCheck()
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<MCheckVersionEntity>() {
+                    @Override
+                    public void onNext(MCheckVersionEntity mCheckVersionEntity) {
+                        if (TextUtils.equals(mCheckVersionEntity.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetCheck(mCheckVersionEntity);
                             }
                         }
                     }

@@ -9,6 +9,8 @@ import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.AddSignEntity;
 import com.part.jianzhiyi.model.entity.DaySignEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
+import com.part.jianzhiyi.model.entity.integral.SignInfoEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
 import com.part.jianzhiyi.mvp.contract.user.MineContract;
 
 import io.reactivex.Observable;
@@ -43,5 +45,15 @@ public class MineModel extends UserModel implements MineContract.IMineModel {
     @Override
     public Observable<ResponseData> getaddMd(String type) {
         return HttpAPI.getInstence().getServiceApi().getaddMd(type, Constants.OS);
+    }
+
+    @Override
+    public Observable<SignInfoEntity> getAddInteg(String user_id, int type, String job_id) {
+        return HttpAPI.getInstence().getServiceApi().getAddInteg(user_id, type, job_id);
+    }
+
+    @Override
+    public Observable<MCheckVersionEntity> getCheck() {
+        return HttpAPI.getInstence().getServiceApi().getCheck(Constants.OS, Constants.APPID);
     }
 }

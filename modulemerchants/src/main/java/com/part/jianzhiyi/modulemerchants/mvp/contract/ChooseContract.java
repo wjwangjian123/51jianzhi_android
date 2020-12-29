@@ -13,11 +13,15 @@ public interface ChooseContract {
         Observable<MSwitchMerchantsEntity> getUserChabge(String phone);
 
         Observable<ResponseData> getmdAdd(String type);
+
+        Observable<ResponseData> getaddMd(String type);
     }
 
     interface IChooseView extends IView {
         void updategetUserChabge(MSwitchMerchantsEntity mSwitchMerchantsEntity);
 
         void updategetmdAdd(ResponseData responseData);
+
+        void updategetaddMd(ResponseData responseData);
     }
 }

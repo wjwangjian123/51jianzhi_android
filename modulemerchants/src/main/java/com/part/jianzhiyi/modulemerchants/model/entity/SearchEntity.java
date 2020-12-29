@@ -1,4 +1,4 @@
-package com.part.jianzhiyi.model.entity;
+package com.part.jianzhiyi.modulemerchants.model.entity;
 
 import java.util.List;
 

@@ -48,6 +48,15 @@ public class ActivityEntity {
         private String type;
         private String url;
         private int url_redirect;
+        private String job_id;
+
+        public String getJob_id() {
+            return job_id;
+        }
+
+        public void setJob_id(String job_id) {
+            this.job_id = job_id;
+        }
 
         public int getUrl_redirect() {
             return url_redirect;

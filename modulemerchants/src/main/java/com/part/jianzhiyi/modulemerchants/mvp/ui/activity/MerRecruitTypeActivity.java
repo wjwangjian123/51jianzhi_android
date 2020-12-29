@@ -18,6 +18,7 @@ import com.meiqia.meiqiasdk.util.MQIntentBuilder;
 import com.part.jianzhiyi.modulemerchants.R;
 import com.part.jianzhiyi.modulemerchants.base.BaseActivity;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
+import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MUserInfoEntity;
 import com.part.jianzhiyi.modulemerchants.mvp.contract.MMineContract;
 import com.part.jianzhiyi.modulemerchants.mvp.presenter.MMinePresenter;
@@ -280,6 +281,7 @@ public class MerRecruitTypeActivity extends BaseActivity<MMinePresenter> impleme
             } else if (mUserInfoEntity.getUserinfo().getJob_add() == 2) {
                 Intent intent = new Intent(MerRecruitTypeActivity.this, MerSelectPositionActivity.class);
                 intent.putExtra("type", 0);
+                intent.putExtra("mType", 0);
                 startActivity(intent);
             }
         }
@@ -297,6 +299,11 @@ public class MerRecruitTypeActivity extends BaseActivity<MMinePresenter> impleme
 
     @Override
     public void updategetmdAdd(ResponseData responseData) {
+
+    }
+
+    @Override
+    public void updategetCheck(MCheckVersionEntity mCheckVersionEntity) {
 
     }
 

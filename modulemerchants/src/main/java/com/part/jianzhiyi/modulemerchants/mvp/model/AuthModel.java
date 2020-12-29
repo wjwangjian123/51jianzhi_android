@@ -6,6 +6,7 @@ import com.part.jianzhiyi.corecommon.utils.Tools;
 import com.part.jianzhiyi.modulemerchants.http.HttpAPI;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
 import com.part.jianzhiyi.modulemerchants.model.entity.MAuthInfoEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.MAuthSuccessEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MEnterpriseInfoEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MFileEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MGetEnterpriseInfoEntity;
@@ -30,7 +31,7 @@ public class AuthModel implements AuthContract.IAuthModel {
     }
 
     @Override
-    public Observable<ResponseData> getCheckEnterprise(Map<String, Object> obj) {
+    public Observable<MAuthSuccessEntity> getCheckEnterprise(Map<String, Object> obj) {
         if (obj == null) {
             obj = new HashMap<>();
         }
@@ -41,7 +42,7 @@ public class AuthModel implements AuthContract.IAuthModel {
     }
 
     @Override
-    public Observable<ResponseData> getNumidSuccess(String img_z, String name, String number, String img_f, String company) {
+    public Observable<MAuthSuccessEntity> getNumidSuccess(String img_z, String name, String number, String img_f, String company) {
         Map<String, String> headers = new HashMap<>();
         String timestamp = String.valueOf(System.currentTimeMillis());
         String nonce = String.valueOf((1 + Math.random() * (10 - 1 + 1)));

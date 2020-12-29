@@ -156,7 +156,6 @@ public class Tools {
         WebSettings settings = webview.getSettings();
         String ua = settings.getUserAgentString();
         //Log.e("HJJ", "User Agent:" + ua);
-
         return webview.getSettings().getUserAgentString();
     }
 

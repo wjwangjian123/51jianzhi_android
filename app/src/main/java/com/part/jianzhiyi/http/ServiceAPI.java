@@ -606,7 +606,7 @@ public interface ServiceAPI {
      * @return
      */
     @FormUrlEncoded
-    @POST("http://testbus.sw193.com/user/check/is_del")
+    @POST("http://bus.sw193.com/user/check/is_del")
     Observable<DelUserEntity> getIsDel(@Field("user_id") String user_id);
 
 }

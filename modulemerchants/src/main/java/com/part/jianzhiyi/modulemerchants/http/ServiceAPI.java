@@ -293,7 +293,7 @@ public interface ServiceAPI {
      * @return
      */
     @FormUrlEncoded
-    @POST("http://51testapi.sw193.com/Api/Md/addMd")
+    @POST("http://api.sw193.com/Api/Md/addMd")
     Observable<ResponseData> getaddMd(@Field("type") String type, @Field("os") String os);
 
     /**
@@ -302,7 +302,7 @@ public interface ServiceAPI {
      * @return
      */
     @FormUrlEncoded
-    @POST("http://51testapi.sw193.com/api/version/check")
+    @POST("http://api.sw193.com/api/version/check")
     Observable<MCheckVersionEntity> getCheck(@Field("os") String os, @Field("app_id") String app_id);
 
     /**

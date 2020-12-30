@@ -26,6 +26,7 @@ import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.dialog.SignDialog;
 import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.AddSignEntity;
+import com.part.jianzhiyi.model.entity.ConfigEntity;
 import com.part.jianzhiyi.model.entity.DaySignEntity;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
@@ -82,6 +83,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
     private RelativeLayout mRlFeekback;
     private RelativeLayout mRlAbout;
     private RelativeLayout mRlSet;
+    private View mViewService;
     private DaySignEntity mDaySignEntity;
     private String username;
 
@@ -119,6 +121,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         mRlFeekback = view.findViewById(R.id.rl_feekback);
         mRlAbout = view.findViewById(R.id.rl_about);
         mRlSet = view.findViewById(R.id.rl_set);
+        mViewService = view.findViewById(R.id.view_service);
         setToolbarVisible(false);
         if (mPresenter.isUserLogin()) {
             mMineTvPhone.setText(PreferenceUUID.getInstence().getUserPhone());
@@ -138,6 +141,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
     protected void afterCreate() {
         //获取签到情况
         mPresenter.getDaySign(PreferenceUUID.getInstence().getUserId());
+        mPresenter.getConfig();
     }
 
     @Override
@@ -414,6 +418,19 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
     @Override
     public void updategetCheck(MCheckVersionEntity mCheckVersionEntity) {
 
+    }
+
+    @Override
+    public void updategetConfig(ConfigEntity configEntity) {
+        if (configEntity != null) {
+            if (configEntity.getData().getIs_os() == 0) {
+                mRlService.setVisibility(View.GONE);
+                mViewService.setVisibility(View.GONE);
+            } else if (configEntity.getData().getIs_os() == 1) {
+                mRlService.setVisibility(View.VISIBLE);
+                mViewService.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     @Override

@@ -24,6 +24,7 @@ import com.part.jianzhiyi.corecommon.constants.IntentConstant;
 import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.corecommon.utils.ActivityUtils;
 import com.part.jianzhiyi.corecommon.utils.AppUtil;
+import com.part.jianzhiyi.model.entity.ConfigEntity;
 import com.part.jianzhiyi.modulemerchants.dialog.DialogVersionUpdate;
 import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.AddSignEntity;
@@ -365,6 +366,11 @@ public class MineSettingActivity extends BaseActivity<MinePresenter> implements 
         } else {
             showToast("当前已是最新版本");
         }
+    }
+
+    @Override
+    public void updategetConfig(ConfigEntity configEntity) {
+
     }
 
     private void initPermission(String app_url) {

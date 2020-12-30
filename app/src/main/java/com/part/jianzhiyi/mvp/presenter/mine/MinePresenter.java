@@ -9,6 +9,7 @@ import com.part.jianzhiyi.http.HttpAPI;
 import com.part.jianzhiyi.http.ResultObserver;
 import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.AddSignEntity;
+import com.part.jianzhiyi.model.entity.ConfigEntity;
 import com.part.jianzhiyi.model.entity.DaySignEntity;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
@@ -173,6 +174,21 @@ public class MinePresenter extends BasePresenter<MineContract.IMineModel, MineCo
                         if (TextUtils.equals(mCheckVersionEntity.getCode(), HttpAPI.REQUEST_SUCCESS)) {
                             if (isAttach()) {
                                 weakReferenceView.get().updategetCheck(mCheckVersionEntity);
+                            }
+                        }
+                    }
+                }));
+    }
+
+    public void getConfig() {
+        mModel.getConfig()
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<ConfigEntity>() {
+                    @Override
+                    public void onNext(ConfigEntity responseData) {
+                        if (TextUtils.equals(responseData.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetConfig(responseData);
                             }
                         }
                     }

@@ -4,6 +4,7 @@ import com.part.jianzhiyi.corecommon.base.view.IModel;
 import com.part.jianzhiyi.corecommon.base.view.IView;
 import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.AddSignEntity;
+import com.part.jianzhiyi.model.entity.ConfigEntity;
 import com.part.jianzhiyi.model.entity.DaySignEntity;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
@@ -33,6 +34,8 @@ public interface MineContract {
         Observable<SignInfoEntity> getAddInteg(String user_id, int type, String job_id);
 
         Observable<MCheckVersionEntity> getCheck();
+
+        Observable<ConfigEntity> getConfig();
     }
 
     interface IMineView extends IView {
@@ -51,5 +54,7 @@ public interface MineContract {
         void updategetAddInteg(SignInfoEntity responseData);
 
         void updategetCheck(MCheckVersionEntity mCheckVersionEntity);
+
+        void updategetConfig(ConfigEntity configEntity);
     }
 }

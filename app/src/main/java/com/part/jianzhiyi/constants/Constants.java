@@ -24,7 +24,7 @@ public class Constants {
     //隐私协议是否展示公司信息 1：展示    0：不展示
     public static final String STATUS = "1";
     public static final String OS = "1";
-    public static final String OURVERSION = "2.0.2";
+    public static final String OURVERSION = "2.0.3";
     //广告
     public static final String TTAD_APPID = "5117468";
     //美洽

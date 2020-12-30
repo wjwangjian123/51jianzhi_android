@@ -6,6 +6,7 @@ import com.part.jianzhiyi.modulemerchants.constants.Constants;
 import com.part.jianzhiyi.modulemerchants.http.HttpAPI;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
 import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.MConfigEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MUserInfoEntity;
 import com.part.jianzhiyi.modulemerchants.mvp.contract.MMineContract;
 import com.part.jianzhiyi.modulemerchants.utils.ParamsUtil;
@@ -93,5 +94,10 @@ public class MMineModel implements MMineContract.IMMineModel {
     @Override
     public Observable<MCheckVersionEntity> getCheck() {
         return HttpAPI.getInstence().getServiceApi().getCheck(Constants.OS, Constants.APPID);
+    }
+
+    @Override
+    public Observable<MConfigEntity> getConfig() {
+        return HttpAPI.getInstence().getServiceApi().getConfig(Constants.APPID);
     }
 }

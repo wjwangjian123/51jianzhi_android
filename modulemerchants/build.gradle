@@ -71,6 +71,6 @@ dependencies {
     implementation project(':netcommon')
     api 'com.jph.takephoto:takephoto_library:4.0.3'
     //美洽
-    api 'com.meiqia:meiqiasdk:+'
+    api 'com.meiqia:meiqiasdk:3.6.4'
     api 'top.zibin:Luban:1.1.8'
 }

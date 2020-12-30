@@ -7,6 +7,7 @@ import com.part.jianzhiyi.modulemerchants.model.entity.MAuthSuccessEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MBannerEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MCompanyInfoEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.MConfigEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MEnterpriseInfoEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MFileEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MGetEnterpriseInfoEntity;
@@ -312,5 +313,14 @@ public interface ServiceAPI {
     @FormUrlEncoded
     @POST("user/business/get_company_info")
     Observable<MCompanyInfoEntity> getCompanyInfo(@HeaderMap Map<String, String> headers, @Field("uid") String uid, @Field("job_id") String job_id, @Field("user_id") String user_id, @Field("appid") String appid);
+
+    /**
+     * 商户端公共配置
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/Config/getConfig")
+    Observable<MConfigEntity> getConfig(@Field("appid") String appid);
 
 }

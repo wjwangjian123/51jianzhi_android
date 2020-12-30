@@ -14,6 +14,7 @@ import com.part.jianzhiyi.modulemerchants.R;
 import com.part.jianzhiyi.modulemerchants.base.BaseActivity;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
 import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.MConfigEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MUserInfoEntity;
 import com.part.jianzhiyi.modulemerchants.mvp.contract.MMineContract;
 import com.part.jianzhiyi.modulemerchants.mvp.presenter.MMinePresenter;
@@ -203,6 +204,11 @@ public class MerAuthSuccessActivity extends BaseActivity<MMinePresenter> impleme
 
     @Override
     public void updategetCheck(MCheckVersionEntity mCheckVersionEntity) {
+
+    }
+
+    @Override
+    public void updategetConfig(MConfigEntity mConfigEntity) {
 
     }
 

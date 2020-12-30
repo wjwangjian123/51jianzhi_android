@@ -10,6 +10,7 @@ import com.part.jianzhiyi.modulemerchants.R;
 import com.part.jianzhiyi.modulemerchants.base.BaseActivity;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
 import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.MConfigEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MUserInfoEntity;
 import com.part.jianzhiyi.modulemerchants.mvp.contract.MMineContract;
 import com.part.jianzhiyi.modulemerchants.mvp.presenter.MMinePresenter;
@@ -73,7 +74,7 @@ public class MerRecruitActivity extends BaseActivity<MMinePresenter> implements 
                     intent.putExtra("type", 1);
                     intent.putExtra("content", mTvPublishSurplus.getText().toString());
                     startActivity(intent);
-                }else {
+                } else {
                     showToast("点击过于频繁请稍后再试");
                 }
             }
@@ -88,7 +89,7 @@ public class MerRecruitActivity extends BaseActivity<MMinePresenter> implements 
                     intent.putExtra("type", 2);
                     intent.putExtra("content", "");
                     startActivity(intent);
-                }else {
+                } else {
                     showToast("点击过于频繁请稍后再试");
                 }
             }
@@ -103,7 +104,7 @@ public class MerRecruitActivity extends BaseActivity<MMinePresenter> implements 
                     intent.putExtra("type", 3);
                     intent.putExtra("content", "");
                     startActivity(intent);
-                }else {
+                } else {
                     showToast("点击过于频繁请稍后再试");
                 }
             }
@@ -118,7 +119,7 @@ public class MerRecruitActivity extends BaseActivity<MMinePresenter> implements 
                     intent.putExtra("type", 4);
                     intent.putExtra("content", "");
                     startActivity(intent);
-                }else {
+                } else {
                     showToast("点击过于频繁请稍后再试");
                 }
             }
@@ -133,7 +134,7 @@ public class MerRecruitActivity extends BaseActivity<MMinePresenter> implements 
                     intent.putExtra("type", 5);
                     intent.putExtra("content", "");
                     startActivity(intent);
-                }else {
+                } else {
                     showToast("点击过于频繁请稍后再试");
                 }
             }
@@ -174,6 +175,11 @@ public class MerRecruitActivity extends BaseActivity<MMinePresenter> implements 
 
     @Override
     public void updategetCheck(MCheckVersionEntity mCheckVersionEntity) {
+
+    }
+
+    @Override
+    public void updategetConfig(MConfigEntity mConfigEntity) {
 
     }
 

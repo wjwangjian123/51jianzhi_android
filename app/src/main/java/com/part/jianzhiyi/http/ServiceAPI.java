@@ -250,7 +250,7 @@ public interface ServiceAPI {
     Observable<ResponseData<AddFavouriteResponseEntity>> getTitle(@Field("appid") String appid, @Field("imei") String imei, @Field("androidid") String deviceid);
 
 
-    @POST("api/Apiv2/area")
+    @GET("api/Apiv2/area")
     Observable<String> getCity();
 
     @FormUrlEncoded
@@ -265,9 +265,9 @@ public interface ServiceAPI {
     @POST("api/Apiv2/choice")
     Observable<ResponseData<ChoiceEntity>> getChoice(@Field("position") String position, @Field("appid") String appId, @Field("sort_id") String sort_id, @Field("ip") String ip, @Field("type") String type, @Field("os") String os);
 
-
+    @FormUrlEncoded
     @POST("api/Apiv2/homeCategory")
-    Observable<ResponseData<List<CategoryEntity>>> getHomeCategory(@Query("appid") String appid);
+    Observable<ResponseData<List<CategoryEntity>>> getHomeCategory(@Field("appid") String appid);
 
     /**
      * 刷新个人中心信息接口
@@ -283,8 +283,9 @@ public interface ServiceAPI {
      *
      * @return
      */
-    @GET("Api/Activity/getConfig")
-    Observable<ConfigEntity> getConfig(@Query("appid") String appid, @Query("os") String os);
+    @FormUrlEncoded
+    @POST("Api/Activity/getConfig")
+    Observable<ConfigEntity> getConfig(@Field("appid") String appid, @Field("os") String os);
 
     /**
      * 验证友盟TOKEN

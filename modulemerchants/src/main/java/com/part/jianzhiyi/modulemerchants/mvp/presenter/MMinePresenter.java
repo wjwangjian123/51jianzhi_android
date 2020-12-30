@@ -7,6 +7,7 @@ import com.part.jianzhiyi.modulemerchants.http.HttpAPI;
 import com.part.jianzhiyi.modulemerchants.http.ResultObserver;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
 import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.MConfigEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MUserInfoEntity;
 import com.part.jianzhiyi.modulemerchants.mvp.contract.MMineContract;
 import com.part.jianzhiyi.modulemerchants.mvp.model.MMineModel;
@@ -49,7 +50,7 @@ public class MMinePresenter extends BasePresenter<MMineContract.IMMineModel, MMi
                             if (isAttach()) {
                                 weakReferenceView.get().updategetAvatar(responseData);
                             }
-                        }else {
+                        } else {
                             if (isAttach()) {
                                 weakReferenceView.get().updategetAvatar(responseData);
                             }
@@ -101,6 +102,21 @@ public class MMinePresenter extends BasePresenter<MMineContract.IMMineModel, MMi
                         if (TextUtils.equals(mCheckVersionEntity.getCode(), HttpAPI.REQUEST_SUCCESS)) {
                             if (isAttach()) {
                                 weakReferenceView.get().updategetCheck(mCheckVersionEntity);
+                            }
+                        }
+                    }
+                }));
+    }
+
+    public void getConfig() {
+        mModel.getConfig()
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<MConfigEntity>() {
+                    @Override
+                    public void onNext(MConfigEntity mConfigEntity) {
+                        if (TextUtils.equals(mConfigEntity.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetConfig(mConfigEntity);
                             }
                         }
                     }

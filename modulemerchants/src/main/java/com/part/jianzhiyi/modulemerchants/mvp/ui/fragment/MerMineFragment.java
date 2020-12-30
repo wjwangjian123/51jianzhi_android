@@ -35,6 +35,7 @@ import com.part.jianzhiyi.modulemerchants.R;
 import com.part.jianzhiyi.modulemerchants.base.BaseFragment;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
 import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.MConfigEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MUserInfoEntity;
 import com.part.jianzhiyi.modulemerchants.mvp.contract.MMineContract;
 import com.part.jianzhiyi.modulemerchants.mvp.presenter.MMinePresenter;
@@ -82,6 +83,7 @@ public class MerMineFragment extends BaseFragment<MMinePresenter> implements MMi
     private RelativeLayout mMineRlService;
     private RelativeLayout mMineRlFeedback;
     private RelativeLayout mMineRlSet;
+    private View mViewService;
     private int mcertStatus = 1;
     private int type = 1;
     private String imagePath;
@@ -105,6 +107,7 @@ public class MerMineFragment extends BaseFragment<MMinePresenter> implements MMi
         mMineRlService = view.findViewById(R.id.mine_rl_service);
         mMineRlFeedback = view.findViewById(R.id.mine_rl_feedback);
         mMineRlSet = view.findViewById(R.id.mine_rl_set);
+        mViewService = view.findViewById(R.id.view_service);
         setToolbarVisible(false);
     }
 
@@ -295,7 +298,7 @@ public class MerMineFragment extends BaseFragment<MMinePresenter> implements MMi
 
     @Override
     protected void afterCreate() {
-
+        mPresenter.getConfig();
     }
 
     private void initDialogTakePhoto() {
@@ -614,6 +617,19 @@ public class MerMineFragment extends BaseFragment<MMinePresenter> implements MMi
     @Override
     public void updategetCheck(MCheckVersionEntity mCheckVersionEntity) {
 
+    }
+
+    @Override
+    public void updategetConfig(MConfigEntity mConfigEntity) {
+        if (mConfigEntity != null) {
+            if (mConfigEntity.getData().getIs_os() == 0) {
+                mMineRlService.setVisibility(View.GONE);
+                mViewService.setVisibility(View.GONE);
+            } else if (mConfigEntity.getData().getIs_os() == 1) {
+                mMineRlService.setVisibility(View.VISIBLE);
+                mViewService.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     @Override

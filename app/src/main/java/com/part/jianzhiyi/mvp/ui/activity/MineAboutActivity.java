@@ -1,28 +1,30 @@
 package com.part.jianzhiyi.mvp.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.base.BaseActivity;
-import com.part.jianzhiyi.base.BasePresenter;
 import com.part.jianzhiyi.constants.Constants;
 import com.part.jianzhiyi.corecommon.utils.AppUtil;
+import com.part.jianzhiyi.model.entity.ConfigEntity;
+import com.part.jianzhiyi.mvp.contract.AboutContract;
+import com.part.jianzhiyi.mvp.presenter.AboutPresenter;
 import com.umeng.analytics.MobclickAgent;
 
 @Route(path = "/app/activity/about")
-public class MineAboutActivity extends BaseActivity {
+public class MineAboutActivity extends BaseActivity<AboutPresenter> implements AboutContract.IAboutView {
 
     private TextView mMineAboutVersion;
-    private int i=0;
+    private WebView mWebView;
+    private int i = 0;
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
-
+        mPresenter.getConfig();
     }
 
     @Override
@@ -34,15 +36,16 @@ public class MineAboutActivity extends BaseActivity {
     protected void initView() {
         initToolbar("关于我们");
         mMineAboutVersion = findViewById(R.id.mine_about_version);
+        mWebView = findViewById(R.id.webView);
         String versionName = AppUtil.getVersionName(MineAboutActivity.this);
         mMineAboutVersion.setText("version " + versionName);
         mMineAboutVersion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 i++;
-                if (i==5){
-                    showToast("appid:"+ Constants.APPID+","+Constants.UMENG_NAME);
-                    i=0;
+                if (i == 5) {
+                    showToast("appid:" + Constants.APPID + "," + Constants.UMENG_NAME);
+                    i = 0;
                 }
             }
         });
@@ -55,8 +58,8 @@ public class MineAboutActivity extends BaseActivity {
     }
 
     @Override
-    protected BasePresenter createPresenter() {
-        return null;
+    protected AboutPresenter createPresenter() {
+        return new AboutPresenter(this);
     }
 
     @Override
@@ -76,5 +79,12 @@ public class MineAboutActivity extends BaseActivity {
         super.onPause();
         MobclickAgent.onPageEnd("关于我们");
         MobclickAgent.onPause(this);
+    }
+
+    @Override
+    public void updategetConfig(ConfigEntity configEntity) {
+        if (configEntity != null && configEntity.getData() != null && configEntity.getData().getAbout_us() != null) {
+            mWebView.loadData(configEntity.getData().getAbout_us(), "text/html; charset=UTF-8", null);
+        }
     }
 }

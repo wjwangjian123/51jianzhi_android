@@ -53,6 +53,24 @@ public class ConfigEntity {
         private String android_url;
         private int show_wx;
         private int is_sw;
+        private int is_os;
+        private String about_us;
+
+        public int getIs_os() {
+            return is_os;
+        }
+
+        public void setIs_os(int is_os) {
+            this.is_os = is_os;
+        }
+
+        public String getAbout_us() {
+            return about_us;
+        }
+
+        public void setAbout_us(String about_us) {
+            this.about_us = about_us;
+        }
 
         public int getIs_sw() {
             return is_sw;

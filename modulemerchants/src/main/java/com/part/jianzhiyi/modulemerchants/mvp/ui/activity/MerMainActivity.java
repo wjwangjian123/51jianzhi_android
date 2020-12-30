@@ -29,6 +29,7 @@ import com.part.jianzhiyi.modulemerchants.customview.NoScrollViewPager;
 import com.part.jianzhiyi.modulemerchants.dialog.DialogVersionUpdate;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
 import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.MConfigEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MUserInfoEntity;
 import com.part.jianzhiyi.modulemerchants.mvp.contract.MMineContract;
 import com.part.jianzhiyi.modulemerchants.mvp.presenter.MMinePresenter;
@@ -261,6 +262,11 @@ public class MerMainActivity extends BaseActivity<MMinePresenter> implements MMi
                 }
             }
         }
+    }
+
+    @Override
+    public void updategetConfig(MConfigEntity mConfigEntity) {
+
     }
 
     private void initPermission(String app_url) {

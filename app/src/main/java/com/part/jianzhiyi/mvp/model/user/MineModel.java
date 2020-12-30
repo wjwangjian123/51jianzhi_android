@@ -7,6 +7,7 @@ import com.part.jianzhiyi.corecommon.utils.Tools;
 import com.part.jianzhiyi.http.HttpAPI;
 import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.AddSignEntity;
+import com.part.jianzhiyi.model.entity.ConfigEntity;
 import com.part.jianzhiyi.model.entity.DaySignEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.model.entity.integral.SignInfoEntity;
@@ -55,5 +56,10 @@ public class MineModel extends UserModel implements MineContract.IMineModel {
     @Override
     public Observable<MCheckVersionEntity> getCheck() {
         return HttpAPI.getInstence().getServiceApi().getCheck(Constants.OS, Constants.APPID);
+    }
+
+    @Override
+    public Observable<ConfigEntity> getConfig() {
+        return HttpAPI.getInstence().getServiceApi().getConfig(Constants.APPID, "2");
     }
 }

@@ -752,7 +752,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         }
         for (int i = 0; i < lableList.size(); i++) {
             LinearLayout linearLayout = new LinearLayout(getActivity());
-            linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+            linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
             ListViewInScrollView listViewInScrollView = new ListViewInScrollView(getActivity());
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.shape_list_line_bg);

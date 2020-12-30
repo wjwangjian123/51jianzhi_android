@@ -136,7 +136,7 @@ public class ChoiceFragment extends BaseFragment<ChoicePresenter> implements Cho
 
         choiceAdapter = new ChoiceAdapter(getActivity(), choiceList);
         mLvSelected.setAdapter(choiceAdapter);
-        initTTad();
+//        initTTad();
     }
 
     /**

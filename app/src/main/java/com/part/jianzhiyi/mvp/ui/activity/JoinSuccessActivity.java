@@ -183,7 +183,7 @@ public class JoinSuccessActivity extends BaseActivity<JoinSuccessPresenter> impl
             }
             mJoinTvContact.setText(jobListBean.get(0).getContact());
         }
-        initTTad();
+//        initTTad();
     }
 
     @Override

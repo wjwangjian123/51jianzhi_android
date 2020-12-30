@@ -18,9 +18,9 @@ public class Constants {
     public static final String HTML_USER_URL = URI + "api/index/agreements?appid=";
     public static final String HTML_PRIVACY_URL = URI + "api/index/privacys?appid=";
     public static final String DB_NAME = "51jianzhi-db";
-    public static final String APPID = "81";
+    public static final String APPID = "96";
     //友盟的渠道名称
-    public static final String UMENG_NAME = "test";
+    public static final String UMENG_NAME = "vivo";
     //隐私协议是否展示公司信息 1：展示    0：不展示
     public static final String STATUS = "1";
     public static final String OS = "1";

@@ -609,12 +609,12 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     public void updateNewList(String position, List<JobListResponseEntity2.DataBean> dataBeanList) {
         mSmartRefresh.finishRefresh();
         mSmartRefresh.finishLoadMore();
-//        JobListResponseEntity2.DataBean bean = new JobListResponseEntity2.DataBean(1);
-//        if (dataBeanList.size() > 3) {
-//            dataBeanList.add(3, bean);
-//        } else if (dataBeanList.size() > 0) {
-//            dataBeanList.add(bean);
-//        }
+        JobListResponseEntity2.DataBean bean = new JobListResponseEntity2.DataBean(1);
+        if (dataBeanList.size() > 3) {
+            dataBeanList.add(3, bean);
+        } else if (dataBeanList.size() > 0) {
+            dataBeanList.add(bean);
+        }
         if (mLists.get(mposition).size() > 0) {
             mSmartRefresh.setEnableAutoLoadMore(true);
         }

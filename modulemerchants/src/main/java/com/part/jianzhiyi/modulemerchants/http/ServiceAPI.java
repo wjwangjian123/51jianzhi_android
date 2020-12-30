@@ -288,24 +288,6 @@ public interface ServiceAPI {
     Observable<ResponseData> getmdAdd(@HeaderMap Map<String, String> headers, @Field("type") String type, @Field("token") String token);
 
     /**
-     * 用户端埋点
-     *
-     * @return
-     */
-    @FormUrlEncoded
-    @POST("http://api.sw193.com/Api/Md/addMd")
-    Observable<ResponseData> getaddMd(@Field("type") String type, @Field("os") String os);
-
-    /**
-     * 获取版本号
-     *
-     * @return
-     */
-    @FormUrlEncoded
-    @POST("http://api.sw193.com/api/version/check")
-    Observable<MCheckVersionEntity> getCheck(@Field("os") String os, @Field("app_id") String app_id);
-
-    /**
      * 公司详情页
      *
      * @return
@@ -322,5 +304,23 @@ public interface ServiceAPI {
     @FormUrlEncoded
     @POST("api/Config/getConfig")
     Observable<MConfigEntity> getConfig(@Field("appid") String appid);
+
+    /**
+     * 用户端埋点
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("http://51testapi.sw193.com/Api/Md/addMd")
+    Observable<ResponseData> getaddMd(@Field("type") String type, @Field("os") String os);
+
+    /**
+     * 获取版本号
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("http://51testapi.sw193.com/api/version/check")
+    Observable<MCheckVersionEntity> getCheck(@Field("os") String os, @Field("app_id") String app_id);
 
 }

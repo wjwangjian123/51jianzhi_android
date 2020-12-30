@@ -157,7 +157,7 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
         adapter = new HomeLoveAdapter(this, mLoveBeanList);
         lvLove.setAdapter(adapter);
         mHandler = new Handler();
-//        initTTad();
+        initTTad();
     }
 
     /**

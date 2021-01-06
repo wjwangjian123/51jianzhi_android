@@ -67,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="23dp"
                     android:layout_marginBottom="23dp"
-                    android:paddingBottom="26dp"
+                    android:paddingBottom="16dp"
                     android:layout_marginHorizontal="@dimen/dimen_20"
                     android:orientation="vertical"
                     android:background="@drawable/shape_white_bg7">
@@ -81,17 +81,50 @@
                         android:textStyle="bold"
                         android:gravity="center"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="56dp"/>
+                        android:layout_marginTop="56dp"
+                        android:layout_marginHorizontal="@dimen/dimen_30"/>
                     <TextView
-                        android:id="@+id/tv_tip"
+                        android:id="@+id/tv_tip_desc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="请您尽快绑定公司，绑定后可享受更多特权"
                         android:textSize="@dimen/font_12"
-                        android:textColor="#9A9FB7"
+                        android:textColor="@color/color_A1A7B7"
                         android:gravity="center"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="@dimen/dimen_12"/>
+                        android:layout_marginTop="6dp"
+                        android:layout_marginHorizontal="@dimen/dimen_20"
+                        android:visibility="gone"/>
+                    <LinearLayout
+                        android:id="@+id/ll_tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="@dimen/dimen_10"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginHorizontal="@dimen/dimen_20">
+                        <TextView
+                            android:id="@+id/tv_tip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="暂未填写企业简介，"
+                            android:textSize="@dimen/font_12"
+                            android:textColor="#666B78"
+                            android:singleLine="true"
+                            android:ellipsize="end" />
+                        <TextView
+                            android:id="@+id/tv_edit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="点击填写"
+                            android:textSize="@dimen/font_12"
+                            android:textColor="@color/color_A1A7B7"
+                            android:gravity="center"
+                            android:drawableRight="@drawable/icon_mer_right"
+                            android:drawablePadding="3dp"/>
+                    </LinearLayout>
                 </LinearLayout>
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/iv_img"
@@ -102,15 +135,27 @@
                     fresco:roundAsCircle="true"
                     fresco:failureImage="@drawable/icon_ch_enterprises"/>
             </RelativeLayout>
-            <TextView
-                android:id="@+id/tv_get"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="我将获得"
-                android:textSize="@dimen/font_15"
-                android:textColor="#6C7684"
                 android:layout_marginTop="19dp"
-                android:layout_marginLeft="@dimen/dimen_20"/>
+                android:layout_marginLeft="@dimen/dimen_20">
+                <ImageView
+                    android:id="@+id/iv_get"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_mer_refresh_tab"
+                    android:layout_alignLeft="@+id/tv_get"
+                    android:layout_alignRight="@+id/tv_get"
+                    android:layout_alignBottom="@+id/tv_get"/>
+                <TextView
+                    android:id="@+id/tv_get"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我将获得"
+                    android:textSize="@dimen/font_15"
+                    android:textColor="#33363C" />
+            </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -126,10 +171,12 @@
                     android:orientation="vertical"
                     android:gravity="center">
                     <ImageView
+                        android:id="@+id/iv_homepage"
                         android:layout_width="@dimen/dimen_60"
                         android:layout_height="@dimen/dimen_60"
                         android:src="@drawable/icon_mer_con_homepage"/>
                     <TextView
+                        android:id="@+id/tv_homepage"
                         android:layout_width="140dp"
                         android:layout_height="wrap_content"
                         android:text="公司品牌主页(即将上线)"
@@ -147,10 +194,12 @@
                     android:gravity="center"
                     android:layout_marginLeft="@dimen/dimen_10">
                     <ImageView
+                        android:id="@+id/iv_position"
                         android:layout_width="@dimen/dimen_60"
                         android:layout_height="@dimen/dimen_60"
                         android:src="@drawable/icon_mer_con_position"/>
                     <TextView
+                        android:id="@+id/tv_position"
                         android:layout_width="140dp"
                         android:layout_height="wrap_content"
                         android:text="职位更具权威性"
@@ -175,10 +224,12 @@
                     android:orientation="vertical"
                     android:gravity="center">
                     <ImageView
+                        android:id="@+id/iv_publish"
                         android:layout_width="@dimen/dimen_60"
                         android:layout_height="@dimen/dimen_60"
                         android:src="@drawable/icon_mer_con_publish"/>
                     <TextView
+                        android:id="@+id/tv_publish"
                         android:layout_width="140dp"
                         android:layout_height="wrap_content"
                         android:text="可免费发布3个线下职位"
@@ -196,10 +247,12 @@
                     android:gravity="center"
                     android:layout_marginLeft="@dimen/dimen_10">
                     <ImageView
+                        android:id="@+id/iv_more"
                         android:layout_width="@dimen/dimen_60"
                         android:layout_height="@dimen/dimen_60"
                         android:src="@drawable/icon_mer_con_more"/>
                     <TextView
+                        android:id="@+id/tv_more"
                         android:layout_width="140dp"
                         android:layout_height="wrap_content"
                         android:text="更多特权即将上线"
@@ -209,6 +262,18 @@
                         android:layout_marginTop="@dimen/dimen_12"/>
                 </LinearLayout>
             </LinearLayout>
+            <TextView
+                android:id="@+id/tv_see_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="查看资质认证流程"
+                android:textSize="@dimen/font_12"
+                android:textColor="#666B78"
+                android:layout_marginTop="@dimen/dimen_52"
+                android:layout_gravity="center_horizontal"
+                android:drawableRight="@drawable/icon_mer_see_right"
+                android:drawablePadding="5dp"
+                android:padding="@dimen/dimen_10"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -224,6 +289,7 @@
                     android:textColor="@color/color_ffffff"
                     android:gravity="center"
                     android:layout_gravity="bottom"
+                    android:layout_marginTop="@dimen/dimen_10"
                     android:layout_marginHorizontal="@dimen/dimen_20"
                     android:background="@drawable/icon_mer_btn_bg"/>
             </LinearLayout>

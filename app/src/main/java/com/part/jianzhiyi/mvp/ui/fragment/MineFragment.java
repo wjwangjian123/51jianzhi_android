@@ -219,7 +219,9 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         }
         if (v.getId() == R.id.mine_iv_edit) {
             MobclickAgent.onEvent(getActivity(), "mine_edit");
-            Intent intent = new Intent(mActivity, MineUpdateProfileActivity.class);
+//            Intent intent = new Intent(mActivity, MineUpdateProfileActivity.class);
+//            startActivityForResult(intent, IntentConstant.REQEUST_CODE);
+            Intent intent = new Intent(getActivity(), MineUpdateResumeActivity.class);
             startActivityForResult(intent, IntentConstant.REQEUST_CODE);
         }
         if (v.getId() == R.id.mine_ll_see) {

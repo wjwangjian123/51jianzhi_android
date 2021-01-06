@@ -4,7 +4,11 @@
     package="com.part.jianzhiyi.modulemerchants">
 
     <application>
-        <activity android:name=".mvp.ui.activity.MerCompanyInfoActivity"></activity>
+        <activity android:name=".mvp.ui.activity.MerCompanyDescActivity"></activity>
+        <activity android:name=".mvp.ui.activity.MerResetPasswordActivity" />
+        <activity android:name=".mvp.ui.activity.MerModifyPasswordActivity" />
+        <activity android:name=".mvp.ui.activity.MerSetPasswordActivity" />
+        <activity android:name=".mvp.ui.activity.MerCompanyInfoActivity" />
         <activity android:name=".mvp.ui.activity.MerGuideAuthActivity" />
         <activity
             android:name=".mvp.ui.activity.MerPreviewActivity"
@@ -52,11 +56,11 @@
                 tools:replace="android:resource" />
         </provider>
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
 </manifest>

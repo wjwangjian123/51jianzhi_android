@@ -97,6 +97,15 @@ public class MSwitchMerchantsEntity {
             private int numid_status;
             private int is_sing;
             private int is_auth;
+            private int is_password;
+
+            public int getIs_password() {
+                return is_password;
+            }
+
+            public void setIs_password(int is_password) {
+                this.is_password = is_password;
+            }
 
             public int getIs_sing() {
                 return is_sing;

@@ -99,8 +99,8 @@ public class MPublishPresenter extends BasePresenter<MPublishContract.IMPublishM
                 }));
     }
 
-    public void getCheckJob(String label_id, String job_id) {
-        mModel.getCheckJob(label_id, job_id)
+    public void getCheckJob(String label_id, String job_id, String ther) {
+        mModel.getCheckJob(label_id, job_id, ther)
                 .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
                 .subscribe(getResult(new ResultObserver<ResponseData>() {
                     @Override
@@ -161,6 +161,25 @@ public class MPublishPresenter extends BasePresenter<MPublishContract.IMPublishM
                         if (TextUtils.equals(responseData.getCode(), HttpAPI.REQUEST_SUCCESS)) {
                             if (isAttach()) {
                                 weakReferenceView.get().updategetmdAdd(responseData);
+                            }
+                        }
+                    }
+                }));
+    }
+
+    public void getTextFilter(String title, String content, String duration, String place, String contact) {
+        mModel.getTextFilter(title, content, duration, place, contact)
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<ResponseData>() {
+                    @Override
+                    public void onNext(ResponseData responseData) {
+                        if (TextUtils.equals(responseData.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetTextFilter(responseData);
+                            }
+                        } else {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetTextFilter(responseData);
                             }
                         }
                     }

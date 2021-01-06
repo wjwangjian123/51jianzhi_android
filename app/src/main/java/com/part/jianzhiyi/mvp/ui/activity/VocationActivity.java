@@ -295,9 +295,9 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
             @Override
             public void onClick(View v) {
                 MobclickAgent.onEvent(VocationActivity.this, "vocation_company");
-                //判断是否是企业岗位，如果是企业岗位跳转到详情
-                if (is_company == 1) {
-                    ARouter.getInstance().build("/merchants/activity/mercompanyinfo").withString("uid", uid).withString("job_id", id).navigation();
+                //判断是企业岗位还是个人岗位
+                if (is_company == 1 || is_company == 2) {
+                    ARouter.getInstance().build("/merchants/activity/mercompanyinfo").withString("uid", uid).withString("job_id", id).withInt("is_company", is_company).navigation();
                 }
             }
         });

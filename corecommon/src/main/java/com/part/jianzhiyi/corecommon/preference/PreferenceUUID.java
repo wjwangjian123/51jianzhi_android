@@ -148,7 +148,6 @@ public class PreferenceUUID {
         return sharedPreferences.getInt("show_wx", 1);
     }
 
-
     public void putCity(String city) {
         editor.putString("city", city);
         editor.apply();
@@ -258,6 +257,24 @@ public class PreferenceUUID {
         return sharedPreferences.getInt("status", 0);
     }
 
+    public boolean getisMerGuide() {
+        return sharedPreferences.getBoolean("isMerGuide", false);
+    }
+
+    public void putisMerGuide() {
+        editor.putBoolean("isMerGuide", true);
+        editor.apply();
+    }
+
+    public void putShowService(int show_service) {
+        editor.putInt("show_service", show_service);
+        editor.apply();
+    }
+
+    public int getShowService() {
+        return sharedPreferences.getInt("show_service", 1);
+    }
+
     //实名的名称
     public void putMerName(String merName) {
         editor.putString("merName", merName);
@@ -268,32 +285,13 @@ public class PreferenceUUID {
         return sharedPreferences.getString("merName", "");
     }
 
-    //判断是企业还是个人
-    public void putIsEnterprise(int isEnterprise) {
-        editor.putInt("isEnterprise", isEnterprise);
+    //商户头像
+    public void putMerAvatar(String meravatar) {
+        editor.putString("meravatar", meravatar);
         editor.apply();
     }
 
-    public int getIsEnterprise() {
-        return sharedPreferences.getInt("isEnterprise", 0);
-    }
-
-//    //判断是否实名认证
-//    public void putIsAuth(int isAuth) {
-//        editor.putInt("isAuth", isAuth);
-//        editor.apply();
-//    }
-
-//    public int getIsAuth() {
-//        return sharedPreferences.getInt("isAuth", 0);
-//    }
-
-    public boolean getisMerGuide() {
-        return sharedPreferences.getBoolean("isMerGuide", false);
-    }
-
-    public void putisMerGuide() {
-        editor.putBoolean("isMerGuide", true);
-        editor.apply();
+    public String getMerAvatar() {
+        return sharedPreferences.getString("meravatar", "");
     }
 }

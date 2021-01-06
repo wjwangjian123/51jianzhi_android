@@ -21,7 +21,7 @@ public class RegularUtils {
         return m.matches();
     }
 
-    public static boolean isEmail(String email){
+    public static boolean isEmail(String email) {
         String strPattern = "^[a-zA-Z0-9][\\w\\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\\w\\.-]*[a-zA-Z0-9]\\.[a-zA-Z][a-zA-Z\\.]*[a-zA-Z]$";
         Pattern p = Pattern.compile(strPattern);
         Matcher m = p.matcher(email);
@@ -37,9 +37,9 @@ public class RegularUtils {
     }
 
 
-    public static boolean isChar(String str){
-        String pattern="[A-Z]";
-        return isMatches(str,pattern);
+    public static boolean isChar(String str) {
+        String pattern = "[A-Z]";
+        return isMatches(str, pattern);
     }
 
 
@@ -47,6 +47,13 @@ public class RegularUtils {
         Pattern pattern = Pattern.compile(p);
         Matcher matcher = pattern.matcher(str);
         return matcher.matches();
+    }
+
+    public static boolean isPassword(String password) {
+        String regex = "^([A-Z]|[a-z]|[0-9]|[`~!@#$%^&*()+=|{}':;',.<>/?~！@#￥%……&*（）——+|{}【】‘；：”“'。，、？]){6,20}$";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(password);
+        return m.matches();
     }
 
 }

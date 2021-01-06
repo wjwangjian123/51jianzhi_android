@@ -39,23 +39,15 @@ import java.util.List;
 public class ZfbWithdrawalActivity extends BaseActivity<TxPresenter> implements TxContract.ITxView, View.OnClickListener {
 
     private ImageView mZfbIvReturn;
-    private TextView mZfbTvTitle;
     private TagFlowLayout mZfbTfl;
-    private LinearLayout mZfbLinearJine;
-    private TextView mZfbTvNickname;
     private TextView mZfbTvNickShow;
-    private View mZfbViewNickname;
     private TextView mZfbTvCode;
     private InputFilteEditText mZfbEtCode;
     private TextView mZfbTvSend;
-    private View mZfbViewCode;
-    private RelativeLayout mZfbRlInfo;
-    private TextView mZfbTvYue;
     private TextView mZfbTvMoney;
     private TextView mZfbTvTixian;
     private ScrollView mZfbScroll;
     private RelativeLayout mLayoutBottom;
-    private LinearLayout mZfbLayoutContent;
     private List<TxInfoEntity.MoneyBean> mlist;
     private String money;
     private String code;
@@ -77,23 +69,15 @@ public class ZfbWithdrawalActivity extends BaseActivity<TxPresenter> implements 
     @Override
     protected void initView() {
         mZfbIvReturn = (ImageView) findViewById(R.id.zfb_iv_return);
-        mZfbTvTitle = (TextView) findViewById(R.id.zfb_tv_title);
         mZfbTfl = (TagFlowLayout) findViewById(R.id.zfb_tfl);
-        mZfbLinearJine = (LinearLayout) findViewById(R.id.zfb_linear_jine);
-        mZfbTvNickname = (TextView) findViewById(R.id.zfb_tv_nickname);
         mZfbTvNickShow = (TextView) findViewById(R.id.zfb_tv_nickShow);
-        mZfbViewNickname = (View) findViewById(R.id.zfb_view_nickname);
         mZfbTvCode = (TextView) findViewById(R.id.zfb_tv_code);
         mZfbEtCode = (InputFilteEditText) findViewById(R.id.zfb_et_code);
         mZfbTvSend = (TextView) findViewById(R.id.zfb_tv_send);
-        mZfbViewCode = (View) findViewById(R.id.zfb_view_code);
-        mZfbRlInfo = (RelativeLayout) findViewById(R.id.zfb_rl_info);
-        mZfbTvYue = (TextView) findViewById(R.id.zfb_tv_yue);
         mZfbTvMoney = (TextView) findViewById(R.id.zfb_tv_money);
         mZfbTvTixian = (TextView) findViewById(R.id.zfb_tv_tixian);
         mZfbScroll = (ScrollView) findViewById(R.id.zfb_scroll);
         mLayoutBottom = (RelativeLayout) findViewById(R.id.layout_bottom);
-        mZfbLayoutContent = (LinearLayout) findViewById(R.id.zfb_layout_content);
         setToolBarVisible(false);
         setImmerseLayout(findViewById(R.id.zfb_rl_title));
         mlist = new ArrayList<>();

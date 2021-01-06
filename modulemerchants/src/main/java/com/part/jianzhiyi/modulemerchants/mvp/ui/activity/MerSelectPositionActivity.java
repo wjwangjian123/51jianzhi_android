@@ -7,12 +7,12 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.part.jianzhiyi.modulemerchants.R;
 import com.part.jianzhiyi.modulemerchants.adapter.MerPositionAdapter;
-import com.part.jianzhiyi.modulemerchants.adapter.MerTagAdapter;
 import com.part.jianzhiyi.modulemerchants.base.BaseActivity;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
 import com.part.jianzhiyi.modulemerchants.model.entity.MJobInfoEntity;
@@ -23,6 +23,8 @@ import com.part.jianzhiyi.modulemerchants.model.entity.MUserInfoEntity;
 import com.part.jianzhiyi.modulemerchants.mvp.contract.MPublishContract;
 import com.part.jianzhiyi.modulemerchants.mvp.presenter.MPublishPresenter;
 import com.umeng.analytics.MobclickAgent;
+import com.zhy.view.flowlayout.FlowLayout;
+import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
@@ -41,12 +43,12 @@ public class MerSelectPositionActivity extends BaseActivity<MPublishPresenter> i
     private MerPositionAdapter mMerPositionAdapter;
     private List<MLableEntity.DataBean> mList;
     private List<MLableEntity.DataBean.ListsBean> mBeanList;
-    private MerTagAdapter mMerTagAdapter;
     private String label_id;
     private String job_id;
     private MJobInfoEntity mJobInfoEntity;
     private int type = 0;
     private int mType = 0;
+    private EditText etTitle;
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
@@ -100,11 +102,27 @@ public class MerSelectPositionActivity extends BaseActivity<MPublishPresenter> i
                 mMerPositionAdapter.setList(mList);
                 mBeanList.clear();
                 mBeanList.addAll(mList.get(position).getLists());
-                mMerTagAdapter.notifyDataChanged();
+                mTflSelect.getAdapter().notifyDataChanged();
             }
         });
-        mMerTagAdapter = new MerTagAdapter(mBeanList, MerSelectPositionActivity.this);
-        mTflSelect.setAdapter(mMerTagAdapter);
+        mTflSelect.setAdapter(new TagAdapter<MLableEntity.DataBean.ListsBean>(mBeanList) {
+            @Override
+            public View getView(FlowLayout parent, int position, MLableEntity.DataBean.ListsBean listsBean) {
+                View inflate;
+                if (position == mBeanList.size() - 1) {
+                    //如果是最后一个标签，显示不同的布局
+                    inflate = LayoutInflater.from(MerSelectPositionActivity.this).inflate(R.layout.item_text_flow_last, null, false);
+                    TextView tvTitle = inflate.findViewById(R.id.tv_title);
+                    etTitle = inflate.findViewById(R.id.et_title);
+                    tvTitle.setText(listsBean.getTitle());
+                } else {
+                    inflate = LayoutInflater.from(MerSelectPositionActivity.this).inflate(R.layout.item_text_flow, null, false);
+                    TextView tv = (TextView) inflate;
+                    tv.setText(listsBean.getTitle());
+                }
+                return inflate;
+            }
+        });
     }
 
     private long clickTime = 0;
@@ -149,7 +167,11 @@ public class MerSelectPositionActivity extends BaseActivity<MPublishPresenter> i
                 }
                 if (System.currentTimeMillis() - clickTime > 3000) {
                     clickTime = System.currentTimeMillis();
-                    mPresenter.getCheckJob(label_id, job_id);
+                    if (etTitle != null) {
+                        mPresenter.getCheckJob(label_id, job_id, etTitle.getText().toString().trim());
+                    } else {
+                        mPresenter.getCheckJob(label_id, job_id, "");
+                    }
                 } else {
                     showToast("点击过于频繁请稍后再试");
                 }
@@ -181,7 +203,7 @@ public class MerSelectPositionActivity extends BaseActivity<MPublishPresenter> i
                         }
                         for (int j = 0; j < mLableEntity.getData().get(i).getLists().size(); j++) {
                             if (mLableEntity.getData().get(i).getLists().get(j).getId().equals(mJobInfoEntity.getData().getLabel_id())) {
-                                mMerTagAdapter.setSelectedList(j);
+                                mTflSelect.getAdapter().setSelectedList(j);
                             }
                         }
                     }
@@ -193,7 +215,7 @@ public class MerSelectPositionActivity extends BaseActivity<MPublishPresenter> i
                 }
                 mList.addAll(mLableEntity.getData());
                 mMerPositionAdapter.setList(mList);
-                mMerTagAdapter.notifyDataChanged();
+                mTflSelect.getAdapter().notifyDataChanged();
             }
         }
     }
@@ -252,6 +274,11 @@ public class MerSelectPositionActivity extends BaseActivity<MPublishPresenter> i
 
     @Override
     public void updategetmdAdd(ResponseData responseData) {
+
+    }
+
+    @Override
+    public void updategetTextFilter(ResponseData responseData) {
 
     }
 

@@ -52,16 +52,6 @@ public class MerHomeListAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         container.addView(mList.get(position), 0);
-//        imageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (mOnItemClickListener != null) {
-//                    mOnItemClickListener.onItemClick(position);
-//                } else {
-//                    return;
-//                }
-//            }
-//        });
         return mList.get(position);
     }
 

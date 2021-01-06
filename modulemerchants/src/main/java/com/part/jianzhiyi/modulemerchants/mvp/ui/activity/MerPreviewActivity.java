@@ -251,6 +251,11 @@ public class MerPreviewActivity extends BaseActivity<MPublishPresenter> implemen
     }
 
     @Override
+    public void updategetTextFilter(ResponseData responseData) {
+
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         MobclickAgent.onPageStart("商户端预览职位页面");

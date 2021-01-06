@@ -1,13 +1,11 @@
 package com.part.jianzhiyi.mvp.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.part.jianzhiyi.R;
@@ -16,9 +14,9 @@ import com.part.jianzhiyi.corecommon.constants.IntentConstant;
 import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.corecommon.selectdateview.dialog.ActionListener;
 import com.part.jianzhiyi.corecommon.selectdateview.dialog.BaseDialogFragment;
+import com.part.jianzhiyi.corecommon.selectdateview.dialog.DatePickerDialog;
 import com.part.jianzhiyi.corecommon.selectdateview.dialog.TextPickerDialog;
 import com.part.jianzhiyi.corecommon.selectdateview.view.TextModel;
-import com.part.jianzhiyi.corecommon.ui.ObservableScrollView;
 import com.part.jianzhiyi.corecommon.utils.SoftKeyboardUtils;
 import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.LoginResponseEntity;
@@ -29,56 +27,40 @@ import com.part.jianzhiyi.mvp.contract.mine.MineUpdateResumeContract;
 import com.part.jianzhiyi.mvp.presenter.mine.MineUpdateResumePresenter;
 import com.umeng.analytics.MobclickAgent;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MineUpdateResumeActivity extends BaseActivity<MineUpdateResumePresenter> implements MineUpdateResumeContract.IMineUpdateResumeView {
 
     private TextView mTvUsername;
-    private LinearLayout mMineLinear;
     private EditText mTvSign;
-    private ImageView mIvAvatar;
-    private RelativeLayout mRlLogin;
-    private TextView mTvMine;
-    private LinearLayout mLlInfo;
-    private TextView mTvName;
     private EditText mEtNickname;
-    private ImageView mIvNicknameRight;
     private TextView mTvSex;
-    private ImageView mIvSexRight;
     private TextView mTvAge;
-    private ImageView mIvAgeRight;
-    private TextView mTvStatus;
-    private LinearLayout mLlStatus;
-    private TextView mProfession;
     private TextView mTvProfession;
-    private ImageView mIvProfessionRight;
-    private TextView mJobStatus;
     private TextView mTvJobStatus;
-    private ImageView mIvJobStatusRight;
-    private TextView mJobType;
     private TextView mTvJobType;
-    private ImageView mIvJobTypeRight;
     private TextView mTvSave;
-    private ObservableScrollView mScrollView;
+    private TextView mTvAdvantage;
+    private TextView mTvExpected;
+    private TextView mTvSchoolYear;
+    private EditText mEtSchoolName;
+    private EditText mEtExperience;
+
     private List<TextModel> list;
     private List<TextModel> list_age;
     private List<TextModel> list_profession;
     private List<TextModel> list_job_status;
     private List<TextModel> list_job_type;
 
-    private String school_year;
-    private String school_name;
-    private String experience;
-    private String introduce;
     private int profession;
     private int job_status;
     private String job_type;
     private String myitem;
     private String expect;
-    private String profession1;
-    private String job_status1;
-    private String job_type1;
 
     @Override
     protected void init() {
@@ -117,32 +99,20 @@ public class MineUpdateResumeActivity extends BaseActivity<MineUpdateResumePrese
     @Override
     protected void initView() {
         mTvUsername = (TextView) findViewById(R.id.tvUsername);
-        mMineLinear = (LinearLayout) findViewById(R.id.mine_linear);
         mTvSign = (EditText) findViewById(R.id.tvSign);
-        mIvAvatar = (ImageView) findViewById(R.id.iv_avatar);
-        mRlLogin = (RelativeLayout) findViewById(R.id.rl_login);
-        mTvMine = (TextView) findViewById(R.id.tv_mine);
-        mLlInfo = (LinearLayout) findViewById(R.id.llInfo);
-        mTvName = (TextView) findViewById(R.id.tv_name);
         mEtNickname = (EditText) findViewById(R.id.etNickname);
-        mIvNicknameRight = (ImageView) findViewById(R.id.iv_nickname_right);
         mTvSex = (TextView) findViewById(R.id.tvSex);
-        mIvSexRight = (ImageView) findViewById(R.id.iv_sex_right);
         mTvAge = (TextView) findViewById(R.id.tvAge);
-        mIvAgeRight = (ImageView) findViewById(R.id.iv_age_right);
-        mTvStatus = (TextView) findViewById(R.id.tv_status);
-        mLlStatus = (LinearLayout) findViewById(R.id.llStatus);
-        mProfession = (TextView) findViewById(R.id.profession);
         mTvProfession = (TextView) findViewById(R.id.tv_profession);
-        mIvProfessionRight = (ImageView) findViewById(R.id.iv_profession_right);
-        mJobStatus = (TextView) findViewById(R.id.job_status);
         mTvJobStatus = (TextView) findViewById(R.id.tv_job_status);
-        mIvJobStatusRight = (ImageView) findViewById(R.id.iv_job_status_right);
-        mJobType = (TextView) findViewById(R.id.job_type);
         mTvJobType = (TextView) findViewById(R.id.tv_job_type);
-        mIvJobTypeRight = (ImageView) findViewById(R.id.iv_job_type_right);
         mTvSave = (TextView) findViewById(R.id.tv_save);
-        mScrollView = (ObservableScrollView) findViewById(R.id.scrollView);
+        mTvAdvantage = (TextView) findViewById(R.id.tv_advantage);
+        mTvExpected = (TextView) findViewById(R.id.tv_expected);
+        mTvSchoolYear = (TextView) findViewById(R.id.tv_school_year);
+        mEtSchoolName = (EditText) findViewById(R.id.et_school_name);
+        mEtExperience = (EditText) findViewById(R.id.et_experience);
+
         initToolbar("我的简历");
         MobclickAgent.onEvent(this, "resume_in");
         if (SoftKeyboardUtils.isSoftShowing(this)) {
@@ -171,23 +141,7 @@ public class MineUpdateResumeActivity extends BaseActivity<MineUpdateResumePrese
                 pickDialog.show(getFragmentManager(), "dialog");
             }
         });
-        mIvSexRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TextPickerDialog pickDialog = TextPickerDialog.newInstance(BaseDialogFragment.TYPE_DIALOG, new MyAction(0));
-                pickDialog.setList(list);
-                pickDialog.show(getFragmentManager(), "dialog");
-            }
-        });
         mTvAge.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TextPickerDialog pickDialog = TextPickerDialog.newInstance(BaseDialogFragment.TYPE_DIALOG, new MyAction(2));
-                pickDialog.setList(list_age);
-                pickDialog.show(getFragmentManager(), "dialog");
-            }
-        });
-        mIvAgeRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TextPickerDialog pickDialog = TextPickerDialog.newInstance(BaseDialogFragment.TYPE_DIALOG, new MyAction(2));
@@ -203,23 +157,7 @@ public class MineUpdateResumeActivity extends BaseActivity<MineUpdateResumePrese
                 pickDialog.show(getFragmentManager(), "dialog");
             }
         });
-        mIvProfessionRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TextPickerDialog pickDialog = TextPickerDialog.newInstance(BaseDialogFragment.TYPE_DIALOG, new MyAction(3));
-                pickDialog.setList(list_profession);
-                pickDialog.show(getFragmentManager(), "dialog");
-            }
-        });
         mTvJobStatus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TextPickerDialog pickDialog = TextPickerDialog.newInstance(BaseDialogFragment.TYPE_DIALOG, new MyAction(4));
-                pickDialog.setList(list_job_status);
-                pickDialog.show(getFragmentManager(), "dialog");
-            }
-        });
-        mIvJobStatusRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TextPickerDialog pickDialog = TextPickerDialog.newInstance(BaseDialogFragment.TYPE_DIALOG, new MyAction(4));
@@ -235,12 +173,29 @@ public class MineUpdateResumeActivity extends BaseActivity<MineUpdateResumePrese
                 pickDialog.show(getFragmentManager(), "dialog");
             }
         });
-        mIvJobTypeRight.setOnClickListener(new View.OnClickListener() {
+        mTvAdvantage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextPickerDialog pickDialog = TextPickerDialog.newInstance(BaseDialogFragment.TYPE_DIALOG, new MyAction(5));
-                pickDialog.setList(list_job_type);
-                pickDialog.show(getFragmentManager(), "dialog");
+                //跳转到我的优点
+                Intent intent = new Intent(MineUpdateResumeActivity.this, AboutMineActivity.class);
+                intent.putExtra("type", 1);
+                startActivityForResult(intent, 1001);
+            }
+        });
+        mTvExpected.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳转到期望职位
+                Intent intent = new Intent(MineUpdateResumeActivity.this, ExpectPositionActivity.class);
+                intent.putExtra("type", 1);
+                startActivityForResult(intent, 1002);
+            }
+        });
+        mTvSchoolYear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(BaseDialogFragment.TYPE_DIALOG, new MyAction(6));
+                datePickerDialog.show(getFragmentManager(), "dialog");
             }
         });
         mTvSave.setOnClickListener(new View.OnClickListener() {
@@ -258,8 +213,28 @@ public class MineUpdateResumeActivity extends BaseActivity<MineUpdateResumePrese
                     showToast("请选择年龄");
                     return;
                 }
+                if (TextUtils.isEmpty(mTvProfession.getText().toString())) {
+                    showToast("请选择身份");
+                    return;
+                }
+                if (TextUtils.isEmpty(mTvJobStatus.getText().toString())) {
+                    showToast("请选择求职状态");
+                    return;
+                }
+                if (TextUtils.isEmpty(mTvJobType.getText().toString())) {
+                    showToast("请选择求职类型");
+                    return;
+                }
+                if (TextUtils.isEmpty(mTvAdvantage.getText().toString())) {
+                    showToast("请选择您的优点");
+                    return;
+                }
+                if (TextUtils.isEmpty(mTvExpected.getText().toString())) {
+                    showToast("请选择期望职位");
+                    return;
+                }
                 //更新简历
-                mPresenter.updateResumeV2(mEtNickname.getText().toString(), mTvSex.getText().toString(), mTvAge.getText().toString(), school_year, school_name, experience,
+                mPresenter.updateResumeV2(mEtNickname.getText().toString(), mTvSex.getText().toString(), mTvAge.getText().toString(), mTvSchoolYear.getText().toString().trim(), mEtSchoolName.getText().toString().trim(), mEtExperience.getText().toString().trim(),
                         mTvSign.getText().toString(), profession, job_status, job_type, myitem, expect, mTvProfession.getText().toString(), mTvJobStatus.getText().toString(), mTvJobType.getText().toString());
             }
         });
@@ -285,6 +260,9 @@ public class MineUpdateResumeActivity extends BaseActivity<MineUpdateResumePrese
         mTvProfession.setText(entity.getProfession());
         mTvJobStatus.setText(entity.getJob_status());
         mTvJobType.setText(entity.getJob_type());
+        mTvSchoolYear.setText(entity.getSchool_year());
+        mEtSchoolName.setText(entity.getSchool_name());
+        mEtExperience.setText(entity.getExperience());
     }
 
     @Override
@@ -298,26 +276,30 @@ public class MineUpdateResumeActivity extends BaseActivity<MineUpdateResumePrese
     @Override
     public void updateUserInfoPer(UserInfoEntity entity) {
         if (entity.getData() != null) {
-            school_year = entity.getData().getSchool_year();
-            school_name = entity.getData().getSchool_name();
-            experience = entity.getData().getExperience();
-            introduce = entity.getData().getIntroduce();
             profession = entity.getData().getProfession_type();
             job_status = entity.getData().getJob_status_type();
             job_type = entity.getData().getJob_position_type();
             if (entity.getData().getMyitem().size() > 0) {
                 StringBuffer stringBuffer = new StringBuffer();
+                StringBuffer stringBuffer1 = new StringBuffer();
                 for (int i = 0; i < entity.getData().getMyitem().size(); i++) {
                     stringBuffer = stringBuffer.append(entity.getData().getMyitem().get(i).getId() + ",");
+                    stringBuffer1 = stringBuffer1.append(entity.getData().getMyitem().get(i).getItem() + "、");
                 }
                 myitem = String.valueOf(stringBuffer);
+                String s = String.valueOf(stringBuffer1);
+                mTvAdvantage.setText(s);
             }
             if (entity.getData().getExpect().size() > 0) {
                 StringBuffer stringBuffer1 = new StringBuffer();
+                StringBuffer stringBuffer2 = new StringBuffer();
                 for (int i = 0; i < entity.getData().getExpect().size(); i++) {
                     stringBuffer1 = stringBuffer1.append(entity.getData().getExpect().get(i).getId() + ",");
+                    stringBuffer2 = stringBuffer2.append(entity.getData().getExpect().get(i).getItem() + "、");
                 }
                 expect = String.valueOf(stringBuffer1);
+                String s = String.valueOf(stringBuffer2);
+                mTvExpected.setText(s);
             }
         }
     }
@@ -399,6 +381,32 @@ public class MineUpdateResumeActivity extends BaseActivity<MineUpdateResumePrese
                 } else if (content.equals("什么工作都行")) {
                     job_type = "4";
                 }
+            }
+            if (position == 6) {
+                DatePickerDialog datePickerDialog = (DatePickerDialog) dialog;
+                Date time = datePickerDialog.getSelectedDate().getTime();
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy", Locale.CHINA);
+                content = simpleDateFormat.format(time);
+                mTvSchoolYear.setText(content);
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1001) {
+            if (resultCode == 1000 && data != null) {
+                myitem = data.getStringExtra("myitem");
+                String myitemStr = data.getStringExtra("myitemStr");
+                mTvAdvantage.setText(myitemStr);
+            }
+        }
+        if (requestCode == 1002) {
+            if (resultCode == 1006 && data != null) {
+                expect = data.getStringExtra("expect");
+                String expectStr = data.getStringExtra("expectStr");
+                mTvExpected.setText(expectStr);
             }
         }
     }

@@ -54,6 +54,15 @@ public class MUserInfoEntity {
         private String add_msg;
         private String job_msg;
         private int job_free;
+        private String company_desc;
+
+        public String getCompany_desc() {
+            return company_desc;
+        }
+
+        public void setCompany_desc(String company_desc) {
+            this.company_desc = company_desc;
+        }
 
         public int getId() {
             return id;

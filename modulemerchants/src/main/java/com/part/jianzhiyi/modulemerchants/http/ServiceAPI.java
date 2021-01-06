@@ -111,7 +111,7 @@ public interface ServiceAPI {
      */
     @FormUrlEncoded
     @POST("api/job/check_job")
-    Observable<ResponseData> getCheckJob(@HeaderMap Map<String, String> headers, @Field("token") String token, @Field("label_id") String label_id, @Field("job_id") String job_id);
+    Observable<ResponseData> getCheckJob(@HeaderMap Map<String, String> headers, @Field("token") String token, @Field("label_id") String label_id, @Field("job_id") String job_id, @Field("ther") String ther);
 
     /**
      * 商户上传头像
@@ -304,6 +304,42 @@ public interface ServiceAPI {
     @FormUrlEncoded
     @POST("api/Config/getConfig")
     Observable<MConfigEntity> getConfig(@Field("appid") String appid);
+
+    /**
+     * 设置or修改密码
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/login/edit_password")
+    Observable<ResponseData> getPassword(@HeaderMap Map<String, String> headers, @Field("token") String token, @Field("type") String type, @Field("pass") String pass, @Field("new_pass") String new_pass, @Field("old_pass") String old_pass, @Field("phone") String phone, @Field("code") String code);
+
+    /**
+     * 修改密码获取验证码
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/login/code")
+    Observable<ResponseData> getCode(@HeaderMap Map<String, String> headers, @Field("token") String token);
+
+    /**
+     * 公司介绍
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/user/introduced")
+    Observable<ResponseData> getIntroduced(@Field("token") String token, @Field("company_desc") String company_desc);
+
+    /**
+     * 任务敏感词过滤
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/job/is_textFilter")
+    Observable<ResponseData> getTextFilter(@Field("token") String token, @Field("title") String title, @Field("content") String content, @Field("duration") String duration, @Field("place") String place, @Field("contact") String contact);
 
     /**
      * 用户端埋点

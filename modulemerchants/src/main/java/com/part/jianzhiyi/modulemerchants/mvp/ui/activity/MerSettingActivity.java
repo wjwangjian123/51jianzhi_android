@@ -48,6 +48,8 @@ public class MerSettingActivity extends BaseActivity<MCheckPresenter> implements
     private TextView mTvLogout;
     private TextView mTvVersion;
     private RelativeLayout mRlVersion;
+    private RelativeLayout mRlModify;
+    private RelativeLayout mRlReset;
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
@@ -66,6 +68,8 @@ public class MerSettingActivity extends BaseActivity<MCheckPresenter> implements
         mTvLogout = (TextView) findViewById(R.id.tv_logout);
         mTvVersion = (TextView) findViewById(R.id.tv_version);
         mRlVersion = (RelativeLayout) findViewById(R.id.rl_version);
+        mRlModify = (RelativeLayout) findViewById(R.id.rl_modify);
+        mRlReset = (RelativeLayout) findViewById(R.id.rl_reset);
         initToolbar("设置");
     }
 
@@ -117,6 +121,20 @@ public class MerSettingActivity extends BaseActivity<MCheckPresenter> implements
             @Override
             public void onClick(View v) {
                 mPresenter.getCheck();
+            }
+        });
+        mRlModify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MerSettingActivity.this, MerModifyPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
+        mRlReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MerSettingActivity.this, MerResetPasswordActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -328,5 +346,11 @@ public class MerSettingActivity extends BaseActivity<MCheckPresenter> implements
         if (requestCode == 10086) {
             installAPK(mFile);
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) and run LayoutCreator again
     }
 }

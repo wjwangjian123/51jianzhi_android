@@ -160,34 +160,37 @@ public class ChooseIdentityActivity extends BaseActivity<ChoosePresenter> implem
     public void updategetUserChabge(MSwitchMerchantsEntity mSwitchMerchantsEntity) {
         if (mSwitchMerchantsEntity != null) {
             if (mSwitchMerchantsEntity.getCode().equals("200")) {
-                PreferenceUUID.getInstence().putStatus(1);
                 showToast(mSwitchMerchantsEntity.getMsg());
-                //判断是否实名认证
-                if (mSwitchMerchantsEntity.getData().getBus_info().getIs_auth() == 1) {
-                    PreferenceUUID.getInstence().putMerName(mSwitchMerchantsEntity.getData().getBus_info().getName());
-                    PreferenceUUID.getInstence().putIsEnterprise(mSwitchMerchantsEntity.getData().getBus_info().getIs_enterprise());
-                }
-                //切换成功,跳转到商户端引导页
-                ActivityUtils.removeAllActivity();
-                if (!PreferenceUUID.getInstence().getisMerGuide()) {
-                    //第一次进入引导页
-                    Intent intent = new Intent(ChooseIdentityActivity.this, MerGuideActivity.class);
+                //判断商户是否设置密码
+                if (mSwitchMerchantsEntity.getData().getBus_info().getIs_password() == 1) {
+                    //切换成功,跳转到商户端引导页
+                    ActivityUtils.removeAllActivity();
+                    PreferenceUUID.getInstence().putStatus(1);
+                    if (!PreferenceUUID.getInstence().getisMerGuide()) {
+                        //第一次进入引导页
+                        Intent intent = new Intent(ChooseIdentityActivity.this, MerGuideActivity.class);
+                        intent.putExtra("is_sing", mSwitchMerchantsEntity.getData().getBus_info().getIs_sing());
+                        startActivity(intent);
+                    } else {
+                        //判断是否需要进入协议
+                        if (mSwitchMerchantsEntity.getData().getBus_info().getIs_sing() == 0) {
+                            //未签署进入协议
+                            Intent intent = new Intent(ChooseIdentityActivity.this, MerAuthHtmlActivity.class);
+                            startActivity(intent);
+                        } else if (mSwitchMerchantsEntity.getData().getBus_info().getIs_sing() == 1) {
+                            Intent intent = new Intent(ChooseIdentityActivity.this, MerMainActivity.class);
+                            intent.putExtra("type", 0);
+                            startActivity(intent);
+                        }
+                    }
+                    //销毁当前activity
+                    ChooseIdentityActivity.this.finish();
+                } else if (mSwitchMerchantsEntity.getData().getBus_info().getIs_password() == 0) {
+                    //跳转去设置密码
+                    Intent intent = new Intent(ChooseIdentityActivity.this, MerSetPasswordActivity.class);
                     intent.putExtra("is_sing", mSwitchMerchantsEntity.getData().getBus_info().getIs_sing());
                     startActivity(intent);
-                } else {
-                    //判断是否需要进入协议
-                    if (mSwitchMerchantsEntity.getData().getBus_info().getIs_sing() == 0) {
-                        //未签署进入协议
-                        Intent intent = new Intent(ChooseIdentityActivity.this, MerAuthHtmlActivity.class);
-                        startActivity(intent);
-                    } else if (mSwitchMerchantsEntity.getData().getBus_info().getIs_sing() == 1) {
-                        Intent intent = new Intent(ChooseIdentityActivity.this, MerMainActivity.class);
-                        intent.putExtra("type", 0);
-                        startActivity(intent);
-                    }
                 }
-                //销毁当前activity
-                ChooseIdentityActivity.this.finish();
             } else if (mSwitchMerchantsEntity.getCode().equals("202")) {
                 //代理/被代理,选择切换时的弹框
                 initDialogCopy(mSwitchMerchantsEntity.getMsg(), mSwitchMerchantsEntity.getData().getUrl());

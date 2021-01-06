@@ -5,8 +5,8 @@
     android:layout_height="wrap_content"
     android:textSize="@dimen/font_15"
     android:textColor="@color/view_lable_text"
-    android:paddingHorizontal="@dimen/dimen_18"
-    android:paddingVertical="@dimen/dimen_12"
+    android:paddingHorizontal="@dimen/dimen_15"
+    android:paddingVertical="@dimen/dimen_10"
     android:layout_marginRight="@dimen/dimen_12"
     android:layout_marginBottom="@dimen/dimen_12"
     android:background="@drawable/select_lable_bg">

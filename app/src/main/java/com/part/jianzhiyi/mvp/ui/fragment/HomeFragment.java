@@ -1,14 +1,12 @@
 package com.part.jianzhiyi.mvp.ui.fragment;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -21,7 +19,6 @@ import com.bumptech.glide.Glide;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.part.jianzhiyi.R;
-import com.part.jianzhiyi.adapter.HomeAdapter;
 import com.part.jianzhiyi.adapter.HomeLableAdapter;
 import com.part.jianzhiyi.adapter.TodayListAdapter;
 import com.part.jianzhiyi.base.BaseFragment;
@@ -42,7 +39,6 @@ import com.part.jianzhiyi.model.entity.JobListResponseEntity2;
 import com.part.jianzhiyi.model.entity.LableEntity;
 import com.part.jianzhiyi.model.entity.integral.SignEntity;
 import com.part.jianzhiyi.model.entity.integral.SignInfoEntity;
-import com.part.jianzhiyi.modulemerchants.adapter.MerHomeListAdapter;
 import com.part.jianzhiyi.modulemerchants.customview.MyViewpager;
 import com.part.jianzhiyi.modulemerchants.model.entity.SearchEntity;
 import com.part.jianzhiyi.mvp.contract.HomeContract;
@@ -76,7 +72,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
@@ -99,7 +96,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     private LinearLayout mLlGold;
     private LinearLayout mLlReliable;
     private ListViewInScrollView mListToday;
-    //    private ListViewInScrollView mListRecommend;
     private SmartRefreshLayout mSmartRefresh;
     private ImageView mIvSalary;
     private TextView mTvSalary;
@@ -118,18 +114,16 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     private List<CategoryEntity> categoryEntityList;
     private List<SearchEntity.DataBean> searchList;
     private List<LableEntity.DataBean> lableList;
-//    private List<JobListResponseEntity2.DataBean> recommendList;
 
     private TodayListAdapter mTodayListAdapter;
     private HomeLableAdapter mHomeLableAdapter;
-    //    private HomeAdapter recommendAdapter;
     private int recommendPage = Constants.PAGE_INDEX;
     private String lable = "0";
+    //标签职位
     private MyViewpager mViewpager;
-    private List<LinearLayout> mListView;
-    private MerHomeListAdapter mMerHomeListAdapter;
-    private List<HomeAdapter> mHomeAdapters;
     private List<List<JobListResponseEntity2.DataBean>> mLists;
+    private ArrayList<Fragment> fragments;
+    private List<JobListResponseEntity2.DataBean> mBeanList;
     private int mposition = 0;
     private int mType = 0;
     private AppBarLayout mAppbar;
@@ -159,7 +153,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         mLlReliable = view.findViewById(R.id.ll_reliable);
         mListToday = view.findViewById(R.id.list_today);
         mRecycleLabel = view.findViewById(R.id.recycle_label);
-//        mListRecommend = view.findViewById(R.id.list_recommend);
         mIvSalary = view.findViewById(R.id.iv_salary);
         mTvSalary = view.findViewById(R.id.tv_salary);
         mIvSpeed = view.findViewById(R.id.iv_speed);
@@ -195,10 +188,9 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         categoryEntityList = new ArrayList<>();
         searchList = new ArrayList<>();
         lableList = new ArrayList<>();
-//        recommendList = new ArrayList<>();
-        mListView = new ArrayList<>();
-        mHomeAdapters = new ArrayList<>();
         mLists = new ArrayList<>();
+        fragments = new ArrayList<>();
+        mBeanList = new ArrayList<>();
 
         mPresenter.getBanner();
         mPresenter.getCategory();
@@ -209,7 +201,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
         mTodayListAdapter = new TodayListAdapter(getActivity(), searchList);
         mListToday.setAdapter(mTodayListAdapter);
-//        recommendAdapter = new HomeAdapter(getActivity(), recommendList);
 
         CenterLayoutManager centerLayoutManager = new CenterLayoutManager(getActivity());
         centerLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
@@ -258,16 +249,13 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
             }
         });
-        mMerHomeListAdapter = new MerHomeListAdapter();
-        mViewpager.setAdapter(mMerHomeListAdapter);
-        mViewpager.setCurrentItem(0);
         try {
             Field field = ViewPager.class.getDeclaredField("mScroller");
             field.setAccessible(true);
             SpeedScroller scroller = new SpeedScroller(mViewpager.getContext(),
                     new AccelerateInterpolator());
             field.set(mViewpager, scroller);
-            scroller.setmDuration(300);
+            scroller.setmDuration(100);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -291,15 +279,15 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                 centerLayoutManager.smoothScrollToPosition(mRecycleLabel, new RecyclerView.State(), position);
                 mHomeLableAdapter.setList(lableList);
                 if (position == 0) {
-                    recommendPage = Constants.PAGE_INDEX;
+//                    recommendPage = Constants.PAGE_INDEX;
                     lable = "0";
                     position_recommend = Constants.POSITION_HOME_RECOMMEND;
-                    mPresenter.jobList(type_recommend, position_recommend, recommendPage, lable);
+//                    mPresenter.jobList(type_recommend, position_recommend, recommendPage, lable);
                 } else {
-                    recommendPage = Constants.PAGE_INDEX;
+//                    recommendPage = Constants.PAGE_INDEX;
                     lable = lableList.get(position).getId();
                     position_recommend = Constants.POSITION_HOME_LABLE;
-                    mPresenter.jobList("8", position_recommend, recommendPage, lable);
+//                    mPresenter.jobList("8", position_recommend, recommendPage, lable);
                 }
             }
 
@@ -371,7 +359,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                 mPresenter.getBanner();
                 mPresenter.getCategory();
                 mPresenter.search("", "");
-//                mPresenter.getHomeLabel();
                 Log.i(TAG, "首页刷新了数据，推荐页码：" + recommendPage);
             }
         });
@@ -624,7 +611,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         if (dataBeanList.size() > 0) {
             this.mLists.get(mposition).addAll(dataBeanList);
         }
-        mHomeAdapters.get(mposition).notifyDataSetChanged();
+        notifyDataSetChanged();
         if (mType == 0) {
             if (mposition < lableList.size() - 1) {
                 ++mposition;
@@ -633,9 +620,20 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                 position_recommend = Constants.POSITION_HOME_LABLE;
                 mPresenter.jobList("8", position_recommend, recommendPage, lable);
             } else {
+                mposition = 0;
+                lable = "0";
+                position_recommend = Constants.POSITION_HOME_RECOMMEND;
                 mType = 1;
             }
         }
+    }
+
+    /**
+     * 刷新ListView
+     */
+    private void notifyDataSetChanged() {
+        HomeListFragment fragment = (HomeListFragment) fragments.get(mposition);
+        fragment.notifyDataSetChanged();
     }
 
     @Override
@@ -739,8 +737,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         if (lableList != null) {
             lableList.clear();
         }
-        mListView.clear();
-        mHomeAdapters.clear();
+        fragments.clear();
         LableEntity.DataBean dataBean = new LableEntity.DataBean();
         dataBean.setId("1");
         dataBean.setSelect(1);
@@ -751,81 +748,30 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             mHomeLableAdapter.setList(lableList);
         }
         for (int i = 0; i < lableList.size(); i++) {
-            LinearLayout linearLayout = new LinearLayout(getActivity());
-            linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-            ListViewInScrollView listViewInScrollView = new ListViewInScrollView(getActivity());
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-            Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.shape_list_line_bg);
-            listViewInScrollView.setDivider(drawable);
-            listViewInScrollView.setDividerHeight(1);
-            listViewInScrollView.setOverScrollMode(ListViewInScrollView.OVER_SCROLL_NEVER);
-            listViewInScrollView.setVerticalScrollBarEnabled(false);
-            listViewInScrollView.setLayoutParams(layoutParams);
             List<JobListResponseEntity2.DataBean> recommendList = new ArrayList<>();
-            HomeAdapter homeAdapter = new HomeAdapter(getActivity(), recommendList);
-            listViewInScrollView.setAdapter(homeAdapter);
-            mHomeAdapters.add(homeAdapter);
             mLists.add(recommendList);
-            //兼职推荐
-            listViewInScrollView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    if (recommendList.get(position).getUiType() == 1) {
-                        return;
-                    }
-                    if (lable.equals("0")) {
-                        if (position == 0) {
-                            MobclickAgent.onEvent(getActivity(), "home_recommend_one");
-                            mPresenter.getaddMd("30");
-                        }
-                        if (position == 1) {
-                            MobclickAgent.onEvent(getActivity(), "home_recommend_two");
-                            mPresenter.getaddMd("31");
-                        }
-                        if (position == 2) {
-                            MobclickAgent.onEvent(getActivity(), "home_recommend_three");
-                            mPresenter.getaddMd("32");
-                        }
-                        if (position == 4) {
-                            MobclickAgent.onEvent(getActivity(), "home_recommend_four");
-                            mPresenter.getaddMd("33");
-                        }
-                        if (position == 5) {
-                            MobclickAgent.onEvent(getActivity(), "home_recommend_five");
-                            mPresenter.getaddMd("34");
-                        }
-                        if (position == 6) {
-                            MobclickAgent.onEvent(getActivity(), "home_recommend_six");
-                            mPresenter.getaddMd("35");
-                        }
-                        if (position == 7) {
-                            MobclickAgent.onEvent(getActivity(), "home_recommend_seven");
-                            mPresenter.getaddMd("36");
-                        }
-                        if (position == 8) {
-                            MobclickAgent.onEvent(getActivity(), "home_recommend_eight");
-                            mPresenter.getaddMd("37");
-                        }
-                        if (position == 9) {
-                            MobclickAgent.onEvent(getActivity(), "home_recommend_nine");
-                            mPresenter.getaddMd("38");
-                        }
-                        if (position == 10) {
-                            MobclickAgent.onEvent(getActivity(), "home_recommend_ten");
-                            mPresenter.getaddMd("39");
-                        }
-                    }
-                    Intent intent = new Intent(getActivity(), VocationActivity.class);
-                    intent.putExtra("id", recommendList.get(position).getId());
-                    intent.putExtra("position", position_recommend);
-                    intent.putExtra("sortId", "" + position);
-                    startActivity(intent);
-                }
-            });
-            linearLayout.addView(listViewInScrollView);
-            mListView.add(linearLayout);
+            HomeListFragment homeListFragment = new HomeListFragment(mLists.get(i), lable, position_recommend);
+            fragments.add(homeListFragment);
         }
-        mMerHomeListAdapter.setData(mListView);
+        mViewpager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
+            @Override
+            public Fragment getItem(int i) {
+                return fragments.get(i);
+            }
+
+            @Override
+            public int getCount() {
+                return fragments.size();
+            }
+        });
+        mViewpager.setCurrentItem(0);
+        if (lable.equals("0")) {
+            position_recommend = Constants.POSITION_HOME_RECOMMEND;
+            mPresenter.jobList(type_recommend, position_recommend, recommendPage, lable);
+        } else {
+            position_recommend = Constants.POSITION_HOME_LABLE;
+            mPresenter.jobList("8", position_recommend, recommendPage, lable);
+        }
     }
 
     @Override
@@ -874,13 +820,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         MobclickAgent.onPageStart("首页");
         MobclickAgent.onResume(getActivity());
         if (mPresenter != null) {
-            if (lable.equals("0")) {
-                position_recommend = Constants.POSITION_HOME_RECOMMEND;
-                mPresenter.jobList(type_recommend, position_recommend, recommendPage, lable);
-            } else {
-                position_recommend = Constants.POSITION_HOME_LABLE;
-                mPresenter.jobList("8", position_recommend, recommendPage, lable);
-            }
             if (!PreferenceUUID.getInstence().getUserId().equals(null) && !PreferenceUUID.getInstence().getUserId().equals("")) {
                 mPresenter.getSignInfos(PreferenceUUID.getInstence().getUserId());
             }

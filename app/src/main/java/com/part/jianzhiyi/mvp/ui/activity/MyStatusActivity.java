@@ -187,9 +187,11 @@ public class MyStatusActivity extends BaseActivity<MineUpdateResumePresenter> im
             startActivity(intent);
         } else if (mUserInfoEntity.getData().getMyitem().size() == 0) {
             Intent intent = new Intent(MyStatusActivity.this, AboutMineActivity.class);
+            intent.putExtra("type", 0);
             startActivity(intent);
         } else if (mUserInfoEntity.getData().getExpect().size() == 0) {
             Intent intent = new Intent(MyStatusActivity.this, ExpectPositionActivity.class);
+            intent.putExtra("type", 0);
             startActivity(intent);
         } else {
             Intent intent = new Intent(MyStatusActivity.this, MainActivity.class);

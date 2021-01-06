@@ -90,7 +90,7 @@
                     android:textSize="@dimen/font_16"
                     android:textColor="#494C53"/>
                 <com.part.jianzhiyi.corecommon.ui.InputFilteEditText
-                    android:id="@+id/et_cycle"
+                    android:id="@+id/et_duration"
                     android:layout_width="wrap_content"
                     android:layout_height="51dp"
                     android:layout_weight="1"

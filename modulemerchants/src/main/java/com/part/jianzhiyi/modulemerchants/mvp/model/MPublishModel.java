@@ -124,7 +124,7 @@ public class MPublishModel implements MPublishContract.IMPublishModel {
     }
 
     @Override
-    public Observable<ResponseData> getCheckJob(String label_id, String job_id) {
+    public Observable<ResponseData> getCheckJob(String label_id, String job_id, String ther) {
         Map<String, String> headers = new HashMap<>();
         String timestamp = String.valueOf(System.currentTimeMillis());
         String nonce = String.valueOf((1 + Math.random() * (10 - 1 + 1)));
@@ -138,6 +138,9 @@ public class MPublishModel implements MPublishContract.IMPublishModel {
         if (job_id != null && job_id != "") {
             map.put("job_id", job_id);
         }
+        if (!ther.equals(null) && !ther.equals("")) {
+            map.put("ther", ther);
+        }
         String paramsSerializeString = ParamsUtil.getParamsSerializeString(map);
         String sing = "baseApi!@#-";
         String string = sing + paramsSerializeString;
@@ -146,7 +149,7 @@ public class MPublishModel implements MPublishContract.IMPublishModel {
         headers.put("nonce", nonce);
         headers.put("timestamp", timestamp);
         headers.put("signature", s);
-        return HttpAPI.getInstence().getServiceApi().getCheckJob(headers, PreferenceUUID.getInstence().getToken(), label_id, job_id);
+        return HttpAPI.getInstence().getServiceApi().getCheckJob(headers, PreferenceUUID.getInstence().getToken(), label_id, job_id, ther);
     }
 
     @Override
@@ -227,5 +230,10 @@ public class MPublishModel implements MPublishContract.IMPublishModel {
         headers.put("timestamp", timestamp);
         headers.put("signature", s);
         return HttpAPI.getInstence().getServiceApi().getmdAdd(headers, type, PreferenceUUID.getInstence().getToken());
+    }
+
+    @Override
+    public Observable<ResponseData> getTextFilter(String title, String content, String duration, String place, String contact) {
+        return HttpAPI.getInstence().getServiceApi().getTextFilter(PreferenceUUID.getInstence().getToken(), title, content, duration, place, contact);
     }
 }

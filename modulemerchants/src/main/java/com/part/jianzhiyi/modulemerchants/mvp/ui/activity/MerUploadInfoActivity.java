@@ -629,7 +629,7 @@ public class MerUploadInfoActivity extends BaseActivity<AuthPresenter> implement
     public TakePhoto getTakePhoto() {
         if (takePhoto == null) {
             takePhoto = (TakePhoto) TakePhotoInvocationHandler.of(this).bind(new TakePhotoImpl(MerUploadInfoActivity.this, this));
-            CompressConfig compressConfig = new CompressConfig.Builder().setMaxSize(50 * 1024).setMaxPixel(800).enableReserveRaw(true).create();
+            CompressConfig compressConfig = new CompressConfig.Builder().setMaxSize(500 * 1024).setMaxPixel(800).enableReserveRaw(true).create();
             takePhoto.onEnableCompress(compressConfig, true);
         }
         return takePhoto;

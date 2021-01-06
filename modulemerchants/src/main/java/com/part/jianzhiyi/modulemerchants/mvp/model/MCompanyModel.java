@@ -4,6 +4,7 @@ import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.corecommon.utils.Tools;
 import com.part.jianzhiyi.modulemerchants.constants.Constants;
 import com.part.jianzhiyi.modulemerchants.http.HttpAPI;
+import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
 import com.part.jianzhiyi.modulemerchants.model.entity.MCompanyInfoEntity;
 import com.part.jianzhiyi.modulemerchants.mvp.contract.MCompanyContract;
 import com.part.jianzhiyi.modulemerchants.utils.ParamsUtil;
@@ -43,5 +44,10 @@ public class MCompanyModel implements MCompanyContract.IMCompanyModel {
         headers.put("timestamp", timestamp);
         headers.put("signature", s);
         return HttpAPI.getInstence().getServiceApi().getCompanyInfo(headers, uid, job_id, PreferenceUUID.getInstence().getUserId(), Constants.APPID);
+    }
+
+    @Override
+    public Observable<ResponseData> getIntroduced(String company_desc) {
+        return HttpAPI.getInstence().getServiceApi().getIntroduced(PreferenceUUID.getInstence().getToken(), company_desc);
     }
 }

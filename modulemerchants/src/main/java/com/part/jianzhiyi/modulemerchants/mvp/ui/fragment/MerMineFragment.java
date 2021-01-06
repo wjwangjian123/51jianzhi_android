@@ -41,7 +41,6 @@ import com.part.jianzhiyi.modulemerchants.mvp.contract.MMineContract;
 import com.part.jianzhiyi.modulemerchants.mvp.presenter.MMinePresenter;
 import com.part.jianzhiyi.modulemerchants.mvp.ui.activity.ChooseIdentityActivity;
 import com.part.jianzhiyi.modulemerchants.mvp.ui.activity.MerAuthActivity;
-import com.part.jianzhiyi.modulemerchants.mvp.ui.activity.MerAuthHtmlActivity;
 import com.part.jianzhiyi.modulemerchants.mvp.ui.activity.MerFeedbackActivity;
 import com.part.jianzhiyi.modulemerchants.mvp.ui.activity.MerMyCompanyActivity;
 import com.part.jianzhiyi.modulemerchants.mvp.ui.activity.MerMyWalletActivity;
@@ -89,6 +88,7 @@ public class MerMineFragment extends BaseFragment<MMinePresenter> implements MMi
     private String imagePath;
     private String url;
     private String company;
+    private String company_desc;
     private int isSing;
     private String avatar;
     private String username;
@@ -148,38 +148,29 @@ public class MerMineFragment extends BaseFragment<MMinePresenter> implements MMi
                     //认证状态 0未完成个人认证 1个人商户审核 2未认证企业信息 3个人认证失败4未认证企业信息 5企业认证审核中 6企业认证成功 7企业认证失败
                     if (mcertStatus == 0) {
                         //前去个人认证
-                        if (isSing == 0) {
-                            //未签署进入协议
-                            Intent intent = new Intent(getActivity(), MerAuthHtmlActivity.class);
-                            startActivity(intent);
-                        } else if (isSing == 1) {
-                            Intent intent = new Intent(getActivity(), MerAuthActivity.class);
-                            intent.putExtra("urlType", 0);
-                            startActivity(intent);
-                        }
+                        Intent intent = new Intent(getActivity(), MerMyCompanyActivity.class);
+                        intent.putExtra("type", 2);
+                        intent.putExtra("url", url);
+                        intent.putExtra("company", company);
+                        intent.putExtra("company_desc", company_desc);
+                        intent.putExtra("isSing", isSing);
+                        startActivity(intent);
                     }
-                    if (mcertStatus == 2) {
+                    if (mcertStatus == 2 || mcertStatus == 4) {
                         //前去企业认证
                         mPresenter.getmdAdd("77");
                         Intent intent = new Intent(getActivity(), MerMyCompanyActivity.class);
                         intent.putExtra("type", 0);
                         intent.putExtra("url", url);
                         intent.putExtra("company", company);
+                        intent.putExtra("company_desc", company_desc);
+                        intent.putExtra("isSing", isSing);
                         startActivity(intent);
                     }
                     if (mcertStatus == 3) {
                         //前去个人认证修改
                         Intent intent = new Intent(getActivity(), MerAuthActivity.class);
                         intent.putExtra("urlType", 1);
-                        startActivity(intent);
-                    }
-                    if (mcertStatus == 4) {
-                        //前去企业认证
-                        mPresenter.getmdAdd("77");
-                        Intent intent = new Intent(getActivity(), MerMyCompanyActivity.class);
-                        intent.putExtra("type", 0);
-                        intent.putExtra("url", url);
-                        intent.putExtra("company", company);
                         startActivity(intent);
                     }
                     if (mcertStatus == 6) {
@@ -189,6 +180,8 @@ public class MerMineFragment extends BaseFragment<MMinePresenter> implements MMi
                         intent.putExtra("type", 1);
                         intent.putExtra("url", url);
                         intent.putExtra("company", company);
+                        intent.putExtra("company_desc", company_desc);
+                        intent.putExtra("isSing", isSing);
                         startActivity(intent);
                     }
                     if (mcertStatus == 7) {
@@ -298,7 +291,7 @@ public class MerMineFragment extends BaseFragment<MMinePresenter> implements MMi
 
     @Override
     protected void afterCreate() {
-        mPresenter.getConfig();
+
     }
 
     private void initDialogTakePhoto() {
@@ -478,7 +471,10 @@ public class MerMineFragment extends BaseFragment<MMinePresenter> implements MMi
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.getMerUserinfo();
+        if (mPresenter != null) {
+            mPresenter.getMerUserinfo();
+            mPresenter.getConfig();
+        }
         MobclickAgent.onPageStart("商户端我的页面");
         MobclickAgent.onResume(getActivity());
     }
@@ -574,10 +570,13 @@ public class MerMineFragment extends BaseFragment<MMinePresenter> implements MMi
             isSing = mUserInfoEntity.getUserinfo().getIs_sing();
             url = mUserInfoEntity.getUserinfo().getImg();
             company = mUserInfoEntity.getUserinfo().getCompany();
+            company_desc = mUserInfoEntity.getUserinfo().getCompany_desc();
             mcertStatus = mUserInfoEntity.getUserinfo().getCert_status();
             mMineTvId.setText("ID：" + mUserInfoEntity.getUserinfo().getId());
             avatar = mUserInfoEntity.getUserinfo().getImg();
             username = mUserInfoEntity.getUserinfo().getName();
+            PreferenceUUID.getInstence().putMerName(mUserInfoEntity.getUserinfo().getName());
+            PreferenceUUID.getInstence().putMerAvatar(mUserInfoEntity.getUserinfo().getImg());
             if (!mUserInfoEntity.getUserinfo().getName().equals(null) && !mUserInfoEntity.getUserinfo().getName().equals("")) {
                 mMineTvPhone.setText(mUserInfoEntity.getUserinfo().getName());
             } else {
@@ -622,6 +621,7 @@ public class MerMineFragment extends BaseFragment<MMinePresenter> implements MMi
     @Override
     public void updategetConfig(MConfigEntity mConfigEntity) {
         if (mConfigEntity != null) {
+            PreferenceUUID.getInstence().putShowService(mConfigEntity.getData().getIs_os());
             if (mConfigEntity.getData().getIs_os() == 0) {
                 mMineRlService.setVisibility(View.GONE);
                 mViewService.setVisibility(View.GONE);

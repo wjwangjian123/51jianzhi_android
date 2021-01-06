@@ -6,9 +6,9 @@
     android:background="@drawable/selector_about_text"
     android:textSize="13sp"
     android:textColor="@color/status_text"
-    android:paddingHorizontal="@dimen/dimen_15"
-    android:paddingVertical="9dp"
-    android:layout_marginRight="11dp"
-    android:layout_marginBottom="@dimen/dimen_12">
+    android:paddingHorizontal="@dimen/dimen_12"
+    android:paddingVertical="7dp"
+    android:layout_marginRight="@dimen/dimen_10"
+    android:layout_marginBottom="@dimen/dimen_10">
 
 </TextView>

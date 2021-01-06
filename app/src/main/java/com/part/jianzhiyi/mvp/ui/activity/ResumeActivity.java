@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.base.BaseActivity;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.corecommon.selectdateview.dialog.ActionListener;
 import com.part.jianzhiyi.corecommon.selectdateview.dialog.BaseDialogFragment;
 import com.part.jianzhiyi.corecommon.selectdateview.dialog.TextPickerDialog;
@@ -23,7 +24,6 @@ import com.part.jianzhiyi.model.entity.ResumeEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.mvp.contract.mine.MineUpdateResumeContract;
 import com.part.jianzhiyi.mvp.presenter.mine.MineUpdateResumePresenter;
-import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -239,9 +239,11 @@ public class ResumeActivity extends BaseActivity<MineUpdateResumePresenter> impl
                 startActivity(intent);
             } else if (mUserInfoEntity.getData().getMyitem().size() == 0) {
                 Intent intent = new Intent(ResumeActivity.this, AboutMineActivity.class);
+                intent.putExtra("type", 0);
                 startActivity(intent);
             } else if (mUserInfoEntity.getData().getExpect().size() == 0) {
                 Intent intent = new Intent(ResumeActivity.this, ExpectPositionActivity.class);
+                intent.putExtra("type", 0);
                 startActivity(intent);
             } else {
                 Intent intent = new Intent(ResumeActivity.this, MainActivity.class);

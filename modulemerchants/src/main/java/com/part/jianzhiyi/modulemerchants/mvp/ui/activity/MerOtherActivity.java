@@ -33,7 +33,7 @@ import java.util.List;
 public class MerOtherActivity extends BaseActivity<MPublishPresenter> implements MPublishContract.IMPublishView {
 
     private InputFilteEditText mEtPlace;
-    private InputFilteEditText mEtCycle;
+    private InputFilteEditText mEtDuration;
     private InputFilteEditText mEtTime;
     private TextView mTvContact;
     private TextView mTvAgeMin;
@@ -115,7 +115,7 @@ public class MerOtherActivity extends BaseActivity<MPublishPresenter> implements
     @Override
     protected void initView() {
         mEtPlace = (InputFilteEditText) findViewById(R.id.et_place);
-        mEtCycle = (InputFilteEditText) findViewById(R.id.et_cycle);
+        mEtDuration = (InputFilteEditText) findViewById(R.id.et_duration);
         mEtTime = (InputFilteEditText) findViewById(R.id.et_time);
         mTvContact = (TextView) findViewById(R.id.tv_contact);
         mTvAgeMin = (TextView) findViewById(R.id.tv_age_min);
@@ -232,7 +232,7 @@ public class MerOtherActivity extends BaseActivity<MPublishPresenter> implements
         }
         if (mJobInfoEntity != null && mJobInfoEntity.getData() != null) {
             mEtPlace.setText(mJobInfoEntity.getData().getPlace());
-            mEtCycle.setText(mJobInfoEntity.getData().getDuration());
+            mEtDuration.setText(mJobInfoEntity.getData().getDuration());
             mEtTime.setText(mJobInfoEntity.getData().getTime());
             if (mJobInfoEntity.getData().getContact_type() == 1) {
                 mTvContact.setText("微信");
@@ -685,6 +685,7 @@ public class MerOtherActivity extends BaseActivity<MPublishPresenter> implements
     }
 
     private long clickTime = 0;
+
     @Override
     protected void setListener() {
         super.setListener();
@@ -729,7 +730,7 @@ public class MerOtherActivity extends BaseActivity<MPublishPresenter> implements
                     showToast("请输入工作地点");
                     return;
                 }
-                if (TextUtils.isEmpty(mEtCycle.getText().toString().trim())) {
+                if (TextUtils.isEmpty(mEtDuration.getText().toString().trim())) {
                     showToast("请输入工作周期");
                     return;
                 }
@@ -775,28 +776,8 @@ public class MerOtherActivity extends BaseActivity<MPublishPresenter> implements
                 }
                 if (System.currentTimeMillis() - clickTime > 3000) {
                     clickTime = System.currentTimeMillis();
-                    Intent intent = new Intent(MerOtherActivity.this, MerPreviewActivity.class);
-                    intent.putExtra("label_id", label_id);
-                    intent.putExtra("job_id", job_id);
-                    intent.putExtra("title", title);
-                    intent.putExtra("content", content);
-                    intent.putExtra("num", num);
-                    intent.putExtra("price1", price1);
-                    intent.putExtra("price2", price2);
-                    intent.putExtra("method", method);
-                    intent.putExtra("place", mEtPlace.getText().toString().trim());
-                    intent.putExtra("time", mEtCycle.getText().toString().trim());
-                    intent.putExtra("duration", mEtTime.getText().toString().trim());
-                    intent.putExtra("contact_type", contact_type);
-                    intent.putExtra("contact1", mEtContact1.getText().toString().trim());
-                    intent.putExtra("contact", contact);
-                    intent.putExtra("age1", mTvAgeMin.getText().toString().trim());
-                    intent.putExtra("age2", mTvAgeMax.getText().toString().trim());
-                    intent.putExtra("sex", mTvSex.getText().toString().trim());
-                    intent.putExtra("type", type);
-                    intent.putExtra("id", id);
-                    startActivity(intent);
-                }else {
+                    mPresenter.getTextFilter("", "", mEtDuration.getText().toString().trim(), mEtPlace.getText().toString().trim(), contact);
+                } else {
                     showToast("点击过于频繁请稍后再试");
                 }
             }
@@ -905,6 +886,37 @@ public class MerOtherActivity extends BaseActivity<MPublishPresenter> implements
     @Override
     public void updategetmdAdd(ResponseData responseData) {
 
+    }
+
+    @Override
+    public void updategetTextFilter(ResponseData responseData) {
+        if (responseData != null) {
+            if (responseData.getCode().equals("200")) {
+                Intent intent = new Intent(MerOtherActivity.this, MerPreviewActivity.class);
+                intent.putExtra("label_id", label_id);
+                intent.putExtra("job_id", job_id);
+                intent.putExtra("title", title);
+                intent.putExtra("content", content);
+                intent.putExtra("num", num);
+                intent.putExtra("price1", price1);
+                intent.putExtra("price2", price2);
+                intent.putExtra("method", method);
+                intent.putExtra("place", mEtPlace.getText().toString().trim());
+                intent.putExtra("time", mEtTime.getText().toString().trim());
+                intent.putExtra("duration", mEtDuration.getText().toString().trim());
+                intent.putExtra("contact_type", contact_type);
+                intent.putExtra("contact1", mEtContact1.getText().toString().trim());
+                intent.putExtra("contact", contact);
+                intent.putExtra("age1", mTvAgeMin.getText().toString().trim());
+                intent.putExtra("age2", mTvAgeMax.getText().toString().trim());
+                intent.putExtra("sex", mTvSex.getText().toString().trim());
+                intent.putExtra("type", type);
+                intent.putExtra("id", id);
+                startActivity(intent);
+            } else {
+                showToast(responseData.getMsg());
+            }
+        }
     }
 
     @Override

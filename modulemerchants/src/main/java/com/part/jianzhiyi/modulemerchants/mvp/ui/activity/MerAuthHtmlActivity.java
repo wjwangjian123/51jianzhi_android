@@ -172,6 +172,7 @@ public class MerAuthHtmlActivity extends BaseActivity<MPublishPresenter> impleme
     public void updategetIsSing(ResponseData responseData) {
         if (responseData.getCode().equals("200")) {
             Intent intent = new Intent(MerAuthHtmlActivity.this, MerGuideAuthActivity.class);
+            intent.putExtra("guide_type", 0);
             startActivity(intent);
             finish();
         }
@@ -194,6 +195,11 @@ public class MerAuthHtmlActivity extends BaseActivity<MPublishPresenter> impleme
 
     @Override
     public void updategetmdAdd(ResponseData responseData) {
+
+    }
+
+    @Override
+    public void updategetTextFilter(ResponseData responseData) {
 
     }
 

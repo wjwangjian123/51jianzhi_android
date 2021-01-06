@@ -61,8 +61,17 @@ public class MCompanyInfoEntity {
         private String address;
         private String date;
         private String uid;
-        private String job_count;
         private String status;
+        private String company_desc;
+        private String job_count;
+
+        public String getCompany_desc() {
+            return company_desc;
+        }
+
+        public void setCompany_desc(String company_desc) {
+            this.company_desc = company_desc;
+        }
 
         public String getStatus() {
             return status;

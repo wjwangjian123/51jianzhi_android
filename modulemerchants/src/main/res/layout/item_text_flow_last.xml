@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_bg"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/dimen_15"
+    android:background="@drawable/select_lable_bg"
+    android:layout_marginRight="@dimen/dimen_12"
+    android:layout_marginBottom="@dimen/dimen_12">
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_15"
+        android:textColor="@color/view_lable_text"
+        android:layout_centerVertical="true"/>
+    <EditText
+        android:id="@+id/et_title"
+        android:layout_width="@dimen/dimen_120"
+        android:layout_height="41dp"
+        android:layout_toRightOf="@+id/tv_title"
+        android:background="@color/transparency"
+        android:hint="（可填写）"
+        android:textColorHint="#A2A8B5"
+        android:textColor="@color/view_lable_text"
+        android:textSize="13sp"
+        android:gravity="right|center_vertical"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:drawablePadding="@dimen/dimen_5"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_centerVertical="true"/>
+</RelativeLayout>

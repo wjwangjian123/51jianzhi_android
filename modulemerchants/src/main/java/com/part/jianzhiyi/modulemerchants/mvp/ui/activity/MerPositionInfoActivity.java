@@ -17,13 +17,19 @@ import android.widget.TextView;
 import com.part.jianzhiyi.corecommon.ui.InputFilteEditText;
 import com.part.jianzhiyi.modulemerchants.R;
 import com.part.jianzhiyi.modulemerchants.base.BaseActivity;
-import com.part.jianzhiyi.modulemerchants.base.BasePresenter;
 import com.part.jianzhiyi.modulemerchants.customview.ColorPickerView;
 import com.part.jianzhiyi.modulemerchants.customview.RichEditor;
+import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
 import com.part.jianzhiyi.modulemerchants.model.entity.MJobInfoEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.MLableContactEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.MLableEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.MLableSalaryEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.MUserInfoEntity;
+import com.part.jianzhiyi.modulemerchants.mvp.contract.MPublishContract;
+import com.part.jianzhiyi.modulemerchants.mvp.presenter.MPublishPresenter;
 import com.umeng.analytics.MobclickAgent;
 
-public class MerPositionInfoActivity extends BaseActivity implements View.OnClickListener {
+public class MerPositionInfoActivity extends BaseActivity<MPublishPresenter> implements MPublishContract.IMPublishView, View.OnClickListener {
 
     private InputFilteEditText mEtTitle;
     private TextView mTvClear;
@@ -252,15 +258,7 @@ public class MerPositionInfoActivity extends BaseActivity implements View.OnClic
                 }
                 if (System.currentTimeMillis() - clickTime > 3000) {
                     clickTime = System.currentTimeMillis();
-                    Intent intent = new Intent(MerPositionInfoActivity.this, MerSalaryActivity.class);
-                    intent.putExtra("label_id", label_id);
-                    intent.putExtra("job_id", job_id);
-                    intent.putExtra("title", mEtTitle.getText().toString().trim());
-                    intent.putExtra("content", mEditor.getHtml());
-                    intent.putExtra("num", mEtNum.getText().toString().trim());
-                    intent.putExtra("type", type);
-                    intent.putExtra("mJobInfoEntity", mJobInfoEntity);
-                    startActivity(intent);
+                    mPresenter.getTextFilter(mEtTitle.getText().toString().trim(), mEditor.getHtml(), "", "", "");
                 } else {
                     showToast("点击过于频繁请稍后再试");
                 }
@@ -269,8 +267,8 @@ public class MerPositionInfoActivity extends BaseActivity implements View.OnClic
     }
 
     @Override
-    protected BasePresenter createPresenter() {
-        return null;
+    protected MPublishPresenter createPresenter() {
+        return new MPublishPresenter(this);
     }
 
     @Override
@@ -449,5 +447,69 @@ public class MerPositionInfoActivity extends BaseActivity implements View.OnClic
         super.onPause();
         MobclickAgent.onPageEnd("商户端完善职位信息页面");
         MobclickAgent.onPause(this);
+    }
+
+    @Override
+    public void updategetMLabel(MLableEntity mLableEntity) {
+
+    }
+
+    @Override
+    public void updategetMLabelMethod(MLableSalaryEntity mLableSalaryEntity) {
+
+    }
+
+    @Override
+    public void updategetMLabelSalary(MLableSalaryEntity mLableSalaryEntity) {
+
+    }
+
+    @Override
+    public void updategetMLabelContact(MLableContactEntity mLableContactEntity) {
+
+    }
+
+    @Override
+    public void updategetIsSing(ResponseData responseData) {
+
+    }
+
+    @Override
+    public void updategetCheckJob(ResponseData responseData) {
+
+    }
+
+    @Override
+    public void updategetAddJob(ResponseData responseData) {
+
+    }
+
+    @Override
+    public void updategetMerUserinfo(MUserInfoEntity mUserInfoEntity) {
+
+    }
+
+    @Override
+    public void updategetmdAdd(ResponseData responseData) {
+
+    }
+
+    @Override
+    public void updategetTextFilter(ResponseData responseData) {
+        if (responseData != null) {
+            if (responseData.getCode().equals("200")) {
+                Intent intent = new Intent(MerPositionInfoActivity.this, MerSalaryActivity.class);
+                intent.putExtra("label_id", label_id);
+                intent.putExtra("job_id", job_id);
+                intent.putExtra("title", mEtTitle.getText().toString().trim());
+                intent.putExtra("content", mEditor.getHtml());
+                intent.putExtra("num", mEtNum.getText().toString().trim());
+                intent.putExtra("type", type);
+                intent.putExtra("mJobInfoEntity", mJobInfoEntity);
+                startActivity(intent);
+            } else {
+                showToast(responseData.getMsg());
+            }
+        }
     }
 }

@@ -11,10 +11,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.meiqia.meiqiasdk.util.MQIntentBuilder;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.modulemerchants.R;
 import com.part.jianzhiyi.modulemerchants.base.BaseActivity;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
@@ -26,6 +28,7 @@ import com.part.jianzhiyi.modulemerchants.mvp.presenter.MMinePresenter;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MerRecruitTypeActivity extends BaseActivity<MMinePresenter> implements MMineContract.IMMineView {
@@ -45,6 +48,7 @@ public class MerRecruitTypeActivity extends BaseActivity<MMinePresenter> impleme
     private ImageView mIvBg;
     private ImageView mIvContent;
     private TextView mTvGo;
+    private LinearLayout mLlNext;
     private int type = 0;
     private String content;
 
@@ -75,6 +79,7 @@ public class MerRecruitTypeActivity extends BaseActivity<MMinePresenter> impleme
         mIvBg = (ImageView) findViewById(R.id.iv_bg);
         mIvContent = (ImageView) findViewById(R.id.iv_content);
         mTvGo = (TextView) findViewById(R.id.tv_go);
+        mLlNext = (LinearLayout) findViewById(R.id.ll_next);
         setToolBarVisible(false);
         setImmerseLayout(findViewById(R.id.rl_title));
     }
@@ -135,6 +140,12 @@ public class MerRecruitTypeActivity extends BaseActivity<MMinePresenter> impleme
             mIvBg.setImageResource(R.drawable.icon_mer_enjoy_yin);
             mIvContent.setImageResource(R.drawable.icon_mer_enjoy_content);
             mTvGo.setBackgroundResource(R.drawable.icon_mer_enjoy_btn);
+            int showService = PreferenceUUID.getInstence().getShowService();
+            if (showService == 0) {
+                mLlNext.setVisibility(View.GONE);
+            } else if (showService == 1) {
+                mLlNext.setVisibility(View.VISIBLE);
+            }
         }
         if (type == 4) {
             //排名
@@ -153,6 +164,12 @@ public class MerRecruitTypeActivity extends BaseActivity<MMinePresenter> impleme
             mIvBg.setImageResource(R.drawable.icon_mer_rank_yin);
             mIvContent.setImageResource(R.drawable.icon_mer_rank_content);
             mTvGo.setBackgroundResource(R.drawable.icon_mer_rank_btn);
+            int showService = PreferenceUUID.getInstence().getShowService();
+            if (showService == 0) {
+                mLlNext.setVisibility(View.GONE);
+            } else if (showService == 1) {
+                mLlNext.setVisibility(View.VISIBLE);
+            }
         }
         if (type == 5) {
             //智能优聘
@@ -171,10 +188,17 @@ public class MerRecruitTypeActivity extends BaseActivity<MMinePresenter> impleme
             mIvBg.setImageResource(R.drawable.icon_mer_intellect_yin);
             mIvContent.setImageResource(R.drawable.icon_mer_intellect_content);
             mTvGo.setBackgroundResource(R.drawable.icon_mer_intellect_btn);
+            int showService = PreferenceUUID.getInstence().getShowService();
+            if (showService == 0) {
+                mLlNext.setVisibility(View.GONE);
+            } else if (showService == 1) {
+                mLlNext.setVisibility(View.VISIBLE);
+            }
         }
     }
 
     private long clickTime = 0;
+
     @Override
     protected void setListener() {
         super.setListener();
@@ -215,7 +239,7 @@ public class MerRecruitTypeActivity extends BaseActivity<MMinePresenter> impleme
                         //联系客服
                         checkAndRequestPermission();
                     }
-                }else {
+                } else {
                     showToast("点击过于频繁请稍后再试");
                 }
             }
@@ -234,7 +258,23 @@ public class MerRecruitTypeActivity extends BaseActivity<MMinePresenter> impleme
         }
         // 如果需要的权限都已经有了，那么直接调用SDK
         if (lackedPermission.size() == 0) {
-            Intent intent = new MQIntentBuilder(MerRecruitTypeActivity.this).build();
+            HashMap<String, String> clientInfo = new HashMap<>();
+            clientInfo.put("name", PreferenceUUID.getInstence().getMerName());
+            clientInfo.put("avatar", PreferenceUUID.getInstence().getMerAvatar());
+            clientInfo.put("tel", PreferenceUUID.getInstence().getUserPhone());
+            clientInfo.put("userId", PreferenceUUID.getInstence().getUserId());
+            clientInfo.put("身份", "商户");
+            HashMap<String, String> updateInfo = new HashMap<>();
+            updateInfo.put("name", PreferenceUUID.getInstence().getMerName());
+            updateInfo.put("avatar", PreferenceUUID.getInstence().getMerAvatar());
+            updateInfo.put("tel", PreferenceUUID.getInstence().getUserPhone());
+            updateInfo.put("userId", PreferenceUUID.getInstence().getUserId());
+            updateInfo.put("身份", "商户");
+            Intent intent = new MQIntentBuilder(MerRecruitTypeActivity.this)
+                    .setClientInfo(clientInfo)
+                    .updateClientInfo(updateInfo)
+                    .setCustomizedId(PreferenceUUID.getInstence().getUserId())
+                    .build();
             startActivity(intent);
         } else {
             // 否则，建议请求所缺少的权限，在onRequestPermissionsResult中再看是否获得权限
@@ -257,7 +297,23 @@ public class MerRecruitTypeActivity extends BaseActivity<MMinePresenter> impleme
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1024 && hasAllPermissionsGranted(grantResults)) {
-            Intent intent = new MQIntentBuilder(MerRecruitTypeActivity.this).build();
+            HashMap<String, String> clientInfo = new HashMap<>();
+            clientInfo.put("name", PreferenceUUID.getInstence().getMerName());
+            clientInfo.put("avatar", PreferenceUUID.getInstence().getMerAvatar());
+            clientInfo.put("tel", PreferenceUUID.getInstence().getUserPhone());
+            clientInfo.put("userId", PreferenceUUID.getInstence().getUserId());
+            clientInfo.put("身份", "商户");
+            HashMap<String, String> updateInfo = new HashMap<>();
+            updateInfo.put("name", PreferenceUUID.getInstence().getMerName());
+            updateInfo.put("avatar", PreferenceUUID.getInstence().getMerAvatar());
+            updateInfo.put("tel", PreferenceUUID.getInstence().getUserPhone());
+            updateInfo.put("userId", PreferenceUUID.getInstence().getUserId());
+            updateInfo.put("身份", "商户");
+            Intent intent = new MQIntentBuilder(MerRecruitTypeActivity.this)
+                    .setClientInfo(clientInfo)
+                    .updateClientInfo(updateInfo)
+                    .setCustomizedId(PreferenceUUID.getInstence().getUserId())
+                    .build();
             startActivity(intent);
         }
     }
@@ -371,5 +427,11 @@ public class MerRecruitTypeActivity extends BaseActivity<MMinePresenter> impleme
         super.onPause();
         MobclickAgent.onPageEnd("商户端招聘推广二级页面");
         MobclickAgent.onPause(this);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) and run LayoutCreator again
     }
 }

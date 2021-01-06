@@ -393,9 +393,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 startActivity(intent);
             } else if (userInfoEntity.getData().getMyitem().size() == 0) {
                 Intent intent = new Intent(LoginActivity.this, AboutMineActivity.class);
+                intent.putExtra("type", 0);
                 startActivity(intent);
             } else if (userInfoEntity.getData().getExpect().size() == 0) {
                 Intent intent = new Intent(LoginActivity.this, ExpectPositionActivity.class);
+                intent.putExtra("type", 0);
                 startActivity(intent);
             } else {
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);

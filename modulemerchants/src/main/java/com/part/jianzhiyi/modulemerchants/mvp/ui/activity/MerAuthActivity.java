@@ -440,7 +440,7 @@ public class MerAuthActivity extends BaseActivity<AuthPresenter> implements Auth
     public TakePhoto getTakePhoto() {
         if (takePhoto == null) {
             takePhoto = (TakePhoto) TakePhotoInvocationHandler.of(this).bind(new TakePhotoImpl(MerAuthActivity.this, this));
-            CompressConfig compressConfig = new CompressConfig.Builder().setMaxSize(50 * 1024).setMaxPixel(800).enableReserveRaw(true).create();
+            CompressConfig compressConfig = new CompressConfig.Builder().setMaxSize(500 * 1024).setMaxPixel(800).enableReserveRaw(true).create();
             takePhoto.onEnableCompress(compressConfig, true);
         }
         return takePhoto;
@@ -604,7 +604,7 @@ public class MerAuthActivity extends BaseActivity<AuthPresenter> implements Auth
                     startActivity(intent);
                     finish();
                 }
-            }else {
+            } else {
                 showToast(mAuthSuccessEntity.getMsg());
             }
         }

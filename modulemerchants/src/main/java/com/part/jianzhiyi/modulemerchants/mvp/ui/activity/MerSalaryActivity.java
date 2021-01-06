@@ -252,6 +252,11 @@ public class MerSalaryActivity extends BaseActivity<MPublishPresenter> implement
     }
 
     @Override
+    public void updategetTextFilter(ResponseData responseData) {
+
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         MobclickAgent.onPageStart("商户端薪资福利页面");

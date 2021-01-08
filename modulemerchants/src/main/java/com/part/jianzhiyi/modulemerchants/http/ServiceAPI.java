@@ -6,6 +6,7 @@ import com.part.jianzhiyi.modulemerchants.model.entity.MAuthInfoEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MAuthSuccessEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MBannerEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.MCityEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MCompanyInfoEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MConfigEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MEnterpriseInfoEntity;
@@ -190,7 +191,7 @@ public interface ServiceAPI {
      */
     @FormUrlEncoded
     @POST("api/Job/addJob")
-    Observable<ResponseData> getAddJob(@HeaderMap Map<String, String> headers, @Field("token") String token, @Field("title") String title, @Field("method") String method, @Field("time") String time, @Field("sex") String sex, @Field("price") String price, @Field("content") String content, @Field("contact") String contact, @Field("contact_type") int contact_type, @Field("number") String number, @Field("place") String place, @Field("duration") String duration, @Field("type") String type, @Field("id") String id, @Field("label_id") String label_id, @Field("price2") String price2, @Field("age1") String age1, @Field("age2") String age2);
+    Observable<ResponseData> getAddJob(@HeaderMap Map<String, String> headers, @Field("token") String token, @Field("title") String title, @Field("method") String method, @Field("time") String time, @Field("sex") String sex, @Field("price") String price, @Field("content") String content, @Field("contact") String contact, @Field("contact_type") int contact_type, @Field("number") String number, @Field("place") String place, @Field("duration") String duration, @Field("type") String type, @Field("id") String id, @Field("label_id") String label_id, @Field("price2") String price2, @Field("age1") String age1, @Field("age2") String age2, @Field("one_city_id") int one_city_id, @Field("tow_city_id") int tow_city_id);
 
     /**
      * 获取选择的标签
@@ -312,7 +313,7 @@ public interface ServiceAPI {
      */
     @FormUrlEncoded
     @POST("api/login/edit_password")
-    Observable<ResponseData> getPassword(@HeaderMap Map<String, String> headers, @Field("token") String token, @Field("type") String type, @Field("pass") String pass, @Field("new_pass") String new_pass, @Field("old_pass") String old_pass, @Field("phone") String phone, @Field("code") String code);
+    Observable<ResponseData> getPassword(@HeaderMap Map<String, String> headers, @Field("token") String token, @Field("type") String type, @Field("pass") String pass, @Field("new_pass") String new_pass, @Field("old_pass") String old_pass, @Field("phone") String phone, @Field("code") String code, @Field("username") String username);
 
     /**
      * 修改密码获取验证码
@@ -340,6 +341,15 @@ public interface ServiceAPI {
     @FormUrlEncoded
     @POST("api/job/is_textFilter")
     Observable<ResponseData> getTextFilter(@Field("token") String token, @Field("title") String title, @Field("content") String content, @Field("duration") String duration, @Field("place") String place, @Field("contact") String contact);
+
+    /**
+     * 获取城市
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/job/GetCity")
+    Observable<MCityEntity> getMerCity(@Field("token") String token);
 
     /**
      * 用户端埋点

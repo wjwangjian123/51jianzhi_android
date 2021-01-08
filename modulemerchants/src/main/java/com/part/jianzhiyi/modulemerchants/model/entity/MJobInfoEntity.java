@@ -39,7 +39,7 @@ public class MJobInfoEntity implements Serializable {
         this.data = data;
     }
 
-    public static class DataBean implements Serializable{
+    public static class DataBean implements Serializable {
 
         private String title;
         private String method;
@@ -59,7 +59,43 @@ public class MJobInfoEntity implements Serializable {
         private String label_pid;
         private String age1;
         private String age2;
+        private int one_city_id;
+        private int tow_city_id;
+        private String one_city_name;
+        private String tow_city_name;
         private List<String> contact;
+
+        public int getOne_city_id() {
+            return one_city_id;
+        }
+
+        public void setOne_city_id(int one_city_id) {
+            this.one_city_id = one_city_id;
+        }
+
+        public int getTow_city_id() {
+            return tow_city_id;
+        }
+
+        public void setTow_city_id(int tow_city_id) {
+            this.tow_city_id = tow_city_id;
+        }
+
+        public String getOne_city_name() {
+            return one_city_name;
+        }
+
+        public void setOne_city_name(String one_city_name) {
+            this.one_city_name = one_city_name;
+        }
+
+        public String getTow_city_name() {
+            return tow_city_name;
+        }
+
+        public void setTow_city_name(String tow_city_name) {
+            this.tow_city_name = tow_city_name;
+        }
 
         public String getAge1() {
             return age1;

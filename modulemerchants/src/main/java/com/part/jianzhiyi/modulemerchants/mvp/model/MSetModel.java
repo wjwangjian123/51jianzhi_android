@@ -16,7 +16,7 @@ import io.reactivex.Observable;
 public class MSetModel implements MSetContract.ISetModel {
 
     @Override
-    public Observable<ResponseData> getPassword(String type, String pass, String new_pass, String old_pass, String code) {
+    public Observable<ResponseData> getPassword(String type, String pass, String new_pass, String old_pass, String code, String username) {
         Map<String, String> headers = new HashMap<>();
         String timestamp = String.valueOf(System.currentTimeMillis());
         String nonce = String.valueOf((1 + Math.random() * (10 - 1 + 1)));
@@ -38,6 +38,9 @@ public class MSetModel implements MSetContract.ISetModel {
         if (code != null && code != "") {
             map.put("code", code);
         }
+        if (username != null && username != "") {
+            map.put("username", username);
+        }
         String paramsSerializeString = ParamsUtil.getParamsSerializeString(map);
         String sing = "baseApi!@#-";
         String string = sing + paramsSerializeString;
@@ -46,7 +49,7 @@ public class MSetModel implements MSetContract.ISetModel {
         headers.put("nonce", nonce);
         headers.put("timestamp", timestamp);
         headers.put("signature", s);
-        return HttpAPI.getInstence().getServiceApi().getPassword(headers, PreferenceUUID.getInstence().getToken(), type, pass, new_pass, old_pass, PreferenceUUID.getInstence().getUserPhone(), code);
+        return HttpAPI.getInstence().getServiceApi().getPassword(headers, PreferenceUUID.getInstence().getToken(), type, pass, new_pass, old_pass, PreferenceUUID.getInstence().getUserPhone(), code, username);
     }
 
     @Override

@@ -72,8 +72,26 @@ public class UserInfoEntity {
         private String wechat_openid;
         private String ali_user_id;
         private String money;
+        private int city_id;
+        private String city_name;
         private List<MyitemBean> myitem;
         private List<ExpectBean> expect;
+
+        public int getCity_id() {
+            return city_id;
+        }
+
+        public void setCity_id(int city_id) {
+            this.city_id = city_id;
+        }
+
+        public String getCity_name() {
+            return city_name;
+        }
+
+        public void setCity_name(String city_name) {
+            this.city_name = city_name;
+        }
 
         public String getWechat_openid() {
             return wechat_openid;

@@ -41,6 +41,42 @@
             android:layout_below="@+id/tv_content"
             android:background="@drawable/shape_bg_grey4">
             <LinearLayout
+                android:id="@+id/ll_range"
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:visibility="gone">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="招聘范围"
+                    android:textSize="@dimen/font_16"
+                    android:textColor="#494C53"/>
+                <TextView
+                    android:id="@+id/tv_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="51dp"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/font_15"
+                    android:textColor="@color/color_333333"
+                    android:gravity="center_vertical|right"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:drawableRight="@drawable/icon_mer_down"
+                    android:drawablePadding="@dimen/dimen_4"
+                    android:singleLine="true"
+                    android:ellipsize="end"/>
+            </LinearLayout>
+            <View
+                android:id="@+id/view_range"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#E7ECF5"
+                android:layout_marginHorizontal="@dimen/dimen_15"
+                android:visibility="gone"/>
+            <LinearLayout
                 android:id="@+id/ll_place"
                 android:layout_width="match_parent"
                 android:layout_height="51dp"
@@ -68,7 +104,7 @@
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:drawablePadding="@dimen/dimen_5"
-                    android:layout_marginLeft="15dp"/>
+                    android:layout_marginLeft="@dimen/dimen_10"/>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -103,7 +139,7 @@
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:drawablePadding="@dimen/dimen_5"
-                    android:layout_marginLeft="15dp"/>
+                    android:layout_marginLeft="@dimen/dimen_10"/>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -138,7 +174,7 @@
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:drawablePadding="@dimen/dimen_5"
-                    android:layout_marginLeft="15dp"/>
+                    android:layout_marginLeft="@dimen/dimen_10"/>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -172,7 +208,7 @@
                     android:textSize="@dimen/font_15"
                     android:textColor="@color/color_333333"
                     android:gravity="center_vertical|right"
-                    android:layout_marginLeft="@dimen/dimen_5"
+                    android:layout_marginLeft="@dimen/dimen_10"
                     android:drawableRight="@drawable/icon_mer_down"
                     android:drawablePadding="@dimen/dimen_4"/>
             </LinearLayout>
@@ -203,7 +239,7 @@
                     android:textSize="@dimen/font_15"
                     android:textColor="@color/color_333333"
                     android:gravity="center_vertical|right"
-                    android:layout_marginLeft="@dimen/dimen_5"
+                    android:layout_marginLeft="@dimen/dimen_10"
                     android:drawableRight="@drawable/icon_mer_down"
                     android:drawablePadding="@dimen/dimen_4"/>
             </LinearLayout>
@@ -234,7 +270,7 @@
                     android:textSize="@dimen/font_15"
                     android:textColor="@color/color_333333"
                     android:gravity="center_vertical|right"
-                    android:layout_marginLeft="@dimen/dimen_5"
+                    android:layout_marginLeft="@dimen/dimen_10"
                     android:drawableRight="@drawable/icon_mer_down"
                     android:drawablePadding="@dimen/dimen_4"/>
             </LinearLayout>
@@ -265,7 +301,7 @@
                     android:textSize="@dimen/font_15"
                     android:textColor="@color/color_333333"
                     android:gravity="center_vertical|right"
-                    android:layout_marginLeft="@dimen/dimen_5"
+                    android:layout_marginLeft="@dimen/dimen_10"
                     android:drawableRight="@drawable/icon_mer_down"
                     android:drawablePadding="@dimen/dimen_4"/>
             </LinearLayout>
@@ -302,7 +338,7 @@
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:drawablePadding="@dimen/dimen_5"
-                    android:layout_marginLeft="15dp"/>
+                    android:layout_marginLeft="@dimen/dimen_10"/>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"

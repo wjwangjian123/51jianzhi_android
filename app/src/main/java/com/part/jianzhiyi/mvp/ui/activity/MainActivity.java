@@ -42,9 +42,11 @@ import com.part.jianzhiyi.local.LocationService;
 import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.ActJobListEntity;
 import com.part.jianzhiyi.model.entity.ActivityEntity;
+import com.part.jianzhiyi.model.entity.CityIdEntity;
 import com.part.jianzhiyi.model.entity.ConfigEntity;
 import com.part.jianzhiyi.model.entity.DelUserEntity;
 import com.part.jianzhiyi.model.entity.MessageResponseEntity;
+import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.model.entity.integral.SignInfoEntity;
 import com.part.jianzhiyi.modulemerchants.dialog.DialogVersionUpdate;
 import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
@@ -104,6 +106,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private int type = 1;
     //    private boolean isUIFirstShow = true;
     private LocationService locationService = null;
+    private String mcity;
 
     @Override
     protected void init() {
@@ -123,7 +126,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         CrashHandler.getInstance().init(getApplicationContext());
     }
 
-    private HomeFragment homeFragment = null;
+    private HomeFragment homeFragment = new HomeFragment();
 
     private Boolean openLocationService() {
         if (locationService != null) {
@@ -141,8 +144,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             public void onNext(String city) {
                 Log.i("MainActivity", city);
 //                mPresenter.androidInfo(this@MainActivity)
-                if (homeFragment != null) {
-                    homeFragment.locationCity(city);
+                if (city != null && city != "") {
+                    mcity = city;
+                    mPresenter.userInfo(PreferenceUUID.getInstence().getUserId());
                 }
             }
 
@@ -475,6 +479,51 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         }
     }
 
+    @Override
+    public void updateUserInfoPer(UserInfoEntity userInfoEntity) {
+        if (userInfoEntity != null) {
+            //获取城市id
+            mPresenter.getCityId(mcity, userInfoEntity.getData().getCity_name(), userInfoEntity.getData().getCity_id());
+        }
+    }
+
+    @Override
+    public void updategetCityId(CityIdEntity cityIdEntity, String mcityName, int mcityId) {
+        if (cityIdEntity != null && cityIdEntity.getData() != null) {
+            if (mcityName == null || mcityName == "") {
+                //保存用户位置
+                mPresenter.getUserCity(cityIdEntity.getData().getCity_id(), PreferenceUUID.getInstence().getUserId());
+                if (mcityListener != null) {
+                    mcityListener.onCityClick(mcity);
+                }
+            } else {
+                if (cityIdEntity.getData().getCity_id() == mcityId) {
+                    if (mcityListener != null) {
+                        mcityListener.onCityClick(mcityName);
+                    }
+                } else {
+                    //弹框提示用户选择位置
+                    initDialogCity(mcity, cityIdEntity.getData().getCity_id(), mcityName);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void updategetUserCity(ResponseData responseData) {
+
+    }
+
+    private static CityListener mcityListener;
+
+    public static void setMcityListener(CityListener mcityListener) {
+        MainActivity.mcityListener = mcityListener;
+    }
+
+    public interface CityListener {
+        void onCityClick(String city);
+    }
+
     private void initPermission(String app_url) {
         //需要存储权限，做6.0权限适配
         if (Build.VERSION.SDK_INT < 23) {
@@ -797,6 +846,40 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void initDialogCity(String city, int city_id, String mcityName) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        AlertDialog alertDialog = builder.create();
+        View inflate = LayoutInflater.from(MainActivity.this).inflate(R.layout.dialog_city_tip, null, false);
+        TextView tip = inflate.findViewById(R.id.tv_tip);
+        TextView cancel = inflate.findViewById(R.id.tv_cancel);
+        TextView tv_switch = inflate.findViewById(R.id.tv_switch);
+        tip.setText("您当前城市为" + city + "，是否切换至" + city + "？");
+        alertDialog.getWindow().setBackgroundDrawableResource(R.color.transparency);
+        alertDialog.setView(inflate);
+        //显示
+        alertDialog.show();
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                if (mcityListener != null) {
+                    mcityListener.onCityClick(mcityName);
+                }
+            }
+        });
+        tv_switch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                //保存用户位置
+                if (mcityListener != null) {
+                    mcityListener.onCityClick(city);
+                }
+                mPresenter.getUserCity(city_id, PreferenceUUID.getInstence().getUserId());
+            }
+        });
     }
 
     private void initDialogExit() {

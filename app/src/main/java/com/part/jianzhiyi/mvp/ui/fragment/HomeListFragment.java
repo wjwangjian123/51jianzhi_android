@@ -11,8 +11,10 @@ import com.part.jianzhiyi.corecommon.ui.ListViewInScrollView;
 import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.BannerEntity;
 import com.part.jianzhiyi.model.entity.CategoryEntity;
+import com.part.jianzhiyi.model.entity.CityIdEntity;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity2;
 import com.part.jianzhiyi.model.entity.LableEntity;
+import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.model.entity.integral.SignEntity;
 import com.part.jianzhiyi.model.entity.integral.SignInfoEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.SearchEntity;
@@ -176,6 +178,21 @@ public class HomeListFragment extends BaseFragment<HomePresenter> implements Hom
 
     @Override
     public void updategetaddMd(ResponseData responseData) {
+
+    }
+
+    @Override
+    public void updateUserInfoPer(UserInfoEntity userInfoEntity) {
+
+    }
+
+    @Override
+    public void updategetCityId(CityIdEntity cityIdEntity, String mcityName, int mcityId) {
+
+    }
+
+    @Override
+    public void updategetUserCity(ResponseData responseData) {
 
     }
 }

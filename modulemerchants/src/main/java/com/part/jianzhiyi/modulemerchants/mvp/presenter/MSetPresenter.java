@@ -20,8 +20,8 @@ public class MSetPresenter extends BasePresenter<MSetContract.ISetModel, MSetCon
         super(mView, new MSetModel());
     }
 
-    public void getPassword(String type, String pass, String new_pass, String old_pass, String code) {
-        mModel.getPassword(type, pass, new_pass, old_pass, code)
+    public void getPassword(String type, String pass, String new_pass, String old_pass, String code, String username) {
+        mModel.getPassword(type, pass, new_pass, old_pass, code, username)
                 .compose(schedulersTransformer(HttpAPI.LOADING_CUSTOM_TIME))
                 .subscribe(getResult(new ResultObserver<ResponseData>() {
                     @Override

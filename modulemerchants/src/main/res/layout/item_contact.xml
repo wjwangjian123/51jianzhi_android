@@ -29,7 +29,7 @@
             android:singleLine="true"
             android:ellipsize="end"
             android:drawablePadding="@dimen/dimen_5"
-            android:layout_marginLeft="15dp"/>
+            android:layout_marginLeft="@dimen/dimen_10"/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"

@@ -8,11 +8,13 @@ import com.part.jianzhiyi.http.HttpAPI;
 import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.BannerEntity;
 import com.part.jianzhiyi.model.entity.CategoryEntity;
+import com.part.jianzhiyi.model.entity.CityIdEntity;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity2;
 import com.part.jianzhiyi.model.entity.LableEntity;
-import com.part.jianzhiyi.modulemerchants.model.entity.SearchEntity;
+import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.model.entity.integral.SignEntity;
 import com.part.jianzhiyi.model.entity.integral.SignInfoEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.SearchEntity;
 import com.part.jianzhiyi.mvp.contract.HomeContract;
 import com.part.jianzhiyi.mvp.model.user.UserModel;
 
@@ -69,5 +71,20 @@ public class HomeModel extends UserModel implements HomeContract.IHomeModel {
     @Override
     public Observable<ResponseData> getaddMd(String type) {
         return HttpAPI.getInstence().getServiceApi().getaddMd(type, Constants.OS);
+    }
+
+    @Override
+    public Observable<UserInfoEntity> userInfo(String userid) {
+        return HttpAPI.getInstence().getServiceApi().userInfo(Constants.APPID, userid, Constants.OS, Tools.getIMEI(ODApplication.context()), Tools.getDeviceID(ODApplication.context()), PreferenceUUID.getInstence().getPush_id());
+    }
+
+    @Override
+    public Observable<CityIdEntity> getCityId(String city_name) {
+        return HttpAPI.getInstence().getServiceApi().getCityId(city_name);
+    }
+
+    @Override
+    public Observable<ResponseData> getUserCity(int city_id, String user_id) {
+        return HttpAPI.getInstence().getServiceApi().getUserCity(city_id, user_id);
     }
 }

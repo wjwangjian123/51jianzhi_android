@@ -1,16 +1,20 @@
 package com.part.jianzhiyi.mvp.presenter;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.part.jianzhiyi.base.BasePresenter;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.http.HttpAPI;
 import com.part.jianzhiyi.http.ResultObserver;
 import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.ActJobListEntity;
 import com.part.jianzhiyi.model.entity.ActivityEntity;
+import com.part.jianzhiyi.model.entity.CityIdEntity;
 import com.part.jianzhiyi.model.entity.ConfigEntity;
 import com.part.jianzhiyi.model.entity.DelUserEntity;
 import com.part.jianzhiyi.model.entity.IpResponseEntity;
+import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.model.entity.integral.SignInfoEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
 import com.part.jianzhiyi.mvp.contract.MainContract;
@@ -116,7 +120,7 @@ public class MainPresenter extends BasePresenter<MainContract.IMainModel, MainCo
                             if (isAttach()) {
                                 weakReferenceView.get().updategetAddInteg(entity);
                             }
-                        }else {
+                        } else {
                             if (isAttach()) {
                                 weakReferenceView.get().updategetAddInteg(entity);
                             }
@@ -149,6 +153,58 @@ public class MainPresenter extends BasePresenter<MainContract.IMainModel, MainCo
                         if (TextUtils.equals(delUserEntity.getCode(), HttpAPI.REQUEST_SUCCESS)) {
                             if (isAttach()) {
                                 weakReferenceView.get().updategetIsDel(delUserEntity);
+                            }
+                        }
+                    }
+                }));
+    }
+
+    public void userInfo(String userid) {
+        mModel.userInfo(userid)
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<UserInfoEntity>() {
+                    @Override
+                    public void onNext(UserInfoEntity responseData) {
+                        if (TextUtils.equals(responseData.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                PreferenceUUID.getInstence().changeShowResume(responseData.getData().isShowResume());
+                                weakReferenceView.get().updateUserInfoPer(responseData);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        Log.i("tag", "解析异常");
+                    }
+                }));
+    }
+
+    public void getCityId(String city_name, String mcityName, int mcityId) {
+        mModel.getCityId(city_name)
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<CityIdEntity>() {
+                    @Override
+                    public void onNext(CityIdEntity cityIdEntity) {
+                        if (TextUtils.equals(cityIdEntity.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetCityId(cityIdEntity, mcityName, mcityId);
+                            }
+                        }
+                    }
+                }));
+    }
+
+    public void getUserCity(int city_id, String user_id) {
+        mModel.getUserCity(city_id, user_id)
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<ResponseData>() {
+                    @Override
+                    public void onNext(ResponseData responseData) {
+                        if (TextUtils.equals(responseData.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetUserCity(responseData);
                             }
                         }
                     }

@@ -1,6 +1,7 @@
 package com.part.jianzhiyi.modulemerchants.mvp.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -10,6 +11,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
+import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.part.jianzhiyi.corecommon.selectdateview.dialog.ActionListener;
 import com.part.jianzhiyi.corecommon.selectdateview.dialog.BaseDialogFragment;
 import com.part.jianzhiyi.corecommon.selectdateview.dialog.TextPickerDialog;
@@ -18,6 +22,7 @@ import com.part.jianzhiyi.corecommon.ui.InputFilteEditText;
 import com.part.jianzhiyi.modulemerchants.R;
 import com.part.jianzhiyi.modulemerchants.base.BaseActivity;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
+import com.part.jianzhiyi.modulemerchants.model.entity.MCityEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MJobInfoEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MLableContactEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MLableEntity;
@@ -43,7 +48,11 @@ public class MerOtherActivity extends BaseActivity<MPublishPresenter> implements
     private LinearLayout mLlContact1;
     private LinearLayout mLlContactType;
     private TextView mTvNext;
+    private TextView mTvCity;
+    private LinearLayout mLlRange;
+    private View mViewRange;
     private int type = 0;
+    private int mpositionType = 0;
     private MJobInfoEntity mJobInfoEntity;
 
     private List<MLableContactEntity.DataBean> mListContact;
@@ -98,6 +107,8 @@ public class MerOtherActivity extends BaseActivity<MPublishPresenter> implements
     private String contact;
     private int contact_type;
     private String id;
+    private int one_city_id = 0;
+    private int tow_city_id = 0;
     private InputFilteEditText[] mViews;
     private LinearLayout[] mViewlls;
     private List<TextModel> list_age;
@@ -125,6 +136,9 @@ public class MerOtherActivity extends BaseActivity<MPublishPresenter> implements
         mLlContact1 = (LinearLayout) findViewById(R.id.ll_contact1);
         mLlContactType = (LinearLayout) findViewById(R.id.ll_contact_type);
         mTvNext = (TextView) findViewById(R.id.tv_next);
+        mTvCity = (TextView) findViewById(R.id.tv_city);
+        mLlRange = (LinearLayout) findViewById(R.id.ll_range);
+        mViewRange = (View) findViewById(R.id.view_range);
         initToolbar("");
         linearLayout2 = (LinearLayout) LayoutInflater.from(MerOtherActivity.this).inflate(R.layout.item_contact, null);
         editText2 = linearLayout2.findViewById(R.id.et_contact);
@@ -212,6 +226,7 @@ public class MerOtherActivity extends BaseActivity<MPublishPresenter> implements
         mList = new ArrayList<>();
         list_age = new ArrayList<>();
         mSexList = new ArrayList<>();
+        mMCityList = new ArrayList<>();
         mSexList.add(new TextModel("男"));
         mSexList.add(new TextModel("女"));
         mSexList.add(new TextModel("不限"));
@@ -227,10 +242,24 @@ public class MerOtherActivity extends BaseActivity<MPublishPresenter> implements
         price1 = getIntent().getStringExtra("price1");
         price2 = getIntent().getStringExtra("price2");
         type = getIntent().getIntExtra("type", 0);
+        mpositionType = getIntent().getIntExtra("mpositionType", 0);
         if (type == 1) {
             mJobInfoEntity = (MJobInfoEntity) getIntent().getSerializableExtra("mJobInfoEntity");
         }
+        if (mpositionType == 0) {
+            //线上职位
+            mLlRange.setVisibility(View.GONE);
+            mViewRange.setVisibility(View.GONE);
+        } else if (mpositionType == 1) {
+            //线下职位
+            mLlRange.setVisibility(View.VISIBLE);
+            mViewRange.setVisibility(View.VISIBLE);
+            mPresenter.getMerCity();
+        }
         if (mJobInfoEntity != null && mJobInfoEntity.getData() != null) {
+            mTvCity.setText(mJobInfoEntity.getData().getOne_city_name() + "-" + mJobInfoEntity.getData().getTow_city_name());
+            one_city_id = mJobInfoEntity.getData().getOne_city_id();
+            tow_city_id = mJobInfoEntity.getData().getTow_city_id();
             mEtPlace.setText(mJobInfoEntity.getData().getPlace());
             mEtDuration.setText(mJobInfoEntity.getData().getDuration());
             mEtTime.setText(mJobInfoEntity.getData().getTime());
@@ -685,10 +714,54 @@ public class MerOtherActivity extends BaseActivity<MPublishPresenter> implements
     }
 
     private long clickTime = 0;
+    //  省份
+    ArrayList<String> provinceBeanList = new ArrayList<>();
+    //  城市
+    ArrayList<String> cities;
+    ArrayList<List<String>> cityList = new ArrayList<>();
+    private List<MCityEntity.DataBean> mMCityList;
 
     @Override
     protected void setListener() {
         super.setListener();
+        mTvCity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //选择城市
+                OptionsPickerView pickerView = new OptionsPickerBuilder(MerOtherActivity.this, new OnOptionsSelectListener() {
+                    @Override
+                    public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                        if (provinceBeanList != null && provinceBeanList.size() > 0 && cityList != null && cityList.size() > 0 && mMCityList != null && mMCityList.size() > 0) {
+                            String oneCityName = provinceBeanList.get(options1);
+                            String twoCityName = cityList.get(options1).get(options2);
+                            one_city_id = mMCityList.get(options1).getOne_city_id();
+                            tow_city_id = mMCityList.get(options1).getTow_city().get(options2).getTow_city_id();
+                            mTvCity.setText(oneCityName + "-" + twoCityName);
+                        }
+                    }
+                })
+                        .setSubmitText("完成")
+                        .setCancelText("取消")
+                        .setTitleText("招聘范围")
+                        .setSubCalSize(13)
+                        .setTitleSize(16)
+                        .setTitleColor(Color.parseColor("#33363C"))
+                        .setSubmitColor(Color.parseColor("#FE954A"))
+                        .setCancelColor(Color.parseColor("#CDD3E1"))
+                        .setTitleBgColor(Color.parseColor("#FFFFFF"))
+                        .setBgColor(Color.parseColor("#F7F8FA"))
+                        .setContentTextSize(15)
+                        .isCenterLabel(true) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
+                        .setCyclic(false, false, false)
+                        .setSelectOptions(0, 0, 0)
+                        .setOutSideCancelable(true)
+                        .isDialog(false)
+                        .isRestoreItem(true)
+                        .build();
+                pickerView.setPicker(provinceBeanList, cityList);
+                pickerView.show();
+            }
+        });
         mTvContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -726,6 +799,12 @@ public class MerOtherActivity extends BaseActivity<MPublishPresenter> implements
             public void onClick(View v) {
                 MobclickAgent.onEvent(MerOtherActivity.this, "mer_other");
                 mPresenter.getmdAdd("72");
+                if (mpositionType == 1) {
+                    if (TextUtils.isEmpty(mTvCity.getText().toString().trim())) {
+                        showToast("请选择招聘范围");
+                        return;
+                    }
+                }
                 if (TextUtils.isEmpty(mEtPlace.getText().toString().trim())) {
                     showToast("请输入工作地点");
                     return;
@@ -911,10 +990,37 @@ public class MerOtherActivity extends BaseActivity<MPublishPresenter> implements
                 intent.putExtra("age2", mTvAgeMax.getText().toString().trim());
                 intent.putExtra("sex", mTvSex.getText().toString().trim());
                 intent.putExtra("type", type);
+                intent.putExtra("mpositionType", mpositionType);
+                intent.putExtra("one_city_id", one_city_id);
+                intent.putExtra("tow_city_id", tow_city_id);
                 intent.putExtra("id", id);
                 startActivity(intent);
             } else {
                 showToast(responseData.getMsg());
+            }
+        }
+    }
+
+    @Override
+    public void updategetMerCity(MCityEntity mCityEntity) {
+        if (mCityEntity != null && mCityEntity.getData() != null) {
+            if (mCityEntity.getData().size() > 0) {
+                mMCityList.addAll(mCityEntity.getData());
+                //  遍历数据组
+                for (int i = 0; i < mCityEntity.getData().size(); i++) {
+                    //  获取省份名称放入集合
+                    String provinceName = mCityEntity.getData().get(i).getOne_city_names();
+                    provinceBeanList.add(provinceName);
+                    cities = new ArrayList<>();
+                    //声明存放区县集合的集合
+                    //  遍历城市数组
+                    for (int j = 0; j < mCityEntity.getData().get(i).getTow_city().size(); j++) {
+                        //  将城市放入集合
+                        cities.add(mCityEntity.getData().get(i).getTow_city().get(j).getTow_city_names());
+                    }
+                    //  将存放城市的集合放入集合
+                    cityList.add(cities);
+                }
             }
         }
     }

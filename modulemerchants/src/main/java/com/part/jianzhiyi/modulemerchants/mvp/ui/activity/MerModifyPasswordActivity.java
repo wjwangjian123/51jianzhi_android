@@ -86,7 +86,7 @@ public class MerModifyPasswordActivity extends BaseActivity<MSetPresenter> imple
                 if (System.currentTimeMillis() - clickTime > 3000) {
                     clickTime = System.currentTimeMillis();
                     //设置密码
-                    mPresenter.getPassword("2", mEtNewPassword.getText().toString().trim(), mEtConfirmPassword.getText().toString().trim(), mEtOldPassword.getText().toString().trim(), "");
+                    mPresenter.getPassword("2", mEtNewPassword.getText().toString().trim(), mEtConfirmPassword.getText().toString().trim(), mEtOldPassword.getText().toString().trim(), "", "");
                 } else {
                     showToast("点击过于频繁请稍后再试");
                 }

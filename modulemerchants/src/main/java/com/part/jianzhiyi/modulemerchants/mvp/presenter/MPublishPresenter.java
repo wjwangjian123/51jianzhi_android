@@ -6,6 +6,7 @@ import com.part.jianzhiyi.modulemerchants.base.BasePresenter;
 import com.part.jianzhiyi.modulemerchants.http.HttpAPI;
 import com.part.jianzhiyi.modulemerchants.http.ResultObserver;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
+import com.part.jianzhiyi.modulemerchants.model.entity.MCityEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MLableContactEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MLableEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MLableSalaryEntity;
@@ -118,8 +119,8 @@ public class MPublishPresenter extends BasePresenter<MPublishContract.IMPublishM
                 }));
     }
 
-    public void getAddJob(String title, String method, String time, String sex, String price, String content, String contact, int contact_type, String number, String place, String duration, String type, String id, String label_id, String price2, String age1, String age2) {
-        mModel.getAddJob(title, method, time, sex, price, content, contact, contact_type, number, place, duration, type, id, label_id, price2, age1, age2)
+    public void getAddJob(String title, String method, String time, String sex, String price, String content, String contact, int contact_type, String number, String place, String duration, String type, String id, String label_id, String price2, String age1, String age2, int one_city_id, int tow_city_id) {
+        mModel.getAddJob(title, method, time, sex, price, content, contact, contact_type, number, place, duration, type, id, label_id, price2, age1, age2, one_city_id, tow_city_id)
                 .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
                 .subscribe(getResult(new ResultObserver<ResponseData>() {
                     @Override
@@ -186,4 +187,18 @@ public class MPublishPresenter extends BasePresenter<MPublishContract.IMPublishM
                 }));
     }
 
+    public void getMerCity() {
+        mModel.getMerCity()
+                .compose(schedulersTransformer(HttpAPI.LOADING_NONE_TIME))
+                .subscribe(getResult(new ResultObserver<MCityEntity>() {
+                    @Override
+                    public void onNext(MCityEntity mCityEntity) {
+                        if (TextUtils.equals(mCityEntity.getCode(), HttpAPI.REQUEST_SUCCESS)) {
+                            if (isAttach()) {
+                                weakReferenceView.get().updategetMerCity(mCityEntity);
+                            }
+                        }
+                    }
+                }));
+    }
 }

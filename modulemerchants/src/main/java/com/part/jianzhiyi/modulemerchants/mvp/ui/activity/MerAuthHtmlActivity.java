@@ -14,6 +14,7 @@ import com.part.jianzhiyi.modulemerchants.base.BaseActivity;
 import com.part.jianzhiyi.modulemerchants.constants.Constants;
 import com.part.jianzhiyi.modulemerchants.customview.ProgressWebView;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
+import com.part.jianzhiyi.modulemerchants.model.entity.MCityEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MLableContactEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MLableEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MLableSalaryEntity;
@@ -200,6 +201,11 @@ public class MerAuthHtmlActivity extends BaseActivity<MPublishPresenter> impleme
 
     @Override
     public void updategetTextFilter(ResponseData responseData) {
+
+    }
+
+    @Override
+    public void updategetMerCity(MCityEntity mCityEntity) {
 
     }
 

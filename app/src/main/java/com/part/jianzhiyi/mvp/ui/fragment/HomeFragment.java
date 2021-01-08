@@ -35,8 +35,10 @@ import com.part.jianzhiyi.loader.GlideImageLoader;
 import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.BannerEntity;
 import com.part.jianzhiyi.model.entity.CategoryEntity;
+import com.part.jianzhiyi.model.entity.CityIdEntity;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity2;
 import com.part.jianzhiyi.model.entity.LableEntity;
+import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.model.entity.integral.SignEntity;
 import com.part.jianzhiyi.model.entity.integral.SignInfoEntity;
 import com.part.jianzhiyi.modulemerchants.customview.MyViewpager;
@@ -50,6 +52,7 @@ import com.part.jianzhiyi.mvp.ui.activity.HtmlActivity;
 import com.part.jianzhiyi.mvp.ui.activity.HtmlIntegralActivity;
 import com.part.jianzhiyi.mvp.ui.activity.IntegralActivity;
 import com.part.jianzhiyi.mvp.ui.activity.LoginActivity;
+import com.part.jianzhiyi.mvp.ui.activity.MainActivity;
 import com.part.jianzhiyi.mvp.ui.activity.MineDeliveryActivity;
 import com.part.jianzhiyi.mvp.ui.activity.MineUpdateResumeActivity;
 import com.part.jianzhiyi.mvp.ui.activity.SearchActivity;
@@ -192,6 +195,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         fragments = new ArrayList<>();
         mBeanList = new ArrayList<>();
 
+        mPresenter.userInfo(PreferenceUUID.getInstence().getUserId());
         mPresenter.getBanner();
         mPresenter.getCategory();
         mPresenter.search("", "");
@@ -210,7 +214,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
         mSmartRefresh.setEnableNestedScroll(true);//是否启用嵌套滚动
         mSmartRefresh.setEnableOverScrollBounce(true);//是否启用越界回弹
-        PreferenceUUID.getInstence().putCity(mTvCity.getText().toString());
         mHomeLableAdapter.setmOnItemClickListener(new HomeLableAdapter.OnRecyclerItemClickListener() {
             @Override
             public void onItemClick(int position, String id) {
@@ -289,6 +292,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                     position_recommend = Constants.POSITION_HOME_LABLE;
 //                    mPresenter.jobList("8", position_recommend, recommendPage, lable);
                 }
+                notifyDataSetChanged();
             }
 
             @Override
@@ -487,6 +491,13 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                 }
             }
         });
+        MainActivity.setMcityListener(new MainActivity.CityListener() {
+            @Override
+            public void onCityClick(String city) {
+                mTvCity.setText(city);
+                PreferenceUUID.getInstence().putCity(city);
+            }
+        });
     }
 
     @Override
@@ -583,13 +594,14 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         }
     }
 
-    public void locationCity(String city) {
-        mTvCity.setText(city);
-        PreferenceUUID.getInstence().putCity(city);
-    }
-
     public String getCity() {
-        return mTvCity.getText().toString();
+        String tvcity = null;
+        if (mTvCity != null) {
+            tvcity = mTvCity.getText().toString();
+        } else {
+            tvcity = "";
+        }
+        return tvcity;
     }
 
     @Override
@@ -805,12 +817,42 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     }
 
     @Override
+    public void updateUserInfoPer(UserInfoEntity userInfoEntity) {
+        if (userInfoEntity != null && userInfoEntity.getData() != null) {
+            if (userInfoEntity.getData().getCity_name() != null && userInfoEntity.getData().getCity_name() != "") {
+                mTvCity.setText(userInfoEntity.getData().getCity_name());
+            } else {
+                mTvCity.setText("城市选择");
+            }
+            String trim = mTvCity.getText().toString().trim();
+            PreferenceUUID.getInstence().putCity(trim);
+        }
+    }
+
+    @Override
+    public void updategetCityId(CityIdEntity cityIdEntity, String mcityName, int mcityId) {
+        if (cityIdEntity != null && cityIdEntity.getData() != null) {
+            //保存用户位置
+            mPresenter.getUserCity(cityIdEntity.getData().getCity_id(), PreferenceUUID.getInstence().getUserId());
+        }
+    }
+
+    @Override
+    public void updategetUserCity(ResponseData responseData) {
+
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1001 && data != null) {
-            String city = data.getStringExtra("city");
-            mTvCity.setText(city);
-            PreferenceUUID.getInstence().putCity(city);
+        if (requestCode == 1001 && resultCode == 1000) {
+            if (data != null) {
+                String city = data.getStringExtra("city");
+                mTvCity.setText(city);
+                PreferenceUUID.getInstence().putCity(city);
+                //获取城市id
+                mPresenter.getCityId(city, "", 0);
+            }
         }
     }
 

@@ -32,7 +32,6 @@
                     android:id="@+id/tv_city"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="北京"
                     android:textColor="#555B68"
                     android:textSize="13sp"/>
                 <ImageView
@@ -54,6 +53,8 @@
                     android:text="请输入兼职名称"
                     android:textColor="#B9BCC4"
                     android:textSize="11sp"
+                    android:singleLine="true"
+                    android:ellipsize="end"
                     android:gravity="center_vertical"/>
             </LinearLayout>
             <com.facebook.drawee.view.SimpleDraweeView

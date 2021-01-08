@@ -21,6 +21,7 @@ public class MerSetPasswordActivity extends BaseActivity<MSetPresenter> implemen
 
     private InputFilteEditText mEtPassword;
     private InputFilteEditText mEtPasswordAgain;
+    private InputFilteEditText mEtName;
     private TextView mTvError;
     private TextView mTvComplete;
     private int is_sing = 0;
@@ -39,6 +40,7 @@ public class MerSetPasswordActivity extends BaseActivity<MSetPresenter> implemen
     protected void initView() {
         mEtPassword = (InputFilteEditText) findViewById(R.id.et_password);
         mEtPasswordAgain = (InputFilteEditText) findViewById(R.id.et_password_again);
+        mEtName = (InputFilteEditText) findViewById(R.id.et_name);
         mTvError = (TextView) findViewById(R.id.tv_error);
         mTvComplete = (TextView) findViewById(R.id.tv_complete);
         initToolbar("设置密码");
@@ -62,6 +64,11 @@ public class MerSetPasswordActivity extends BaseActivity<MSetPresenter> implemen
                 }
                 mTvError.setVisibility(View.GONE);
                 // validate
+                String name = mEtName.getText().toString().trim();
+                if (TextUtils.isEmpty(name)) {
+                    showToast("请输入用户名");
+                    return;
+                }
                 String password = mEtPassword.getText().toString().trim();
                 if (TextUtils.isEmpty(password)) {
                     showToast("请输入新密码");
@@ -83,7 +90,7 @@ public class MerSetPasswordActivity extends BaseActivity<MSetPresenter> implemen
                 if (System.currentTimeMillis() - clickTime > 3000) {
                     clickTime = System.currentTimeMillis();
                     //设置密码
-                    mPresenter.getPassword("1", mEtPassword.getText().toString().trim(), mEtPasswordAgain.getText().toString().trim(), "", "");
+                    mPresenter.getPassword("1", mEtPassword.getText().toString().trim(), mEtPasswordAgain.getText().toString().trim(), "", "",mEtName.getText().toString().trim());
                 } else {
                     showToast("点击过于频繁请稍后再试");
                 }
@@ -139,5 +146,11 @@ public class MerSetPasswordActivity extends BaseActivity<MSetPresenter> implemen
     @Override
     public void updategetCode(ResponseData responseData) {
 
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) and run LayoutCreator again
     }
 }

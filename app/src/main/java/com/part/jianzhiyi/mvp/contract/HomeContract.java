@@ -5,11 +5,13 @@ import com.part.jianzhiyi.corecommon.base.view.IView;
 import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.BannerEntity;
 import com.part.jianzhiyi.model.entity.CategoryEntity;
+import com.part.jianzhiyi.model.entity.CityIdEntity;
 import com.part.jianzhiyi.model.entity.JobListResponseEntity2;
 import com.part.jianzhiyi.model.entity.LableEntity;
-import com.part.jianzhiyi.modulemerchants.model.entity.SearchEntity;
+import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.model.entity.integral.SignEntity;
 import com.part.jianzhiyi.model.entity.integral.SignInfoEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.SearchEntity;
 import com.part.jianzhiyi.mvp.model.user.IUserModel;
 
 import java.util.List;
@@ -40,6 +42,12 @@ public interface HomeContract {
         Observable<SignInfoEntity> getAddInteg(String user_id, int type, String job_id);
 
         Observable<ResponseData> getaddMd(String type);
+
+        Observable<UserInfoEntity> userInfo(String userid);
+
+        Observable<CityIdEntity> getCityId(String city_name);
+
+        Observable<ResponseData> getUserCity(int city_id, String user_id);
     }
 
     interface IHomeView extends IView {
@@ -62,5 +70,11 @@ public interface HomeContract {
         void updategetAddInteg(SignInfoEntity responseData);
 
         void updategetaddMd(ResponseData responseData);
+
+        void updateUserInfoPer(UserInfoEntity userInfoEntity);
+
+        void updategetCityId(CityIdEntity cityIdEntity, String mcityName, int mcityId);
+
+        void updategetUserCity(ResponseData responseData);
     }
 }

@@ -15,6 +15,7 @@ import com.part.jianzhiyi.modulemerchants.R;
 import com.part.jianzhiyi.modulemerchants.adapter.MerPositionAdapter;
 import com.part.jianzhiyi.modulemerchants.base.BaseActivity;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
+import com.part.jianzhiyi.modulemerchants.model.entity.MCityEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MJobInfoEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MLableContactEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MLableEntity;
@@ -48,6 +49,7 @@ public class MerSelectPositionActivity extends BaseActivity<MPublishPresenter> i
     private MJobInfoEntity mJobInfoEntity;
     private int type = 0;
     private int mType = 0;
+    private int mpositionType = 0;
     private EditText etTitle;
 
     @Override
@@ -103,6 +105,19 @@ public class MerSelectPositionActivity extends BaseActivity<MPublishPresenter> i
                 mBeanList.clear();
                 mBeanList.addAll(mList.get(position).getLists());
                 mTflSelect.getAdapter().notifyDataChanged();
+                if (type == 1 && mJobInfoEntity != null && mJobInfoEntity.getData() != null) {
+                    if (mList.get(position).getId().equals(mJobInfoEntity.getData().getLabel_pid())) {
+                        for (int j = 0; j < mBeanList.size(); j++) {
+                            if (mBeanList.get(j).getId().equals(mJobInfoEntity.getData().getLabel_id())) {
+                                mTflSelect.getAdapter().setSelectedList(j);
+                            }
+                        }
+                    } else {
+                        if (mBeanList.size() > 0) {
+                            mTflSelect.getAdapter().setSelectedList(0);
+                        }
+                    }
+                }
             }
         });
         mTflSelect.setAdapter(new TagAdapter<MLableEntity.DataBean.ListsBean>(mBeanList) {
@@ -155,14 +170,29 @@ public class MerSelectPositionActivity extends BaseActivity<MPublishPresenter> i
             public void onClick(View v) {
                 MobclickAgent.onEvent(MerSelectPositionActivity.this, "mer_select_position");
                 mPresenter.getmdAdd("70");
+                int count = mList.size();
+                for (int i = 0; i < count; i++) {
+                    if (mList.get(i).isSelect()) {
+                        if (mList.get(i).getTitle().equals("线下")) {
+                            mpositionType = 1;
+                        } else {
+                            mpositionType = 0;
+                        }
+                    }
+                }
                 Set<Integer> selectedList = mTflSelect.getSelectedList();
                 if (selectedList.size() == 0) {
-                    showToast("请选择职位");
+                    showToast("请选择职位类型");
                     return;
                 }
                 if (selectedList.size() == 1) {
                     for (Integer str : selectedList) {
-                        label_id = mBeanList.get(str).getId();
+                        if (mBeanList.size() > str) {
+                            label_id = mBeanList.get(str).getId();
+                        } else {
+                            showToast("请选择职位类型");
+                            return;
+                        }
                     }
                 }
                 if (System.currentTimeMillis() - clickTime > 3000) {
@@ -200,10 +230,10 @@ public class MerSelectPositionActivity extends BaseActivity<MPublishPresenter> i
                         if (mLableEntity.getData().get(i).getId().equals(mJobInfoEntity.getData().getLabel_pid())) {
                             mLableEntity.getData().get(i).setSelect(true);
                             mBeanList.addAll(mLableEntity.getData().get(i).getLists());
-                        }
-                        for (int j = 0; j < mLableEntity.getData().get(i).getLists().size(); j++) {
-                            if (mLableEntity.getData().get(i).getLists().get(j).getId().equals(mJobInfoEntity.getData().getLabel_id())) {
-                                mTflSelect.getAdapter().setSelectedList(j);
+                            for (int j = 0; j < mLableEntity.getData().get(i).getLists().size(); j++) {
+                                if (mLableEntity.getData().get(i).getLists().get(j).getId().equals(mJobInfoEntity.getData().getLabel_id())) {
+                                    mTflSelect.getAdapter().setSelectedList(j);
+                                }
                             }
                         }
                     }
@@ -248,6 +278,7 @@ public class MerSelectPositionActivity extends BaseActivity<MPublishPresenter> i
                 intent.putExtra("label_id", label_id);
                 intent.putExtra("job_id", job_id);
                 intent.putExtra("type", type);
+                intent.putExtra("mpositionType", mpositionType);
                 intent.putExtra("mJobInfoEntity", mJobInfoEntity);
                 startActivity(intent);
             } else if (responseData.getCode().equals("202")) {
@@ -279,6 +310,11 @@ public class MerSelectPositionActivity extends BaseActivity<MPublishPresenter> i
 
     @Override
     public void updategetTextFilter(ResponseData responseData) {
+
+    }
+
+    @Override
+    public void updategetMerCity(MCityEntity mCityEntity) {
 
     }
 

@@ -4,6 +4,7 @@ import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.corecommon.utils.Tools;
 import com.part.jianzhiyi.modulemerchants.http.HttpAPI;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
+import com.part.jianzhiyi.modulemerchants.model.entity.MCityEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MLableContactEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MLableEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MLableSalaryEntity;
@@ -153,7 +154,7 @@ public class MPublishModel implements MPublishContract.IMPublishModel {
     }
 
     @Override
-    public Observable<ResponseData> getAddJob(String title, String method, String time, String sex, String price, String content, String contact, int contact_type, String number, String place, String duration, String type, String id, String label_id, String price2, String age1, String age2) {
+    public Observable<ResponseData> getAddJob(String title, String method, String time, String sex, String price, String content, String contact, int contact_type, String number, String place, String duration, String type, String id, String label_id, String price2, String age1, String age2, int one_city_id, int tow_city_id) {
         Map<String, String> headers = new HashMap<>();
         String timestamp = String.valueOf(System.currentTimeMillis());
         String nonce = String.valueOf((1 + Math.random() * (10 - 1 + 1)));
@@ -180,6 +181,8 @@ public class MPublishModel implements MPublishContract.IMPublishModel {
         map.put("price2", price2);
         map.put("age1", age1);
         map.put("age2", age2);
+        map.put("one_city_id", one_city_id);
+        map.put("tow_city_id", tow_city_id);
         String paramsSerializeString = ParamsUtil.getParamsSerializeString(map);
         String sing = "baseApi!@#-";
         String string = sing + paramsSerializeString;
@@ -188,7 +191,7 @@ public class MPublishModel implements MPublishContract.IMPublishModel {
         headers.put("nonce", nonce);
         headers.put("timestamp", timestamp);
         headers.put("signature", s);
-        return HttpAPI.getInstence().getServiceApi().getAddJob(headers, PreferenceUUID.getInstence().getToken(), title, method, time, sex, price, content, contact, contact_type, number, place, duration, type, id, label_id, price2, age1, age2);
+        return HttpAPI.getInstence().getServiceApi().getAddJob(headers, PreferenceUUID.getInstence().getToken(), title, method, time, sex, price, content, contact, contact_type, number, place, duration, type, id, label_id, price2, age1, age2, one_city_id, tow_city_id);
     }
 
     @Override
@@ -235,5 +238,10 @@ public class MPublishModel implements MPublishContract.IMPublishModel {
     @Override
     public Observable<ResponseData> getTextFilter(String title, String content, String duration, String place, String contact) {
         return HttpAPI.getInstence().getServiceApi().getTextFilter(PreferenceUUID.getInstence().getToken(), title, content, duration, place, contact);
+    }
+
+    @Override
+    public Observable<MCityEntity> getMerCity() {
+        return HttpAPI.getInstence().getServiceApi().getMerCity(PreferenceUUID.getInstence().getToken());
     }
 }

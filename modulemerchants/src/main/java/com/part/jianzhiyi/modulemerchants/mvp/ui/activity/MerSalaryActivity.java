@@ -15,6 +15,7 @@ import com.part.jianzhiyi.corecommon.selectdateview.view.TextModel;
 import com.part.jianzhiyi.modulemerchants.R;
 import com.part.jianzhiyi.modulemerchants.base.BaseActivity;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
+import com.part.jianzhiyi.modulemerchants.model.entity.MCityEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MJobInfoEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MLableContactEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MLableEntity;
@@ -48,6 +49,7 @@ public class MerSalaryActivity extends BaseActivity<MPublishPresenter> implement
     private String num;
     private String method;
     private int type = 0;
+    private int mpositionType = 0;
     private MJobInfoEntity mJobInfoEntity;
 
     @Override
@@ -81,6 +83,7 @@ public class MerSalaryActivity extends BaseActivity<MPublishPresenter> implement
         content = getIntent().getStringExtra("content");
         num = getIntent().getStringExtra("num");
         type = getIntent().getIntExtra("type", 0);
+        mpositionType = getIntent().getIntExtra("mpositionType", 0);
         if (type == 1) {
             mJobInfoEntity = (MJobInfoEntity) getIntent().getSerializableExtra("mJobInfoEntity");
         }
@@ -91,6 +94,7 @@ public class MerSalaryActivity extends BaseActivity<MPublishPresenter> implement
     }
 
     private long clickTime = 0;
+
     @Override
     protected void setListener() {
         super.setListener();
@@ -125,9 +129,10 @@ public class MerSalaryActivity extends BaseActivity<MPublishPresenter> implement
                     intent.putExtra("price2", mTvSalary.getText().toString().trim());
                     intent.putExtra("method", method);
                     intent.putExtra("type", type);
+                    intent.putExtra("mpositionType", mpositionType);
                     intent.putExtra("mJobInfoEntity", mJobInfoEntity);
                     startActivity(intent);
-                }else {
+                } else {
                     showToast("点击过于频繁请稍后再试");
                 }
             }
@@ -253,6 +258,11 @@ public class MerSalaryActivity extends BaseActivity<MPublishPresenter> implement
 
     @Override
     public void updategetTextFilter(ResponseData responseData) {
+
+    }
+
+    @Override
+    public void updategetMerCity(MCityEntity mCityEntity) {
 
     }
 

@@ -16,8 +16,10 @@ import com.part.jianzhiyi.constants.Constants;
 import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.model.entity.ActJobListEntity;
 import com.part.jianzhiyi.model.entity.ActivityEntity;
+import com.part.jianzhiyi.model.entity.CityIdEntity;
 import com.part.jianzhiyi.model.entity.ConfigEntity;
 import com.part.jianzhiyi.model.entity.DelUserEntity;
+import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.model.entity.integral.SignInfoEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
 import com.part.jianzhiyi.mvp.contract.MainContract;
@@ -142,6 +144,21 @@ public class ActionListActivity extends BaseActivity<MainPresenter> implements M
 
     @Override
     public void updategetIsDel(DelUserEntity delUserEntity) {
+
+    }
+
+    @Override
+    public void updateUserInfoPer(UserInfoEntity userInfoEntity) {
+
+    }
+
+    @Override
+    public void updategetCityId(CityIdEntity cityIdEntity, String mcityName, int mcityId) {
+
+    }
+
+    @Override
+    public void updategetUserCity(ResponseData responseData) {
 
     }
 

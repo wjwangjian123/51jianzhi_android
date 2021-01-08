@@ -20,6 +20,7 @@ import com.part.jianzhiyi.modulemerchants.base.BaseActivity;
 import com.part.jianzhiyi.modulemerchants.customview.ColorPickerView;
 import com.part.jianzhiyi.modulemerchants.customview.RichEditor;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
+import com.part.jianzhiyi.modulemerchants.model.entity.MCityEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MJobInfoEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MLableContactEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MLableEntity;
@@ -39,6 +40,7 @@ public class MerPositionInfoActivity extends BaseActivity<MPublishPresenter> imp
     private String job_id;
     private MJobInfoEntity mJobInfoEntity;
     private int type = 0;
+    private int mpositionType = 0;
     /********************View**********************/
     //文本编辑器
     private RichEditor mEditor;
@@ -210,6 +212,7 @@ public class MerPositionInfoActivity extends BaseActivity<MPublishPresenter> imp
         label_id = getIntent().getStringExtra("label_id");
         job_id = getIntent().getStringExtra("job_id");
         type = getIntent().getIntExtra("type", 0);
+        mpositionType = getIntent().getIntExtra("mpositionType", 0);
         if (type == 1) {
             mJobInfoEntity = (MJobInfoEntity) getIntent().getSerializableExtra("mJobInfoEntity");
         }
@@ -505,11 +508,17 @@ public class MerPositionInfoActivity extends BaseActivity<MPublishPresenter> imp
                 intent.putExtra("content", mEditor.getHtml());
                 intent.putExtra("num", mEtNum.getText().toString().trim());
                 intent.putExtra("type", type);
+                intent.putExtra("mpositionType", mpositionType);
                 intent.putExtra("mJobInfoEntity", mJobInfoEntity);
                 startActivity(intent);
             } else {
                 showToast(responseData.getMsg());
             }
         }
+    }
+
+    @Override
+    public void updategetMerCity(MCityEntity mCityEntity) {
+
     }
 }

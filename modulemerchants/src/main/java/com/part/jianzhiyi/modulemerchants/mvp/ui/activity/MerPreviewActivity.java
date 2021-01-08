@@ -14,6 +14,7 @@ import com.part.jianzhiyi.corecommon.utils.UiUtils;
 import com.part.jianzhiyi.modulemerchants.R;
 import com.part.jianzhiyi.modulemerchants.base.BaseActivity;
 import com.part.jianzhiyi.modulemerchants.model.base.ResponseData;
+import com.part.jianzhiyi.modulemerchants.model.entity.MCityEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MLableContactEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MLableEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MLableSalaryEntity;
@@ -56,6 +57,9 @@ public class MerPreviewActivity extends BaseActivity<MPublishPresenter> implemen
     private String age2;
     private String id;
     private int type = 0;
+    private int mpositionType = 0;
+    private int one_city_id = 0;
+    private int tow_city_id = 0;
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
@@ -106,7 +110,14 @@ public class MerPreviewActivity extends BaseActivity<MPublishPresenter> implemen
         age2 = getIntent().getStringExtra("age2");
         id = getIntent().getStringExtra("id");
         type = getIntent().getIntExtra("type", 0);
-
+        mpositionType = getIntent().getIntExtra("mpositionType", 0);
+        if (mpositionType == 0) {
+            one_city_id = 0;
+            tow_city_id = 0;
+        } else if (mpositionType == 1) {
+            one_city_id = getIntent().getIntExtra("one_city_id", 0);
+            tow_city_id = getIntent().getIntExtra("tow_city_id", 0);
+        }
         mTvJobTitle.setText(title);
         mTvMethod.setText(method);
         mTvTime.setText(time);
@@ -123,6 +134,7 @@ public class MerPreviewActivity extends BaseActivity<MPublishPresenter> implemen
     }
 
     private long firstTime = 0;
+
     @Override
     protected void setListener() {
         super.setListener();
@@ -141,11 +153,11 @@ public class MerPreviewActivity extends BaseActivity<MPublishPresenter> implemen
                     mPresenter.getmdAdd("73");
                     //确认发布
                     if (type == 0) {
-                        mPresenter.getAddJob(title, method, time, sex, price1, content, contact, contact_type, num, place, duration, "1", "", label_id, price2, age1, age2);
+                        mPresenter.getAddJob(title, method, time, sex, price1, content, contact, contact_type, num, place, duration, "1", "", label_id, price2, age1, age2, one_city_id, tow_city_id);
                     } else if (type == 1) {
-                        mPresenter.getAddJob(title, method, time, sex, price1, content, contact, contact_type, num, place, duration, "2", id, label_id, price2, age1, age2);
+                        mPresenter.getAddJob(title, method, time, sex, price1, content, contact, contact_type, num, place, duration, "2", id, label_id, price2, age1, age2, one_city_id, tow_city_id);
                     }
-                }else {
+                } else {
                     showToast("点击过于频繁请稍后再试");
                 }
             }
@@ -163,6 +175,7 @@ public class MerPreviewActivity extends BaseActivity<MPublishPresenter> implemen
     }
 
     private long clickTime = 0;
+
     /**
      * 发布成功提示
      */
@@ -190,7 +203,7 @@ public class MerPreviewActivity extends BaseActivity<MPublishPresenter> implemen
                     intent.putExtra("type", 0);
                     startActivity(intent);
                     finish();
-                }else {
+                } else {
                     showToast("点击过于频繁请稍后再试");
                 }
             }
@@ -252,6 +265,11 @@ public class MerPreviewActivity extends BaseActivity<MPublishPresenter> implemen
 
     @Override
     public void updategetTextFilter(ResponseData responseData) {
+
+    }
+
+    @Override
+    public void updategetMerCity(MCityEntity mCityEntity) {
 
     }
 

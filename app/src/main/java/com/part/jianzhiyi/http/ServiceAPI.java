@@ -10,6 +10,7 @@ import com.part.jianzhiyi.model.entity.BannerEntity;
 import com.part.jianzhiyi.model.entity.CategoryEntity;
 import com.part.jianzhiyi.model.entity.ChatJobInfoEntity;
 import com.part.jianzhiyi.model.entity.ChoiceEntity;
+import com.part.jianzhiyi.model.entity.CityIdEntity;
 import com.part.jianzhiyi.model.entity.ConfigEntity;
 import com.part.jianzhiyi.model.entity.DaySignEntity;
 import com.part.jianzhiyi.model.entity.DelUserEntity;
@@ -22,7 +23,6 @@ import com.part.jianzhiyi.model.entity.LableEntity;
 import com.part.jianzhiyi.model.entity.MsgResponseEntity;
 import com.part.jianzhiyi.model.entity.MyitemEntity;
 import com.part.jianzhiyi.model.entity.ResumeEntity;
-import com.part.jianzhiyi.modulemerchants.model.entity.SearchEntity;
 import com.part.jianzhiyi.model.entity.UMEntity;
 import com.part.jianzhiyi.model.entity.UserInfoEntity;
 import com.part.jianzhiyi.model.entity.ViewedEntity;
@@ -41,6 +41,7 @@ import com.part.jianzhiyi.model.entity.moku.TxTypeEntity;
 import com.part.jianzhiyi.model.entity.moku.WalletEntity;
 import com.part.jianzhiyi.model.entity.pay.AuthInfoEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
+import com.part.jianzhiyi.modulemerchants.model.entity.SearchEntity;
 
 import java.util.List;
 
@@ -609,4 +610,21 @@ public interface ServiceAPI {
     @POST("http://testbus.sw193.com/user/check/is_del")
     Observable<DelUserEntity> getIsDel(@Field("user_id") String user_id);
 
+    /**
+     * 获取城市id
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("http://testbus.sw193.com/user/city/GetCityId")
+    Observable<CityIdEntity> getCityId(@Field("city_name") String city_name);
+
+    /**
+     * 更新用户地理位置
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("http://testbus.sw193.com/user/city/UserCity")
+    Observable<ResponseData> getUserCity(@Field("city_id") int city_id, @Field("user_id") String user_id);
 }

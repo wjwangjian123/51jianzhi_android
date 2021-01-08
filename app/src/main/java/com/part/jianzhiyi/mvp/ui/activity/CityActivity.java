@@ -1,9 +1,5 @@
 package com.part.jianzhiyi.mvp.ui.activity;
 
-import io.reactivex.Observable;
-import io.reactivex.SingleObserver;
-import io.reactivex.disposables.Disposable;
-
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,17 +18,21 @@ import com.part.jianzhiyi.adapter.CityCharAdapter;
 import com.part.jianzhiyi.adapter.HotCityAdapter;
 import com.part.jianzhiyi.app.ODApplication;
 import com.part.jianzhiyi.base.BaseActivity;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.part.jianzhiyi.corecommon.utils.FileUtils;
 import com.part.jianzhiyi.corecommon.utils.RegularUtils;
 import com.part.jianzhiyi.model.base.ResponseData;
 import com.part.jianzhiyi.mvp.contract.CityContract;
 import com.part.jianzhiyi.mvp.presenter.CityPresenter;
-import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import io.reactivex.Observable;
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
 
 @Route(path = "/app/activity/city")
 public class CityActivity extends BaseActivity<CityPresenter> implements CityContract.ICityView {

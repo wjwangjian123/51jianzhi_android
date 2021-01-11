@@ -173,7 +173,7 @@ public class MerSelectPositionActivity extends BaseActivity<MPublishPresenter> i
                 int count = mList.size();
                 for (int i = 0; i < count; i++) {
                     if (mList.get(i).isSelect()) {
-                        if (mList.get(i).getTitle().equals("线下")) {
+                        if (mList.get(i).getId().equals("2")) {
                             mpositionType = 1;
                         } else {
                             mpositionType = 0;

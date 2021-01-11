@@ -57,12 +57,14 @@ public class PreferenceUUID {
     public void loginOut() {
         //退出登录，清除数据
         editor.putBoolean("isUserLogin", false);
+        editor.putBoolean("isMerGuide", false);
         editor.apply();
         putUserId(-1);
         putUserPhone("");
-        putOaid("");
         putStatus(0);
         putToken("");
+        putMerAvatar("");
+        putMerName("");
     }
 
 

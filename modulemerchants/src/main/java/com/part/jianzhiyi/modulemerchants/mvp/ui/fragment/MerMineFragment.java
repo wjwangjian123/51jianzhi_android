@@ -485,6 +485,7 @@ public class MerMineFragment extends BaseFragment<MMinePresenter> implements MMi
         if (isVisibleToUser) {
             if (mPresenter != null) {
                 mPresenter.getMerUserinfo();
+                mPresenter.getConfig();
             }
         }
     }

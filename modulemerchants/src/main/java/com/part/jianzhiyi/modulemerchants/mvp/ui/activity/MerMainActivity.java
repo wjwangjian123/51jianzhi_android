@@ -71,6 +71,7 @@ public class MerMainActivity extends BaseActivity<MMinePresenter> implements MMi
     private View[] mViews;
     private View[] mViewImgs;
     private int type = 0;
+    private int userType = 0;
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
@@ -209,17 +210,27 @@ public class MerMainActivity extends BaseActivity<MMinePresenter> implements MMi
 
     @Override
     public void updategetMerUserinfo(MUserInfoEntity mUserInfoEntity) {
-        if (mUserInfoEntity != null) {
-            if (mUserInfoEntity.getUserinfo().getJob_add() == 0) {
-                showToast(mUserInfoEntity.getUserinfo().getAdd_msg());
-            } else if (mUserInfoEntity.getUserinfo().getJob_add() == 1) {
-                initDialogAuthTip(mUserInfoEntity.getUserinfo().getAdd_msg(), mUserInfoEntity.getUserinfo().getIs_sing(), mUserInfoEntity.getUserinfo().getCert_status());
-            } else if (mUserInfoEntity.getUserinfo().getJob_add() == 2) {
-                //跳转到发布职位
-                Intent intent = new Intent(MerMainActivity.this, MerSelectPositionActivity.class);
-                intent.putExtra("type", 0);
-                intent.putExtra("mType", 0);
-                startActivity(intent);
+        if (mUserInfoEntity != null && mUserInfoEntity.getUserinfo() != null) {
+            if (userType == 1) {
+                if (mUserInfoEntity.getUserinfo().getJob_add() == 0) {
+                    showToast(mUserInfoEntity.getUserinfo().getAdd_msg());
+                } else if (mUserInfoEntity.getUserinfo().getJob_add() == 1) {
+                    initDialogAuthTip(mUserInfoEntity.getUserinfo().getAdd_msg(), mUserInfoEntity.getUserinfo().getIs_sing(), mUserInfoEntity.getUserinfo().getCert_status());
+                } else if (mUserInfoEntity.getUserinfo().getJob_add() == 2) {
+                    //跳转到发布职位
+                    Intent intent = new Intent(MerMainActivity.this, MerSelectPositionActivity.class);
+                    intent.putExtra("type", 0);
+                    intent.putExtra("mType", 0);
+                    startActivity(intent);
+                }
+            } else if (userType == 0) {
+                //判断商户是否已经签署协议
+                if (mUserInfoEntity.getUserinfo().getIs_sing() == 0) {
+                    //未签署跳转到认证协议
+                    Intent intent = new Intent(MerMainActivity.this, MerAuthHtmlActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         }
     }
@@ -259,8 +270,17 @@ public class MerMainActivity extends BaseActivity<MMinePresenter> implements MMi
                     versionUpdate.show();
                     versionUpdate.setCanceledOnTouchOutside(false);
                     versionUpdate.setCancelable(false);
+                } else {
+                    userType = 0;
+                    mPresenter.getMerUserinfo();
                 }
+            } else {
+                userType = 0;
+                mPresenter.getMerUserinfo();
             }
+        } else {
+            userType = 0;
+            mPresenter.getMerUserinfo();
         }
     }
 
@@ -441,6 +461,7 @@ public class MerMainActivity extends BaseActivity<MMinePresenter> implements MMi
             //判断是否可发布
             if (System.currentTimeMillis() - clickTime > 3000) {
                 clickTime = System.currentTimeMillis();
+                userType = 1;
                 mPresenter.getMerUserinfo();
             } else {
                 showToast("点击过于频繁请稍后再试");

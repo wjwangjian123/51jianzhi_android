@@ -607,7 +607,7 @@ public interface ServiceAPI {
      * @return
      */
     @FormUrlEncoded
-    @POST("http://testbus.sw193.com/user/check/is_del")
+    @POST("http://bus.sw193.com/user/check/is_del")
     Observable<DelUserEntity> getIsDel(@Field("user_id") String user_id);
 
     /**
@@ -616,7 +616,7 @@ public interface ServiceAPI {
      * @return
      */
     @FormUrlEncoded
-    @POST("http://testbus.sw193.com/user/city/GetCityId")
+    @POST("http://bus.sw193.com/user/city/GetCityId")
     Observable<CityIdEntity> getCityId(@Field("city_name") String city_name);
 
     /**
@@ -625,6 +625,6 @@ public interface ServiceAPI {
      * @return
      */
     @FormUrlEncoded
-    @POST("http://testbus.sw193.com/user/city/UserCity")
+    @POST("http://bus.sw193.com/user/city/UserCity")
     Observable<ResponseData> getUserCity(@Field("city_id") int city_id, @Field("user_id") String user_id);
 }

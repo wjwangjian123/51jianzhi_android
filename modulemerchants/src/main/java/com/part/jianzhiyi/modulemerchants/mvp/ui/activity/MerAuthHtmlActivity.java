@@ -9,6 +9,9 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.part.jianzhiyi.corecommon.preference.PreferenceUUID;
+import com.part.jianzhiyi.corecommon.utils.ActivityUtils;
 import com.part.jianzhiyi.modulemerchants.R;
 import com.part.jianzhiyi.modulemerchants.base.BaseActivity;
 import com.part.jianzhiyi.modulemerchants.constants.Constants;
@@ -102,9 +105,9 @@ public class MerAuthHtmlActivity extends BaseActivity<MPublishPresenter> impleme
                 if (System.currentTimeMillis() - clickTime > 3000) {
                     clickTime = System.currentTimeMillis();
                     MobclickAgent.onEvent(MerAuthHtmlActivity.this, "mer_authhtml_disagree");
-                    Intent intent = new Intent(MerAuthHtmlActivity.this, MerMainActivity.class);
-                    intent.putExtra("type", 1);
-                    startActivity(intent);
+                    ActivityUtils.removeAllActivity();
+                    PreferenceUUID.getInstence().putStatus(0);
+                    ARouter.getInstance().build("/app/activity/main").withInt("type", 1).navigation();
                     finish();
                 } else {
                     showToast("点击过于频繁请稍后再试");
@@ -140,9 +143,9 @@ public class MerAuthHtmlActivity extends BaseActivity<MPublishPresenter> impleme
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
             //跳转到商户主页，我的
-            Intent intent = new Intent(MerAuthHtmlActivity.this, MerMainActivity.class);
-            intent.putExtra("type", 1);
-            startActivity(intent);
+            ActivityUtils.removeAllActivity();
+            PreferenceUUID.getInstence().putStatus(0);
+            ARouter.getInstance().build("/app/activity/main").withInt("type", 1).navigation();
             finish();
             return true;
         }
@@ -172,10 +175,8 @@ public class MerAuthHtmlActivity extends BaseActivity<MPublishPresenter> impleme
     @Override
     public void updategetIsSing(ResponseData responseData) {
         if (responseData.getCode().equals("200")) {
-            Intent intent = new Intent(MerAuthHtmlActivity.this, MerGuideAuthActivity.class);
-            intent.putExtra("guide_type", 0);
-            startActivity(intent);
-            finish();
+            PreferenceUUID.getInstence().putStatus(1);
+            mPresenter.getMerUserinfo();
         }
     }
 
@@ -191,7 +192,20 @@ public class MerAuthHtmlActivity extends BaseActivity<MPublishPresenter> impleme
 
     @Override
     public void updategetMerUserinfo(MUserInfoEntity mUserInfoEntity) {
-
+        //认证状态 0未完成个人认证 1个人商户审核 2未认证企业信息 3个人认证失败4未认证企业信息 5企业认证审核中 6企业认证成功 7企业认证失败
+        int cert_status = mUserInfoEntity.getUserinfo().getCert_status();
+        if (cert_status == 0) {
+            Intent intent = new Intent(MerAuthHtmlActivity.this, MerGuideAuthActivity.class);
+            intent.putExtra("guide_type", 0);
+            startActivity(intent);
+            finish();
+        } else {
+            //跳转到商户主页
+            Intent intent = new Intent(MerAuthHtmlActivity.this, MerMainActivity.class);
+            intent.putExtra("type", 0);
+            startActivity(intent);
+            finish();
+        }
     }
 
     @Override

@@ -125,9 +125,11 @@ public class HomeListFragment extends BaseFragment<HomePresenter> implements Hom
         });
     }
 
-    public void notifyDataSetChanged() {
+    public void notifyDataSetChanged(String lable, String position_recommend) {
         if (mHomeAdapter != null) {
             mHomeAdapter.notifyDataSetChanged();
+            this.mlable = lable;
+            this.mposition_recommend = position_recommend;
         }
     }
 

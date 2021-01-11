@@ -273,7 +273,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         fragments.add(new InformationFragment());
         fragments.add(new MineFragment());
         //设置viewpager的缓存
-        mMainViewpager.setOffscreenPageLimit(3);
+        mMainViewpager.setOffscreenPageLimit(4);
         //禁止viewpager左右滑动
         mMainViewpager.setNoScroll(true);
         mMainViewpager.setCurrentItem(0);

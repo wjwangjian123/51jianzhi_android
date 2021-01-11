@@ -128,7 +128,6 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         } else {
             mMineTvPhone.setText("点击登录");
         }
-        mPresenter.userInfo(PreferenceUUID.getInstence().getUserId());
     }
 
     @Override
@@ -142,6 +141,16 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         //获取签到情况
         mPresenter.getDaySign(PreferenceUUID.getInstence().getUserId());
         mPresenter.getConfig();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (mPresenter != null) {
+                mPresenter.getConfig();
+            }
+        }
     }
 
     @Override

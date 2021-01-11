@@ -412,7 +412,8 @@
                 <RelativeLayout
                     android:id="@+id/rl_service"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp">
+                    android:layout_height="56dp"
+                    android:visibility="gone">
                     <ImageView
                         android:id="@+id/iv_service"
                         android:layout_width="@dimen/dimen_18"
@@ -440,7 +441,8 @@
                     android:id="@+id/view_service"
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="#E7ECF5"/>
+                    android:background="#E7ECF5"
+                    android:visibility="gone"/>
                 <RelativeLayout
                     android:id="@+id/rl_feekback"
                     android:layout_width="match_parent"

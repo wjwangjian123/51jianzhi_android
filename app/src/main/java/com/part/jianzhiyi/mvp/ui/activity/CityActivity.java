@@ -113,7 +113,6 @@ public class CityActivity extends BaseActivity<CityPresenter> implements CityCon
         hotCityAdapter = new HotCityAdapter(this, hotCityList);
         gvHotCity.setAdapter(hotCityAdapter);
         lvCity.addHeaderView(view);
-
     }
 
 

@@ -18,6 +18,6 @@ public class Constants {
     //协议
     public static final String HTML_AGREEMENT_URL = URI + "api/Agreement/index";
     public static final String OS = "1";
-    public static final String APPID = "96";
+    public static final String APPID = "111";
     public static final String POSITION_COMPANYINFO = "17";//商户详情页进入
 }

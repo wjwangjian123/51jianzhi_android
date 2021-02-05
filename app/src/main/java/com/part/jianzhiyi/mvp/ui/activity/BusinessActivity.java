@@ -1,10 +1,9 @@
 package com.part.jianzhiyi.mvp.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.base.BaseActivity;
 import com.part.jianzhiyi.model.base.ResponseData;
@@ -12,7 +11,8 @@ import com.part.jianzhiyi.mvp.contract.BusinessContract;
 import com.part.jianzhiyi.mvp.presenter.BusinessPresenter;
 import com.umeng.analytics.MobclickAgent;
 
-public class BusinessActivity extends BaseActivity<BusinessPresenter> implements BusinessContract.IBusinessView{
+@Route(path = "/app/activity/business")
+public class BusinessActivity extends BaseActivity<BusinessPresenter> implements BusinessContract.IBusinessView {
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {

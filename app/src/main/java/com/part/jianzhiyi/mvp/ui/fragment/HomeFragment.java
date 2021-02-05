@@ -173,7 +173,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         mActivity.setImmerseLayout(view.findViewById(R.id.home_rl_title));
 
         mBanner.setDelayTime(5000);
-        mTvCity.setText(PreferenceUUID.getInstence().getCity());
+        mPresenter.userInfo(PreferenceUUID.getInstence().getUserId());
     }
 
     private static BtnClickListener mBtnClickListener;
@@ -606,12 +606,12 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     public void updateNewList(String position, List<JobListResponseEntity2.DataBean> dataBeanList) {
         mSmartRefresh.finishRefresh();
         mSmartRefresh.finishLoadMore();
-//        JobListResponseEntity2.DataBean bean = new JobListResponseEntity2.DataBean(1);
-//        if (dataBeanList.size() > 3) {
-//            dataBeanList.add(3, bean);
-//        } else if (dataBeanList.size() > 0) {
-//            dataBeanList.add(bean);
-//        }
+        JobListResponseEntity2.DataBean bean = new JobListResponseEntity2.DataBean(1);
+        if (dataBeanList.size() > 3) {
+            dataBeanList.add(3, bean);
+        } else if (dataBeanList.size() > 0) {
+            dataBeanList.add(bean);
+        }
         if (mLists.get(mposition).size() > 0) {
             mSmartRefresh.setEnableAutoLoadMore(true);
         }
@@ -807,7 +807,16 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     public void updateUserInfoPer(UserInfoEntity userInfoEntity) {
-
+        if (userInfoEntity != null) {
+            if (userInfoEntity.getData() != null) {
+                if (userInfoEntity.getData().getCity_name() != null && userInfoEntity.getData().getCity_name() != "") {
+                    mTvCity.setText(userInfoEntity.getData().getCity_name());
+                    PreferenceUUID.getInstence().putCity(userInfoEntity.getData().getCity_name());
+                } else {
+                    mTvCity.setText("城市选择");
+                }
+            }
+        }
     }
 
     @Override

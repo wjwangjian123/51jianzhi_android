@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.jph.takephoto.app.TakePhoto;
@@ -80,9 +81,11 @@ public class MerMineFragment extends BaseFragment<MMinePresenter> implements MMi
     private LinearLayout mMineLlExtension;
     private RelativeLayout mMineRlSwitch;
     private RelativeLayout mMineRlService;
+    private RelativeLayout mMineRlBusiness;
     private RelativeLayout mMineRlFeedback;
     private RelativeLayout mMineRlSet;
     private View mViewService;
+    private View mViewBusiness;
     private int mcertStatus = 1;
     private int type = 1;
     private String imagePath;
@@ -105,9 +108,11 @@ public class MerMineFragment extends BaseFragment<MMinePresenter> implements MMi
         mMineLlExtension = view.findViewById(R.id.mine_ll_extension);
         mMineRlSwitch = view.findViewById(R.id.mine_rl_switch);
         mMineRlService = view.findViewById(R.id.mine_rl_service);
+        mMineRlBusiness = view.findViewById(R.id.mine_rl_business);
         mMineRlFeedback = view.findViewById(R.id.mine_rl_feedback);
         mMineRlSet = view.findViewById(R.id.mine_rl_set);
         mViewService = view.findViewById(R.id.view_service);
+        mViewBusiness = view.findViewById(R.id.view_business);
         setToolbarVisible(false);
     }
 
@@ -252,6 +257,12 @@ public class MerMineFragment extends BaseFragment<MMinePresenter> implements MMi
                 } else {
                     showToast("点击过于频繁请稍后再试");
                 }
+            }
+        });
+        mMineRlBusiness.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ARouter.getInstance().build("/app/activity/business").navigation();
             }
         });
         mMineRlFeedback.setOnClickListener(new View.OnClickListener() {
@@ -629,6 +640,13 @@ public class MerMineFragment extends BaseFragment<MMinePresenter> implements MMi
             } else if (mConfigEntity.getData().getIs_os() == 1) {
                 mMineRlService.setVisibility(View.VISIBLE);
                 mViewService.setVisibility(View.VISIBLE);
+            }
+            if (mConfigEntity.getData().getIs_bus() == 0) {
+                mMineRlBusiness.setVisibility(View.GONE);
+                mViewBusiness.setVisibility(View.GONE);
+            } else if (mConfigEntity.getData().getIs_bus() == 1) {
+                mMineRlBusiness.setVisibility(View.VISIBLE);
+                mViewBusiness.setVisibility(View.VISIBLE);
             }
         }
     }

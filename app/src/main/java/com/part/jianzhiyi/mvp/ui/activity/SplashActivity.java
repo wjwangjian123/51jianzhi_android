@@ -93,9 +93,8 @@ public class SplashActivity extends BaseActivity<MineUpdateResumePresenter> impl
         } else {
             // 如果是Android6.0以下的机器，建议在manifest中配置相关权限，这里可以直接调用SDK
             //加载开屏广告
-//            loadSplashAd();
+            loadSplashAd();
         }
-//        if (PreferenceUUID.getInstence().getPv().equals(null)){
         PreferenceUUID.getInstence().putPv(Tools.getPhoneOSVersion());//手机系统
         PreferenceUUID.getInstence().putPe(Tools.getManufacturer());//手机厂商
         PreferenceUUID.getInstence().putPt(Tools.getPhoneType());//手机型号
@@ -105,8 +104,7 @@ public class SplashActivity extends BaseActivity<MineUpdateResumePresenter> impl
         PreferenceUUID.getInstence().putUa2(Tools.getUa2(ODApplication.context()));//ua2
         String versionCode = String.valueOf(AppUtil.getVersionCode(SplashActivity.this));
         PreferenceUUID.getInstence().putVersion(versionCode);
-//        }
-        goToMainActivity();
+//        goToMainActivity();
     }
 
     private void getExtraInfo() {
@@ -312,8 +310,8 @@ public class SplashActivity extends BaseActivity<MineUpdateResumePresenter> impl
         }
         // 如果需要的权限都已经有了，那么直接调用SDK
         if (lackedPermission.size() == 0) {
-//            loadSplashAd();
-            goToMainActivity();
+            loadSplashAd();
+//            goToMainActivity();
         } else {
             // 否则，建议请求所缺少的权限，在onRequestPermissionsResult中再看是否获得权限
             String[] requestPermissions = new String[lackedPermission.size()];
@@ -336,11 +334,11 @@ public class SplashActivity extends BaseActivity<MineUpdateResumePresenter> impl
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1024 && hasAllPermissionsGranted(grantResults)) {
-//            loadSplashAd();
-            goToMainActivity();
+            loadSplashAd();
+//            goToMainActivity();
         } else {
-//            loadSplashAd();
-            goToMainActivity();
+            loadSplashAd();
+//            goToMainActivity();
         }
     }
 

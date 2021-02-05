@@ -18,13 +18,13 @@ public class Constants {
     public static final String HTML_USER_URL = URI + "api/index/agreements?appid=";
     public static final String HTML_PRIVACY_URL = URI + "api/index/privacys?appid=";
     public static final String DB_NAME = "51jianzhi-db";
-    public static final String APPID = "96";
+    public static final String APPID = "111";
     //友盟的渠道名称
-    public static final String UMENG_NAME = "vivo";
+    public static final String UMENG_NAME = "tiyanshi_xinying";
     //隐私协议是否展示公司信息 1：展示    0：不展示
     public static final String STATUS = "1";
     public static final String OS = "1";
-    public static final String OURVERSION = "2.0.3";
+    public static final String OURVERSION = "2.0.4";
     //广告
     public static final String TTAD_APPID = "5117468";
     //美洽

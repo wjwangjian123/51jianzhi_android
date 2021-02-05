@@ -90,7 +90,7 @@ public class MerSetPasswordActivity extends BaseActivity<MSetPresenter> implemen
                 if (System.currentTimeMillis() - clickTime > 3000) {
                     clickTime = System.currentTimeMillis();
                     //设置密码
-                    mPresenter.getPassword("1", mEtPassword.getText().toString().trim(), mEtPasswordAgain.getText().toString().trim(), "", "",mEtName.getText().toString().trim());
+                    mPresenter.getPassword("1", mEtPassword.getText().toString().trim(), mEtPasswordAgain.getText().toString().trim(), "", "", mEtName.getText().toString().trim());
                 } else {
                     showToast("点击过于频繁请稍后再试");
                 }
@@ -148,9 +148,4 @@ public class MerSetPasswordActivity extends BaseActivity<MSetPresenter> implemen
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) and run LayoutCreator again
-    }
 }

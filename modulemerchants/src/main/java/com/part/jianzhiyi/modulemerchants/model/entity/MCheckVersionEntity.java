@@ -10,12 +10,6 @@ import java.util.List;
  */
 public class MCheckVersionEntity {
 
-    /**
-     * code : 200
-     * msg : ok
-     * data : {"version":"2","os":"1","title":"测试修改","content":["1、测试更新","2、看看更新了什么","3、测试更新"],"is_forced":"0","is_show":"0","android_version":2,"app_url":"http://www.baidu.com"}
-     */
-
     private String code;
     private String msg;
     private DataBean data;

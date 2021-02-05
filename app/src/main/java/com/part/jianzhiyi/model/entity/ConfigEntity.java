@@ -54,7 +54,16 @@ public class ConfigEntity {
         private int show_wx;
         private int is_sw;
         private int is_os;
+        private int is_bus;
         private String about_us;
+
+        public int getIs_bus() {
+            return is_bus;
+        }
+
+        public void setIs_bus(int is_bus) {
+            this.is_bus = is_bus;
+        }
 
         public int getIs_os() {
             return is_os;

@@ -34,13 +34,13 @@ import com.part.jianzhiyi.model.entity.integral.SignInfoEntity;
 import com.part.jianzhiyi.modulemerchants.model.entity.MCheckVersionEntity;
 import com.part.jianzhiyi.mvp.contract.user.MineContract;
 import com.part.jianzhiyi.mvp.presenter.mine.MinePresenter;
+import com.part.jianzhiyi.mvp.ui.activity.BusinessActivity;
 import com.part.jianzhiyi.mvp.ui.activity.IntegralActivity;
 import com.part.jianzhiyi.mvp.ui.activity.MineAboutActivity;
 import com.part.jianzhiyi.mvp.ui.activity.MineDeliveryActivity;
 import com.part.jianzhiyi.mvp.ui.activity.MineFavouriteActivity;
 import com.part.jianzhiyi.mvp.ui.activity.MineFeekbackActivity;
 import com.part.jianzhiyi.mvp.ui.activity.MineSettingActivity;
-import com.part.jianzhiyi.mvp.ui.activity.MineUpdateProfileActivity;
 import com.part.jianzhiyi.mvp.ui.activity.MineUpdateResumeActivity;
 import com.part.jianzhiyi.mvp.ui.activity.MyWalletActivity;
 import com.part.jianzhiyi.utils.IntentUtils;
@@ -80,10 +80,12 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
     private RelativeLayout mRlSwitch;
     private RelativeLayout mRlFavourite;
     private RelativeLayout mRlService;
+    private RelativeLayout mRlBusiness;
     private RelativeLayout mRlFeekback;
     private RelativeLayout mRlAbout;
     private RelativeLayout mRlSet;
     private View mViewService;
+    private View mViewBusiness;
     private DaySignEntity mDaySignEntity;
     private String username;
 
@@ -118,10 +120,12 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         mRlSwitch = view.findViewById(R.id.rl_switch);
         mRlFavourite = view.findViewById(R.id.rl_favourite);
         mRlService = view.findViewById(R.id.rl_service);
+        mRlBusiness = view.findViewById(R.id.rl_business);
         mRlFeekback = view.findViewById(R.id.rl_feekback);
         mRlAbout = view.findViewById(R.id.rl_about);
         mRlSet = view.findViewById(R.id.rl_set);
         mViewService = view.findViewById(R.id.view_service);
+        mViewBusiness = view.findViewById(R.id.view_business);
         setToolbarVisible(false);
         if (mPresenter.isUserLogin()) {
             mMineTvPhone.setText(PreferenceUUID.getInstence().getUserPhone());
@@ -140,7 +144,6 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
     protected void afterCreate() {
         //获取签到情况
         mPresenter.getDaySign(PreferenceUUID.getInstence().getUserId());
-        mPresenter.getConfig();
     }
 
     @Override
@@ -168,6 +171,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         mRlFavourite.setOnClickListener(this);
 
         mRlService.setOnClickListener(this);
+        mRlBusiness.setOnClickListener(this);
         mRlFeekback.setOnClickListener(this);
         mRlAbout.setOnClickListener(this);
         mRlSet.setOnClickListener(this);
@@ -283,6 +287,10 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
             } else {
                 showToast("点击过于频繁请稍后再试");
             }
+        }
+        if (v.getId() == R.id.rl_business) {
+            Intent intent = new Intent(getActivity(), BusinessActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -441,6 +449,13 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
                 mRlService.setVisibility(View.VISIBLE);
                 mViewService.setVisibility(View.VISIBLE);
             }
+            if (configEntity.getData().getIs_bus() == 0) {
+                mRlBusiness.setVisibility(View.GONE);
+                mViewBusiness.setVisibility(View.GONE);
+            } else if (configEntity.getData().getIs_bus() == 1) {
+                mRlBusiness.setVisibility(View.VISIBLE);
+                mViewBusiness.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -457,6 +472,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         super.onResume();
         if (mPresenter != null) {
             mPresenter.userInfo(PreferenceUUID.getInstence().getUserId());
+            mPresenter.getConfig();
         }
         MobclickAgent.onPageStart("我的页面");
         MobclickAgent.onResume(getActivity());

@@ -44,7 +44,7 @@
                 android:layout_height="@dimen/dimen_52"
                 android:src="@drawable/icon_default_headpic"
                 android:layout_marginLeft="27dp"
-                android:layout_marginTop="19dp"/>
+                android:layout_marginTop="@dimen/dimen_15"/>
             <TextView
                 android:id="@+id/tv_sign_days"
                 android:layout_width="wrap_content"
@@ -78,7 +78,7 @@
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="@dimen/dimen_30"
+                android:layout_marginTop="26dp"
                 android:layout_marginRight="27dp"
                 android:paddingLeft="@dimen/dimen_5"
                 android:paddingRight="@dimen/dimen_12"
@@ -329,11 +329,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_below="@+id/ll_task"
-                android:layout_marginTop="@dimen/dimen_20"
+                android:layout_marginTop="@dimen/dimen_15"
                 android:layout_marginHorizontal="@dimen/dimen_20"
                 android:paddingLeft="27dp"
                 android:paddingRight="27dp"
-                android:paddingTop="27dp"
+                android:paddingTop="25dp"
                 android:paddingBottom="25dp"
                 android:background="@drawable/white_circular_rectangle_shape">
                 <ImageView
@@ -358,7 +358,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="181dp"
                     android:layout_below="@+id/tv_shop_tip"
-                    android:layout_marginTop="@dimen/dimen_40"/>
+                    android:layout_marginTop="25dp"/>
                 <TextView
                     android:id="@+id/tv_exchange"
                     android:layout_width="match_parent"
@@ -368,7 +368,7 @@
                     android:textColor="@color/color_ffffff"
                     android:gravity="center"
                     android:layout_below="@+id/recyclerflow"
-                    android:layout_marginTop="@dimen/dimen_30"
+                    android:layout_marginTop="@dimen/dimen_20"
                     android:background="@drawable/shape_bg_purple21"/>
             </RelativeLayout>
             <TextView

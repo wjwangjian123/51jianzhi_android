@@ -85,10 +85,10 @@ public interface ServiceAPI {
      * @param type
      * @return
      */
-    @GET("api/Apiv2/jobListAndroidV2")
+    @GET("api/Apiv2/jobListV3")
     Observable<ResponseData<JobListResponseEntity2>> jobList(@Query("page") String page, @Query("appid") String appid, @Query("userid") String userid, @Query("type") String type, @Query("position") String position, @Query("sort_id") String sort_id, @Query("ip") String ip, @Query("os") String os, @Query("imei") String imei, @Query("androidid") String deviceid, @Query("label") String label);
 
-    @GET("api/Apiv2/jobListAndroidV2")
+    @GET("api/Apiv2/jobListV3")
     Observable<ResponseData<JobListResponseEntity2>> jobList1(@Query("page") String page, @Query("appid") String appid, @Query("userid") String userid, @Query("type") String type, @Query("position") String position, @Query("sort_id") String sort_id, @Query("ip") String ip, @Query("os") String os, @Query("imei") String imei, @Query("androidid") String deviceid, @Query("category") String category);
 
     /**

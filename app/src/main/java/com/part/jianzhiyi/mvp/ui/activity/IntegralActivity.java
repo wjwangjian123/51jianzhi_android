@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.part.jianzhiyi.R;
 import com.part.jianzhiyi.adapter.IntegralBannerAdapter;
 import com.part.jianzhiyi.base.BaseActivity;
-import com.part.jianzhiyi.constants.IntentConstant;
 import com.part.jianzhiyi.dialog.SignIntegralDialog;
 import com.part.jianzhiyi.model.entity.integral.ExcitationInfoEntity;
 import com.part.jianzhiyi.model.entity.integral.MyIntegralEntity;
@@ -45,6 +44,7 @@ public class IntegralActivity extends BaseActivity<IntegralPresenter> implements
     private RelativeLayout mRlBrowse;
     private RelativeLayout mRlSignup;
     private RelativeLayout mRlOptimization;
+    private RelativeLayout mRlShop;
     private String url;
     private IntegralBannerAdapter mBannerAdapter;
     private List<String> mList;
@@ -77,6 +77,7 @@ public class IntegralActivity extends BaseActivity<IntegralPresenter> implements
         mRlBrowse = (RelativeLayout) findViewById(R.id.rl_browse);
         mRlSignup = (RelativeLayout) findViewById(R.id.rl_signup);
         mRlOptimization = (RelativeLayout) findViewById(R.id.relative_optimization);
+        mRlShop = (RelativeLayout) findViewById(R.id.rl_shop);
         setToolBarVisible(false);
         setImmerseLayout(findViewById(R.id.rl_title));
     }
@@ -143,6 +144,22 @@ public class IntegralActivity extends BaseActivity<IntegralPresenter> implements
         mTvExchange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(IntegralActivity.this, HtmlIntegralActivity.class);
+                intent.putExtra("url", url);
+                startActivity(intent);
+            }
+        });
+        mRlShop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(IntegralActivity.this, HtmlIntegralActivity.class);
+                intent.putExtra("url", url);
+                startActivity(intent);
+            }
+        });
+        mBannerAdapter.setmOnItemClickListener(new IntegralBannerAdapter.OnRecyclerItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
                 Intent intent = new Intent(IntegralActivity.this, HtmlIntegralActivity.class);
                 intent.putExtra("url", url);
                 startActivity(intent);

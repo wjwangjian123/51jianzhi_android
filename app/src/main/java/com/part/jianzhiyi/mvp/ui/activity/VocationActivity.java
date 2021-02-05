@@ -493,15 +493,15 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
         tvPrice.setText(entity.getPrice1());
         tvPrice2.setText(entity.getPrice2());
         tvCompany.setText(entity.getCompany());
-        if (entity.getMethod().equals("")||entity.getMethod().equals(null)){
+        if (entity.getMethod().equals("") || entity.getMethod().equals(null)) {
             mViewMethod.setVisibility(View.GONE);
-        }else {
+        } else {
             mTvMethod.setText(entity.getMethod());
             mViewMethod.setVisibility(View.VISIBLE);
         }
-        if (entity.getTime().equals("")||entity.getTime().equals(null)){
+        if (entity.getTime().equals("") || entity.getTime().equals(null)) {
             mViewTime.setVisibility(View.GONE);
-        }else {
+        } else {
             mTvTime.setText(entity.getTime());
             mViewTime.setVisibility(View.VISIBLE);
         }
@@ -549,9 +549,15 @@ public class VocationActivity extends BaseActivity<VocationPresenter> implements
             copy_type = 2;
             tvContract.setText(entity.getContactXing());
         }
-        if (!PreferenceUUID.getInstence().getUserId().equals(null) && !PreferenceUUID.getInstence().getUserId().equals("")) {
-            mPresenter.getAddIntegBrowse(PreferenceUUID.getInstence().getUserId(), 2, entity.getId());
-        }
+        mHandler = new Handler();
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (!PreferenceUUID.getInstence().getUserId().equals(null) && !PreferenceUUID.getInstence().getUserId().equals("")) {
+                    mPresenter.getAddIntegBrowse(PreferenceUUID.getInstence().getUserId(), 2, entity.getId());
+                }
+            }
+        }, 10000);
     }
 
     @Override

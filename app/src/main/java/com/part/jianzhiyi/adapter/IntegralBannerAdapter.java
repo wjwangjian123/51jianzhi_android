@@ -52,6 +52,14 @@ public class IntegralBannerAdapter extends RecyclerView.Adapter<IntegralBannerAd
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int position) {
         if (mDatas != null && mDatas.size() > 0) {
             FrescoUtil.setHttpPic(mDatas.get(position), viewHolder.mIvImg);
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mOnItemClickListener != null) {
+                        mOnItemClickListener.onItemClick(position);
+                    }
+                }
+            });
         }
     }
 
@@ -75,6 +83,6 @@ public class IntegralBannerAdapter extends RecyclerView.Adapter<IntegralBannerAd
     }
 
     public interface OnRecyclerItemClickListener {
-        void onItemClick(int position, String id);
+        void onItemClick(int position);
     }
 }
